@@ -1,3 +1,24 @@
+ul.topnav {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+ul.topnav li {float: left;}
+ul.topnav li a {
+    display: inline-flex;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 90px;
+    text-decoration: inherit;
+    transition: 0.5s;
+    font-size: 25px;
+}
+ul.topnav li a:hover {background-color: #555;}
+ul.topnav li.icon {display: #255;}
+}
+
 body {
   padding-top: 40px;
   padding-bottom: 40px;
