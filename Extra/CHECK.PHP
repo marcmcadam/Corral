@@ -1,5 +1,5 @@
 <?php
-require_once('connect.php');
+require_once('CONNECTDB.PHP');
 
 if(isset($_POST) & !empty($_POST)){
 	$username = mysqli_real_escape_string($connection, $_POST['username']);

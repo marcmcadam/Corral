@@ -12,7 +12,7 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.js"></script>
 
 <?php
-	require('connect.php');
+	require('CONNECTDB.PHP');
     // If the values are posted, insert them into the database.
     if (isset($_POST['STUDENT_ID']) && isset($_POST['STUDENT_PASSWORD'])){
         $id = mysqli_real_escape_string($connection, $_POST['STUDENT_ID']);
