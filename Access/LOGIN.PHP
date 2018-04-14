@@ -24,7 +24,7 @@
 
 <?php  //Start the Session
 session_start();
- require('connect.php');
+require('CONNECT.PHP');
 //3. If the form is submitted or not.
 //3.1 If the form is submitted
 if (isset($_POST['STUDENT_ID']) and isset($_POST['STUDENT_PASSWORD'])){

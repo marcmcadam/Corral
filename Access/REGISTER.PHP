@@ -16,11 +16,12 @@
     // If the values are posted, insert them into the database.
     if (isset($_POST['STUDENT_ID']) && isset($_POST['STUDENT_PASSWORD'])){
         $id = mysqli_real_escape_string($connection, $_POST['STUDENT_ID']);
-        $email = mysqli_real_escape_string($connection, $_POST['STUDENT_EMAIL']);
+				$firstname = mysqli_real_escape_string($connection, $_POST['STUDENT_FIRSTNAME']);
+				$lastname = mysqli_real_escape_string($connection, $_POST['STUDENT_LASTNAME']);
+				$email = mysqli_real_escape_string($connection, $_POST['STUDENT_EMAIL']);
         $password = mysqli_real_escape_string($connection, $_POST['STUDENT_PASSWORD']);
 
-
-        $query = "INSERT INTO STUDENT (STUDENT_ID, STUDENT_EMAIL, STUDENT_PASSWORD) VALUES ('$id', '$email', '$password')";
+        $query = "INSERT INTO STUDENT (STUDENT_ID, STUDENT_FIRSTNAME, STUDENT_LASTNAME, STUDENT_EMAIL, STUDENT_PASSWORD) VALUES ('$id', '$firstname', '$lastname', '$email', '$password')";
         $result = mysqli_query($connection, $query);
         if($result){
             $smsg = "User Created Successfully.";
@@ -37,7 +38,10 @@
     	  <span class="input-group-addon" id="basic-addon1">#</span>
     	  <input type="text" name="STUDENT_ID" class="form-control" placeholder="Student ID" required>
     	</div>
-
+						<label for="inputFirstName" class="sr-only">First Name</label>
+						<input type="text" name="STUDENT_FIRSTNAME" id="inputFirstName" class="form-control" placeholder="First Name" required autofocus>
+						<label for="inputLastName" class="sr-only">Last Name</label>
+						<input type="text" name="STUDENT_LASTNAME" id="inputLastName" class="form-control" placeholder="Last Name" required autofocus>
             <label for="inputEmail" class="sr-only">Email address</label>
             <input type="email" name="STUDENT_EMAIL" id="inputEmail" class="form-control" placeholder="Email Address" required autofocus>
             <label for="inputPassword" class="sr-only">Password</label>
@@ -46,8 +50,6 @@
             <a class="btn btn-lg btn-primary btn-block" href="LOGIN.PHP">Login</a>
           </form>
     </div>
-
-
 
 <?php if(isset($smsg)){ ?><div class="alert alert-success" role="alert"> <?php echo $smsg; ?> </div><?php } ?>
 <?php if(isset($fmsg)){ ?><div class="alert alert-danger" role="alert"> <?php echo $fmsg; ?> </div><?php } ?>
