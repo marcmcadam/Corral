@@ -1,4 +1,27 @@
 
+<?PHP
+
+//LIST ITEMS FROM DATABASE
+<?php
+
+$mysqli = new mysqli("LOCALHOST", "ADMIN", "PASSWORD1", "CORRAL_PROJECT");
+$sqlSelect="SELECT ANSWER FROM ANSWER";
+$result = $mysqli -> query ($sqlSelect);
+
+while ($row = mysqli_fetch_array($result)) {
+    $rows[] = $row;
+}
+
+foreach ($rows as $row) {
+    print "<option value='" . $row['ANSWER'] . "'>" . $row['ANSWER'] . "</option>";
+}
+
+?>
+
+
+
+
+
 
 
 
