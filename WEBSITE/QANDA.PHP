@@ -4,13 +4,12 @@
 <!-- Optional theme -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
 
-<link rel="stylesheet" href="styles.css" >
+<link rel="stylesheet" href="../styles/styles.css" >
 
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <?PHP
-//CONNECT TO DATABASE-FIX THIS LATER
-$MYSQLI = NEW MYSQLI("LOCALHOST", "ADMIN", "PASSWORD1", "CORRAL_PROJECT");
+REQUIRE('CONNECTDB.PHP');
 
 ECHO 'Which Campus Do You Attend';
 //ANSWER QUERIES
@@ -23,12 +22,16 @@ ECHO '<OPTION VALUE="">-SELECT-</OPTION>';
 WHILE ($ROW = $RESULT->FETCH_ASSOC()){
 ?>
     <OPTION VALUE="<?PHP ECHO $ROW['ANSWER']; ?>"><?PHP ECHO $ROW['ANSWER']; ?></OPTION>
+
 <?PHP
 }
 
 ECHO "</SELECT>";
+
+//BREAK
 echo "<br>";
 echo "<br>";
+//BREAK
 
 ECHO 'Are You Working?';
 //ANSWER QUERIES
@@ -45,7 +48,10 @@ WHILE ($ROW = $RESULT->FETCH_ASSOC()){
 }
 
 ECHO "</SELECT>";
+//BREAK
 echo "<br>";
 echo "<br>";
+//BREAK
+
 
 ?>

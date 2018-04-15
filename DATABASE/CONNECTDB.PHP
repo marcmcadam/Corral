@@ -1,8 +1,10 @@
 <?php
-//DATABASE CONNECTION
-$CON=MYSQLI_CONNECT("LOCALHOST", "ADMIN", "PASSWORD1", "CORRAL_PROJECT");
-// CHECK CONNECTION
-IF (MYSQLI_CONNECT_ERRNO()) {
-  ECHO "FAILED TO CONNECT TO MYSQL: " . MYSQLI_CONNECT_ERROR();
+$connection = mysqli_connect('localhost', 'admin', 'Password1');
+if (!$connection){
+    die("Database Connection Failed" . mysqli_error($connection));
+}
+$select_db = mysqli_select_db($connection, 'CORRAL_PROJECT');
+if (!$select_db){
+    die("Database Selection Failed" . mysqli_error($connection));
 }
 ?>

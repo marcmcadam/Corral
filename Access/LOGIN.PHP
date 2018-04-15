@@ -4,7 +4,7 @@
 <!-- Optional theme -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
 
-<link rel="stylesheet" href="styles.css" >
+<link rel="stylesheet" href="../styles/styles.css" >
 
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -24,7 +24,7 @@
 
 <?php  //Start the Session
 session_start();
-require('CONNECTDB.PHP');
+require('../DATABASE/CONNECTDB.PHP');
 //3. If the form is submitted or not.
 //3.1 If the form is submitted
 if (isset($_POST['STUDENT_ID']) and isset($_POST['STUDENT_PASSWORD'])){

@@ -2,26 +2,26 @@
 <html>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="STYLES2.css" />
+<link rel="stylesheet" type="text/css" href="../website/styles2.css" />
 <body>
 
 <form id="regForm" action="/action_page.php">
-  <h1>Register:</h1>
+  <h1>Student Survey:</h1>
   <!-- One "tab" for each step in the form: -->
-  <div class="tab">Name:
-    <p><input placeholder="First name..." oninput="this.className = ''" name="fname"></p>
-    <p><input placeholder="Last name..." oninput="this.className = ''" name="lname"></p>
+  <div class="tab">ABOUT YOU:
+    <p><input placeholder="STATUS" oninput="this.className = ''" name="lname"></p>
+    <p><input placeholder="EMPLOYMENT STATUS" oninput="this.className = ''" name="lname"></p>
   </div>
-  <div class="tab">Contact Info:
+  <div class="tab">ABOUT YOU:
     <p><input placeholder="E-mail..." oninput="this.className = ''" name="email"></p>
     <p><input placeholder="Phone..." oninput="this.className = ''" name="phone"></p>
   </div>
-  <div class="tab">Birthday:
+  <div class="tab">ABOUT YOU:
     <p><input placeholder="dd" oninput="this.className = ''" name="dd"></p>
     <p><input placeholder="mm" oninput="this.className = ''" name="nn"></p>
     <p><input placeholder="yyyy" oninput="this.className = ''" name="yyyy"></p>
   </div>
-  <div class="tab">Login Info:
+  <div class="tab">ABOUT YOU:
     <p><input placeholder="Username..." oninput="this.className = ''" name="uname"></p>
     <p><input placeholder="Password..." oninput="this.className = ''" name="pword" type="password"></p>
   </div>
