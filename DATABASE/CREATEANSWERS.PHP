@@ -18,8 +18,8 @@ VALUES
             ('8',  'PART TIME'),
             ('9',  'CURRENTLY NOT WORKING'),
             --Q3: NEXT TRIMESTER SELECTIONS
-            ('10', 'CURRENTLY ENROLLED IN SIT302, WILL CONTINUE WITH SIT374'),
-            ('11', 'NO, I WILL NOT BE ENROLLING IN SIT374 NEXT TRIMESTER'),
+            ('10', 'CURRENTLY ENROLLED IN SIT374, WILL CONTINUE WITH SIT374'),
+            ('11', 'NO, I WILL NOT BE ENROLLING IN SIT302 NEXT TRIMESTER'),
             --Q4: CURRENT COURSE
             ('12', 'BACHELOR OF COMPUTER SCIENCE - '),
             ('13', 'BACHELOR OF COMPUTER SCIENCE - '),
@@ -75,33 +75,8 @@ VALUES
             ('62', 'INTERACTIVE MEDIA CONTENT DEVELOPER - ADVANCED'),
             ('63', 'BUSINESS ANALYST - NOVICE'),
             ('64', 'BUSINESS ANALYST - INTERMEDIATE'),
-            ('65', 'BUSINESS ANALYST - ADVANCED'),
-            --Q6 TECHNICAL SKILLS
-            ('66', 'BLANK'),
-            ('67', 'BLANK'),
-            ('68', 'BLANK'),
-            ('69', 'BLANK'),
-            ('70', 'BLANK'),
-            ('71', 'BLANK'),
-            ('72', 'BLANK'),
-            ('73', 'BLANK'),
-            ('74', 'BLANK'),
-            ('75', 'BLANK'),
-            ('76', 'BLANK'),
-            ('77', 'BLANK'),
-            ('78', 'BLANK'),
-            ('79', 'BLANK'),
-            ('80', 'BLANK'),
-            ('81', 'BLANK'),
-            ('82', 'BLANK'),
-            ('83', 'BLANK'),
-            ('84', 'BLANK'),
-            ('85', 'BLANK'),
-            ('86', 'BLANK'),
-            ('87', 'BLANK'),
-            ('88', 'BLANK'),
-            ('89', 'BLANK'),
-            ('90', 'BLANK'),
+            ('65', 'BUSINESS ANALYST - ADVANCED')");
+
 
             //EXECUTE QUERY
             IF (MYSQLI_QUERY($CON,$ANSWER)) {

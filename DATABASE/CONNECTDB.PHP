@@ -1,10 +1,10 @@
-<?php
-$connection = mysqli_connect('localhost', 'admin', 'Password1');
-if (!$connection){
-    die("Database Connection Failed" . mysqli_error($connection));
+<?PHP
+$CONNECTION = MYSQLI_CONNECT('LOCALHOST', 'ADMIN', 'PASSWORD1');
+IF (!$CONNECTION){
+    DIE("DATABASE CONNECTION FAILED" . MYSQLI_ERROR($CONNECTION));
 }
-$select_db = mysqli_select_db($connection, 'CORRAL_PROJECT');
-if (!$select_db){
-    die("Database Selection Failed" . mysqli_error($connection));
+$SELECT_DB = MYSQLI_SELECT_DB($CONNECTION, 'CORRAL_PROJECT');
+IF (!$SELECT_DB){
+    DIE("DATABASE SELECTION FAILED" . MYSQLI_ERROR($CONNECTION));
 }
 ?>
