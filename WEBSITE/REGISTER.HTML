@@ -95,7 +95,7 @@ h2 {
 }
 
 .dropdown .dropbtn {
-    font-size: 16px;    
+    font-size: 16px;
     border: none;
     outline: none;
     color: white;
@@ -141,25 +141,25 @@ h2 {
 	function validate(registration) {
 		var digits="0123456789"
 		var temp
-		
+
 		//check the first name box
 		if(document.registration.firstname.value=="") {
 			alert("First name has not been entered. Please fill in the requested fields.")
 			return false
 		}
-		
+
 		//check the last name box
 		if(document.registration.lastname.value=="") {
 			alert("Last name has not been entered. Please fill in the requested fields.")
 			return false
 		}
-		
+
 		//check the id box
 		if(document.registration.id.value=="") {
 			alert("Student ID has not be entered. Please fill in the requested fields.")
 			return false
 		}
-		
+
 		/*for (var i=0;<document.registration.id.value.lengeth;i++){
 			temp=document.registration.id.value.substring(i,i+1)
 			if(digits.indexOf(temp)==-1) {
@@ -167,13 +167,13 @@ h2 {
 				return false
 			}
 		}*/
-		
+
 		//check the email box
 		if(document.registration.email.value=="") {
 			alert("Email has not be entered. Please fill in the requested fields.")
 			return false
 		}
-		
+
 		/*if(document.registration.reemail.value!=email) {
 			alert("The emails don't match up. Please re-type your email.")
 			return false
@@ -212,10 +212,10 @@ h2 {
 	Re-type Email Address: <input type="text" name="reemail" size="40"><br><br>
 	Password: <input type="password" name="password"><br><br>
 	Re-type Password: <input type="password" name="RePwd"><br><br>
-	
+
 		<input type="submit" name="Submit" value="Submit">
 		<input type="reset" value="Clear Form">
-	
+
 </form>
 
 <div class="Footer">
