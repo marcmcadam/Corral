@@ -13,7 +13,7 @@
       <form class="form-signin" method="POST">
         <h2 class="form-signin-heading">Please Log In</h2>
         <div class="input-group">
-    <span class="input-group-addon" id="basic-addon1">@</span>
+    <span class="input-group-addon" id="basic-addon1">#</span>
     <input type="text" name="STUDENT_ID" class="form-control" placeholder="Student ID" required>
   </div>
         <input type="password" name="STUDENT_PASSWORD" id="inputPassword" class="form-control" placeholder="Password" required>
