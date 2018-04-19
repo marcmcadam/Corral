@@ -29,11 +29,11 @@ require('../DATABASE/CONNECTDB.PHP');
 //3.1 If the form is submitted
 if (isset($_POST['STUDENT_ID']) and isset($_POST['STUDENT_PASSWORD'])){
 //3.1.1 Assigning posted values to variables.
-$id = mysqli_real_escape_string($connection, $_POST['STUDENT_ID']);
-$password = mysqli_real_escape_string($connection, $_POST['STUDENT_PASSWORD']);
+$id = mysqli_real_escape_string($CON, $_POST['STUDENT_ID']);
+$password = mysqli_real_escape_string($CON, $_POST['STUDENT_PASSWORD']);
 //3.1.2 Checking the values are existing in the database or not
 $query = "SELECT * FROM STUDENT WHERE STUDENT_ID='$id' and STUDENT_PASSWORD='$password'";
-$result = mysqli_query($connection, $query) or die(mysqli_error($connection));
+$result = mysqli_query($CON, $query) or die(mysqli_error($CON));
 $count = mysqli_num_rows($result);
 //3.1.2 If the posted values are equal to the database values, then session will be created for the user.
 if ($count == 1){
