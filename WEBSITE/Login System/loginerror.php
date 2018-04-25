@@ -194,7 +194,10 @@ $result = mysqli_query($CON, $query) or die(mysqli_error($CON));
 $count = mysqli_num_rows($result);
 //3.1.2 If the posted values are equal to the database values, then session will be created for the user.
 if ($count == 1){
+$user = $result->fetch_assoc();
 $_SESSION['STUDENT_ID'] = $id;
+$_SESSION['STUDENT_FIRSTNAME'] = $user['STUDENT_FIRSTNAME'];
+$_SESSION['STUDENT_LASTNAME'] = $user['STUDENT_LASTNAME'];
 }else{
 //3.1.3 If the login credentials doesn't match, he will be shown with an error message.
 header("location: loginerror.php");
@@ -204,6 +207,8 @@ header("location: loginerror.php");
 //3.1.4 if the user is logged in Greets the user with message
 if (isset($_SESSION['STUDENT_ID'])){
 $id = $_SESSION['STUDENT_ID'];
+$student_firstname = $_SESSION['STUDENT_FIRSTNAME'];
+$student_lastname = $_SESSION['STUDENT_LASTNAME'];
 $_SESSION['STUDENT_ID'] = true;
 header("location: Profile.php"); 
 }
