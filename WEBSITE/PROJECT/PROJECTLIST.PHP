@@ -310,10 +310,10 @@ h2 {
     $res=mysqli_query($conn, $sql);
 
     echo "<p><table width='400px' border='1px'></p>";
-    echo "<tr><th>Project Number</th><th>Project Brief</th><th>Project Status</th></tr>";
+    echo "<tr><th>Project Number</th><th>Project Title</th><th>Project Leader</th><th>Leader Email</th><th>Project Brief</th><th>Project Status</th></tr>";
 
     while ($row=mysqli_fetch_assoc($res)){
-        echo "<tr><td>{$row['PROJECT_NUM']}</td><td>{$row['PROJECT_BRIEF']}</td><td>{$row['PROJECT_STATUS']}</td></tr>";
+        echo "<tr><td>{$row['PROJECT_NUM']}</td><td>{$row['PROJECT_TITLE']}</td><<td>{$row['PROJECT_LEADER']}</td><td>{$row['PROJECT_EMAIL']}</td><td>{$row['PROJECT_BRIEF']}</td><td>{$row['PROJECT_STATUS']}</td></tr>";
     }
 
     echo "</table>";

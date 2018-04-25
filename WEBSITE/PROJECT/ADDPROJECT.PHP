@@ -299,7 +299,10 @@ h2 {
 <div id="contents" >
 <h2>Add New Project</h2>
 <form action="addProcess.php" method="post">
+<p>Project Title &nbsp<input type="text" name="title"/></br></p>
 <p>Project Brief &nbsp<input type="text" name="brief"/></br></p>
+<p>Project Leader &nbsp<input type="text" name="leader"/></br></p>
+<p>Leader Email &nbsp<input type="text" name="email"/></br></p>
 <p><input type="submit" value="add">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="reset" value="reset"></p>
 </form>
 </div>

@@ -303,7 +303,10 @@ h2 {
   <h2>Add New Project</h2>
 <?php
 
+    $title=$_POST['title'];
     $brief=$_POST['brief'];
+    $leader=$_POST['leader'];
+    $email=$_POST['email'];
     $status="current";
     if(empty($brief)){
         echo "<p>you need to input project brief</p>";
@@ -312,7 +315,7 @@ h2 {
         $conn=mysqli_connect('LOCALHOST', 'ADMIN', 'PASSWORD1') or die(mysqli_errno($conn));
         mysqli_select_db($conn, 'CORRAL_PROJECT');
 
-        $sql="insert into project (PROJECT_BRIEF,PROJECT_STATUS) values('$brief','$status')";
+        $sql="insert into project (PROJECT_TITLE,PROJECT_BRIEF,PROJECT_LEADER, PROJECT_EMAIL, PROJECT_STATUS) values('$title','$brief','$leader', '$email', '$status')";
 
         $b=mysqli_query($conn,$sql);
 
