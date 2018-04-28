@@ -1,12 +1,12 @@
 <?php
 session_start();
-REQUIRE('../DATABASE/CONNECTDB.PHP');
+require('../DATABASE/CONNECTDB.PHP');
 ?>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
-<title>Login Page</title>
+<title>Error</title>
 <style>
 body {
   padding-bottom: 40px;
@@ -65,8 +65,7 @@ body {
 }
 
 p {
-	margin-left: 40px;
-	margin-right: 50px;
+	margin-left: 35%;
 	font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -165,7 +164,7 @@ form {
 		</button>
 		<div class="dropdown-content">
 			<a href="login.php">Students</a>
-			<a href="stafflogin.php">Teachers</a>
+			<a href="staffprofile.php">Teachers</a>
 		</div>
 	</div>
 </div>
@@ -177,9 +176,9 @@ form {
         <button type="submit">LOGIN</button>
         <a href="REGISTER.PHP">REGISTER</a><br><br>
       </form>
-
+<p>Login error, Credentials do not match. Please try again.</p>
 <div class="Footer">
-	<h4>This is copyrighted by Deakin and the project group 29</h4>
+	<h4>This is copy righted by Deakin and the project group 29</h4>
 </div>
 <?php  //Start the Session
 
