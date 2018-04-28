@@ -4,119 +4,243 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.js"></script>
 
-<!doctype html>
-
 <html>
 
-<FORM ACTION="SURVEYSUBMIT.PHP" METHOD="POST">
-        <table>
-        <tr>
-	<td>Student Number:</td><td> <input type="text" name="STUDENT_ID" style="width:200px; height:20px;"></td>
-        </tr>
-        <tr>
-	<td>Email Address: </td><td><input type="text" name="STUDENT_EMAIL" style="width:200px; height:20px;"></td>
-        </tr>
-        <tr>
-	<td>First Name: </td><td><input type="text" name="STUDENT_FIRSTNAME" style="width:200px; height:20px;"></td>
-        </tr>
-        <tr>
-	<td>Last Name:</td><td> <input type="text" name="STUDENT_LASTNAME" size="40"style="width:200px; height:20px;"></td>
-        </tr>
-        </table><br>
+<body>
+
+			<div class="navbar">
+			<a href="#Home">Home</a>
+			<a href="SURVEYANSWERS.PHP">Survey</a>
+			<a href="#Contacts">Contact</a>
+			<a href="#About Us">About Us</a>
+			<a href="#Logout">Logout</a>
+			</div>
+
+			<h1>Student Survey</h1>
+		  <br>
+			<p>
+				Instructions<br>
+				Instructions<br>
+				Instructions<br>
+				Instructions<br>
+				Instructions<br>
+				Instructions<br>
+			</p>
+			<br>
+
+			<FORM ACTION="SURVEYSUBMIT.PHP" METHOD="POST">
+			<table>
+			<p>
+			<label for="LOCATION">1) Campus Location: </label>
+			<p>
+			<select name="LOCATION" id="LOCATION">
+			<option selected disabled hidden style='display: none' value="">Select</option>
+			<option value="Burwood">Burwood</option>
+			<option value="Geelong">Geelong</option>
+			<option value="Cloud, but can travel in Deakin Campus">Cloud, but can travel in Deakin Campus</option>
+			<option value="Cloud, located in Australia but can't easily travel to Deakin campus ">Cloud, located in Australia but can't easily travel to Deakin campus </option>
+			<option value="Cloud, located outside Australia">Cloud, located outside Australia</option>
+			</select>
+			</p></p>
+
+			<p>
+			<label for="CURRENT_COURSE">2) Please choose the course/major you are enrolled in:</label>
+			<p>
+			<select name="CURRENT_COURSE" id="CURRENT_COURSE">
+			<option selected disabled hidden style='display: none' value="">Select</option>
+			<option value="Bachelor of Computer Science (Cloud Computing)">Bachelor of Computer Science (Cloud Computing)</option>
+			<option value="Bachelor of Computer Science (Cognitive Science)">Bachelor of Computer Science (Cognitive Science)</option>
+			<option value="Bachelor of Computer Science (Data Science)">Bachelor of Computer Science (Data Science)</option>
+			<option value="Bachelor of Cyber Security">Bachelor of Cyber Security</option>
+			<option value="Bachelor of Game Design and Development">Bachelor of Game Design and Development</option>
+			<option value="Bachelor of IT (Cloud Commuting)">Bachelor of IT (Cloud Commuting)</option>
+			<option value="Bachelor of IT (Game Development)">Bachelor of IT (Game Development)</option>
+			<option value="Bachelor of IT (Interactive Media Design)">Bachelor of IT (Interactive Media Design)</option>
+			<option value="Bachelor of IT (Mobile &amp; Apps Design)">Bachelor of IT (Mobile &amp; Apps Design)</option>
+			<option value="Bachelor of IT (Programming)">Bachelor of IT (Programming)</option>
+			<option value="Bachelor of IT (Security)">Bachelor of IT (Security)</option>
+			<option value="Bachelor of IT (Virtual and Argument Reality)">Bachelor of IT (Virtual and Argument Reality)</option>
+			</select>
+			</p>
+			</p>
+
+			<p>
+			<label for="TECHNICAL_SKILLS">3) Project role, choose roles you think best align with your skills</label>
+			<p>Programmer (General)
+			<select name="TECHNICAL_SKILLS1" id="TECHNICAL_SKILLS1">
+			<option selected disabled hidden style='display: none' value="">Select</option>
+			<option value="Expert skill">Expert skill</option>
+			<option value="High skill">High skill</option>
+			<option value="Intermediate skill">Intermediate skill</option>
+			<option value="Novice skill">Novice skill</option>
+			</select>
+			</p>
+			<p>UX/UI Designer
+			<select name="TECHNICAL_SKILLS2" id="TECHNICAL_SKILLS2">
+			<option selected disabled hidden style='display: none' value="">Select</option>
+			<option value="Expert skill">Expert skill</option>
+			<option value="High skill">High skill</option>
+			<option value="Intermediate skill">Intermediate skill</option>
+			<option value="Novice skill">Novice skill</option>
+			</select>
+			</p>
+			<p>Security Specialist
+			<select name="TECHNICAL_SKILLS3" id="TECHNICAL_SKILLS3">
+			<option selected disabled hidden style='display: none' value=''>Select</option>
+			<option value="Expert skill">Expert skill</option>
+			<option value="High skill">High skill</option>
+			<option value="Intermediate skill">Intermediate skill</option>
+			<option value="Novice skill">Novice skill</option>
+			</select>
+			</p>
+			</select>
+			</p>
 
 
-  <label>Location:</label>
-  <br>
-  <input type="radio" name="LOCATION" value="BURWOOD" /> <label><span>Burwood</span></label>
-  &nbsp;&nbsp;&nbsp;
-  <input type="radio" name="LOCATION" value="GEELONG" /> <label><span>Geelong</span></label>
-  &nbsp;&nbsp;&nbsp;
-  <input type="radio" name="LOCATION" value="CLOUD" /> <label><span>Cloud</span></label>
-  <br><br>
+			<p>
+			<label for="TECHNICAL_SKILLS">4) Technical Skill: list at least three technical skills that you posses.</label>
+			<p>
+			<label for="TECHNICAL_SKILLS1">Tech Skill 1: </label>
+			<input type="text" name="TECHNICAL_SKILLS1" id="TECHNICAL_SKILLS1" />
+			</p>
+			<p>
+			<label for="TECHNICAL_SKILLS2">Tech Skill 2: </label>
+			<input type="text" name="TECHNICAL_SKILLS2" id="TECHNICAL_SKILLS2" />
+			</p>
+			<p>
+			<label for="TECHNICAL_SKILLS3">Tech Skill 3: </label>
+			<input type="text" name="TECHNICAL_SKILLS3" id="TECHNICAL_SKILLS3" />
+			</p>
+			</p>
 
 
-  <label>Current Course: </label>
-  <br>
-  <input type="radio" name="CURRENT_COURSE" value="BACHELOR OF COMPUTER SCIENCE" /> <label><span>BACHELOR OF COMPUTER SCIENCE</span></label>
-  &nbsp;&nbsp;&nbsp;
-  <input type="radio" name="CURRENT_COURSE" value="BACHELOR OF IT" /> <label><span>BACHELOR OF IT</span></label>
-  &nbsp;&nbsp;&nbsp;
-  <input type="radio" name="CURRENT_COURSE" value="BACHELOR OF PROGRAMMING" /> <label><span>BACHELOR OF PROGRAMMING</span></label>
-  &nbsp;&nbsp;&nbsp;
-  <input type="radio" name="CURRENT_COURSE" value="BACHELOR OF CYBER SECURITY" /> <label><span>BACHELOR OF CYBER SECURITY</span></label>
-  <br><br>
+			<p>
+			<label for="TECHNICAL_RATING">5) Technical Skill Proficiency: rate the proficiency of each technical skills in the previous question.</LABEL>
+			<p>
+			<p>Technical Skill 1 Rating
+			<select name="TECHNICAL_RATING1" id="TECHNICAL_RATING1">
+			<option selected disabled hidden style='display: none' value="">Select</option>
+			<option value="Expert skill">Expert skill</option>
+			<option value="High skill">High skill</option>
+			<option value="Intermediate skill">Intermediate skill</option>
+			<option value="Novice skill">Novice skill</option>
+			</select>
+			</p></p>
+
+			<p>Technical Skill 2 Rating
+			<select name="TECHNICAL_RATING2" id="TECHNICAL_RATING2">
+			<option selected="selected" disabled="disabled" hidden="hidden" style='display: none' value="">Select</option>
+			<option value="Expert skill">Expert skill</option>
+			<option value="High skill">High skill</option>
+			<option value="Intermediate skill">Intermediate skill</option>
+			<option value="Novice skill">Novice skill</option>
+			</select>
+			</p>
+
+			<p>Technical Skill 3 Rating
+			<select name="TECHNICAL_RATING3" id="TECHNICAL_RATING3">
+			<option selected="selected" disabled="disabled" hidden="hidden" style='display: none' value="">Select</option>
+			<option value="Expert skill">Expert skill</option>
+			<option value="High skill">High skill</option>
+			<option value="Intermediate skill">Intermediate skill</option>
+			<option value="Novice skill">Novice skill</option>
+			</select>
+			</p>
+
+			<p>
+			<label for="SOFT_SKILLS">6) SOFT Skill: list at least three SOFT skills that you posses.</label>
+			<p>
+			<label for="SOFT_SKILLS1">Soft Skill 1: </label>
+			<input type="text" name="SOFT_SKILLS1" id="SOFT_SKILLS1" />
+			</p>
+			<p>
+			<label for="SOFT_SKILLS2">Soft Skill 2: </label>
+			<input type="text" name="SOFT_SKILLS2" id="SOFT_SKILLS2" />
+			</p>
+			<p>
+			<label for="SOFT_SKILLS3">Soft Skill 3: </label>
+			<input type="text" name="SOFT_SKILLS3" id="SOFT_SKILLS3" />
+			</p>
+			</p>
+
+			<p>
+			<label for="SOFT_RATING">7) SOFT Skill Proficiency: rate the proficiency of each SOFT skills in the previous question.</LABEL>
+			<p>
+			<p>Soft Skill 1 Rating
+			<select name="SOFT_RATING1" id="SOFT_RATING1">
+			<option selected disabled hidden style='display: none' value="">Select</option>
+			<option value="Expert skill">Expert skill</option>
+			<option value="High skill">High skill</option>
+			<option value="Intermediate skill">Intermediate skill</option>
+			<option value="Novice skill">Novice skill</option>
+			</select>
+			</p></p>
+
+			<p>Soft Skill 2 Rating
+			<select name="SOFT_RATING2" id="SOFT_RATING2">
+			<option selected="selected" disabled="disabled" hidden="hidden" style='display: none' value="">Select</option>
+			<option value="Expert skill">Expert skill</option>
+			<option value="High skill">High skill</option>
+			<option value="Intermediate skill">Intermediate skill</option>
+			<option value="Novice skill">Novice skill</option>
+			</select>
+			</p>
+			<p>Soft Skill 3 Rating
+			<select name="SOFT_RATING3" id="SOFT_RATING3">
+			<option selected="selected" disabled="disabled" hidden="hidden" style='display: none' value="">Select</option>
+			<option value="Expert skill">Expert skill</option>
+			<option value="High skill">High skill</option>
+			<option value="Intermediate skill">Intermediate skill</option>
+			<option value="Novice skill">Novice skill</option>
+			</select>
+			</p>
+
+			<p>
+				<label for="PROJECT_PREFERENCE">8) List the projects you would prefer to work in order of preference</label>
+			</p>
+		    <p>Project Title 1:
+		      <label for="PROJECT_PREFERENCE1"></label>
+		      <input type="text" name="PROJECT_PREFERENCE1" id="PROJECT_PREFERENCE1" />
+		    </p>
+				<p>Project Title 2:
+					<label for="PROJECT_PREFERENCE2"></label>
+					<input type="text" name="PROJECT_PREFERENCE2" id="PROJECT_PREFERENCE2" />
+				</p>
+				<p>Project Title 3:
+					<label for="PROJECT_PREFERENCE3"></label>
+					<input type="text" name="PROJECT_PREFERENCE3" id="PROJECT_PREFERENCE3" />
+				</p>
+
+				<p>
+			    <label for="STUDENT_PERMISSION">9) Permission to use survey data internally: for work and research development purpose.</label>
+					<p>
+			    <select name="STUDENT_PERMISSION" id="STUDENT_PERMISSION">
+			        	<option selected="selected" disabled="disabled" hidden="hidden" style='display: none' value="">Select</option>
+			      <option value="Yes">I give permission for this</option>
+			      <option value="No">I do not give permission for this</option>
+			    </select>
+				</p></p>
 
 
-  Technical skills:<br>
+		  <p>
+				<label for="STUDENT_ASPIRATION">10) Aspiration: tell us a few words what do you want to achieve in this unit and how you aim to contribute.</label>
+		  </p>
+		    <p><textarea name="STUDENT_ASPIRATION" cols="100" rows="5" id="STUDENT_ASPIRATION"></textarea></p>
 
-    <span>Skill 1:&nbsp;</span><input type="text" name="TECHNICAL_SKILLS1"><br>
-    <span>Skill 2:&nbsp;</span><input type="text" name="TECHNICAL_SKILLS2"><br>
-    <span>Skill 3:&nbsp;</span><input type="text" name="TECHNICAL_SKILLS3"><br><br>
-
-
-  Skills RATING:<br>
-
-  <label><span>Skill 1:</span></label>
-  <select name="TECHNICAL_RATING1">
-  <option value="Novice"> Novice</option>
-  <option value="Intermediate"> Intermediate</option>
-  <option value="High"> High</option>
-  <option value="Expert"> Expert</option></select>
-  <BR></BR>
-
-  <label><span>Skill 2:</span></label>
-  <select name="TECHNICAL_RATING2">
-  <option value="Novice"> Novice</option>
-  <option value="Intermediate"> Intermediate</option>
-  <option value="High"> High</option>
-  <option value="Expert"> Expert</option></select>
-  <BR></BR>
-
-  <label><span>Skill 3:</span></label>
-  <select name="TECHNICAL_RATING3">
-  <option value="Novice"> Novice</option>
-  <option value="Intermediate"> Intermediate</option>
-  <option value="High"> High</option>
-  <option value="Expert"> Expert</option></select></br>
-  <BR></BR>
-
-
-  SOFT skills:<br>
-
-    <span>Skill 1:&nbsp;</span><input type="text" name="SOFT_SKILLS1"><br>
-    <span>Skill 2:&nbsp;</span><input type="text" name="SOFT_SKILLS2"><br>
-    <span>Skill 3:&nbsp;</span><input type="text" name="SOFT_SKILLS3"><br><br>
-
-
-  Skills RATING:<br>
-
-  <label><span>Skill 1:</span></label>
-  <select name="SOFT_RATING1">
-  <option value="Novice"> Novice</option>
-  <option value="Intermediate"> Intermediate</option>
-  <option value="High"> High</option>
-  <option value="Expert"> Expert</option></select>
-  <BR></BR>
-
-  <label><span>Skill 2:</span></label>
-  <select name="SOFT_RATING2">
-  <option value="Novice"> Novice</option>
-  <option value="Intermediate"> Intermediate</option>
-  <option value="High"> High</option>
-  <option value="Expert"> Expert</option></select>
-  <BR></BR>
-
-  <label><span>Skill 3:</span></label>
-  <select name="SOFT_RATING3">
-  <option value="Novice"> Novice</option>
-  <option value="Intermediate"> Intermediate</option>
-  <option value="High"> High</option>
-  <option value="Expert"> Expert</option></select>
-  <BR></BR>
+		    <p>
+		      <label for="STUDENT_COMMENT">Additional Comments</label>
+				</p>
+							  <p>If you have anything else to add that we might find usful or think we should know about, please add it below</p>
+		    <p><textarea name="STUDENT_COMMENT" cols="100" rows="5" id="STUDENT_COMMENT"></textarea>
+		    </p>
 
 	<input type="submit" name="Submit" value="Submit" style="height:40px;width:100px;font-size:15px;font-weight:bold;">
 	<input type="reset" value="Clear Form" style="height:40px;width:100px;font-size:15px;font-weight:bold;"><br><br>
 
-
-
 </form>
+
+<div class="Footer">
+	<h4>This is copyrighted by Deakin and the project group 29</h4>
+</div>
+</body>
+</html>

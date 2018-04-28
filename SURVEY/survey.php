@@ -1,5 +1,11 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
+<link rel="stylesheet" href="../styles/styles.css" >
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.js"></script>
+
+<!doctype html>
+
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Corral Survey</title>
@@ -13,7 +19,7 @@
 
 <body>
 <p class="css"><strong><strong>Please fill the survey to complete registration
-  
+
 </strong></p>
 <p>&nbsp;</p>
 <form id="survey" name="survey" method="post" action="">
@@ -66,7 +72,7 @@
   <p>5) Project role, choose roles you think best align with your skills:</p>
   <blockquote>
     <p>---------------------------------------------------------------------------</p>
-    <p>Programmer (General): 
+    <p>Programmer (General):
       <label for="skill1"></label>
       <select name="skill1" id="skill1">
         <option selected disabled hidden style='display: none' value="">Choose one of the list Below</option>
@@ -76,7 +82,7 @@
         <option value="Novice skill">Novice skill</option>
       </select>
     </p>
-    <p>UX/UI Designer: 
+    <p>UX/UI Designer:
       <select name="skill2" id="skill2">
       	<option selected disabled hidden style='display: none' value="">Choose one of the list Below</option>
         <option value="Expert skill">Expert skill</option>
@@ -85,7 +91,7 @@
         <option value="Novice skill">Novice skill</option>
       </select>
     </p>
-    <p>Security Specialist: 
+    <p>Security Specialist:
       <select name="skill3" id="skill3">
      	<option selected disabled hidden style='display: none' value=''>Choose one of the list Below</option>
         <option value="Expert skill">Expert skill</option>
@@ -94,7 +100,7 @@
         <option value="Novice skill">Novice skill</option>
       </select>
     </p>
-    <p>Database Developer: 
+    <p>Database Developer:
       <select name="skill4" id="skill4">
       	<option selected disabled hidden style='display: none' value="">Choose one of the list Below</option>
         <option value="Expert skill">Expert skill</option>
@@ -103,7 +109,7 @@
         <option value="Novice skill">Novice skill</option>
       </select>
     </p>
-    <p>Web Developer: 
+    <p>Web Developer:
       <select name="skill5" id="skill5">
       	<option selected disabled hidden style='display: none' value="">Choose one of the list Below</option>
         <option value="Expert skill">Expert skill</option>
@@ -112,7 +118,7 @@
         <option value="Novice skill">Novice skill</option>
       </select>
     </p>
-    <p>Cloud Service Developer: 
+    <p>Cloud Service Developer:
       <select name="skill6" id="skill6">
       	<option selected disabled hidden style='display: none' value="">Choose one of the list Below</option>
         <option value="Expert skill">Expert skill</option>
@@ -121,7 +127,7 @@
         <option value="Novice skill">Novice skill</option>
       </select>
     </p>
-    <p>App Developer (Mobile): 
+    <p>App Developer (Mobile):
       <select name="skill7" id="skill7">
         <option selected disabled hidden style='display: none' value="">Choose one of the list Below</option>
         <option value="Expert skill">Expert skill</option>
@@ -130,7 +136,7 @@
         <option value="Novice skill">Novice skill</option>
       </select>
     </p>
-    <p>Network Engineer: 
+    <p>Network Engineer:
       <select name="skill8" id="skill8">
         <option selected disabled hidden style='display: none' value="">Choose one of the list Below</option>
         <option value="Expert skill">Expert skill</option>
@@ -139,7 +145,7 @@
         <option value="Novice skill">Novice skill</option>
       </select>
     </p>
-    <p>VR/Game Developer (Programming): 
+    <p>VR/Game Developer (Programming):
       <select name="skill9" id="skill9">
         <option selected disabled hidden style='display: none' value="">Choose one of the list Below</option>
         <option value="Expert skill">Expert skill</option>
@@ -148,7 +154,7 @@
         <option value="Novice skill">Novice skill</option>
       </select>
     </p>
-    <p>3D Artist/Animator: 
+    <p>3D Artist/Animator:
       <select name="skill10" id="skill10">
         <option selected disabled hidden style='display: none' value="">Choose one of the list Below</option>
         <option value="Expert skill">Expert skill</option>
@@ -157,7 +163,7 @@
         <option value="Novice skill">Novice skill</option>
       </select>
     </p>
-    <p>Technical Artist: 
+    <p>Technical Artist:
       <select name="skill11" id="skill11">
         <option selected disabled hidden style='display: none' value="">Choose one of the list Below</option>
         <option value="Expert skill">Expert skill</option>
@@ -166,7 +172,7 @@
         <option value="Novice skill">Novice skill</option>
       </select>
     </p>
-    <p>Project Manager (Require technical skill): 
+    <p>Project Manager (Require technical skill):
       <select name="skill12" id="skill12">
         <option selected disabled hidden style='display: none' value="">Choose one of the list Below</option>
         <option value="Expert skill">Expert skill</option>
@@ -175,7 +181,7 @@
         <option value="Novice skill">Novice skill</option>
       </select>
     </p>
-    <p>Interactive Media Developer: 
+    <p>Interactive Media Developer:
       <select name="skill13" id="skill13">
         <option selected disabled hidden style='display: none' value="">Choose one of the list Below</option
         ><option value="Expert skill">Expert skill</option>
@@ -184,7 +190,7 @@
         <option value="Novice skill">Novice skill</option>
       </select>
     </p>
-    <p>Business Analyst: 
+    <p>Business Analyst:
       <select name="skill14" id="skill14">
         <option selected disabled hidden style='display: none' value="">Choose one of the list Below</option
         ><option value="Expert skill">Expert skill</option>
@@ -234,7 +240,7 @@
         <option value="Novice skill">Novice skill</option>
       </select>
     </p>
-    <p>Tech Skill 2: 
+    <p>Tech Skill 2:
       <select name="techskpro2" id="techskpro2">
         <option selected="selected" disabled="disabled" hidden="hidden" style='display: none' value="">Choose one of the list Below</option>
         <option value="Expert skill">Expert skill</option>
@@ -243,7 +249,7 @@
         <option value="Novice skill">Novice skill</option>
       </select>
     </p>
-    <p>Tech Skill 3: 
+    <p>Tech Skill 3:
       <select name="techskpro3" id="techskpro3">
         <option selected="selected" disabled="disabled" hidden="hidden" style='display: none' value="">Choose one of the list Below</option>
         <option value="Expert skill">Expert skill</option>
@@ -252,7 +258,7 @@
         <option value="Novice skill">Novice skill</option>
       </select>
     </p>
-    <p>Tech Skill 4: 
+    <p>Tech Skill 4:
       <select name="techskpro4" id="techskpro4">
         <option selected="selected" disabled="disabled" hidden="hidden" style='display: none' value="">Choose one of the list Below</option>
         <option value="Expert skill">Expert skill</option>
@@ -261,7 +267,7 @@
         <option value="Novice skill">Novice skill</option>
       </select>
     </p>
-    <p>Tech Skill 5: 
+    <p>Tech Skill 5:
       <select name="techskpro5" id="techskpro5">
         <option selected="selected" disabled="disabled" hidden="hidden" style='display: none' value="">Choose one of the list Below</option>
         <option value="Expert skill">Expert skill</option>
@@ -270,7 +276,7 @@
         <option value="Novice skill">Novice skill</option>
       </select>
     </p>
-    <p>Tech Skill 6: 
+    <p>Tech Skill 6:
       <select name="techskpro6" id="techskpro6">
         <option selected="selected" disabled="disabled" hidden="hidden" style='display: none' value="">Choose one of the list Below</option>
         <option value="Expert skill">Expert skill</option>
@@ -282,21 +288,21 @@
   </blockquote>
   <p>8) Soft Skills: list at least three soft skills.</p>
   <blockquote>
-    <p>Soft Skill 1: 
+    <p>Soft Skill 1:
       <label for="softsk1"></label>
       <label for="softsk1"></label>
       <input type="text" name="softsk1" id="softsk1" />
     </p>
-    <p>Soft Skill 2: 
+    <p>Soft Skill 2:
       <input type="text" name="softsk2" id="softsk2" />
     </p>
-    <p>Soft Skill 3: 
+    <p>Soft Skill 3:
       <input type="text" name="softsk3" id="softsk3" />
     </p>
-    <p>Soft Skill 4: 
+    <p>Soft Skill 4:
       <input type="text" name="softsk4" id="softsk4" />
     </p>
-    <p>Soft Skill 5: 
+    <p>Soft Skill 5:
       <input type="text" name="softsk5" id="softsk5" />
     </p>
     <p>Soft Skill 6:
@@ -317,7 +323,7 @@
         <option value="Novice skill">Novice skill</option>
       </select>
     </p>
-    <p>Soft Skill 2: 
+    <p>Soft Skill 2:
       <select name="softskpro2" id="softskpro2">
         <option selected="selected" disabled="disabled" hidden="hidden" style='display: none' value="">Choose one of the list Below</option>
         <option value="Expert skill">Expert skill</option>
@@ -326,7 +332,7 @@
         <option value="Novice skill">Novice skill</option>
       </select>
     </p>
-    <p>Soft Skill 3: 
+    <p>Soft Skill 3:
       <select name="softskpro3" id="softskpro3">
         <option selected="selected" disabled="disabled" hidden="hidden" style='display: none' value="">Choose one of the list Below</option>
         <option value="Expert skill">Expert skill</option>
@@ -335,7 +341,7 @@
         <option value="Novice skill">Novice skill</option>
       </select>
     </p>
-    <p>Soft Skill 4: 
+    <p>Soft Skill 4:
       <select name="softskpro4" id="softskpro4">
         <option selected="selected" disabled="disabled" hidden="hidden" style='display: none' value="">Choose one of the list Below</option>
         <option value="Expert skill">Expert skill</option>
@@ -344,7 +350,7 @@
         <option value="Novice skill">Novice skill</option>
       </select>
     </p>
-    <p>Soft Skill 5:    
+    <p>Soft Skill 5:
       <select name="softskpro5" id="softskpro5">
         <option selected="selected" disabled="disabled" hidden="hidden" style='display: none' value="">Choose one of the list Below</option>
         <option value="Expert skill">Expert skill</option>
@@ -353,7 +359,7 @@
         <option value="Novice skill">Novice skill</option>
       </select>
     </p>
-    <p>Soft Skill 6:    
+    <p>Soft Skill 6:
       <select name="softskpro6" id="softskpro6">
         <option selected="selected" disabled="disabled" hidden="hidden" style='display: none' value="">Choose one of the list Below</option>
         <option value="Expert skill">Expert skill</option>
@@ -365,7 +371,7 @@
   </blockquote>
   <p>10) Project Preferences: list the projects you would prefer to work in order of preference (three projects maximum). Choose the project base on your skills and knowledge.</p>
   <blockquote>
-    <p>Project Title 1: 
+    <p>Project Title 1:
       <label for="projti1"></label>
       <input type="text" name="projti1" id="projti1" />
     </p>
@@ -384,7 +390,7 @@
       <textarea name="aspira" cols="100" rows="5" id="aspira"></textarea>
     </p>
   </blockquote>
-  <p>12) Profile: provide a link to your professional profile (i.e. Linkedin profile or online portfolio).  
+  <p>12) Profile: provide a link to your professional profile (i.e. Linkedin profile or online portfolio).
   </p>
   <blockquote>
     <label for="profile"></label>
@@ -399,9 +405,9 @@
       <option value="Yes">Yes</option>
       <option value="No">No</option>
     </select>
-  
+
   </blockquote>
-  
+
   </p>
   <p>14) Permission to use Survey Data internally: for work and research development purpose.</p>
   <blockquote>
@@ -411,7 +417,7 @@
       <option value="Yes">Yes</option>
       <option value="No">No</option>
     </select>
-  
+
   </blockquote>
   <p>15) Thanks and Additional Comments.</p>
   <p><em>Many Thanks for completing this survey, we really appreciate it. If you have anything else to add that we might find usful or think we should know about, please add it here:</em></p>
