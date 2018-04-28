@@ -11,11 +11,10 @@ require('../DATABASE/CONNECTDB.PHP');
         $id = mysqli_real_escape_string($CON, $_POST['STUDENT_ID']);
 				$firstname = mysqli_real_escape_string($CON, $_POST['STUDENT_FIRSTNAME']);
 				$lastname = mysqli_real_escape_string($CON, $_POST['STUDENT_LASTNAME']);
-        $location = mysqli_real_escape_string($CON, $_POST['STUDENT_LOCATION']);
 				$email = mysqli_real_escape_string($CON, $_POST['STUDENT_EMAIL']);
         $password = mysqli_real_escape_string($CON, $_POST['STUDENT_PASSWORD']);
 
-        $query = "INSERT INTO STUDENT (STUDENT_ID, STUDENT_FIRSTNAME, STUDENT_LASTNAME, STUDENT_LOCATION, STUDENT_EMAIL, STUDENT_PASSWORD) VALUES ('$id', '$firstname', '$lastname', '$location', '$email', '$password')";
+        $query = "INSERT INTO STUDENT (STUDENT_ID, STUDENT_FIRSTNAME, STUDENT_LASTNAME, STUDENT_EMAIL, STUDENT_PASSWORD) VALUES ('$id', '$firstname', '$lastname', '$email', '$password')";
         $result = mysqli_query($CON, $query);
         if($result){
             $smsg = "User Created Successfully.";
@@ -37,8 +36,6 @@ require('../DATABASE/CONNECTDB.PHP');
 						<input type="text" name="STUDENT_FIRSTNAME" id="STUDENT_FIRSTNAME" class="form-control" placeholder="First Name" required autofocus>
 						<label for="inputLastName" class="sr-only">Last Name</label>
 						<input type="text" name="STUDENT_LASTNAME" id="STUDENT_LASTNAME" class="form-control" placeholder="Last Name" required autofocus>
-            <label for="inputLocation" class="sr-only">Location</label>
-            <input type="text" name="STUDENT_LOCATION" id="STUDENT_LOCATION" class="form-control" placeholder="Location" required autofocus>
             <label for="inputEmail" class="sr-only">Email address</label>
             <input type="email" name="STUDENT_EMAIL" id="STUDENT_EMAIL" class="form-control" placeholder="Email Address" required autofocus>
             <label for="inputPassword" class="sr-only">Password</label>
