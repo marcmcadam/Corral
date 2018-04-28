@@ -1,0 +1,535 @@
+
+<!doctype html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8">
+
+<title>Survey</title>
+
+<style>
+
+body {
+
+  padding-bottom: 40px;
+
+  background-color: #eee;
+
+}
+
+
+
+.form-signin {
+
+  max-width: 330px;
+
+  padding: 15px;
+
+  margin: 0 auto;
+
+}
+
+.form-signin .form-signin-heading,
+
+.form-signin .checkbox {
+
+  margin-bottom: 10px;
+
+}
+
+.form-signin .checkbox {
+
+  font-weight: normal;
+
+}
+
+.form-signin .form-control {
+
+  position: relative;
+
+  height: auto;
+
+  -webkit-box-sizing: border-box;
+
+     -moz-box-sizing: border-box;
+
+          box-sizing: border-box;
+
+  padding: 10px;
+
+  font-size: 16px;
+
+}
+
+.form-signin .form-control:focus {
+
+  z-index: 2;
+
+}
+
+.form-signin input[type="email"] {
+
+  margin-bottom: -1px;
+
+  border-bottom-right-radius: 0;
+
+  border-bottom-left-radius: 0;
+
+}
+
+.form-signin input[type="password"] {
+
+  margin-bottom: 10px;
+
+  border-top-left-radius: 0;
+
+  border-top-right-radius: 0;
+
+}
+
+
+
+.Header {
+
+	background-color: #333;
+
+	font-family: Arial, Helvetica, sans-serif;
+
+	color: white;
+
+	text-align: center;
+
+	padding: 5px;
+
+}
+
+
+
+.Footer {
+
+	padding: 20px;
+
+	background-color: #333;
+
+	color: white;
+
+	text-align: center;
+
+	font-family: Arial, Helvetica, sans-serif;
+
+}
+
+
+
+p {
+
+	margin-left: 40px;
+
+	margin-right: 50px;
+
+	font-family: Arial, Helvetica, sans-serif;
+
+}
+
+
+
+h2 {
+
+	margin-left: 40px;
+
+	font-family: Arial, Helvetica, sans-serif;
+
+}
+
+
+
+
+
+/* The navagation bar for the site, linked to the drop downs */
+
+	.navbar {
+
+    overflow: hidden;
+
+    background-color: #333;
+
+    font-family: Arial, Helvetica, sans-serif;
+
+}
+
+
+
+.navbar a {
+
+    float: left;
+
+    font-size: 16px;
+
+    color: white;
+
+    text-align: center;
+
+    padding: 14px 100px;
+
+    text-decoration: none;
+
+}
+
+
+
+/* This is for the drop down in the navigation bar */
+
+.dropdown {
+
+    float: left;
+
+    overflow: hidden;
+
+}
+
+
+
+.dropdown .dropbtn {
+
+    font-size: 16px;    
+
+    border: none;
+
+    outline: none;
+
+    color: white;
+
+    padding: 14px 16px;
+
+    background-color: inherit;
+
+    font-family: inherit;
+
+    margin: 0;
+
+}
+
+
+
+.navbar a:hover, .dropdown:hover .dropbtn {
+
+    background-color: red;
+
+}
+
+
+
+.dropdown-content {
+
+    display: none;
+
+    position: absolute;
+
+    background-color: #f9f9f9;
+
+    min-width: 160px;
+
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+
+    z-index: 1;
+
+}
+
+
+
+.dropdown-content a {
+
+    float: none;
+
+    color: black;
+
+    padding: 12px 16px;
+
+    text-decoration: none;
+
+    display: block;
+
+    text-align: left;
+
+}
+
+
+
+.dropdown-content a:hover {
+
+    background-color: #ddd;
+
+}
+
+
+
+.dropdown:hover .dropdown-content {
+
+    display: block;
+
+}
+
+span{
+
+    color:DimGray;
+
+    font-size:17px;
+
+</style>
+
+
+</head>
+
+
+
+<body>
+
+<div class="Header">
+
+	<h1>Corral Project</h1>
+
+</div>
+
+
+
+<div class="navbar">
+
+	<a href="#Home">Home</a>
+
+	<a href="#Projects">Projects</a>
+
+	<a href="#Conatacts">Contacts</a>
+
+	<a href="#About Us">About Us</a>
+
+	<div class="dropdown">
+
+		<button class="dropbtn">Login
+
+			<i class="fa fa-caret-down"></i>
+
+		</button>
+
+		<div class="dropdown-content">
+
+			<a href="#Students">Students</a>
+
+			<a href="#Teachers">Teachers</a>
+
+		</div>
+
+	</div>
+
+</div>
+
+
+
+<h2>Survey</h2>
+
+<form name="Survey" onSubmit="return validate(Survey)" method="post" >
+
+        <table>
+
+        <tr>
+
+	<td>Student number:</td><td> <input type="text" name="Studentnumber"style="width:200px; height:20px;"></td>
+        
+        </tr>
+ 
+        <tr>
+
+	<td>Email address: </td><td><input type="text" name="Deakinemailaddress"style="width:200px; height:20px;"></td>
+
+        </tr>
+
+        <tr>
+
+	<td>Family name: </td><td><input type="text" name="Familyname"style="width:200px; height:20px;"></td>
+
+        </tr>
+
+        <tr>
+
+	<td>Given name:</td><td> <input type="text" name="Givenname" size="40"style="width:200px; height:20px;"></td>
+
+        </tr>
+
+        </table><br>
+        
+        <label>Location:</label>
+<br>
+  
+        <input type="radio" value="1"  name="Location" />
+<label><span>Burwood</span></label>
+    
+
+        &nbsp;&nbsp;&nbsp;
+
+        <input type="radio" value="2"  name="Location" />
+<label><span>Geelong</span></label>
+    
+
+        &nbsp;&nbsp;&nbsp;
+
+        <input type="radio" value="3"  name="Location" />
+<label><span>Cloud</span></label>
+    <br><br>
+
+        <label>Current course:</label>
+<br>
+  
+        <input type="radio" value="1"  name="Current course" />
+<label><span>Bachelor of computer science</span></label>
+    
+
+
+        &nbsp;&nbsp;&nbsp;
+
+        <input type="radio" value="2"  name="Current course" /><label><span>Bachelor of IT</span></label>
+     
+
+        &nbsp;&nbsp;&nbsp;
+
+        <input type="radio" value="3"  name="Current course" /> <label><span>Bachelor of programming</span></label>
+    
+
+        &nbsp;&nbsp;&nbsp;
+
+        <input type="radio" value="4"  name="Current course" /><label><span>Bachelor of cyber security</span></label>
+    <br><br>
+	
+        Technical skills:<br>
+
+          <span>Skill 1:&nbsp;</span><input type="text" name="S1"><br>
+
+          <span>Skill 2:&nbsp;</span><input type="text" name="S2"><br>
+
+          <span>Skill 3:&nbsp;</span><input type="text" name="S3"><br><br>
+
+        Technical skills proficiency:<br>
+
+        <label><span>Skill 1:</span></label>
+    
+        
+        <select>
+
+        <option>Expert</option>
+ 
+
+        <option>High</option>
+
+
+        <option>Intermediate</option>
+        
+        <option>Novice</option>
+    </select><br>
+
+         <label><span>Skill 2:</span></label>
+    
+        
+        <select>
+
+        <option>Expert</option>
+ 
+
+        <option>High</option>
+
+
+        <option>Intermediate</option>
+        
+        <option>Novice</option>
+    </select><br>
+
+        <label><span>Skill 3:</span></label>
+    
+        
+        <select>
+
+        <option>Expert</option>
+ 
+
+        <option>High</option>
+
+
+        <option>Intermediate</option>
+        
+        <option>Novice</option>
+    </select><br><br>
+
+
+        Soft skills:<br>
+
+         <span>Skill 1:&nbsp;</span><input type="text" name="S4"><br>
+
+         <span>Skill 2:&nbsp;</span><input type="text" name="S5"><br>
+
+         <span>Skill 3:&nbsp;</span><input type="text" name="S6"><br><br>
+
+        Soft skills proficiency:<br>
+
+        <label><span>Skill 1:</span></label>
+    
+        
+        <select>
+
+        <option>Expert</option>
+ 
+
+        <option>High</option>
+        <option>Intermediate</option>
+        <option>Novice</option>
+    </select><br>
+
+         <label><span>Skill 2:</span></label>
+    
+        
+        <select>
+
+        <option>Expert</option>
+ 
+
+        <option>High</option>
+
+
+       <option>Intermediate</option>
+        
+        <option>Novice</option>
+    </select><br>
+
+        <label><span>Skill 3:</span></label>
+    
+        
+        <select>
+
+        <option>Expert</option>
+ 
+
+        <option>High</option>
+
+
+        <option>Intermediate</option>
+        
+        <option>Novice</option>
+    </select><br><br><br>
+
+
+
+	<input type="submit" name="Submit" value="Submit" style="height:40px;width:100px;font-size:15px;font-weight:bold;">
+
+	<input type="reset" value="Clear Form" style="height:40px;width:100px;font-size:15px;font-weight:bold;"><br><br>
+
+	
+
+</form>
+
+
+
+<div class="Footer">
+
+	<h4>This is copy righted by Deakin and the project group 29</h4>
+
+</div>
+
+</body>
