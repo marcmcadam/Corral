@@ -162,22 +162,20 @@ a {
 
 <div class="navbar">
 	<a href="#Home">Home</a>
-	<a href="survey.php">Surveys</a>
-	<a href="#Conatacts">Contacts</a>
+	<a href="../SURVEY/SURVEYANSWERS.PHP">Survey</a>
+	<a href="#Contacts">Contacts</a>
 	<a href="#About Us">About Us</a>
 	<a href="logout.php">Logout</a>
 </div>
 
 
-<h2>Welcome <?= $student_firstname. ' '.$student_lastname?></h2>
-<p>You are logged in as <?= $student_firstname?> at the moment. From here you can complete the skills survey. The link is below.</p>
-<ul style="list-style-type:none">
-	<li><a href="../SURVEY/survey.php">Skills Survey</a></li>
+<h2>Welcome, <?= $student_firstname. ' '?></h2>
+<p>This is an intro page about the purpose of the skills survey.</p>
+
 </ul><br><br>
-<p>If you wish to log out, please click the link below or the logout tab in the navigation bar above.</p>
-<p><a href="logout.php">Logout</a></p><br>
+<p>If you wish to logout, please click the tab above.</p>
 <div class="Footer">
-	<h4>This is copyrighted by Deakin and the project group 29</h4>
+	<h4>© Copyright Deakin University & Group 29 2018</h4>
 </div>
 </body>
 </html>
