@@ -140,28 +140,27 @@ form {
 }
 
 </style>
-
 <script type="text/javaScript">
 	function validate(registration) {
 		var digits="0123456789"
 		var temp
-		var email = document.registration.email.value
-		var password = document.registration.password.value
+		var email = document.registration.STUDENT_EMAIL.value
+		var password = document.registration.STUDENT_PASSWORD.value
 		var upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 		var lower = "abcdefghijklmnopqrstuvwxyz"
 		
-			if (document.registration.id.value.length < 9) {
+			if (document.registration.STUDENT_ID.value.length < 9) {
 				alert("Invalid Student ID. Must be nine characters long")
 				return false
 			}
 			
-			if (document.registration.password.value.length < 8) {
+			if (document.registration.STUDENT_PASSWORD.value.length < 8) {
 				alert("Password is too short. It must be a minimum of eight characters long")
 				return false
 			}
 			
-			for (var i=0;i<document.registration.id.value.length;i++) {
-			temp = document.registration.id.value.substring(i,i+1)
+			for (var i=0;i<document.registration.STUDENT_ID.value.length;i++) {
+			temp = document.registration.STUDENT_ID.value.substring(i,i+1)
 			if (digits.indexOf(temp)==-1) {
 			alert("Invalid Studnet ID. Must only be numbers")
 			return false
@@ -177,14 +176,6 @@ form {
 				alert("Passwords don't match. Please ensure that they are the same")
 				return false
 			}
-			
-			/*for (var j=0;j<document.registration.password.value.length;j++) {
-			temp = document.registration.password.value.substring(j,j+1)
-			if (upper.indexOf(temp)==-1 && lower.indexOf(temp)==-1) {
-			alert("Password must contain at least one captial letter")
-			return false
-				}
-			}*/
 		return true
 	}
 </script>
@@ -212,19 +203,26 @@ form {
 </div>
 
 <h2>Registration</h2>
-<form name="registration" onSubmit="return validate(registration)" method="post" action="Successful registration page.php">
-	First Name: <input type="text" name="firstname" required><br><br>
-	Last Name: <input type="text" name="lastname" required><br><br>
-	Student ID: <input type="text" name="id" maxlength="9" required><br><br>
-	Email Address: <input type="text" name="email" size="40" required><br><br>
+<form name="registration" onSubmit="return validate(registration)" method="post" action="succesfulreg.php">
+	Student ID: <input type="text" name="STUDENT_ID" maxlength="9" required><br><br>
+	First Name: <input type="text" name="STUDENT_FIRSTNAME" required><br><br>
+	Last Name: <input type="text" name="STUDENT_LASTNAME" required><br><br>
+	Location: <select name="STUDENT_LOCATION">
+		<option value="--">-----</option>
+		<option value="Burwood">Burwood</option>
+		<option value="Geelong">Geelong</option>
+		<option value="Cloud">Cloud</option>
+		</select><br><br>
+	Email Address: <input type="text" name="STUDENT_EMAIL" size="40" required><br><br>
 	Re-type Email Address: <input type="text" name="reemail" size="40" required><br><br>
-	Password: <input type="password" name="password" required><br><br>
+	Password: <input type="password" name="STUDENT_PASSWORD" required><br><br>
 	Re-type Password: <input type="password" name="cpassword" required><br><br>
 	
 		<input type="submit" name="Submit" value="Submit">
 		<input type="reset" value="Clear Form"><br><br>
 	
 </form>
+
 
 <div class="Footer">
 	<h4>This is copy righted by Deakin and the project group 29</h4>
