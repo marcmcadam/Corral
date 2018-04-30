@@ -3,7 +3,7 @@ session_start();
 
 if ( $_SESSION['STUDENT_ID'] != 1) {
 	$_SESSION['message'] = "You mus log in before viewing this page";
-	header("location: error.php");
+	header("location: ../ACCESS/error.php");
 	}
 	else {
 	$id = $_SESSION['STUDENT_ID'];
@@ -16,7 +16,7 @@ if ( $_SESSION['STUDENT_ID'] != 1) {
 <head>
 <meta charset="utf-8">
 <title>Contact Us</title>
-<link rel="stylesheet" type="text/css" href="STYLES/stylesheet.css">
+<link rel="stylesheet" type="text/css" href="../STYLES/stylesheet.css">
 </head>
 
 <body>
@@ -25,11 +25,11 @@ if ( $_SESSION['STUDENT_ID'] != 1) {
 </div>
 
 <div class="navbar">
-	<a href="PAGES/STUDENTHOME.php">Home</a>
+	<a href="../PAGES/STUDENTHOME.php">Home</a>
 	<a href="../SURVEY/SURVEYANSWERS.php">Survey</a>
-	<a href="PAGES/STUDENTCONTACT.php">Contacts</a>
-	<a href="PAGES/STUDENTABOUTUS.php">About Us</a>
-	<a href="Access/LOGOUT.php">Logout</a>
+	<a href="../PAGES/STUDENTCONTACT.php">Contacts</a>
+	<a href="../PAGES/STUDENTABOUTUS.php">About Us</a>
+	<a href="../Access/LOGOUT.php">Logout</a>
 </div>
 
 <div id="contents">
@@ -39,7 +39,7 @@ if ( $_SESSION['STUDENT_ID'] != 1) {
 <hr>
 <h2>Tell Us What You Think!</h2>
 <p>Do you have a question that we didn't talk about in our FAQ section or would you like to give us some feedback? Insert your details below and we will get back to you as soon as possible!
-<form name="emailcontact" onSubmit="return validate(emailcontact)" method="post" action="successfulcontactpage.php">
+<form name="emailcontact" onSubmit="return validate(emailcontact)" method="post" action="../WEBSITE/successfulcontactpage.php">
 	First Name: <input type="text" name="firstname" required><br><br>
 	Last Name: <input type="text" name="lastname" required><br><br>
 	Student ID: <input type="text" name="id" maxlength="9" required><br><br>
