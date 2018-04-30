@@ -7,7 +7,7 @@ require('../DATABASE/CONNECTDB.PHP');
 <head>
 <meta charset="utf-8">
 <title>Error</title>
-<link rel="stylesheet" type="text/css" href="STYLES/stylesheet.css">
+<link rel="stylesheet" type="text/css" href="../STYLES/stylesheet.css">
 </head>
 
 <div class="Header">
