@@ -7,7 +7,7 @@ require ('../DATABASE/CONNECTDB.php');
 <head>
 <meta charset="utf-8">
 <title>Registration Sucessful</title>
-<link rel="stylesheet" type="text/css" href="STYLES/stylesheet.css">
+<link rel="stylesheet" type="text/css" href="../STYLES/stylesheet.css">
 </head>
 <body>
 <?php
@@ -27,33 +27,19 @@ $password = mysqli_real_escape_string($CON, $_POST['STUDENT_PASSWORD']);
 
 
 <div class="navbar">
-
-	<a href="#Home">Home</a>
-
-	<a href="#Projects">Projects</a>
-
-	<a href="#Conatacts">Contacts</a>
-
-	<a href="#About Us">About Us</a>
-
+	<a href="../PAGES/HOME.html">Home</a>
+	<a href="../PAGES/REGISTER.html">Projects</a>
+	<a href="../PAGES/CONTACT.html">Contacts</a>
+	<a href="../PAGES/ABOUTUS.html">About Us</a>
 	<div class="dropdown">
-
 		<button class="dropbtn">Login
-
 			<i class="fa fa-caret-down"></i>
-
 		</button>
-
 		<div class="dropdown-content">
-
-			<a href="#Students">Students</a>
-
-			<a href="#Teachers">Teachers</a>
-
+			<a href="../Acess/login.php">Students</a>
+			<a href="../ACCESS/stafflogin.php">Staff</a>
 		</div>
-
 	</div>
-
 </div>
 <?php
 
@@ -68,7 +54,7 @@ if($result){
 ?>
 <h2 align="center">You have successfully registered an ID.</h2>
 
-<a href="login.html"><h2 align="center">Back to Log In</h2></a>
+<a href="../Access/LOGIN.php"><h2 align="center">Back to Log In</h2></a>
 
 
 <div class="Footer">
