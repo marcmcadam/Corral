@@ -24,33 +24,34 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 	<h1>Corral Project</h1>
 </div>
 
+Staff Login
 <div class="navbar">
-	<a href="#Home">Home</a>
+	<a href="../PAGES/STAFFHOME.php">Home</a>
 	<div class="dropdown">
 		<button class="dropbtn">Projects
 			<i class="fa fa-caret-down"></i>
 		</button>
 		<div class="dropdown-content">
-			<a href="#CreateProject">Create a Project</a>
+			<a href="../PROJECT/ADDPROJECT.php">Create a Project</a>
 			<a href="#Search">Make Groups</a>
-			<a href="#Previous">Previous Projects</a>
+			<a href="../PROJECT/PROJECTLIST.php">Previous Projects</a>
 		</div>
 	</div>
-	<a href="#Conatacts">Contacts</a>
-	<a href="#About Us">About Us</a>
-	<a href="stafflogout.php">Logout</a>
+	<a href="../PAGES/STAFFCONTACT.php">Contacts</a>
+	<a href="../PAGES/STAFFABOUTUS.php">About Us</a>
+	<a href="../ACCESS/stafflogout.php">Logout</a>
 </div>
 
 
 <h2>Welcome <?= $staff_firstname. ' '.$staff_lastname?></h2>
 <p>You are logged in as <?= $staff_firstname?> at the moment.  From here you can look at the project form, past projects and resaults for project group parings. The following links below will give you to those pages.</p>
 <ul style="list-style-type:none">
-	<li><a href="#Projects">Projects form</a></li>
+	<li><a href="../PROJECT/ADDPROJECT.php">Projects form</a></li>
 	<li><a href="#Results">Project results</a></li>
-	<li><a href="#Past">Past Projects</a></li>
+	<li><a href="../PROJECT/PROJECTLIST.php">Past Projects</a></li>
 </ul><br><br>
 <p>If you wish to log out, please click the link below or the logout tab in the navigation bar above.</p>
-<p><a href="stafflogout.php">Logout</a></p><br>
+<p><a href="../ACCESS/stafflogout.php">Logout</a></p><br>
 <div class="Footer">
 	<h4>This is copyrighted by Deakin and the project group 29</h4>
 </div>
