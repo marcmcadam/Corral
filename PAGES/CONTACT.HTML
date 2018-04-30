@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <title>Contact Us</title>
-<link rel="stylesheet" type="text/css" href="STYLES/stylesheet.css">
+<link rel="stylesheet" type="text/css" href="../STYLES/stylesheet.css">
 </head>
 
 <body>
@@ -12,17 +12,17 @@
 </div>
 
 <div class="navbar">
-	<a href="#Home">Home</a>
-	<a href="#Projects">Projects</a>
-	<a href="#Conatacts">Contacts</a>
-	<a href="#About Us">About Us</a>
+	<a href="../PAGES/HOME.html">Home</a>
+	<a href="../PAGES/REGISTER.html">Projects</a>
+	<a href="../PAGES/CONTACT.html">Contacts</a>
+	<a href="../PAGES/ABOUTUS.html">About Us</a>
 	<div class="dropdown">
 		<button class="dropbtn">Login
 			<i class="fa fa-caret-down"></i>
 		</button>
 		<div class="dropdown-content">
-			<a href="#Students">Students</a>
-			<a href="#Teachers">Teachers</a>
+			<a href="../Acess/login.php">Students</a>
+			<a href="../ACCESS/stafflogin.php">Staff</a>
 		</div>
 	</div>
 </div>
@@ -34,7 +34,7 @@
 <hr>
 <h2>Tell Us What You Think!</h2>
 <p>Do you have a question that we didn't talk about in our FAQ section or would you like to give us some feedback? Insert your details below and we will get back to you as soon as possible!
-<form name="emailcontact" onSubmit="return validate(emailcontact)" method="post" action="successfulcontactpage.php">
+<form name="emailcontact" onSubmit="return validate(emailcontact)" method="post" action="../WEBSITE/successfulcontactpage.php">
 	First Name: <input type="text" name="firstname" required><br><br>
 	Last Name: <input type="text" name="lastname" required><br><br>
 	Student ID: <input type="text" name="id" maxlength="9" required><br><br>
