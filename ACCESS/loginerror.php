@@ -15,17 +15,17 @@ require('../DATABASE/CONNECTDB.PHP');
 </div>
 
 <div class="navbar">
-	<a href="#Home">Home</a>
-	<a href="#Projects">Projects</a>
-	<a href="#Conatacts">Contacts</a>
-	<a href="#About Us">About Us</a>
+	<a href="../PAGES/HOME.html">Home</a>
+	<a href="../PAGES/REGISTER.html">Projects</a>
+	<a href="../PAGES/CONTACT.html">Contacts</a>
+	<a href="../PAGES/ABOUTUS.html">About Us</a>
 	<div class="dropdown">
 		<button class="dropbtn">Login
 			<i class="fa fa-caret-down"></i>
 		</button>
 		<div class="dropdown-content">
-			<a href="login.php">Students</a>
-			<a href="staffprofile.php">Teachers</a>
+			<a href="../Acess/login.php">Students</a>
+			<a href="../ACCESS/stafflogin.php">Staff</a>
 		</div>
 	</div>
 </div>
@@ -71,7 +71,7 @@ $id = $_SESSION['STUDENT_ID'];
 $student_firstname = $_SESSION['STUDENT_FIRSTNAME'];
 $student_lastname = $_SESSION['STUDENT_LASTNAME'];
 $_SESSION['STUDENT_ID'] = true;
-header("location: Profile.php");
+header("location: ../ACCESS/Profile.php");
 }
 //3.2 When the user visits the page first time, simple login form will be displayed.
 ?>
