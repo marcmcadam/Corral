@@ -35,7 +35,7 @@ require('../DATABASE/CONNECTDB.PHP');
     <input type="text" name="STUDENT_ID" placeholder="Student ID" required><br><br>
         <input type="password" name="STUDENT_PASSWORD" id="inputPassword" placeholder="Password" required><br><br>
         <button type="submit">LOGIN</button>
-        <a href="REGISTER.PHP">REGISTER</a><br><br>
+        <a href="../PAGES/REGISTER.html">REGISTER</a><br><br>
       </form>
 <p>Login error, Credentials do not match. Please try again.</p>
 <div class="Footer">
@@ -61,7 +61,7 @@ $_SESSION['STUDENT_FIRSTNAME'] = $user['STUDENT_FIRSTNAME'];
 $_SESSION['STUDENT_LASTNAME'] = $user['STUDENT_LASTNAME'];
 }else{
 //3.1.3 If the login credentials doesn't match, he will be shown with an error message.
-header("location: loginerror.php");
+header("location: ../ACCESS/loginerror.php");
 //$fmsg = "Invalid Login Credentials.";
 }
 }
