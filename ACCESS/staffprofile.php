@@ -3,7 +3,7 @@ session_start();
 
 if ( $_SESSION['STAFF_ID'] != 1) {
 	$_SESSION['message'] = "You mus log in before viewing this page";
-	header("location: error.php");
+	header("location: ../ACCESS/error.php");
 	}
 	else {
 	$id = $_SESSION['STAFF_ID'];
@@ -33,7 +33,7 @@ Staff Login
 		</button>
 		<div class="dropdown-content">
 			<a href="../PROJECT/ADDPROJECT.php">Create a Project</a>
-			<a href="#Search">Make Groups</a>
+			<a href="../PROJECT/PROJECTLIST.php">Make Groups</a>
 			<a href="../PROJECT/PROJECTLIST.php">Previous Projects</a>
 		</div>
 	</div>
