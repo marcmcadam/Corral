@@ -1,3 +1,16 @@
+<?php
+session_start();
+
+if ( $_SESSION['STAFF_ID'] != 1) {
+	$_SESSION['message'] = "You mus log in before viewing this page";
+	header("location: error.php");
+	}
+	else {
+	$id = $_SESSION['STAFF_ID'];
+	$staff_firstname = $_SESSION['STAFF_FIRSTNAME'];
+	$staff_lastname = $_SESSION['STAFF_LASTNAME'];
+	}
+?>
 <!doctype html>
 
 <html>
@@ -7,7 +20,7 @@
 <meta charset="utf-8">
 
 <title>Add Project</title>
-<link rel="stylesheet" type="text/css" href="STYLES/styleform.css">
+<link rel="stylesheet" type="text/css" href="../STYLES/styleform.css">
 <style>
 /*Picture wont float right?*/
 
@@ -35,39 +48,26 @@
 
 
 <div class="navbar">
-
-	<a href="#Home">Home</a>
-
-	<a href="#Projects">Projects</a>
-
-	<a href="#Conatacts">Contacts</a>
-
-	<a href="#About Us">About Us</a>
-
+	<a href="../PAGES/STAFFHOME.php">Home</a>
 	<div class="dropdown">
-
-		<button class="dropbtn">Login
-
+		<button class="dropbtn">Projects
 			<i class="fa fa-caret-down"></i>
-
 		</button>
-
 		<div class="dropdown-content">
-
-			<a href="#Students">Students</a>
-
-			<a href="#Teachers">Teachers</a>
-
+			<a href="../PROJECT/ADDPROJECT.php">Create a Project</a>
+			<a href="../PROJECT/PROJECTLIST.php">Make Groups</a>
+			<a href="../PROJECT/PROJECTLIST.php">Previous Projects</a>
 		</div>
-
 	</div>
-
+	<a href="../PAGES/STAFFCONTACT.php">Contacts</a>
+	<a href="../PAGES/STAFFABOUTUS.php">About Us</a>
+	<a href="../ACCESS/stafflogout.php">Logout</a>
 </div>
 
 
 <div id="contents" >
 <h2>Add New Project</h2>
-<form action="addProcess.php" method="post">
+<form action="../PROJECT/ADDPROCCESS.php" method="post">
 <p>Project Title &nbsp<input type="text" name="title"/></br></p>
 <p>Project Brief &nbsp<input type="text" name="brief"/></br></p>
 <p>Project Leader &nbsp<input type="text" name="leader"/></br></p>
