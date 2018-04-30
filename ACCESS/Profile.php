@@ -16,7 +16,7 @@ if ( $_SESSION['STUDENT_ID'] != 1) {
 <head>
 <meta charset="utf-8">
 <title>Welcome <?= $student_firstname.' '.$student_lastname ?> </title>
-<link rel="stylesheet" type="text/css" href="STYLES/stylesheet.css">
+<link rel="stylesheet" type="text/css" href="../STYLES/stylesheet.css">
 </head>
 
 <body>
