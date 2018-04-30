@@ -40,7 +40,6 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 	<a href="../PAGES/STAFFABOUTUS.php">About Us</a>
 	<a href="../ACCESS/stafflogout.php">Logout</a>
 </div>
-
 <div id="contents">
 <h2>Contact Us</h2>
 <p>Although the Corral Project is designed to make communcation between team members and employers/teachers more efficient when dealing with group projects, we understand that some individuals might still want some questions answered. If you do have any questions, please first check out our 'About Us' page as we do have a frequently asked questions section.
@@ -48,7 +47,7 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 <hr>
 <h2>Tell Us What You Think!</h2>
 <p>Do you have a question that we didn't talk about in our FAQ section or would you like to give us some feedback? Insert your details below and we will get back to you as soon as possible!
-<form name="emailcontact" onSubmit="return validate(emailcontact)" method="post" action="../WEBSITE/successfulcontactpage.php">
+<form name="emailcontact" onSubmit="return validate(emailcontact)" method="post" action="../WEBSITE/STAFFSUCCESS.php">
 	First Name: <input type="text" name="firstname" required><br><br>
 	Last Name: <input type="text" name="lastname" required><br><br>
 	Student ID: <input type="text" name="id" maxlength="9" required><br><br>
