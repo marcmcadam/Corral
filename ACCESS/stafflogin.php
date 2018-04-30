@@ -15,17 +15,17 @@ require('../DATABASE/CONNECTDB.PHP');
 </div>
 
 <div class="navbar">
-	<a href="#Home">Home</a>
-	<a href="#Projects">Projects</a>
-	<a href="#Conatacts">Contacts</a>
-	<a href="#About Us">About Us</a>
+	<a href="../PAGES/HOME.html">Home</a>
+	<a href="../PAGES/REGISTER.html">Projects</a>
+	<a href="../PAGES/CONTACT.html">Contacts</a>
+	<a href="../PAGES/ABOUTUS.html">About Us</a>
 	<div class="dropdown">
 		<button class="dropbtn">Login
 			<i class="fa fa-caret-down"></i>
 		</button>
 		<div class="dropdown-content">
-			<a href="login.php">Students</a>
-			<a href="stafflogin.php">Teachers</a>
+			<a href="../Acess/login.php">Students</a>
+			<a href="../ACCESS/stafflogin.php">Staff</a>
 		</div>
 	</div>
 </div>
@@ -61,7 +61,7 @@ $_SESSION['STAFF_FIRSTNAME'] = $user['STAFF_FIRSTNAME'];
 $_SESSION['STAFF_LASTNAME'] = $user['STAFF_LASTNAME'];
 }else{
 //3.1.3 If the login credentials doesn't match, he will be shown with an error message.
-header("location: stafferror.php");
+header("location: ../ACCESS/stafferror.php");
 //$fmsg = "Invalid Login Credentials.";
 }
 }
@@ -71,7 +71,7 @@ $id = $_SESSION['STAFF_ID'];
 $staff_firstname = $_SESSION['STAFF_FIRSTNAME'];
 $staff_lastname = $_SESSION['STAFF_LASTNAME'];
 $_SESSION['STAFF_ID'] = true;
-header("location: staffprofile.php");
+header("location: ../ACCESS/staffprofile.php");
 }
 //3.2 When the user visits the page first time, simple login form will be displayed.
 ?>
