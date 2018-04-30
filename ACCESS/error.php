@@ -3,6 +3,6 @@
 </head>
 <body>
 <p>ERROR</p>
-<a href="logout.php">Logout</a>
+<a href="../Access/LOGOUT.php">Logout</a>
 </body>
 </html>
