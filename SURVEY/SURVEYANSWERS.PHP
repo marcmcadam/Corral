@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
-<link rel="stylesheet" href="../styles/styles.css" >
+<link rel="stylesheet" href="../styles/stylessheet.css" >
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.js"></script>
 
@@ -8,13 +8,16 @@
 
 <body>
 
-			<div class="navbar">
-			<a href="#Home">Home</a>
-			<a href="SURVEYANSWERS.PHP">Survey</a>
-			<a href="#Contacts">Contact</a>
-			<a href="#About Us">About Us</a>
-			<a href="#Logout">Logout</a>
-			</div>
+<div class="Header">
+	<h1>Corral Project</h1>
+</div>
+<div class="navbar">
+	<a href="../PAGES/STUDENTHOME.php">Home</a>
+	<a href="../SURVEY/SURVEYANSWERS.php">Survey</a>
+	<a href="../PAGES/STUDENTCONTACT.php">Contacts</a>
+	<a href="../PAGES/STUDENTABOUTUS.php">About Us</a>
+	<a href="../Access/LOGOUT.php">Logout</a>
+</div>
 
 			<h1>Student Survey</h1>
 		  <br>
