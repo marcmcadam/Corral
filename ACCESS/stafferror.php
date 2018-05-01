@@ -7,7 +7,7 @@ require('../DATABASE/CONNECTDB.PHP');
 <head>
 <meta charset="utf-8">
 <title>Login Page</title>
-<link rel="stylesheet" type="text/css" href="../STYLES/stylesheet.css">
+<link rel="stylesheet" type="text/css" href="../STYLES/styleform.css">
 </head>
 
 <div class="Header">
