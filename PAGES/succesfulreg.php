@@ -36,7 +36,7 @@ $password = mysqli_real_escape_string($CON, $_POST['STUDENT_PASSWORD']);
 			<i class="fa fa-caret-down"></i>
 		</button>
 		<div class="dropdown-content">
-			<a href="../Acess/login.php">Students</a>
+			<a href="../Access/login.php">Students</a>
 			<a href="../ACCESS/stafflogin.php">Staff</a>
 		</div>
 	</div>
