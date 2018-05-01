@@ -24,7 +24,6 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 	<h1>Corral Project</h1>
 </div>
 
-Staff Login
 <div class="navbar">
 	<a href="../PAGES/STAFFHOME.php">Home</a>
 	<div class="dropdown">
