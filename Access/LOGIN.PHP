@@ -24,7 +24,7 @@ REQUIRE('../DATABASE/CONNECTDB.PHP');
 			<i class="fa fa-caret-down"></i>
 		</button>
 		<div class="dropdown-content">
-			<a href="../Acess/login.php">Students</a>
+			<a href="../Access/login.php">Students</a>
 			<a href="../ACCESS/stafflogin.php">Staff</a>
 		</div>
 	</div>
