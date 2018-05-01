@@ -70,7 +70,7 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 <h2>Project List</h2>
 <?php
 
-    $conn=mysqli_connect('LOCALHOST', 'ADMIN', 'PASSWORD1') or die(mysqli_errno($conn));
+    require('../DATABASE/CONNECTDB.PHP');
     mysqli_select_db($conn, 'CORRAL_PROJECT');
 
     $sql="select * from project";
