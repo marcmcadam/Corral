@@ -47,7 +47,7 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 <hr>
 <h2>Tell Us What You Think!</h2>
 <p>Do you have a question that we didn't talk about in our FAQ section or would you like to give us some feedback? Insert your details below and we will get back to you as soon as possible!
-<form name="emailcontact" onSubmit="return validate(emailcontact)" method="post" action="../WEBSITE/STAFFSUCCESS.php">
+<form style="margin-left: 40px" name="emailcontact" onSubmit="return validate(emailcontact)" method="post" action="../WEBSITE/STAFFSUCCESS.php">
 	First Name: <input type="text" name="firstname" required><br><br>
 	Last Name: <input type="text" name="lastname" required><br><br>
 	Student ID: <input type="text" name="id" maxlength="9" required><br><br>
