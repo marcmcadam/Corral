@@ -43,6 +43,21 @@ REQUIRE('../DATABASE/CONNECTDB.PHP');
 
 <HTML>
    <BODY>
+	   <div class="navbar">
+	<a href="#Home">Home</a>
+	<a href="#Projects">Projects</a>
+	<a href="#Conatacts">Contacts</a>
+	<a href="#About Us">About Us</a>
+	<div class="dropdown">
+		<button class="dropbtn">Login
+			<i class="fa fa-caret-down"></i>
+		</button>
+		<div class="dropdown-content">
+			<a href="login.php">Students</a>
+			<a href="stafflogin.php">Teachers</a>
+		</div>
+	</div>
+</div>
 	  <DIV ID="MIDDLE">
 				<H1> SURVEY RESULTS </H1>
 				<TABLE>
@@ -130,5 +145,9 @@ REQUIRE('../DATABASE/CONNECTDB.PHP');
 
 					</TABLE>
 	  </DIV>
+	   
+<div class="Footer">
+	<h4>This is copy righted by Deakin and the project group 29</h4>
+</div>
    </BODY>
 </HTML>
