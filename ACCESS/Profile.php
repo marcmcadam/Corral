@@ -34,10 +34,15 @@ if ( $_SESSION['STUDENT_ID'] != 1) {
 
 
 <h2>Welcome, <?= $student_firstname. ' '?></h2>
-<p>This is an intro page about the purpose of the skills survey.</p>
+<p>The purpose of the skills survey is to gauge the potential talent of each student and match
+	accordingly under the criteria for specific projects. As it currently stands, placing members into well-rounded
+	teams is a slow and tedious process. With Corral, the procedure is automated which enables supervisors to quickly organise
+	 people into groups.
+	<br><br>
 
-</ul><br><br>
-<p>If you wish to logout, please click the tab above.</p>
+	When you are ready to undertake the survey, simple select the survey tab above and fill in the details. Once complete,
+	you can log out of the site and your supervisor will handle the rest.</p>
+
 <div class="Footer">
 	<h4>© Copyright Deakin University & Group 29 2018</h4>
 </div>
