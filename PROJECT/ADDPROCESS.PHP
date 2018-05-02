@@ -71,34 +71,53 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 
   <h2>Update Project</h2>
 <?php
-    $number=$_REQUEST['number'];
-    $brief=$_POST['brief'];
-    $status=$_POST['status'];
-    if(empty($brief)){
-        echo "<p>you need to input project brief</p>";
-    }else{
-    
-        required('../DATABASE/CONNECTDB.php');
-        mysqli_select_db($conn, "test");
-        
-        $sql="update project set PROJECT_BRIEF='$brief',PROJECT_STATUS='$status' where PROJECT_NUM=$number";
-        
-        $b=mysqli_query($conn,$sql);
-        
-         if(!$b){
-                echo "<p>fail</p>";
-          }else{
-                if(mysqli_affected_rows($conn)>0){
-                    echo "<p>success</p>";
-                    echo "<p><a href='proList.php'>back to project list</a></p>";
-                }else{
-                    return "<p>not affected rows</p>";
-                }
-            }
-    
-        mysqli_close($conn);
-    }
- 
+
+   $title=$_POST['title'];
+
+   $brief=$_POST['brief'];
+
+   $leader=$_POST['leader'];
+
+   $email=$_POST['email'];
+
+   $status="current";
+
+   if(empty($brief)){
+
+       echo "<p>you need to input project brief</p>";
+
+   }else{
+
+       REQUIRE('../DATABASE/CONNECTDB.PHP');
+
+       mysqli_select_db($conn, 'CORRAL_PROJECT');
+
+       $sql="insert into project (PROJECT_TITLE,PROJECT_BRIEF,PROJECT_LEADER, PROJECT_EMAIL, PROJECT_STATUS) values('$title','$brief','$leader', '$email', '$status')";
+
+       $b=mysqli_query($conn,$sql);
+
+        if(!$b){
+
+               echo "<p>fail</p>";
+
+         }else{
+
+               if(mysqli_affected_rows($conn)>0){
+
+                   echo "<p>success</p>";
+
+               }else{
+
+                   return "<p>not affected rows</p>";
+
+               }
+
+           }
+
+       mysqli_close($conn);
+
+   }
+
 ?>
 
 
