@@ -60,6 +60,7 @@ if ( $_SESSION['STAFF_ID'] != 1) {
             		<a href="../PROJECT/PROJECTLIST.php">Previous Projects</a>
 			<a href="../PROJECT/updatePro.php">Update Projects</a>
 		</div>
+	</div>
 	<a href="../PAGES/STAFFCONTACT.php">Contacts</a>
 	<a href="../PAGES/STAFFABOUTUS.php">About Us</a>
 	<a href="../ACCESS/stafflogout.php">Logout</a>
