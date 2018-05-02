@@ -1,6 +1,5 @@
 <?php
 session_start();
-
 if ( $_SESSION['STAFF_ID'] != 1) {
 	$_SESSION['message'] = "You mus log in before viewing this page";
 	header("location: ../ACCESS/error.php");
@@ -12,17 +11,36 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 	}
 ?>
 <!doctype html>
+
 <html>
+
 <head>
+
 <meta charset="utf-8">
-<title>Welcome <?= $staff_firstname.' '.$staff_lastname ?> </title>
+
+<title>Template</title>
 <link rel="stylesheet" type="text/css" href="../STYLES/stylesheet.css">
+<style>
+/*Picture wont float right?*/
+#stockpic
+{
+    float:right;
+}
+</style>
+
 </head>
 
+
+
 <body>
+
 <div class="Header">
-	<h1>Corral Project</h1>
+
+	<h1>The Corral Project</h1>
+
 </div>
+
+
 
 <div class="navbar">
 	<a href="../PAGES/STAFFHOME.php">Home</a>
@@ -42,17 +60,58 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 </div>
 
 
-<h2>Welcome <?= $staff_firstname. ' '.$staff_lastname?></h2>
-<p>You are logged in as <?= $staff_firstname?> at the moment.  From here you can look at the project form, past projects and resaults for project group parings. The following links below will give you to those pages.</p>
-<ul style="list-style-type:none">
-	<li><a href="../PROJECT/ADDPROJECT.php">Projects form</a></li>
-	<li><a href="#Results">Project results</a></li>
-	<li><a href="../PROJECT/PROJECTLIST.php">Past Projects</a></li>
-</ul><br><br>
-<p>If you wish to log out, please click the link below or the logout tab in the navigation bar above.</p>
-<p><a href="../ACCESS/stafflogout.php">Logout</a></p><br>
+
+<div id="contents">  <h2>Update Project</h2>
+
+<?php
+
+   $number=$_REQUEST['number'];
+
+   $brief=$_POST['brief'];
+
+   $status=$_POST['status'];
+
+   if(empty($brief)){
+
+       echo "<p>you need to input project brief</p>";
+
+   }else{        required('../DATABASE/CONNECTDB.php');
+
+       mysqli_select_db($conn, "test");        $sql="update project set PROJECT_BRIEF='$brief',PROJECT_STATUS='$status' where PROJECT_NUM=$number";        $b=mysqli_query($conn,$sql);         if(!$b){
+
+               echo "<p>fail</p>";
+
+         }else{
+
+               if(mysqli_affected_rows($conn)>0){
+
+                   echo "<p>success</p>";
+
+                   echo "<p><a href='proList.php'>back to project list</a></p>";
+
+               }else{
+
+                   return "<p>not affected rows</p>";
+
+               }
+
+           }
+
+   
+
+       mysqli_close($conn);
+
+   }?></div>
+
+
+<hr>
+
 <div class="Footer">
+
 	<h4>This is copyrighted by Deakin and the project group 29</h4>
+
 </div>
+
 </body>
+
 </html>
