@@ -1,3 +1,16 @@
+<?php
+session_start();
+
+if ( $_SESSION['STUDENT_ID'] != 1) {
+	$_SESSION['message'] = "You mus log in before viewing this page";
+	header("location: error.php");
+	}
+	else {
+	$id = $_SESSION['STUDENT_ID'];
+	$student_firstname = $_SESSION['STUDENT_FIRSTNAME'];
+	$student_lastname = $_SESSION['STUDENT_LASTNAME'];
+	}
+?>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
 <link rel="stylesheet" href="../styles/stylesheet.css" >
