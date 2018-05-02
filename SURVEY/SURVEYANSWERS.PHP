@@ -41,7 +41,7 @@ if ( $_SESSION['STUDENT_ID'] != 1) {
 			</p>
 			<br>
 
-			<FORM ACTION="SURVEYSUBMIT.PHP" METHOD="POST">
+			<FORM ACTION="../SURVERY/SURVEYSUBMIT.PHP" METHOD="POST">
 			<table>
 			<p>
 			<label for="LOCATION">1) Campus Location: </label>
