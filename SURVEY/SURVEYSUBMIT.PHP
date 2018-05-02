@@ -1,3 +1,16 @@
+<?php
+session_start();
+
+if ( $_SESSION['STUDENT_ID'] != 1) {
+	$_SESSION['message'] = "You mus log in before viewing this page";
+	header("location: ../ACCESS/error.php");
+	}
+	else {
+	$id = $_SESSION['STUDENT_ID'];
+	$student_firstname = $_SESSION['STUDENT_FIRSTNAME'];
+	$student_lastname = $_SESSION['STUDENT_LASTNAME'];
+	}
+?>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
 <link rel="stylesheet" href="../styles/stylesheet.css" >
@@ -43,20 +56,12 @@ REQUIRE('../DATABASE/CONNECTDB.PHP');
 
 <HTML>
    <BODY>
-	   <div class="navbar">
-	<a href="#Home">Home</a>
-	<a href="#Projects">Projects</a>
-	<a href="#Conatacts">Contacts</a>
-	<a href="#About Us">About Us</a>
-	<div class="dropdown">
-		<button class="dropbtn">Login
-			<i class="fa fa-caret-down"></i>
-		</button>
-		<div class="dropdown-content">
-			<a href="login.php">Students</a>
-			<a href="stafflogin.php">Teachers</a>
-		</div>
-	</div>
+<div class="navbar">
+	<a href="../PAGES/STUDENTHOME.php">Home</a>
+	<a href="../SURVEY/SURVEYANSWERS.php">Survey</a>
+	<a href="../PAGES/STUDENTCONTACT.php">Contacts</a>
+	<a href="../PAGES/STUDENTABOUTUS.php">About Us</a>
+	<a href="../Access/LOGOUT.php">Logout</a>
 </div>
 	  <DIV ID="MIDDLE">
 				<H1> SURVEY RESULTS </H1>
