@@ -81,7 +81,7 @@ if ( $_SESSION['STAFF_ID'] != 1) {
         echo "<p>you need to input project brief</p>";
     }else{
 
-        $conn=mysqli_connect('LOCALHOST', 'ADMIN', 'PASSWORD1') or die(mysqli_errno($conn));
+        REQUIRE('../DATABASE/CONNECTDB.PHP');
         mysqli_select_db($conn, 'CORRAL_PROJECT');
 
         $sql="insert into project (PROJECT_TITLE,PROJECT_BRIEF,PROJECT_LEADER, PROJECT_EMAIL, PROJECT_STATUS) values('$title','$brief','$leader', '$email', '$status')";
