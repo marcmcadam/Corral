@@ -66,13 +66,14 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 
 
 <div id="contents" >
-<h2>Add New Project</h2>
-<form action="../PROJECT/ADDPROCCESS.php" method="post">
-<p>Project Title &nbsp<input type="text" name="title"/></br></p>
-<p>Project Brief &nbsp<input type="text" name="brief"/></br></p>
-<p>Project Leader &nbsp<input type="text" name="leader"/></br></p>
-<p>Leader Email &nbsp<input type="text" name="email"/></br></p>
-<p><input type="submit" value="add">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="reset" value="reset"></p>
+<h2>Update Project</h2>
+<p>Project Number </p> 
+<p><form action="../PROJECT/ADDPROCESS.php" method="post"></p>
+<p><input type="text" name="number"/></p>
+<p>Project Brief </p> 
+<p><textarea name="brief" rows="5" cols="40"></textarea></br></p>
+<p>Project Status &nbsp</br></br><input type="radio" name="status" value="active"/>Active</br></br><input type="radio" name="status" value="inactive"/>Inactive</br></br><input type="radio" name="status" value="planning"/>Planning</br></br><input type="radio" name="status" value="cancelled"/>Cancelled</br></p>
+<p><input type="submit" value="update">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="reset" value="reset"></p>
 </form>
 </div>
 
