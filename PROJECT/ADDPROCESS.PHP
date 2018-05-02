@@ -54,12 +54,12 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 		<button class="dropbtn">Projects
 			<i class="fa fa-caret-down"></i>
 		</button>
-		<div class="dropdown-content">
-			<a href="../PROJECT/ADDPROJECT.php">Create a Project</a>
-			<a href="../PROJECT/PROJECTLIST.php">Make Groups</a>
-			<a href="../PROJECT/PROJECTLIST.php">Previous Projects</a>
-		</div>
-	</div>
+        	<div class="dropdown-content">
+            		<a href="../PROJECT/ADDPROJECT.php">Create a Project</a>
+            		<a href="../PROJECT/NEWGROUP.php">Make Groups</a>
+            		<a href="../PROJECT/GROUPLIST.php">Group List</a>
+            	<a href="../PROJECT/PROJECTLIST.php">Previous Projects</a>
+        	</div>
 	<a href="../PAGES/STAFFCONTACT.php">Contacts</a>
 	<a href="../PAGES/STAFFABOUTUS.php">About Us</a>
 	<a href="../ACCESS/stafflogout.php">Logout</a>
