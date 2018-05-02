@@ -19,9 +19,7 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 </head>
 
 <body>
-<div class="Header">
-	<h1>The Corral Project</h1>
-</div>
+
 
 <div class="navbar">
 	<a href="../PAGES/STAFFHOME.php">Home</a>
@@ -56,9 +54,9 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 <h3>Who can use the Corral Project?</h3>
 <p>The Corral Project has been primarily designed for students and teachers as an interface for sharing upcoming projects that students will take part in. However, The Corral Project can also be utilised by employers who desire a platform for showcase upcoming projects that require group work, as the Corral Project takes away the pain and time of assigning equal teams to different tasks. </p>
 <h3>What options do I have if I don't get the project I want?</h3>
-<p>Badluck (tbc)</p>
+<p>Changing projects is an option at the discretion of your teacher or employer, as we at the Corral Project do not oversee each team when they have been successful placed to a project.</p>
 <h3>Can I decline a project after already being accepted into it?</h3>
-<p>This depends on the nature of the project (tbc)</p>
+<p>This depends on the nature of the project (compulsory or on a volunteer-basis) but once again is at the discretion of those who have created the project. Please contact your supervisor directly.</p>
 <p>&nbsp;</p>
 
 <div class="Footer">
