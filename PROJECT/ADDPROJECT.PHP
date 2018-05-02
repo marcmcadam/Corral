@@ -20,7 +20,7 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 <meta charset="utf-8">
 
 <title>Add Project</title>
-<link rel="stylesheet" type="text/css" href="../STYLES/styleform.css">
+<link rel="stylesheet" type="text/css" href="../STYLES/stylesheet.css">
 <style>
 /*Picture wont float right?*/
 
@@ -68,7 +68,7 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 <div id="contents" >
 <h2>Update Project</h2>
 <p>Project Number </p> 
-<p><form action="../PROJECT/ADDPROCESS.php" method="post"></p>
+<p><form style="margin-left: 40px" action="../PROJECT/ADDPROCESS.php" method="post"></p>
 <p><input type="text" name="number"/></p>
 <p>Project Brief </p> 
 <p><textarea name="brief" rows="5" cols="40"></textarea></br></p>
