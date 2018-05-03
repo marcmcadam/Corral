@@ -50,10 +50,11 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 	<a href="../ACCESS/stafflogout.php">Logout</a>
 </div>
 <div id="contents">
-  <h2>Home Page</h2>
-<p>Welcome to the Corral Project. This site aims to provide staff and students with a platform to view and request access to upcoming projects. Through this platform, Staff/Teachers may upload projects for students, including details of the skills sets and numbers required for the job. Students who register can then complete a quick surveyd to determine their levels or proficency in certain areas such as IT and communication. The Corral Project takes this information, and provides Teachers with a list of suitable candidates for the positions available.
+	<h2>Welcome to the Corral Project</h2>
+<p>This site aims to provide staff and students with a platform to view and request access to upcoming projects. Through this platform, staff and teachers may upload projects for students, including details of the skills sets and numbers required for the job. Students who register can then complete a quick survey to determine their levels or proficency in certain areas such as IT and communication. The Corral Project takes this information, and provides Teachers with a list of suitable candidates for the positions available.
 
-	<br><br>For more information, please click About Us above.</p>
+
+  <br><br>For more information, please click <a href="STAFFABOUTUS.PHP">here</a></p>
 
   </div>
 </div>
