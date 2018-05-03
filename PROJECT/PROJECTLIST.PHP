@@ -73,10 +73,9 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 <?php
 
     require('../DATABASE/CONNECTDB.PHP');
-    mysqli_select_db($conn, 'CORRAL_PROJECT');
 
-    $sql="select * from project";
-    $res=mysqli_query($conn, $sql);
+    $sql="SELECT * FROM PROJECT";
+    $res=mysqli_query($CON, $sql);
 
     echo "<p><table width='400px' border='1px'></p>";
     echo "<tr><th>Project Number</th><th>Project Title</th><th>Project Leader</th><th>Leader Email</th><th>Project Brief</th><th>Project Status</th></tr>";
@@ -87,7 +86,10 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 
     echo "</table>";
     mysqli_free_result($res);
-    mysqli_close($conn);
+    mysqli_close($CON);
+
+
+
 
 ?>
 </div>
