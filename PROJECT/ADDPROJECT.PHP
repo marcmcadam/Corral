@@ -69,12 +69,16 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 
 <div id="contents" >
 <h2>Add New Project</h2>
-<form action="../PROJECT/ADDPROCESS.php" method="post">
-<p>Project Title &nbsp<input type="text" name="title"/></br></p>
-<p>Project Brief &nbsp<input type="text" name="brief"/></br></p>
-<p>Project Leader &nbsp<input type="text" name="leader"/></br></p>
-<p>Leader Email &nbsp<input type="text" name="email"/></br></p>
-<p><input type="submit" value="add">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="reset" value="reset"></p>
+<form action="ADDPROCESS.php" method="post">
+<p>Project Title &nbsp<br><input type="text" name="PROJECT_TITLE"/></br></p>
+<p>Project Leader &nbsp<br><input type="text" name="PROJECT_LEADER"/></br></p>
+<p>Leader Email &nbsp<br><input type="email" name="PROJECT_EMAIL"/></br></p>
+<p>Project Brief</br></p>
+<p><textarea name="PROJECT_BRIEF" rows="5" cols="40"></textarea></br></p>
+<p>Project Status &nbsp</br></br><input type="radio" name="PROJECT_STATUS" value="active"/>Active</br></br><input type="radio" name="PROJECT_STATUS" value="inactive"/>Inactive</br></br><input type="radio" name="PROJECT_STATUS" value="planning"/>Planning</br></br>
+<input type="radio" name="PROJECT_STATUS" value="cancelled"/>Cancelled</br></p>
+
+<p><input type="submit">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="reset" value="reset"></p>
 </form>
 </div>
 

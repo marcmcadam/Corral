@@ -69,27 +69,8 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 
 <div id="contents" >
 
-<h2>Group List</h2>
-<?php
+<h2>Group List - Under Construction</h2>
 
-    require('../DATABASE/CONNECTDB.PHP');
-    mysqli_select_db($conn, 'CORRAL_PROJECT');
-
-    $sql="select * from project";
-    $res=mysqli_query($conn, $sql);
-
-    echo "<p><table width='400px' border='1px'></p>";
-    echo "<tr><th>Group Number</th><th>Group Title</th><th>Group Leader</th><th>Leader Email</th><th>Project Brief</th><th>Project Status</th></tr>";
-
-    while ($row=mysqli_fetch_assoc($res)){
-        echo "<tr><td>{$row['PROJECT_NUM']}</td><td>{$row['PROJECT_TITLE']}</td><<td>{$row['PROJECT_LEADER']}</td><td>{$row['PROJECT_EMAIL']}</td><td>{$row['PROJECT_BRIEF']}</td><td>{$row['PROJECT_STATUS']}</td></tr>";
-    }
-
-    echo "</table>";
-    mysqli_free_result($res);
-    mysqli_close($conn);
-
-?>
 </div>
 
 
