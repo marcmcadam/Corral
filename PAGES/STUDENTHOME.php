@@ -41,14 +41,12 @@ if ( $_SESSION['STUDENT_ID'] != 1) {
   <img src="stockppl.jpg" alt"">
 <div id="contents">
   <h2>Home Page</h2>
-<p>Welcome to the Corral Project. This site aims to provide staff and students with a platform to view and request access to upcoming projects. Through this platform, Staff/Teachers may upload projects for students, including details of the skills sets and numbers required for the job. Students who register can then complete a quick surveyd to determine their levels or proficency in certain areas such as IT and communication. The Corral Project takes this information, and provides Teachers with a list of suitavble candidates for the positions available. For more information, please click About Us above.</p>
+<p>Welcome to the Corral Project. This site aims to provide staff and students with a platform to view and request access to upcoming projects. Through this platform, Staff/Teachers may upload projects for students, including details of the skills sets and numbers required for the job. Students who register can then complete a quick survey to determine their levels or proficency in certain areas such as IT and communication. The Corral Project takes this information, and provides Teachers with a list of suitable candidates for the positions available. For more information, please click About Us above.</p>
 
   </div>
 </div>
 
 <hr>
-<h2>Tempate</h2>
-<p>Template for the site</p>
 <p>&nbsp;</p>
 
 <div class="Footer">
