@@ -35,13 +35,13 @@ if ( $_SESSION['STUDENT_ID'] != 1) {
 			<h1>Student Survey</h1>
 		  <br>
 			<p>
-				When you are ready, select the dropdown and choose the option most relevant to your skills. Upon reaching the 'Skill Rating' section, simply enter in a skill
+				When you are ready, select the dropdown and choose the option most relevant to your skills. Upon reaching the 'Skill' section, simply enter in a skill
 				that you believe you are proficient in (networking, for example) and give it a rating. When you reach the lower sections, add some comments to help us match you
 				to a group that would benefit from the skills you possess.
 			</p>
 			<br>
 
-			<FORM ACTION="../SURVERY/SURVEYSUBMIT.PHP" METHOD="POST">
+			<FORM ACTION="../SURVEY/SURVEYSUBMIT.PHP" METHOD="POST">
 			<table>
 			<p>
 			<label for="LOCATION">1) Campus Location: </label>
