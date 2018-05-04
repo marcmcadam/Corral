@@ -57,12 +57,13 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 
 <div id="contents" >
 <h2>Update Project</h2>
-<p>Project Number </p> 
+<p>Project Number </p>
 <p><form action="../PROJECT/updateProcess.php" method="post"></p>
-<p><input type="text" name="number"/></p>
-<p>Project Brief </p> 
-<p><textarea name="brief" rows="5" cols="40"></textarea></br></p>
-<p>Project Status &nbsp</br></br><input type="radio" name="status" value="active"/>Active</br></br><input type="radio" name="status" value="inactive"/>Inactive</br></br><input type="radio" name="status" value="planning"/>Planning</br></br><input type="radio" name="status" value="cancelled"/>Cancelled</br></p>
+<p><input type="text" name="PROJECT_NUM"/></p>
+<p>Project Brief </p>
+<p><textarea name="PROJECT_BRIEF" rows="5" cols="40"></textarea></br></p>
+<p>Project Status &nbsp</br></br><input type="radio" name="PROJECT_STATUS" value="active"/>Active</br></br><input type="radio" name="PROJECT_STATUS" value="inactive"/>Inactive</br></br><input type="radio" name="PROJECT_STATUS" value="planning"/>Planning</br></br>
+<input type="radio" name="PROJECT_STATUS" value="cancelled"/>Cancelled</br></p>
 <p><input type="submit" value="update">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="reset" value="reset"></p>
 </form>
 </div>

@@ -12,17 +12,17 @@
 		var password = document.registration.STUDENT_PASSWORD.value
 		var upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 		var lower = "abcdefghijklmnopqrstuvwxyz"
-		
+
 			if (document.registration.STUDENT_ID.value.length < 9) {
 				alert("Invalid Student ID. Must be nine characters long")
 				return false
 			}
-			
+
 			if (document.registration.STUDENT_PASSWORD.value.length < 8) {
 				alert("Password is too short. It must be a minimum of eight characters long")
 				return false
 			}
-			
+
 			for (var i=0;i<document.registration.STUDENT_ID.value.length;i++) {
 			temp = document.registration.STUDENT_ID.value.substring(i,i+1)
 			if (digits.indexOf(temp)==-1) {
@@ -30,12 +30,12 @@
 			return false
 				}
 			}
-			
+
 			if (document.registration.reemail.value != email) {
 				alert("Emails don't match. Please make sure they are the same")
 				return false
 			}
-			
+
 			if (document.registration.cpassword.value != password) {
 				alert("Passwords don't match. Please ensure that they are the same")
 				return false
@@ -81,14 +81,14 @@
 	Re-type Email Address: <input type="text" name="reemail" size="40" required><br><br>
 	Password: <input type="password" name="STUDENT_PASSWORD" required><br><br>
 	Re-type Password: <input type="password" name="cpassword" required><br><br>
-	
+
 		<input type="submit" name="Submit" value="Submit">
 		<input type="reset" value="Clear Form"><br><br>
-	
+
 </form>
 
 
 <div class="Footer">
-	<h4>This is copy righted by Deakin and the project group 29</h4>
+	<h4>This is copyrighted by Deakin and the project group 29</h4>
 </div>
 </body>

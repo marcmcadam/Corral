@@ -67,7 +67,7 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 
 
 
-<div id="contents" >
+<div id="contents">
 
 <h2>Project List</h2>
 <?php

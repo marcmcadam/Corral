@@ -2,7 +2,7 @@
 session_start();
 
 if ( $_SESSION['STAFF_ID'] != 1) {
-	$_SESSION['message'] = "You mus log in before viewing this page";
+	$_SESSION['message'] = "You must log in before viewing this page";
 	header("location: ../ACCESS/error.php");
 	}
 	else {
@@ -71,56 +71,31 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 
 <div id="contents">
 
-  <h2>Update Project</h2>
-<?php
+  <h2>Project Added</h2>
+	<?PHP
+	REQUIRE('../DATABASE/CONNECTDB.PHP');
+	    // IF THE VALUES ARE POSTED, (CREATED BY MARC) INSERT THEM INTO THE DATABASE.
+	{
 
-   $title=$_POST['title'];
+	  $PROJECTTITLE = MYSQLI_REAL_ESCAPE_STRING($CON, $_POST['PROJECT_TITLE']);
+		$PROJECTBRIEF = MYSQLI_REAL_ESCAPE_STRING($CON, $_POST['PROJECT_BRIEF']);
+		$PROJECTLEADER = MYSQLI_REAL_ESCAPE_STRING($CON, $_POST['PROJECT_LEADER']);
+		$PROJECTEMAIL = MYSQLI_REAL_ESCAPE_STRING($CON, $_POST['PROJECT_EMAIL']);
+		$PROJECTSTATUS = MYSQLI_REAL_ESCAPE_STRING($CON, $_POST['PROJECT_STATUS']);
 
-   $brief=$_POST['brief'];
+	  $QUERY = "INSERT INTO PROJECT (PROJECT_TITLE, PROJECT_LEADER, PROJECT_EMAIL, PROJECT_BRIEF, PROJECT_STATUS)
+					   VALUES ('$PROJECTTITLE', '$PROJECTLEADER', '$PROJECTEMAIL', '$PROJECTBRIEF', '$PROJECTSTATUS')";
 
-   $leader=$_POST['leader'];
+	        $RESULT = MYSQLI_QUERY($CON, $QUERY);
+	        IF($RESULT){
+	            $SMSG = "PROJECT CREATED SUCCESSFULLY.";
+	        }ELSE{
+	            $FMSG ="PROJECT CREATION FAILED";
 
-   $email=$_POST['email'];
+	        }
+	    }
 
-   $status="current";
-
-   if(empty($brief)){
-
-       echo "<p>you need to input project brief</p>";
-
-   }else{
-
-       REQUIRE('../DATABASE/CONNECTDB.PHP');
-
-       mysqli_select_db($conn, 'CORRAL_PROJECT');
-
-       $sql="insert into project (PROJECT_TITLE,PROJECT_BRIEF,PROJECT_LEADER, PROJECT_EMAIL, PROJECT_STATUS) values('$title','$brief','$leader', '$email', '$status')";
-
-       $b=mysqli_query($conn,$sql);
-
-        if(!$b){
-
-               echo "<p>fail</p>";
-
-         }else{
-
-               if(mysqli_affected_rows($conn)>0){
-
-                   echo "<p>success</p>";
-
-               }else{
-
-                   return "<p>not affected rows</p>";
-
-               }
-
-           }
-
-       mysqli_close($conn);
-
-   }
-
-?>
+	    ?>
 
 
 

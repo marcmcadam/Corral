@@ -73,34 +73,35 @@ if ( $_SESSION['STAFF_ID'] != 1) {
   <h2>Update Project</h2>
 <?php
 
-    $number=$_REQUEST['number'];
-    $brief=$_POST['brief'];
-    $status=$_POST['status'];
+        require("../DATABASE/CONNECTDB.php");
+
+    $number=$_REQUEST['PROJECT_NUM'];
+    $brief=$_POST['PROJECT_BRIEF'];
+    $status=$_POST['PROJECT_STATUS'];
     if(empty($brief)){
         echo "<p>you need to input project brief</p>";
     }else{
-    
-        require("../DATABASE/CONNECTDB.php");
-        mysqli_select_db($conn, "test");
-        
-        $sql="update project set PROJECT_BRIEF='$brief',PROJECT_STATUS='$status' where PROJECT_NUM=$number";
-        
-        $b=mysqli_query($conn,$sql);
-        
+
+
+
+        $sql="UPDATE project SET PROJECT_BRIEF='$brief',PROJECT_STATUS='$status' WHERE PROJECT_NUM=$number";
+
+        $b=mysqli_query($con,$sql);
+
          if(!$b){
                 echo "<p>fail</p>";
           }else{
-                if(mysqli_affected_rows($conn)>0){
+                if(mysqli_affected_rows($con)>0){
                     echo "<p>success</p>";
                     echo "<p><a href='proList.php'>back to project list</a></p>";
                 }else{
                     return "<p>not affected rows</p>";
                 }
             }
-    
-        mysqli_close($conn);
+
+        mysqli_close($con);
     }
- 
+
 ?>
 
 

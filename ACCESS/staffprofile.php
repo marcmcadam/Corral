@@ -45,14 +45,15 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 
 
 <h2>Welcome <?= $staff_firstname. ' '.$staff_lastname?></h2>
-<p>You are logged in as <?= $staff_firstname?> at the moment.  From here you can look at the project form, past projects and resaults for project group parings. The following links below will give you to those pages.</p>
-<ul style="list-style-type:none">
+<p>From here you can look at the project form, past projects and results for project group pairings</p>
+
+<p>The following links below will get you to those pages:</p>
+<p><ul style="list-style-type:none">
 	<li><a href="../PROJECT/ADDPROJECT.php">Projects form</a></li>
 	<li><a href="#Results">Project results</a></li>
 	<li><a href="../PROJECT/PROJECTLIST.php">Past Projects</a></li>
-</ul><br><br>
-<p>If you wish to log out, please click the link below or the logout tab in the navigation bar above.</p>
-<p><a href="../ACCESS/stafflogout.php">Logout</a></p><br>
+</ul></p>
+<p>If you wish to log out, <a href="../ACCESS/stafflogout.php">click here</a></p>
 <div class="Footer">
 	<h4>This is copyrighted by Deakin and the project group 29</h4>
 </div>

@@ -39,7 +39,7 @@ require('../DATABASE/CONNECTDB.PHP');
       </form>
 
 <div class="Footer">
-	<h4>This is copy righted by Deakin and the project group 29</h4>
+	<h4>This is copyrighted by Deakin and the project group 29</h4>
 </div>
 <?php  //Start the Session
 
