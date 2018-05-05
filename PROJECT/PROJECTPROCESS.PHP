@@ -76,34 +76,41 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 
   <h2>Project Added</h2>
 	<?php
-
-	        require("../DATABASE/CONNECTDB.php");
+ require("../DATABASE/CONNECTDB.php");
 
 	    $number=$_REQUEST['PROJECT_NUM'];
+			$title=$_POST['PROJECT_TITLE'];
+			$leader=$_POST['PROJECT_LEADER'];
+			$email=$_POST['PROJECT_EMAIL'];
 	    $brief=$_POST['PROJECT_BRIEF'];
 	    $status=$_POST['PROJECT_STATUS'];
+
+
+
+
+
 	    if(empty($brief)){
 	        echo "<p>you need to input project brief</p>";
 	    }else{
 
 
 
-	        $sql="UPDATE project SET PROJECT_BRIEF='$brief',PROJECT_STATUS='$status' WHERE PROJECT_NUM=$number";
+	        $sql="UPDATE PROJECT SET PROJECT_TITLE='$title', PROJECT_LEADER='$leader', PROJECT_EMAIL='$email', PROJECT_BRIEF='$brief',PROJECT_STATUS='$status' WHERE PROJECT_NUM=$number";
 
-	        $b=mysqli_query($con,$sql);
+	        $b=mysqli_query($CON,$sql);
 
 	         if(!$b){
-	                echo "<p>fail</p>";
+	                echo "<p>Failed to update project</p>";
 	          }else{
-	                if(mysqli_affected_rows($con)>0){
-	                    echo "<p>success</p>";
-	                    echo "<p><a href='proList.php'>back to project list</a></p>";
+	                if(mysqli_affected_rows($CON)>0){
+	                    echo "<p>Project successfully updated</p>";
+	                    echo "<p><a href='PROJECTLIST.PHP'>Back to project list</a></p>";
 	                }else{
 	                    return "<p>not affected rows</p>";
 	                }
 	            }
 
-	        mysqli_close($con);
+	        mysqli_close($CON);
 	    }
 
 	?>
