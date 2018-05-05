@@ -53,12 +53,15 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 			<i class="fa fa-caret-down"></i>
 		</button>
         	<div class="dropdown-content">
-            		<a href="../PROJECT/ADDPROJECT.php">Create a Project</a>
-            		<a href="../PROJECT/NEWGROUP.php">Make Groups</a>
+            		<a href="../PROJECT/ADDPROJECT.php">Create Project</a>
+								<a href="../PROJECT/PROJECTLIST.php">Project List</a>
+								<a href="../PROJECT/PROJECTUPDATE.PHP">Update Project</a>
+            		<a href="../PROJECT/ADDGROUP.php">Create Group</a>
             		<a href="../PROJECT/GROUPLIST.php">Group List</a>
-            		<a href="../PROJECT/PROJECTLIST.php">Previous Projects</a>
-			<a href="../PROJECT/updatePro.php">Update Projects</a>
-		</div>
+								<a href="../PROJECT/GROUPUPDATE.PHP">Update Group</a>
+                <a href="../PROJECT/STUDENTLIST.php">Student List</a>
+                <a href="../PROJECT/STAFFLIST.php">Staff List</a>
+							</div>
 	</div>
 	<a href="../PAGES/STAFFCONTACT.php">Contacts</a>
 	<a href="../PAGES/STAFFABOUTUS.php">About Us</a>
@@ -77,16 +80,17 @@ if ( $_SESSION['STAFF_ID'] != 1) {
     $sql="SELECT * FROM PROJECT";
     $res=mysqli_query($CON, $sql);
 
-    echo "<p><table width='400px' border='1px'></p>";
-    echo "<tr><th>Project Number</th><th>Project Title</th><th>Project Leader</th><th>Leader Email</th><th>Project Brief</th><th>Project Status</th></tr>";
+    echo "<p><table width='1250px' height='150px' border='1px' cellpadding='10px' align='center'></p>";
+    echo "<tr><th>Project Num</th><th>Project Title</th><th>Project Leader</th><th>Leader Email</th><th>Project Brief</th><th>Project Status</th></tr>";
 
     while ($row=mysqli_fetch_assoc($res)){
-        echo "<tr><td>{$row['PROJECT_NUM']}</td><td>{$row['PROJECT_TITLE']}</td><<td>{$row['PROJECT_LEADER']}</td><td>{$row['PROJECT_EMAIL']}</td><td>{$row['PROJECT_BRIEF']}</td><td>{$row['PROJECT_STATUS']}</td></tr>";
+        echo "<tr><td align='center' width='70px'>{$row['PROJECT_NUM']}</td><td align='center' width='175px'>{$row['PROJECT_TITLE']}</td><td align='center' width='180px'>{$row['PROJECT_LEADER']}</td><td align='center' width='220px'>{$row['PROJECT_EMAIL']}</td><td align='center'  width='500px'>{$row['PROJECT_BRIEF']}</td><td align='center' width='100px'>{$row['PROJECT_STATUS']}</td></tr>";
     }
 
     echo "</table>";
     mysqli_free_result($res);
     mysqli_close($CON);
+
 
 
 

@@ -2,7 +2,7 @@
 session_start();
 
 if ( $_SESSION['STAFF_ID'] != 1) {
-	$_SESSION['message'] = "You mus log in before viewing this page";
+	$_SESSION['message'] = "You must log in before viewing this page";
 	header("location: ../ACCESS/error.php");
 	}
 	else {
@@ -19,7 +19,7 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 
 <meta charset="utf-8">
 
-<title>Project List</title>
+<title>Template</title>
 <link rel="stylesheet" type="text/css" href="../STYLES/stylesheet.css">
 <style>
 /*Picture wont float right?*/
@@ -46,6 +46,8 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 
 </div>
 
+
+
 <div class="navbar">
 	<a href="../PAGES/STAFFHOME.php">Home</a>
 	<div class="dropdown">
@@ -70,15 +72,40 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 
 
 
-<div id="contents" >
+<div id="contents">
 
-<h2>Group List - Under Construction</h2>
+  <h2>Project Added</h2>
+	<?PHP
+	REQUIRE('../DATABASE/CONNECTDB.PHP');
+	    // IF THE VALUES ARE POSTED, (CREATED BY MARC) INSERT THEM INTO THE DATABASE.
+	{
+
+	  $PROJECTTITLE = MYSQLI_REAL_ESCAPE_STRING($CON, $_POST['PROJECT_TITLE']);
+		$PROJECTBRIEF = MYSQLI_REAL_ESCAPE_STRING($CON, $_POST['PROJECT_BRIEF']);
+		$PROJECTLEADER = MYSQLI_REAL_ESCAPE_STRING($CON, $_POST['PROJECT_LEADER']);
+		$PROJECTEMAIL = MYSQLI_REAL_ESCAPE_STRING($CON, $_POST['PROJECT_EMAIL']);
+		$PROJECTSTATUS = MYSQLI_REAL_ESCAPE_STRING($CON, $_POST['PROJECT_STATUS']);
+
+	  $QUERY = "INSERT INTO PROJECT (PROJECT_TITLE, PROJECT_LEADER, PROJECT_EMAIL, PROJECT_BRIEF, PROJECT_STATUS)
+					   VALUES ('$PROJECTTITLE', '$PROJECTLEADER', '$PROJECTEMAIL', '$PROJECTBRIEF', '$PROJECTSTATUS')";
+
+	        $RESULT = MYSQLI_QUERY($CON, $QUERY);
+	        IF($RESULT){
+	            $SMSG = "PROJECT CREATED SUCCESSFULLY.";
+	        }ELSE{
+	            $FMSG ="PROJECT CREATION FAILED";
+
+	        }
+	    }
+
+	    ?>
+
+
 
 </div>
 
 
 <hr>
-
 
 <div class="Footer">
 

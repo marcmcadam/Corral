@@ -72,7 +72,7 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 
 <div id="contents" >
 
-<h2>Group List - Under Construction</h2>
+<h2>Create Group - Under Construction</h2>
 
 </div>
 
