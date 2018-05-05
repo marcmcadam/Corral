@@ -56,7 +56,7 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 	<li><a href="#Results">Project results</a></li>
 	<li><a href="../PROJECT/PROJECTLIST.php">Past Projects</a></li>
 </ul></p>
-<p>If you wish to log out, <a href="../ACCESS/stafflogout.php">click here</a></p>
+<p>If you wish to log out, <a href="../PAGES/STAFFLOGOUT.PHP">click here</a></p>
 <div class="Footer">
 	<h4>This is copyrighted by Deakin and the project group 29</h4>
 </div>

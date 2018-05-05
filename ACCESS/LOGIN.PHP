@@ -16,7 +16,7 @@ REQUIRE('../DATABASE/CONNECTDB.PHP');
 
 <div class="navbar">
 	<a href="../PAGES/HOME.html">Home</a>
-	<a href="../PAGES/REGISTER.html">Projects</a>
+	<a href="../PAGES/REGISTER.html">Survey</a>
 	<a href="../PAGES/CONTACT.html">Contacts</a>
 	<a href="../PAGES/ABOUTUS.html">About Us</a>
 	<div class="dropdown">
@@ -71,7 +71,7 @@ $id = $_SESSION['STUDENT_ID'];
 $student_firstname = $_SESSION['STUDENT_FIRSTNAME'];
 $student_lastname = $_SESSION['STUDENT_LASTNAME'];
 $_SESSION['STUDENT_ID'] = true;
-header("location: ../ACCESS/Profile.php");
+header("location: ../PAGES/STUDENTPROFILE.PHP");
 }
 //3.2 When the user visits the page first time, simple login form will be displayed.
 ?>

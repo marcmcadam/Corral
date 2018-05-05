@@ -2,5 +2,5 @@
 session_start();
 session_unset();
 session_destroy();
-header('Location: ../Access/login.php');
+header('Location: ../ACCESS/LOGIN.PHP');
 ?>
