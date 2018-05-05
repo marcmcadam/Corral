@@ -77,6 +77,9 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 
     require('../DATABASE/CONNECTDB.PHP');
 
+
+
+
     $sql="SELECT * FROM PROJECT";
     $res=mysqli_query($CON, $sql);
 

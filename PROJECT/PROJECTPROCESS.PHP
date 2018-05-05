@@ -75,34 +75,38 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 <div id="contents">
 
   <h2>Project Added</h2>
-	<?PHP
-	REQUIRE('../DATABASE/CONNECTDB.PHP');
-	    // IF THE VALUES ARE POSTED, (CREATED BY MARC) INSERT THEM INTO THE DATABASE.
-	{
+	<?php
 
-	  $PROJECTTITLE = MYSQLI_REAL_ESCAPE_STRING($CON, $_POST['PROJECT_TITLE']);
-		$PROJECTBRIEF = MYSQLI_REAL_ESCAPE_STRING($CON, $_POST['PROJECT_BRIEF']);
-		$PROJECTLEADER = MYSQLI_REAL_ESCAPE_STRING($CON, $_POST['PROJECT_LEADER']);
-		$PROJECTEMAIL = MYSQLI_REAL_ESCAPE_STRING($CON, $_POST['PROJECT_EMAIL']);
-		$PROJECTSTATUS = MYSQLI_REAL_ESCAPE_STRING($CON, $_POST['PROJECT_STATUS']);
+	        require("../DATABASE/CONNECTDB.php");
 
-	  $QUERY = "INSERT INTO PROJECT (PROJECT_TITLE, PROJECT_LEADER, PROJECT_EMAIL, PROJECT_BRIEF, PROJECT_STATUS)
-					   VALUES ('$PROJECTTITLE', '$PROJECTLEADER', '$PROJECTEMAIL', '$PROJECTBRIEF', '$PROJECTSTATUS')";
+	    $number=$_REQUEST['PROJECT_NUM'];
+	    $brief=$_POST['PROJECT_BRIEF'];
+	    $status=$_POST['PROJECT_STATUS'];
+	    if(empty($brief)){
+	        echo "<p>you need to input project brief</p>";
+	    }else{
 
-	        $RESULT = MYSQLI_QUERY($CON, $QUERY);
-	        IF($RESULT){
-	            $SMSG = "PROJECT CREATED SUCCESSFULLY.";
-	        }ELSE{
-	            $FMSG ="PROJECT CREATION FAILED";
 
-	        }
+
+	        $sql="UPDATE project SET PROJECT_BRIEF='$brief',PROJECT_STATUS='$status' WHERE PROJECT_NUM=$number";
+
+	        $b=mysqli_query($con,$sql);
+
+	         if(!$b){
+	                echo "<p>fail</p>";
+	          }else{
+	                if(mysqli_affected_rows($con)>0){
+	                    echo "<p>success</p>";
+	                    echo "<p><a href='proList.php'>back to project list</a></p>";
+	                }else{
+	                    return "<p>not affected rows</p>";
+	                }
+	            }
+
+	        mysqli_close($con);
 	    }
 
-	    ?>
-
-
-
-</div>
+	?>
 
 
 <hr>
