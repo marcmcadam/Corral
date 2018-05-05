@@ -70,13 +70,13 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 <h2>Update Project</h2>
 <p><form action="../PROJECT/PROJECTPROCESS.PHP" method="post"></p>
 <p>Project Number </p>
-<p><input type="text" name="PROJECT_NUM"/></p>
+<p><input type="number" name="PROJECT_NUM"/></p>
 <p>Project Title </p>
 <p><input type="text" name="PROJECT_TITLE"/></p>
 <p>Project Leader </p>
 <p><input type="text" name="PROJECT_LEADER"/></p>
 <p>Leader Email </p>
-<p><input type="text" name="PROJECT_EMAIL"/></p>
+<p><input type="email" name="PROJECT_EMAIL"/></p>
 <p>Project Brief </p>
 <p><textarea name="PROJECT_BRIEF" rows="5" cols="40"></textarea></br></p>
 <p>Project Status &nbsp</br></br><input type="radio" name="PROJECT_STATUS" value="active"/>Active</br></br><input type="radio" name="PROJECT_STATUS" value="inactive"/>Inactive</br></br><input type="radio" name="PROJECT_STATUS" value="planning"/>Planning</br></br>
