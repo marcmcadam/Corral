@@ -26,7 +26,7 @@ if ( $_SESSION['STUDENT_ID'] != 1) {
 
 <div class="navbar">
 	<a href="../PAGES/STUDENTHOME.php">Home</a>
-	<a href="../SURVEY/SURVEYANSWERS.php">Survey</a>
+	<a href="../SURVEY/STUDENTSURVEY.PHP">Survey</a>
 	<a href="../PAGES/STUDENTCONTACT.php">Contacts</a>
 	<a href="../PAGES/STUDENTABOUTUS.php">About Us</a>
 	<a href="../Access/LOGOUT.php">Logout</a>

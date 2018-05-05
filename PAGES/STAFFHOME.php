@@ -38,17 +38,21 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 			<i class="fa fa-caret-down"></i>
 		</button>
         	<div class="dropdown-content">
-            		<a href="../PROJECT/ADDPROJECT.php">Create a Project</a>
-            		<a href="../PROJECT/NEWGROUP.php">Make Groups</a>
+            		<a href="../PROJECT/ADDPROJECT.php">Create Project</a>
+								<a href="../PROJECT/PROJECTLIST.php">Project List</a>
+								<a href="../PROJECT/PROJECTUPDATE.PHP">Update Project</a>
+            		<a href="../PROJECT/NEWGROUP.php">Create Group</a>
             		<a href="../PROJECT/GROUPLIST.php">Group List</a>
-            		<a href="../PROJECT/PROJECTLIST.php">Previous Projects</a>
-			<a href="../PROJECT/updatePro.php">Update Projects</a>
-		</div>
+								<a href="../PROJECT/PROJECTUPDATE.PHP">Update Group</a>
+                <a href="../PROJECT/STUDENTLIST.php">Student List</a>
+                <a href="../PROJECT/STAFFLIST.php">Staff List</a>
+							</div>
 	</div>
 	<a href="../PAGES/STAFFCONTACT.php">Contacts</a>
 	<a href="../PAGES/STAFFABOUTUS.php">About Us</a>
 	<a href="../ACCESS/stafflogout.php">Logout</a>
 </div>
+
 <div id="contents">
 	<h2>Welcome to the Corral Project</h2>
 <p>This site aims to provide staff and students with a platform to view and request access to upcoming projects. Through this platform, staff and teachers may upload projects for students, including details of the skills sets and numbers required for the job. Students who register can then complete a quick survey to determine their levels or proficency in certain areas such as IT and communication. The Corral Project takes this information, and provides Teachers with a list of suitable candidates for the positions available.

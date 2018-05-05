@@ -31,17 +31,21 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 			<i class="fa fa-caret-down"></i>
 		</button>
         	<div class="dropdown-content">
-            		<a href="../PROJECT/ADDPROJECT.php">Create a Project</a>
-            		<a href="../PROJECT/NEWGROUP.php">Make Groups</a>
+            		<a href="../PROJECT/ADDPROJECT.php">Create Project</a>
+								<a href="../PROJECT/PROJECTLIST.php">Project List</a>
+								<a href="../PROJECT/PROJECTUPDATE.PHP">Update Project</a>
+            		<a href="../PROJECT/ADDGROUP.php">Create Group</a>
             		<a href="../PROJECT/GROUPLIST.php">Group List</a>
-            		<a href="../PROJECT/PROJECTLIST.php">Previous Projects</a>
-			<a href="../PROJECT/updatePro.php">Update Projects</a>
-		</div>
+								<a href="../PROJECT/GROUPUPDATE.PHP">Update Group</a>
+                <a href="../PROJECT/STUDENTLIST.php">Student List</a>
+                <a href="../PROJECT/STAFFLIST.php">Staff List</a>
+							</div>
 	</div>
 	<a href="../PAGES/STAFFCONTACT.php">Contacts</a>
 	<a href="../PAGES/STAFFABOUTUS.php">About Us</a>
 	<a href="../ACCESS/stafflogout.php">Logout</a>
 </div>
+
 <div id="contents">
 <h2>Contact Us</h2>
 <p>Although the Corral Project is designed to make communcation between team members and employers/teachers more efficient when dealing with group projects, we understand that some individuals might still want some questions answered. If you do have any questions, please first check out our 'About Us' page as we do have a frequently asked questions section.

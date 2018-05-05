@@ -41,6 +41,7 @@ $password = mysqli_real_escape_string($CON, $_POST['STAFF_PASSWORD']);
 		</div>
 	</div>
 </div>
+
 <?php
 $query = "INSERT INTO STAFF (STAFF_ID, STAFF_FIRSTNAME, STAFF_LASTNAME, STAFF_LOCATION, STAFF_EMAIL, STAFF_PASSWORD) VALUES ('$id', '$firstname', '$lastname', '$location', '$email', '$password')";
 $result = mysqli_query($CON, $query);
