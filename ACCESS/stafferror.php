@@ -35,11 +35,11 @@ require('../DATABASE/CONNECTDB.PHP');
     <input type="text" name="STAFF_ID" placeholder="Staff ID" required><br><br>
         <input type="password" name="STAFF_PASSWORD" id="inputPassword" placeholder="Password" required><br><br>
         <button type="submit">LOGIN</button>
-        <a href="../PAGES/staffregistration.html">REGISTER</a><br><br>
+        <a href="../PAGES/STAFFREGISTRATION.HTML">REGISTER</a><br><br>
       </form>
 <p>Login error, Credentials do not match. Please try again.</p>
 <div class="Footer">
-	<h4>This is copy righted by Deakin and the project group 29</h4>
+	<h4>This is copyrighted by Deakin and the project group 29</h4>
 </div>
 <?php  //Start the Session
 
