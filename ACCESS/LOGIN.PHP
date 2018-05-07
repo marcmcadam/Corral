@@ -16,7 +16,7 @@ REQUIRE('../DATABASE/CONNECTDB.PHP');
 
 <div class="navbar">
 	<a href="../PAGES/HOME.html">Home</a>
-	<a href="../PAGES/REGISTER.html">Survey</a>
+	<a href="../ACCESS/REGISTER.html">Register</a>
 	<a href="../PAGES/CONTACT.html">Contacts</a>
 	<a href="../PAGES/ABOUTUS.html">About Us</a>
 	<div class="dropdown">
