@@ -32,7 +32,7 @@ require('../DATABASE/CONNECTDB.PHP');
       <form method="POST">
         <h2>Please Log In</h2>
     <span class="input-group-addon" id="basic-addon1"></span>
-    <input type="text" name="STUDENT_ID" placeholder="Student ID" required><br><br>
+    <input type="text" name="STUDENT_ID" placeholder="Student ID" id="id2" required><br><br>
         <input type="password" name="STUDENT_PASSWORD" id="id2" placeholder="Password" required><br><br>
         <button type="submit">LOGIN</button>
         <a href="../PAGES/REGISTER.html">REGISTER</a><br><br>
