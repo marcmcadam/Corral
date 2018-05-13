@@ -35,7 +35,7 @@ REQUIRE('../DATABASE/CONNECTDB.PHP');
     <input type="text" name="STUDENT_ID" placeholder="Student ID" required><br><br>
         <input type="password" name="STUDENT_PASSWORD" id="inputPassword" placeholder="Password" required><br><br>
         <button type="submit">LOGIN</button>
-        <button type="button" onclick="location.href='../ACCESS/REGISTER.html';" vaule="Register" /></button>REGISTER<br><br>
+        <button type="button" onclick="location.href='../ACCESS/REGISTER.html';" vaule="Register" />REGISTER</button><br><br>
       </form>
 
 <div class="Footer">
