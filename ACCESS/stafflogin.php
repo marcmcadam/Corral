@@ -35,7 +35,7 @@ require('../DATABASE/CONNECTDB.PHP');
     <input type="text" name="STAFF_ID" placeholder="STAFF ID" required><br><br>
         <input type="password" name="STAFF_PASSWORD" id="inputPassword" placeholder="Password" required><br><br>
         <button type="submit">LOGIN</button>
-        <a href="../PAGES/STAFFREGISTRATION.HTML">REGISTER</a><br><br>
+        <button type="button" onclick="location.href='../PAGES/STAFFREGISTRATION.HTML';" vaule="Register" />REGISTER</button><br><br>
       </form>
 
 <div class="Footer">
