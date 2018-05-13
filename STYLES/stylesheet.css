@@ -133,10 +133,23 @@ a {
     display: block;
 }
 
+form {
+	margin-left: 35%;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
 #ip2 {
     border-radius: 25px;
     border: 1px;
     padding: 20px; 
     width: 200px;
     height: 1px;    
+}
+
+#ip3 {
+    border-radius: 25px;
+    border: 1px;
+    padding: 20px; 
+    width: 350px;
+    height: 150px;    
 }
