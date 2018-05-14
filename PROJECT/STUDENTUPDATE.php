@@ -39,7 +39,7 @@ $_SESSION['number']=$_GET['number'];
 
 <div class="Header">
 
-	<h1>The Corral Project</h1>
+	<h1>Corral</h1>
 
 </div>
 
