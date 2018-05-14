@@ -21,7 +21,7 @@ if ( $_SESSION['STUDENT_ID'] != 1) {
 
 <body>
 <div class="Header">
-	<h1>Corral Project</h1>
+	<h1>Corral</h1>
 </div>
 
 <div class="navbar">
@@ -34,7 +34,7 @@ if ( $_SESSION['STUDENT_ID'] != 1) {
 
 <div id="contents">
 <h2>Contact Us</h2>
-<p>Although the Corral Project is designed to make communcation between team members and employers/teachers more efficient when dealing with group projects, we understand that some individuals might still want some questions answered. If you do have any questions, please first check out our 'About Us' page as we do have a frequently asked questions section.
+<p>Although Corral is designed to make communcation between team members and employers/teachers more efficient when dealing with group projects, we understand that some individuals might still want some questions answered. If you do have any questions, please first check out our 'About Us' page as we do have a frequently asked questions section.
 
 <hr>
 <h2>Tell Us What You Think!</h2>
