@@ -153,3 +153,8 @@ form {
     width: 350px;
     height: 150px;    
 }
+
+h3 {
+	margin-left: 40px;
+	font-family: Arial, Helvetica,;
+}
