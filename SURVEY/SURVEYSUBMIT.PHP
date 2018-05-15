@@ -57,7 +57,7 @@ REQUIRE('../DATABASE/CONNECTDB.PHP');
 <HTML>
    <BODY>
 <div class="Header">
-	<h1>Corral</h1>
+
 </div>
 <div class="navbar">
 	<a href="../PAGES/STUDENTHOME.php">Home</a>

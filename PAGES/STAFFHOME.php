@@ -28,7 +28,7 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 
 <body>
 <div class="Header">
-	<h1>The Corral</h1>
+
 </div>
 
 <div class="navbar">

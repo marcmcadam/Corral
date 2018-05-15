@@ -9,7 +9,7 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 	$staff_firstname = $_SESSION['STAFF_FIRSTNAME'];
 	$staff_lastname = $_SESSION['STAFF_LASTNAME'];
 	}
-	
+
 $_SESSION['number']=$_GET['number'];
 
 ?>
@@ -39,7 +39,7 @@ $_SESSION['number']=$_GET['number'];
 
 <div class="Header">
 
-	<h1>Corral</h1>
+
 
 </div>
 
@@ -60,7 +60,7 @@ $_SESSION['number']=$_GET['number'];
 								<a href="../PROJECT/GROUPUPDATE.PHP">Update Group</a>
                 <a href="../PROJECT/STUDENTLIST.php">Student List</a>
                 <a href="../PROJECT/STAFFLIST.php">Staff List</a>
-				
+
 							</div>
 	</div>
 	<a href="../PAGES/STAFFCONTACT.php">Contacts</a>

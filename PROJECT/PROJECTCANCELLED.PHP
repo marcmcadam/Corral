@@ -18,7 +18,7 @@
 
 <div class="Header">
 
-	<h1>Corral</h1>
+
 
 </div>
 

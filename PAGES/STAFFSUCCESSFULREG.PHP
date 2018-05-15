@@ -20,7 +20,7 @@ $password = mysqli_real_escape_string($CON, $_POST['STAFF_PASSWORD']);
 ?>
 <div class="Header">
 
-	<h1>Corral</h1>
+
 
 </div>
 

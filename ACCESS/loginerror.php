@@ -11,7 +11,7 @@ require('../DATABASE/CONNECTDB.PHP');
 </head>
 
 <div class="Header">
-	<h1>Corral</h1>
+
 </div>
 
 <div class="navbar">

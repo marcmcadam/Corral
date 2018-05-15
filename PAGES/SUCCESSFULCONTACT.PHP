@@ -37,7 +37,7 @@ $headers = "Reply-To: $email \r\n";
 
  <div class="Header">
 
- 	<h1>Corral</h1>
+ 
 
  </div>
 

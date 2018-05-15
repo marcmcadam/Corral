@@ -260,7 +260,7 @@ h2 {
 
 <div class="Header">
 
-<h1>The Corral Project</h1>
+
 
 </div>
 

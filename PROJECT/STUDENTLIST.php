@@ -260,7 +260,7 @@ h2 {
 
 <div class="Header">
 
-<h1>The Corral Project</h1>
+
 
 </div>
 
@@ -281,7 +281,7 @@ h2 {
 								<a href="../PROJECT/GROUPUPDATE.PHP">Update Group</a>
                 <a href="../PROJECT/STUDENTLIST.php">Student List</a>
 			    <a href="../PROJECT/STAFFLIST.php">Staff List</a>
-					
+
 							</div>
 	</div>
 	<a href="../PAGES/STAFFCONTACT.php">Contacts</a>

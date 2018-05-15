@@ -42,7 +42,7 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 
 <div class="Header">
 
-	<h1>Corral</h1>
+
 
 </div>
 
@@ -78,7 +78,7 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 	<?php
  require("../DATABASE/CONNECTDB.php");
 
-	
+
 			$title=$_POST['PROJECT_TITLE'];
 			$leader=$_POST['PROJECT_LEADER'];
 			$email=$_POST['PROJECT_EMAIL'];

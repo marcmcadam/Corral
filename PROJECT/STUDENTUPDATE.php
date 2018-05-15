@@ -1,6 +1,6 @@
 <?php
 session_start();
-/*if ( $_SESSION['STAFF_ID'] != 1) {
+*if ( $_SESSION['STAFF_ID'] != 1) {
 	$_SESSION['message'] = "You mus log in before viewing this page";
 	header("location: ../ACCESS/error.php");
 	}
@@ -9,7 +9,7 @@ session_start();
 	$staff_firstname = $_SESSION['STAFF_FIRSTNAME'];
 	$staff_lastname = $_SESSION['STAFF_LASTNAME'];
 	}*/
-	
+
 $_SESSION['number']=$_GET['number'];
 
 ?>
@@ -39,7 +39,7 @@ $_SESSION['number']=$_GET['number'];
 
 <div class="Header">
 
-	<h1>Corral</h1>
+
 
 </div>
 
@@ -60,7 +60,7 @@ $_SESSION['number']=$_GET['number'];
 								<a href="../PROJECT/GROUPUPDATE.PHP">Update Group</a>
                 <a href="../PROJECT/STUDENTLIST.php">Student List</a>
                 <a href="../PROJECT/STAFFLIST.php">Staff List</a>
-				
+
 							</div>
 	</div>
 	<a href="../PAGES/STAFFCONTACT.php">Contacts</a>
@@ -76,13 +76,13 @@ $_SESSION['number']=$_GET['number'];
 <p>Student number <?php echo $_GET['number'];?></p>
 
 <p>Firstname </p>
-<p><input type="text" name="STUDENT_FIRSTNAME" value="<?php echo $_GET['firstname'];?>" id="ip2"/></p>
+<p><input type="text" name="STUDENT_FIRSTNAME" value="<?php echo $_GET['firstname'];?>"/></p>
 <p>Lastname </p>
-<p><input type="text" name="STUDENT_LASTNAME" value="<?php echo $_GET['lastname'];?>" id="ip2"/></p>
+<p><input type="text" name="STUDENT_LASTNAME" value="<?php echo $_GET['lastname'];?>"/></p>
 <p>Location </p>
-<p><input type="text" name="STUDENT_LOCATION" value="<?php echo $_GET['location'];?>" id="ip2"/></p>
+<p><input type="text" name="STUDENT_LOCATION" value="<?php echo $_GET['location'];?>"/></p>
 <p>Email </p>
-<p><input type="text" name="STUDENT_EMAIL" value="<?php echo $_GET['email'];?>" id="ip2"/></p>
+<p><input type="text" name="STUDENT_EMAIL" value="<?php echo $_GET['email'];?>"/></p>
 
 <p><input type="submit" value="update">&nbsp&nbsp<input type="reset" value="reset"></p>
 </form>

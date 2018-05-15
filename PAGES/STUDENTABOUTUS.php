@@ -20,7 +20,7 @@ if ( $_SESSION['STUDENT_ID'] != 1) {
 
 <body>
 <div class="Header">
-	<h1>Corral</h1>
+
 </div>
 
 <div class="navbar">

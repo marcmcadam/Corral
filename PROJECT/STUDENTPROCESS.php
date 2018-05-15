@@ -41,7 +41,7 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 
 <div class="Header">
 
-	<h1>Corral</h1>
+
 
 </div>
 
@@ -77,7 +77,7 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 	<?php
  require("../DATABASE/CONNECTDB.php");
 
-		
+
 		$number=$_SESSION['number'];
 		$firstname=$_POST['STUDENT_FIRSTNAME'];
 		$lastname=$_POST['STUDENT_LASTNAME'];

@@ -40,7 +40,7 @@ mail($to,$email_subject,$email_body,$headers);
  ?>
  <div class="Header">
 
- 	<h1>Corral</h1>
+
 
  </div>
 
