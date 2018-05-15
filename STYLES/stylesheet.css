@@ -39,7 +39,7 @@ body {
 }
 
 .Header {
-	background-color: #333;
+	background-color: #007399;
 	font-family: Arial, Helvetica, sans-serif;
 	color: white;
 	text-align: center;
@@ -48,7 +48,7 @@ body {
 
 .Footer {
 	padding: 20px;
-	background-color: #333;
+	background-color: #007399;
 	color: white;
 	text-align: center;
 	font-family: Arial, Helvetica, sans-serif;
@@ -68,7 +68,7 @@ h2 {
 /* The navagation bar for the site, linked to the drop downs */
 	.navbar {
     overflow: hidden;
-    background-color: #333;
+    background-color: #007399;
     font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -104,7 +104,7 @@ a {
 }
 
 .navbar a:hover, .dropdown:hover .dropbtn {
-    background-color: red;
+    background-color: #0086b3;
 }
 
 .dropdown-content {
@@ -131,4 +131,30 @@ a {
 
 .dropdown:hover .dropdown-content {
     display: block;
+}
+
+form {
+	margin-left: 35%;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+#ip2 {
+    border-radius: 25px;
+    border: 1px;
+    padding: 20px; 
+    width: 200px;
+    height: 1px;    
+}
+
+#ip3 {
+    border-radius: 25px;
+    border: 1px;
+    padding: 20px; 
+    width: 350px;
+    height: 150px;    
+}
+
+h3 {
+	margin-left: 40px;
+	font-family: Arial, Helvetica,;
 }

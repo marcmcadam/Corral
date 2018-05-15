@@ -11,7 +11,7 @@ require('../DATABASE/CONNECTDB.PHP');
 </head>
 
 <div class="Header">
-	<h1>Corral Project</h1>
+	<h1>Corral</h1>
 </div>
 
 <div class="navbar">
@@ -32,10 +32,10 @@ require('../DATABASE/CONNECTDB.PHP');
       <form method="POST">
         <h2>Please Log In</h2>
     <span class="input-group-addon" id="basic-addon1"></span>
-    <input type="text" name="STAFF_ID" placeholder="STAFF ID" required><br><br>
-        <input type="password" name="STAFF_PASSWORD" id="inputPassword" placeholder="Password" required><br><br>
+    <input type="text" name="STAFF_ID" placeholder="STAFF ID" id="ip2" required><br><br>
+        <input type="password" name="STAFF_PASSWORD" id="ip2" placeholder="Password" required><br><br>
         <button type="submit">LOGIN</button>
-        <a href="../PAGES/STAFFREGISTRATION.HTML">REGISTER</a><br><br>
+        <button type="button" onclick="location.href='../PAGES/STAFFREGISTRATION.HTML';" vaule="Register" />REGISTER</button><br><br>
       </form>
 
 <div class="Footer">

@@ -39,7 +39,7 @@ $_SESSION['number']=$_GET['number'];
 
 <div class="Header">
 
-	<h1>The Corral Project</h1>
+	<h1>Corral</h1>
 
 </div>
 
@@ -76,13 +76,13 @@ $_SESSION['number']=$_GET['number'];
 <p>Student number <?php echo $_GET['number'];?></p>
 
 <p>Firstname </p>
-<p><input type="text" name="STUDENT_FIRSTNAME" value="<?php echo $_GET['firstname'];?>"/></p>
+<p><input type="text" name="STUDENT_FIRSTNAME" value="<?php echo $_GET['firstname'];?>" id="ip2"/></p>
 <p>Lastname </p>
-<p><input type="text" name="STUDENT_LASTNAME" value="<?php echo $_GET['lastname'];?>"/></p>
+<p><input type="text" name="STUDENT_LASTNAME" value="<?php echo $_GET['lastname'];?>" id="ip2"/></p>
 <p>Location </p>
-<p><input type="text" name="STUDENT_LOCATION" value="<?php echo $_GET['location'];?>"/></p>
+<p><input type="text" name="STUDENT_LOCATION" value="<?php echo $_GET['location'];?>" id="ip2"/></p>
 <p>Email </p>
-<p><input type="text" name="STUDENT_EMAIL" value="<?php echo $_GET['email'];?>"/></p>
+<p><input type="text" name="STUDENT_EMAIL" value="<?php echo $_GET['email'];?>" id="ip2"/></p>
 
 <p><input type="submit" value="update">&nbsp&nbsp<input type="reset" value="reset"></p>
 </form>

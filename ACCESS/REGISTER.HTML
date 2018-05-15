@@ -47,7 +47,7 @@
 
 <body>
 <div class="Header">
-	<h1>Corral Project</h1>
+	<h1>Corral</h1>
 </div>
 
 <div class="navbar">
@@ -68,19 +68,19 @@
 
 <h2>Registration</h2>
 <form name="registration" onSubmit="return validate(registration)" method="post" action="../PAGES/STUDENTSUCCESSFULREG.PHP">
-	Student ID: <input type="text" name="STUDENT_ID" maxlength="9" required><br><br>
-	First Name: <input type="text" name="STUDENT_FIRSTNAME" required><br><br>
-	Last Name: <input type="text" name="STUDENT_LASTNAME" required><br><br>
+	Student ID: <input type="text" name="STUDENT_ID" maxlength="9" id="ip2" required><br><br>
+	First Name: <input type="text" name="STUDENT_FIRSTNAME" id="ip2" required><br><br>
+	Last Name: <input type="text" name="STUDENT_LASTNAME" id="ip2" required><br><br>
 	Location: <select name="STUDENT_LOCATION">
 		<option value="--">-----</option>
 		<option value="Burwood">Burwood</option>
 		<option value="Geelong">Geelong</option>
 		<option value="Cloud">Cloud</option>
 		</select><br><br>
-	Email Address: <input type="text" name="STUDENT_EMAIL" size="40" required><br><br>
-	Re-type Email Address: <input type="text" name="reemail" size="40" required><br><br>
-	Password: <input type="password" name="STUDENT_PASSWORD" required><br><br>
-	Re-type Password: <input type="password" name="cpassword" required><br><br>
+	Email Address: <input type="text" name="STUDENT_EMAIL" size="40" id="ip2" required><br><br>
+	Re-type Email Address: <input type="text" name="reemail" size="40" id="ip2" required><br><br>
+	Password: <input type="password" name="STUDENT_PASSWORD" id="ip2" required><br><br>
+	Re-type Password: <input type="password" name="cpassword" id="ip2" required><br><br>
 
 		<input type="submit" name="Submit" value="Submit">
 		<input type="reset" value="Clear Form"><br><br>

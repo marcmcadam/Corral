@@ -42,7 +42,7 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 
 <div class="Header">
 
-	<h1>The Corral Project</h1>
+	<h1>Corral</h1>
 
 </div>
 

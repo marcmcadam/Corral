@@ -12,17 +12,40 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 	}
 ?>
 <!doctype html>
+
 <html>
+
 <head>
+
 <meta charset="utf-8">
-<title>Welcome <?= $staff_firstname.' '.$staff_lastname ?> </title>
+
+<title>Add Project</title>
 <link rel="stylesheet" type="text/css" href="../STYLES/stylesheet.css">
+<style>
+/*Picture wont float right?*/
+
+#stockpic
+
+{
+
+    float:right;
+
+}
+
+</style>
 </head>
 
+
+
 <body>
+
 <div class="Header">
+
 	<h1>Corral</h1>
+
 </div>
+
+
 
 <div class="navbar">
 	<a href="../PAGES/STAFFHOME.php">Home</a>
@@ -47,18 +70,26 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 </div>
 
 
-<h2>Welcome <?= $staff_firstname. ' '.$staff_lastname?></h2>
-<p>From here you can look at the project form, past projects and results for project group pairings</p>
+<div id="contents" >
+<h2>Add New Project</h2>
+<form action="PROJECTPROCESS.php" method="post">
+<p>Project Title &nbsp<br><input type="text" name="PROJECT_TITLE" id="ip2"/></br></p>
+<p>Project Leader &nbsp<br><input type="text" name="PROJECT_LEADER" id="ip2"/></br></p>
+<p>Leader Email &nbsp<br><input type="email" name="PROJECT_EMAIL"/ id="ip2"></br></p>
+<p>Project Brief</br><textarea name="PROJECT_BRIEF" rows="5" cols="40" id="ip3"></textarea></br></p>
+<p>Project Status &nbsp</br></br><input type="radio" name="PROJECT_STATUS" value="active"/>Active</br></br><input type="radio" name="PROJECT_STATUS" value="inactive"/>Inactive</br></br><input type="radio" name="PROJECT_STATUS" value="planning"/>Planning</br></br></p>
 
-<p>The following links below will get you to those pages:</p>
-<p><ul style="list-style-type:none">
-	<li><a href="../PROJECT/ADDPROJECT.php">Projects form</a></li>
-	<li><a href="#Results">Project results</a></li>
-	<li><a href="../PROJECT/PROJECTLIST.php">Past Projects</a></li>
-</ul></p>
-<p>If you wish to log out, <a href="../PAGES/STAFFLOGOUT.PHP">click here</a></p>
-<div class="Footer">
-	<h4>This is copyrighted by Deakin and the project group 29</h4>
+<p><input type="submit">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="reset" value="reset"></p>
+</form>
 </div>
+
+<hr>
+<div class="Footer">
+
+	<h4>This is copyrighted by Deakin and the project group 29</h4>
+
+</div>
+
 </body>
+
 </html>

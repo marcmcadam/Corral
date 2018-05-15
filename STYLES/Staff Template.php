@@ -19,7 +19,9 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 
 <body>
 
-
+<div class="Header">
+	<h1>Corral</h1>
+</div>
 <div class="navbar">
 	<a href="../PAGES/STAFFHOME.php">Home</a>
 	<div class="dropdown">
