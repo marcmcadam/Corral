@@ -11,21 +11,21 @@ require('../DATABASE/CONNECTDB.PHP');
 </head>
 
 <div class="Header">
-
+	<h1>Corral</h1>
 </div>
 
 <div class="navbar">
-	<a href="../PAGES/HOME.html">Home</a>
-	<a href="../PAGES/REGISTER.html">Projects</a>
-	<a href="../PAGES/CONTACT.html">Contacts</a>
-	<a href="../PAGES/ABOUTUS.html">About Us</a>
+	<a href="../PAGES/HOME">Home</a>
+	<a href="../ACCESS/REGISTER">Register</a>
+	<a href="../PAGES/CONTACT">Contacts</a>
+	<a href="../PAGES/ABOUTUS">About Us</a>
 	<div class="dropdown">
 		<button class="dropbtn">Login
 			<i class="fa fa-caret-down"></i>
 		</button>
 		<div class="dropdown-content">
-			<a href="../Access/login.php">Students</a>
-			<a href="../ACCESS/stafflogin.php">Staff</a>
+			<a href="../Access/login">Students</a>
+			<a href="../ACCESS/stafflogin">Staff</a>
 		</div>
 	</div>
 </div>
@@ -35,7 +35,7 @@ require('../DATABASE/CONNECTDB.PHP');
     <input type="text" name="STAFF_ID" placeholder="STAFF ID" id="ip2" required><br><br>
         <input type="password" name="STAFF_PASSWORD" id="ip2" placeholder="Password" required><br><br>
         <button type="submit">LOGIN</button>
-        <button type="button" onclick="location.href='../PAGES/STAFFREGISTRATION.HTML';" vaule="Register" />REGISTER</button><br><br>
+        <button type="button" onclick="location.href='../PAGES/STAFFREGISTRATION';" vaule="Register" />REGISTER</button><br><br>
       </form>
 
 <div class="Footer">
@@ -61,7 +61,7 @@ $_SESSION['STAFF_FIRSTNAME'] = $user['STAFF_FIRSTNAME'];
 $_SESSION['STAFF_LASTNAME'] = $user['STAFF_LASTNAME'];
 }else{
 //3.1.3 If the login credentials doesn't match, he will be shown with an error message.
-header("location: ../ACCESS/stafferror.php");
+header("location: ../ACCESS/stafferror");
 //$fmsg = "Invalid Login Credentials.";
 }
 }
@@ -71,7 +71,7 @@ $id = $_SESSION['STAFF_ID'];
 $staff_firstname = $_SESSION['STAFF_FIRSTNAME'];
 $staff_lastname = $_SESSION['STAFF_LASTNAME'];
 $_SESSION['STAFF_ID'] = true;
-header("location: ../PAGES/STAFFPROFILE.PHP");
+header("location: ../PAGES/STAFFPROFILE");
 }
 //3.2 When the user visits the page first time, simple login form will be displayed.
 ?>
