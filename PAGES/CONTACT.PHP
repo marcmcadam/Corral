@@ -8,21 +8,21 @@
 
 <body>
 <div class="Header">
-
+	<h1>Corral</h1>
 </div>
 
 <div class="navbar">
-	<a href="../PAGES/HOME.html">Home</a>
-	<a href="../ACCESS/REGISTER.html">Projects</a>
-	<a href="../PAGES/CONTACT.html">Contacts</a>
-	<a href="../PAGES/ABOUTUS.html">About Us</a>
+	<a href="../PAGES/HOME">Home</a>
+	<a href="../ACCESS/REGISTER">Register</a>
+	<a href="../PAGES/CONTACT">Contacts</a>
+	<a href="../PAGES/ABOUTUS">About Us</a>
 	<div class="dropdown">
 		<button class="dropbtn">Login
 			<i class="fa fa-caret-down"></i>
 		</button>
 		<div class="dropdown-content">
-			<a href="../Access/login.php">Students</a>
-			<a href="../ACCESS/STAFFLOGIN.PHP">Staff</a>
+			<a href="../Access/login">Students</a>
+			<a href="../ACCESS/stafflogin">Staff</a>
 		</div>
 	</div>
 </div>
@@ -34,7 +34,7 @@
 <hr>
 <h2>Tell Us What You Think!</h2>
 <p>Do you have a question that we didn't talk about in our FAQ section or would you like to give us some feedback? Insert your details below and we will get back to you as soon as possible!</p>
-<form style="margin-left: 40px" name="emailcontact" onSubmit="return validate(emailcontact)" method="post" action="SUCCESSFULCONTACT.PHP">
+<form style="margin-left: 40px" name="emailcontact" onSubmit="return validate(emailcontact)" method="post" action="../PAGES/SUCCESSFULCONTACT">
 	First Name: <input type="text" name="firstname" id="ip2" required><br><br>
 	Last Name: <input type="text" name="lastname" id="ip2" required><br><br>
 	Student ID: <input type="text" name="id" maxlength="9" ip="ip2" required><br><br>
