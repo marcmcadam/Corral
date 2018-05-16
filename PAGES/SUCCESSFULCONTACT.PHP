@@ -35,26 +35,24 @@ $headers = "Reply-To: $email \r\n";
 </head>
 <body>
 
- <div class="Header">
-
- 
-
- </div>
+<div class="Header">
+	<h1>Corral</h1>
+</div>
 
 
 
 <div class="navbar">
-	<a href="../PAGES/HOME.html">Home</a>
-	<a href="../PAGES/REGISTER.html">Projects</a>
-	<a href="../PAGES/CONTACT.html">Contacts</a>
-	<a href="../PAGES/ABOUTUS.html">About Us</a>
+	<a href="../PAGES/HOME">Home</a>
+	<a href="../ACCESS/REGISTER">Register</a>
+	<a href="../PAGES/CONTACT">Contacts</a>
+	<a href="../PAGES/ABOUTUS">About Us</a>
 	<div class="dropdown">
 		<button class="dropbtn">Login
 			<i class="fa fa-caret-down"></i>
 		</button>
 		<div class="dropdown-content">
-			<a href="../Acess/login.php">Students</a>
-			<a href="../ACCESS/stafflogin.php">Staff</a>
+			<a href="../Access/login">Students</a>
+			<a href="../ACCESS/stafflogin">Staff</a>
 		</div>
 	</div>
 </div>
@@ -62,7 +60,7 @@ $headers = "Reply-To: $email \r\n";
 <div id="contents">
 <h2>Question Succesfully Submitted!</h2>
 <p>Thank you for your feedback! We at Corral love to hear from those who use and value our website. We will reply to your comments as swiftly as possible.</p>
-<a href="../PAGES/HOME.html"><h2 align="center">Back to Home Page</h2></a>
+<a href="../PAGES/HOME"><h2 align="center">Back to Home Page</h2></a>
 <div class="Footer">
 	<h4>This is copy righted by Deakin and the project group 29</h4>
 </div>
