@@ -2,7 +2,7 @@
 session_start();
 if ( $_SESSION['STUDENT_ID'] != 1) {
 	$_SESSION['message'] = "You mus log in before viewing this page";
-	header("location: ../ACCESS/error.php");
+	header("location: ../ACCESS/error");
 	}
 	else {
 	$id = $_SESSION['STUDENT_ID'];
@@ -23,11 +23,11 @@ if ( $_SESSION['STUDENT_ID'] != 1) {
 </div>
 
 <div class="navbar">
-	<a href="../PAGES/STUDENTHOME.php">Home</a>
-	<a href="../SURVEY/STUDENTSURVEY.PHP">Survey</a>
-	<a href="../PAGES/STUDENTCONTACT.php">Contacts</a>
-	<a href="../PAGES/STUDENTABOUTUS.php">About Us</a>
-	<a href="../Access/LOGOUT.php">Logout</a>
+	<a href="../PAGES/STUDENTHOME">Home</a>
+	<a href="../SURVEY/STUDENTSURVEY">Survey</a>
+	<a href="../PAGES/STUDENTCONTACT">Contacts</a>
+	<a href="../PAGES/STUDENTABOUTUS">About Us</a>
+	<a href="../Access/LOGOUT">Logout</a>
 </div>
 
 <div class="Footer">
