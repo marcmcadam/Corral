@@ -57,6 +57,6 @@ mail($to,$email_subject,$email_body,$headers);
 <p>Thank you for your feedback! We at Corral love to hear from those who use and value our website. We will reply to your comments as swiftly as possible.
 <a href="../PAGES/STUDENTHOME"><h2 align="center">Back to Home Page</h2></a>
 <div class="Footer">
-	<h4>This is copyrighted by Deakin and the project group 29</h4>
+	<h4>© Copyright Deakin University & Group 29 2018</h4>
 </div>
 </body>
