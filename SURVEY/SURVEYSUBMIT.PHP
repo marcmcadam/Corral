@@ -3,7 +3,7 @@ session_start();
 
 if ( $_SESSION['STUDENT_ID'] != 1) {
 	$_SESSION['message'] = "You mus log in before viewing this page";
-	header("location: ../ACCESS/error.php");
+	header("location: ../ACCESS/error");
 	}
 	else {
 	$id = $_SESSION['STUDENT_ID'];
@@ -57,14 +57,14 @@ REQUIRE('../DATABASE/CONNECTDB.PHP');
 <HTML>
    <BODY>
 <div class="Header">
-
+	<h1>Corral</h1>
 </div>
 <div class="navbar">
-	<a href="../PAGES/STUDENTHOME.php">Home</a>
-	<a href="../SURVEY/SURVEYANSWERS.php">Survey</a>
-	<a href="../PAGES/STUDENTCONTACT.php">Contacts</a>
-	<a href="../PAGES/STUDENTABOUTUS.php">About Us</a>
-	<a href="../Access/LOGOUT.php">Logout</a>
+	<a href="../PAGES/STUDENTHOME">Home</a>
+	<a href="../SURVEY/STUDENTSURVEY">Survey</a>
+	<a href="../PAGES/STUDENTCONTACT">Contacts</a>
+	<a href="../PAGES/STUDENTABOUTUS">About Us</a>
+	<a href="../Access/LOGOUT">Logout</a>
 </div>
 	  <DIV ID="MIDDLE">
 				<H1> SURVEY RESULTS </H1>
@@ -154,7 +154,7 @@ REQUIRE('../DATABASE/CONNECTDB.PHP');
 					</TABLE>
 	  </DIV>
 <br>
-<a href="../Access/LOGOUT.php">All done, click here to log out</a>
+<a href="../Access/LOGOUT">All done, click here to log out</a>
 
 <div class="Footer">
 	<h4>This is copyrighted by Deakin and the project group 29</h4>
