@@ -19,25 +19,23 @@ $email = mysqli_real_escape_string($CON, $_POST['STUDENT_EMAIL']);
 $password = mysqli_real_escape_string($CON, $_POST['STUDENT_PASSWORD']);
 ?>
 <div class="Header">
-
-
-
+	<h1>Corral Project</h1>
 </div>
 
 
 
 <div class="navbar">
-	<a href="../PAGES/HOME.html">Home</a>
-	<a href="../SURVEY/STUDENTSURVEY.PHP">Survey</a>
-	<a href="../PAGES/CONTACT.html">Contacts</a>
-	<a href="../PAGES/ABOUTUS.html">About Us</a>
+	<a href="../PAGES/HOME">Home</a>
+	<a href="../ACCESS/REGISTER">Register</a>
+	<a href="../PAGES/CONTACT">Contacts</a>
+	<a href="../PAGES/ABOUTUS">About Us</a>
 	<div class="dropdown">
 		<button class="dropbtn">Login
 			<i class="fa fa-caret-down"></i>
 		</button>
 		<div class="dropdown-content">
-			<a href="../Access/login.php">Students</a>
-			<a href="../ACCESS/stafflogin.php">Staff</a>
+			<a href="../Access/login">Students</a>
+			<a href="../ACCESS/stafflogin">Staff</a>
 		</div>
 	</div>
 </div>
@@ -54,7 +52,7 @@ if($result){
 ?>
 <h2 align="center">You have successfully registered an ID.</h2>
 
-<a href="../Access/LOGIN.php"><h2 align="center">Back to Log In</h2></a>
+<a href="../Access/LOGIN"><h2 align="center">Back to Log In</h2></a>
 
 
 <div class="Footer">
