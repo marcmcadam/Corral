@@ -19,14 +19,7 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 <meta charset="utf-8">
 
 <title>Template</title>
-<link rel="stylesheet" type="text/css" href="../STYLES/stylesheet.css">
-<style>
-/*Picture wont float right?*/
-#stockpic
-{
-    float:right;
-}
-</style>
+<link rel="stylesheet" type="text/css" href="../STYLES/stylesstaff.css">
 
 </head>
 
@@ -39,26 +32,40 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 </div>
 
 
-<div class="navbar">
-		<a href="../PAGES/STAFFHOME">Home</a>
-		<div class="dropdown">
-			<button class="dropbtn">Projects
-				<i class="fa fa-caret-down"></i>
-			</button>
-	        	<div class="dropdown-content">
-	            		<a href="../PROJECT/ADDPROJECT">Create Project</a>
-				<a href="../PROJECT/PROJECTLIST">Project List</a>
-				<a href="../PROJECT/PROJECTUPDATE">Update Project</a>
-	            		<a href="../PROJECT/ADDGROUP">Create Group</a>
-	            		<a href="../PROJECT/GROUPLIST">Group List</a>
-				<a href="../PROJECT/GROUPUPDATE">Update Group</a>
-	                	<a href="../PROJECT/STUDENTLIST">Student List</a>
-	                	<a href="../PROJECT/STAFFLIST">Staff List</a>
-			</div>
-		</div>
-		<a href="../PAGES/STAFFCONTACT">Contacts</a>
-		<a href="../PAGES/STAFFABOUTUS">About Us</a>
-		<a href="../ACCESS/stafflogout">Logout</a>
+<div class ="navbar">
+	<ul>
+		<li><a href="../PAGES/STAFFHOME">Home</a></li>
+		<li><a href ="#">Survey</a>
+			<ul>
+				<li><a href ="#">Projects</a>
+					<ul>
+						<li><a href ="../PROJECT/ADDPROJECT">Create Project</a></li>
+						<li><a href ="../PROJECT/updatePro">Update Project</a></li>
+						<li><a href ="../PROJECT/PROJECTLIST.php">List Projects</a></li>
+						<li><a href ="PROJECTSEARCH">Project Search</a></li>
+					</ul>
+				</li>
+				<li><a href ="#">Groups</a>
+					<ul>
+						<li><a href ="../PROJECT/NEWGROUP">Create Group</a></li>
+						<li><a href ="../PROJECT/GROUPUPDATE">Update Group</a></li>
+						<li><a href ="../PROJECT/GROUPLIST">List Groups</a>
+						</li>
+					</ul>
+				</li>
+				<li><a href ="#">Users</a>
+					<ul>
+						<li><a href ="../PROJECT/STUDENTLIST">Student List</a></li>
+						<li><a href ="../PROJECT/STAFFLIST">Staff List</a></li>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</li>
+		<li><a href ="../PAGES/STAFFCONTACT">Contacts</a></li>
+		<li><a href ="../PAGES/STAFFABOUTUS">About Us</a></li>
+		<li><a href ="../ACCESS/stafflogout">Logout</a></li>
+	</ul>
 </div>
 
 
