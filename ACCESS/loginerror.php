@@ -7,25 +7,25 @@ require('../DATABASE/CONNECTDB.PHP');
 <head>
 <meta charset="utf-8">
 <title>Error</title>
-<link rel="stylesheet" type="text/css" href="../STYLES/stylesheet.css">
+<link rel="stylesheet" type="text/css" href="../STYLES/styleform.css">
 </head>
 
 <div class="Header">
-
+	<h1>Corral</h1>
 </div>
 
 <div class="navbar">
-	<a href="../PAGES/HOME.html">Home</a>
-	<a href="../PAGES/REGISTER.html">Projects</a>
-	<a href="../PAGES/CONTACT.html">Contacts</a>
-	<a href="../PAGES/ABOUTUS.html">About Us</a>
+	<a href="../PAGES/HOME">Home</a>
+	<a href="../ACCESS/REGISTER">Register</a>
+	<a href="../PAGES/CONTACT">Contacts</a>
+	<a href="../PAGES/ABOUTUS">About Us</a>
 	<div class="dropdown">
 		<button class="dropbtn">Login
 			<i class="fa fa-caret-down"></i>
 		</button>
 		<div class="dropdown-content">
-			<a href="../Access/login.php">Students</a>
-			<a href="../ACCESS/stafflogin.php">Staff</a>
+			<a href="../Access/login">Students</a>
+			<a href="../ACCESS/stafflogin">Staff</a>
 		</div>
 	</div>
 </div>
@@ -35,9 +35,9 @@ require('../DATABASE/CONNECTDB.PHP');
     <input type="text" name="STUDENT_ID" placeholder="Student ID" id="id2" required><br><br>
         <input type="password" name="STUDENT_PASSWORD" id="id2" placeholder="Password" required><br><br>
         <button type="submit">LOGIN</button>
-        <a href="../PAGES/REGISTER.html">REGISTER</a><br><br>
+        <button type="button" onclick="location.href='../ACCESS/REGISTER';" vaule="Register" />REGISTER</button><br><br>
       </form>
-<p>Login error, Credentials do not match. Please try again.</p>
+<p style="margin-left: 400px">Login error, Credentials do not match. Please try again.</p>
 <div class="Footer">
 	<h4>This is copy righted by Deakin and the project group 29</h4>
 </div>
@@ -61,7 +61,7 @@ $_SESSION['STUDENT_FIRSTNAME'] = $user['STUDENT_FIRSTNAME'];
 $_SESSION['STUDENT_LASTNAME'] = $user['STUDENT_LASTNAME'];
 }else{
 //3.1.3 If the login credentials doesn't match, he will be shown with an error message.
-header("location: ../ACCESS/loginerror.php");
+header("location: ../ACCESS/loginerror");
 //$fmsg = "Invalid Login Credentials.";
 }
 }
@@ -71,7 +71,7 @@ $id = $_SESSION['STUDENT_ID'];
 $student_firstname = $_SESSION['STUDENT_FIRSTNAME'];
 $student_lastname = $_SESSION['STUDENT_LASTNAME'];
 $_SESSION['STUDENT_ID'] = true;
-header("location: ../ACCESS/Profile.php");
+header("location: ../ACCESS/Profile");
 }
 //3.2 When the user visits the page first time, simple login form will be displayed.
 ?>
