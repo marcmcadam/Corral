@@ -32,7 +32,6 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 </div>
 
 
-
 <div class ="navbar">
 	<ul>
 		<li><a href="../PAGES/STAFFHOME">Home</a></li>
@@ -42,8 +41,8 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 					<ul>
 						<li><a href ="../PROJECT/ADDPROJECT">Create Project</a></li>
 						<li><a href ="../PROJECT/updatePro">Update Project</a></li>
-						<li><a href ="../PROJECT/PROJECTLIST.php">List Projects</a></li>
-						<li><a href ="PROJECTSEARCH">Project Search</a></li>
+						<li><a href ="../PROJECT/PROJECTLIST">List Projects</a></li>
+						<li><a href ="../PROJECT/PROJECTSEARCH">Project Search</a></li>
 					</ul>
 				</li>
 				<li><a href ="#">Groups</a>
