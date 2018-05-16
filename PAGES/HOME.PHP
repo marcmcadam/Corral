@@ -15,20 +15,20 @@
 
 <body>
 <div class="Header">
-
+	<h1>Corral</h1>
 </div>
 <div class="navbar">
-	<a href="../PAGES/HOME.html">Home</a>
-	<a href="../ACCESS/REGISTER.html">Projects</a>
-	<a href="../PAGES/CONTACT.html">Contacts</a>
-	<a href="../PAGES/ABOUTUS.html">About Us</a>
+	<a href="../PAGES/HOME">Home</a>
+	<a href="../ACCESS/REGISTER">Register</a>
+	<a href="../PAGES/CONTACT">Contacts</a>
+	<a href="../PAGES/ABOUTUS">About Us</a>
 	<div class="dropdown">
 		<button class="dropbtn">Login
 			<i class="fa fa-caret-down"></i>
 		</button>
 		<div class="dropdown-content">
-			<a href="../ACCESS/login.php">Students</a>
-			<a href="../ACCESS/STAFFLOGIN.PHP">Staff</a>
+			<a href="../Access/login">Students</a>
+			<a href="../ACCESS/stafflogin">Staff</a>
 		</div>
 	</div>
 </div>
@@ -37,7 +37,7 @@
 <p>This site aims to provide staff and students with a platform to view and request access to upcoming projects. Through this platform, staff and teachers may upload projects for students, including details of the skills sets and numbers required for the job. Students who register can then complete a quick survey to determine their levels or proficency in certain areas such as IT and communication. Corral takes this information, and provides Teachers with a list of suitable candidates for the positions available.
 
 
-  <br><br>For more information, please click <a href="ABOUTUS.HTML">here</a></p>
+  <br><br>For more information, please click <a href="../PAGES/ABOUTUS">here</a></p>
 
   </div>
 </div>
