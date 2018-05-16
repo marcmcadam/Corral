@@ -3,7 +3,7 @@ session_start();
 
 if ( $_SESSION['STUDENT_ID'] != 1) {
 	$_SESSION['message'] = "You mus log in before viewing this page";
-	header("location: error.php");
+	header("location: error");
 	}
 	else {
 	$id = $_SESSION['STUDENT_ID'];
@@ -22,14 +22,14 @@ if ( $_SESSION['STUDENT_ID'] != 1) {
 <body>
 
 <div class="Header">
-
+	<h1>Corral</h1>
 </div>
 <div class="navbar">
-	<a href="../PAGES/STUDENTHOME.php">Home</a>
-	<a href="../SURVEY/SURVEYANSWERS.PHP">Survey</a>
-	<a href="../PAGES/STUDENTCONTACT.php">Contacts</a>
-	<a href="../PAGES/STUDENTABOUTUS.php">About Us</a>
-	<a href="../Access/LOGOUT.php">Logout</a>
+	<a href="../PAGES/STUDENTHOME">Home</a>
+	<a href="../SURVEY/STUDENTSURVEY">Survey</a>
+	<a href="../PAGES/STUDENTCONTACT">Contacts</a>
+	<a href="../PAGES/STUDENTABOUTUS">About Us</a>
+	<a href="../Access/LOGOUT">Logout</a>
 </div>
 
 			<h1>Student Survey</h1>
@@ -41,7 +41,7 @@ if ( $_SESSION['STUDENT_ID'] != 1) {
 			</p>
 			<br>
 
-			<FORM ACTION="../SURVEY/SURVEYSUBMIT.PHP" METHOD="POST">
+			<FORM ACTION="../SURVEY/SURVEYSUBMIT" METHOD="POST">
 			<table>
 			<p>
 			<label for="LOCATION">1) Campus Location: </label>
