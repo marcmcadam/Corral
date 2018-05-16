@@ -42,27 +42,27 @@
 
 <body>
 <div class="Header">
-
+	<h1>Corral</h1>
 </div>
 
 <div class="navbar">
-	<a href="../PAGES/HOME.html">Home</a>
-	<a href="../PAGES/REGISTER.html">Projects</a>
-	<a href="../PAGES/CONTACT.html">Contacts</a>
-	<a href="../PAGES/ABOUTUS.html">About Us</a>
+	<a href="../PAGES/HOME">Home</a>
+	<a href="../ACCESS/REGISTER">Register</a>
+	<a href="../PAGES/CONTACT">Contacts</a>
+	<a href="../PAGES/ABOUTUS">About Us</a>
 	<div class="dropdown">
 		<button class="dropbtn">Login
 			<i class="fa fa-caret-down"></i>
 		</button>
 		<div class="dropdown-content">
-			<a href="../Access/login.php">Students</a>
-			<a href="../ACCESS/stafflogin.php">Staff</a>
+			<a href="../Access/login">Students</a>
+			<a href="../ACCESS/stafflogin">Staff</a>
 		</div>
 	</div>
 </div>
 
 <h2>Registration</h2>
-<form name="registration" onSubmit="return validate(registration)" method="post" action="../PAGES/STAFFSUCCESSFULREG.PHP">
+<form name="registration" onSubmit="return validate(registration)" method="post" action="../PAGES/STAFFSUCCESSFULREG">
 	Staff ID: <input type="text" name="STAFF_ID" maxlength="9" id="ip2" required><br><br>
 	First Name: <input type="text" name="STAFF_FIRSTNAME" id="ip2" required><br><br>
 	Last Name: <input type="text" name="STAFF_LASTNAME" id="ip2" required><br><br>
