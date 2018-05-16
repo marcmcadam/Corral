@@ -3,7 +3,7 @@ session_start();
 
 if ( $_SESSION['STUDENT_ID'] != 1) {
 	$_SESSION['message'] = "You mus log in before viewing this page";
-	header("location: ../ACCESS/error.php");
+	header("location: ../ACCESS/error");
 	}
 	else {
 	$id = $_SESSION['STUDENT_ID'];
@@ -21,15 +21,14 @@ if ( $_SESSION['STUDENT_ID'] != 1) {
 
 <body>
 <div class="Header">
-
+	<h1>Corral</h1>
 </div>
-
 <div class="navbar">
-	<a href="../PAGES/STUDENTHOME.php">Home</a>
-	<a href="../SURVEY/STUDENTSURVEY.PHP">Survey</a>
-	<a href="../PAGES/STUDENTCONTACT.php">Contacts</a>
-	<a href="../PAGES/STUDENTABOUTUS.php">About Us</a>
-	<a href="../Access/LOGOUT.php">Logout</a>
+	<a href="../PAGES/STUDENTHOME">Home</a>
+	<a href="../SURVEY/STUDENTSURVEY">Survey</a>
+	<a href="../PAGES/STUDENTCONTACT">Contacts</a>
+	<a href="../PAGES/STUDENTABOUTUS">About Us</a>
+	<a href="../Access/LOGOUT">Logout</a>
 </div>
 
 <div id="contents">
@@ -39,7 +38,7 @@ if ( $_SESSION['STUDENT_ID'] != 1) {
 <hr>
 <h2>Tell Us What You Think!</h2>
 <p>Do you have a question that we didn't talk about in our FAQ section or would you like to give us some feedback? Insert your details below and we will get back to you as soon as possible!
-<form style="margin-left: 40px" name="emailcontact" onSubmit="return validate(emailcontact)" method="post" action="../PAGES/STUDENTSUCCESS.php">
+<form style="margin-left: 40px" name="emailcontact" onSubmit="return validate(emailcontact)" method="post" action="../PAGES/STUDENTSUCCESS">
 	First Name: <input type="text" name="firstname" id="ip2" required><br><br>
 	Last Name: <input type="text" name="lastname" id="ip2" required><br><br>
 	Student ID: <input type="text" name="id" maxlength="9" id="ip2" required><br><br>
