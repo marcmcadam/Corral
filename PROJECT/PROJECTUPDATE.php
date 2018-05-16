@@ -2,7 +2,7 @@
 session_start();
 if ( $_SESSION['STAFF_ID'] != 1) {
 	$_SESSION['message'] = "You mus log in before viewing this page";
-	header("location: ../ACCESS/error.php");
+	header("location: ../ACCESS/error");
 	}
 	else {
 	$id = $_SESSION['STAFF_ID'];
@@ -35,40 +35,38 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 <body>
 
 <div class="Header">
-
-
-
+	<h1>Corral</h1>
 </div>
 
 
 
 <div class="navbar">
-	<a href="../PAGES/STAFFHOME.php">Home</a>
-	<div class="dropdown">
-		<button class="dropbtn">Projects
-			<i class="fa fa-caret-down"></i>
-		</button>
-        	<div class="dropdown-content">
-            		<a href="../PROJECT/ADDPROJECT.php">Create Project</a>
-								<a href="../PROJECT/PROJECTLIST.php">Project List</a>
-								<a href="../PROJECT/PROJECTUPDATE.PHP">Update Project</a>
-            		<a href="../PROJECT/ADDGROUP.php">Create Group</a>
-            		<a href="../PROJECT/GROUPLIST.php">Group List</a>
-								<a href="../PROJECT/GROUPUPDATE.PHP">Update Group</a>
-                <a href="../PROJECT/STUDENTLIST.php">Student List</a>
-                <a href="../PROJECT/STAFFLIST.php">Staff List</a>
-							</div>
-	</div>
-	<a href="../PAGES/STAFFCONTACT.php">Contacts</a>
-	<a href="../PAGES/STAFFABOUTUS.php">About Us</a>
-	<a href="../ACCESS/stafflogout.php">Logout</a>
+		<a href="../PAGES/STAFFHOME">Home</a>
+		<div class="dropdown">
+			<button class="dropbtn">Projects
+				<i class="fa fa-caret-down"></i>
+			</button>
+	        	<div class="dropdown-content">
+	            		<a href="../PROJECT/ADDPROJECT">Create Project</a>
+				<a href="../PROJECT/PROJECTLIST">Project List</a>
+				<a href="../PROJECT/PROJECTUPDATE">Update Project</a>
+	            		<a href="../PROJECT/ADDGROUP">Create Group</a>
+	            		<a href="../PROJECT/GROUPLIST">Group List</a>
+				<a href="../PROJECT/GROUPUPDATE">Update Group</a>
+	                	<a href="../PROJECT/STUDENTLIST">Student List</a>
+	                	<a href="../PROJECT/STAFFLIST">Staff List</a>
+			</div>
+		</div>
+		<a href="../PAGES/STAFFCONTACT">Contacts</a>
+		<a href="../PAGES/STAFFABOUTUS">About Us</a>
+		<a href="../ACCESS/stafflogout">Logout</a>
 </div>
 
 
 
 <div id="contents">
 <h2>Update Project</h2>
-<p><form action="../PROJECT/PROJECTPROCESS.PHP" method="post"></p>
+<p><form action="../PROJECT/PROJECTPROCESS" method="post"></p>
 <p>Project Number </p>
 <p><input type="number" name="PROJECT_NUM" id="ip2"/></p>
 <p>Project Title </p>
