@@ -38,8 +38,8 @@ $View = $_POST['View'];
 					<ul>
 						<li><a href ="../PROJECT/ADDPROJECT">Create Project</a></li>
 						<li><a href ="../PROJECT/updatePro">Update Project</a></li>
-						<li><a href ="../PROJECT/PROJECTLIST.php">List Projects</a></li>
-						<li><a href ="PROJECTSEARCH">Project Search</a></li>
+						<li><a href ="../PROJECT/PROJECTLIST">List Projects</a></li>
+						<li><a href ="../PROJECT/PROJECTSEARCH">Project Search</a></li>
 					</ul>
 				</li>
 				<li><a href ="#">Groups</a>
@@ -63,7 +63,6 @@ $View = $_POST['View'];
 		<li><a href ="../PAGES/STAFFABOUTUS">About Us</a></li>
 		<li><a href ="../ACCESS/stafflogout">Logout</a></li>
 	</ul>
-</div> href="stafflogout.php">Logout</a>
 </div>
 
 <h2>Results</h2>
