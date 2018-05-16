@@ -491,7 +491,7 @@ Web Developer: </td>
 <p>&nbsp;</p>
 
 <div class="Footer">
-	<h4>This is copy righted by Deakin and the project group 29</h4>
+	<h4>© Copyright Deakin University & Group 29 2018</h4>
 </div>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script type="text/javascript" src="../STYLES/register.js"></script>
