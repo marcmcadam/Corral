@@ -57,26 +57,18 @@ $additi = mysqli_real_escape_string($CON, $_POST['additi']);
 ?>
 <div class="Header">
 
-	<h1>Corral Project</h1>
+	<h1>Corral</h1>
 
 </div>
 
 
 
 <div class="navbar">
-	<a href="file:///G|/Deakin/SIT374 - Project Design/Assignment/The-Corral-Project-master4/The-Corral-Project-master/PAGES/HOME.html">Home</a>
-	<a href="file:///G|/Deakin/SIT374 - Project Design/Assignment/The-Corral-Project-master4/The-Corral-Project-master/SURVEY/STUDENTSURVEY.PHP">Survey</a>
-	<a href="file:///G|/Deakin/SIT374 - Project Design/Assignment/The-Corral-Project-master4/The-Corral-Project-master/PAGES/CONTACT.html">Contacts</a>
-	<a href="file:///G|/Deakin/SIT374 - Project Design/Assignment/The-Corral-Project-master4/The-Corral-Project-master/PAGES/ABOUTUS.html">About Us</a>
-	<div class="dropdown">
-		<button class="dropbtn">Login
-			<i class="fa fa-caret-down"></i>
-		</button>
-		<div class="dropdown-content">
-			<a href="file:///G|/Deakin/SIT374 - Project Design/Assignment/The-Corral-Project-master4/The-Corral-Project-master/Access/login.php">Students</a>
-			<a href="file:///G|/Deakin/SIT374 - Project Design/Assignment/The-Corral-Project-master4/The-Corral-Project-master/ACCESS/stafflogin.php">Staff</a>
-		</div>
-	</div>
+	<a href="../PAGES/STUDENTHOME">Home</a>
+	<a href="../SURVEY/STUDENTSURVEY">Survey</a>
+	<a href="../PAGES/STUDENTCONTACT">Contacts</a>
+	<a href="../PAGES/STUDENTABOUTUS">About Us</a>
+	<a href="../Access/LOGOUT">Logout</a>
 </div>
 <?php
 
@@ -92,7 +84,7 @@ if($result){
 ?>
 <h2 align="center">Your Survey is successfully submitted.</h2>
 
-<a href="file:///G|/Deakin/SIT374 - Project Design/Assignment/The-Corral-Project-master4/The-Corral-Project-master/Access/LOGIN.php">
+<a href="file:///G|/Deakin/SIT374 - Project Design/Assignment/The-Corral-Project-master4/The-Corral-Project-master/Access/LOGIN">
 <h2 align="center">&nbsp;</h2></a>
 
 
