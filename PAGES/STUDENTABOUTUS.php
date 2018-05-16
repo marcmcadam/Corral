@@ -53,7 +53,7 @@ if ( $_SESSION['STUDENT_ID'] != 1) {
 <p>&nbsp;</p>
 
 <div class="Footer">
-	<h4>This is copyrighted by Deakin and the project group 29</h4>
+	<h4>© Copyright Deakin University & Group 29 2018</h4>
 </div>
 </body>
 </html>
