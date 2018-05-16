@@ -28,7 +28,7 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 
 <body>
 <div class="Header">
-	<h1>Corral</h1>
+
 </div>
 
 <div class="navbar">
@@ -67,7 +67,7 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 <p>&nbsp;</p>
 
 <div class="Footer">
-	<h4>© Copyright Deakin University & Group 29 2018</h4>
+	<h4>This is copyrighted by Deakin and the project group 29</h4>
 </div>
 </body>
 </html>

@@ -1,6 +1,6 @@
 <?php
 session_start();
-*if ( $_SESSION['STAFF_ID'] != 1) {
+if ( $_SESSION['STAFF_ID'] != 1) {
 	$_SESSION['message'] = "You mus log in before viewing this page";
 	header("location: ../ACCESS/error");
 	}
@@ -8,10 +8,7 @@ session_start();
 	$id = $_SESSION['STAFF_ID'];
 	$staff_firstname = $_SESSION['STAFF_FIRSTNAME'];
 	$staff_lastname = $_SESSION['STAFF_LASTNAME'];
-	}*/
-
-$_SESSION['number']=$_GET['number'];
-
+	}
 ?>
 <!doctype html>
 
@@ -32,14 +29,6 @@ $_SESSION['number']=$_GET['number'];
 </style>
 
 </head>
-
-
-
-<body>
-
-<div class="Header">
-	<h1>Corral</h1>
-</div>
 
 
 
