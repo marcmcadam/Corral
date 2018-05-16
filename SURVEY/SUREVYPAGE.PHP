@@ -113,23 +113,15 @@ h2 {
 
 <body>
 <div class="Header">
-	<h1>Corral Project</h1>
+	<h1>Corral</h1>
 </div>
 
 <div class="navbar">
-	<a href="#Home">Home</a>
-	<a href="#Projects">Projects</a>
-	<a href="#Conatacts">Contacts</a>
-	<a href="#About Us">About Us</a>
-	<div class="dropdown">
-		<button class="dropbtn">Login
-			<i class="fa fa-caret-down"></i>
-		</button>
-		<div class="dropdown-content">
-			<a href="#Students">Students</a>
-			<a href="#Teachers">Teachers</a>
-		</div>
-	</div>
+	<a href="../PAGES/STUDENTHOME">Home</a>
+	<a href="../SURVEY/STUDENTSURVEY">Survey</a>
+	<a href="../PAGES/STUDENTCONTACT">Contacts</a>
+	<a href="../PAGES/STUDENTABOUTUS">About Us</a>
+	<a href="../Access/LOGOUT">Logout</a>
 </div>
 
 <h2><span style="font-size:32px"><strong>Student Survey Form</strong></span></h2>
@@ -139,7 +131,7 @@ h2 {
 <p>In order to serve student for their future career, we are interesting to learn more about your skills. This survey will take less than 5 minutes to complete.  </p>
 <p>Thank you for your time to participate in this survey. Please don’t hesitate to contact us for any enquires about the survey. </p>
 <hr>
-<form id="form" name="form" method="post" action="STUDENTSURVEYSUCCESSFULSUB.PHP">
+<form id="form" name="form" method="post" action="../SURVEY/STUDENTSURVEYSUCCESSFULSUB">
   <table width="720" border="0" style="">
     <tr>
       <td width="234" height="35"><strong>Student ID Number: </strong></td>
