@@ -1,6 +1,6 @@
 <?php
 session_start();
-require ('file:///G|/Deakin/SIT374 - Project Design/Assignment/The-Corral-Project-master4/The-Corral-Project-master/DATABASE/CONNECTDB.php');
+require('../DATABASE/CONNECTDB.PHP');
 ?>
 <!doctype html>
 <html>
