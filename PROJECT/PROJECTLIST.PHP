@@ -39,8 +39,7 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 				<li><a href ="#">Projects</a>
 					<ul>
 						<li><a href ="../PROJECT/ADDPROJECT">Create Project</a></li>
-						<li><a href ="../PROJECT/updatePro">Update Project</a></li>
-						<li><a href ="../PROJECT/PROJECTLIST">List Projects</a></li>
+						<li><a href ="../PROJECT/PROJECTLIST">Project List</a></li>
 						<li><a href ="../PROJECT/PROJECTSEARCH">Project Search</a></li>
 					</ul>
 				</li>
@@ -83,11 +82,13 @@ if ( $_SESSION['STAFF_ID'] != 1) {
     $res=mysqli_query($CON, $sql);
 
     echo "<p><table width='1250px' height='150px' border='1px' cellpadding='10px' align='center'></p>";
-    echo "<tr><th>Project Num</th><th>Project Title</th><th>Project Leader</th><th>Leader Email</th><th>Project Brief</th><th>Project Status</th></tr>";
+    echo "<tr><th>Project Num</th><th>Project Title</th><th>Project Leader</th><th>Leader Email</th><th>Project Brief</th><th>Project Status</th><th>Update Information</th></tr>";
 
-    while ($row=mysqli_fetch_assoc($res)){
-        echo "<tr><td align='center' width='70px'>{$row['PROJECT_NUM']}</td><td align='center' width='175px'>{$row['PROJECT_TITLE']}</td><td align='center' width='180px'>{$row['PROJECT_LEADER']}</td><td align='center' width='220px'>{$row['PROJECT_EMAIL']}</td><td align='center'  width='500px'>{$row['PROJECT_BRIEF']}</td><td align='center' width='100px'>{$row['PROJECT_STATUS']}</td></tr>";
-    }
+		while ($row=mysqli_fetch_assoc($res)){
+		    echo "<tr><td align='center' width='70px'>{$row['PROJECT_NUM']}</td><td align='center' width='190px'>{$row['PROJECT_TITLE']}</td><td align='center' width='190px'>{$row['PROJECT_LEADER']}</td><td align='center' width='180px'>{$row['PROJECT_EMAIL']}</td><td align='center' width='500px'>{$row['PROJECT_BRIEF']}</td><td align='center'  width='180px'>{$row['PROJECT_STATUS']}</td><td align='center'><a href='PROJECTUPDATE.php?number={$row['PROJECT_NUM']}&title={$row['PROJECT_TITLE']}&leader={$row['PROJECT_LEADER']}&email={$row['PROJECT_EMAIL']}&brief={$row['PROJECT_BRIEF']}&status={$row['PROJECT_STATUS']}'>Update</a></td></tr>";
+		}
+
+
 
     echo "</table>";
     mysqli_free_result($res);

@@ -41,7 +41,6 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 				<li><a href ="#">Projects</a>
 					<ul>
 						<li><a href ="../PROJECT/ADDPROJECT">Create Project</a></li>
-						<li><a href ="../PROJECT/updatePro">Update Project</a></li>
 						<li><a href ="../PROJECT/PROJECTLIST">List Projects</a></li>
 						<li><a href ="../PROJECT/PROJECTSEARCH">Project Search</a></li>
 					</ul>
@@ -75,21 +74,20 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 <h2>Update Project</h2>
 <p><form action="../PROJECT/PROJECTPROCESS" method="post"></p>
 <p>Project Number </p>
-<p><input type="number" name="PROJECT_NUM" id="ip2"/></p>
+<p><input type="number" name="PROJECT_NUM" value="<?php echo $_GET['number'];?>" id="ip2"/></p>
 <p>Project Title </p>
-<p><input type="text" name="PROJECT_TITLE" id="ip2"/></p>
+<p><input type="text" name="PROJECT_TITLE" value="<?php echo $_GET['title'];?>" id="ip2"/></p>
 <p>Project Leader </p>
-<p><input type="text" name="PROJECT_LEADER" id="ip2"/></p>
+<p><input type="text" name="PROJECT_LEADER" value="<?php echo $_GET['leader'];?>" id="ip2"/></p>
 <p>Leader Email </p>
-<p><input type="email" name="PROJECT_EMAIL" id="ip2"/></p>
+<p><input type="email" name="PROJECT_EMAIL" value="<?php echo $_GET['email'];?>" id="ip2"/></p>
 <p>Project Brief </p>
-<p><textarea name="PROJECT_BRIEF" rows="5" cols="40" id="ip3"></textarea></br></p>
+<p><textarea name="PROJECT_BRIEF" rows="5" cols="40" value="<?php echo $_GET['brief'];?>" id="ip3"></textarea></br></p>
 <p>Project Status &nbsp</br></br><input type="radio" name="PROJECT_STATUS" value="active"/>Active</br></br><input type="radio" name="PROJECT_STATUS" value="inactive"/>Inactive</br></br><input type="radio" name="PROJECT_STATUS" value="planning"/>Planning</br></br>
 <input type="radio" name="PROJECT_STATUS" value="cancelled"/>Cancelled</br></p>
 <p><input type="submit" value="update">&nbsp&nbsp<input type="reset" value="reset"></p>
 </form>
 </div>
-
 
 
 <hr>

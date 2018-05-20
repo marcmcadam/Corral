@@ -37,8 +37,7 @@ $View = $_POST['View'];
 				<li><a href ="#">Projects</a>
 					<ul>
 						<li><a href ="../PROJECT/ADDPROJECT">Create Project</a></li>
-						<li><a href ="../PROJECT/updatePro">Update Project</a></li>
-						<li><a href ="../PROJECT/PROJECTLIST">List Projects</a></li>
+						<li><a href ="../PROJECT/PROJECTLIST">Project List</a></li>
 						<li><a href ="../PROJECT/PROJECTSEARCH">Project Search</a></li>
 					</ul>
 				</li>
@@ -70,12 +69,12 @@ $View = $_POST['View'];
 <?php
     $conn=mysqli_connect("localhost","root","") or die(mysqli_errno($conn));
     mysqli_select_db($conn, "corral_project");
-	
+
 	$sql="select * from project where PROJECT_STATUS='".$View."'";
 	if ($View == "All") {
 		$sql="select * from project";
 	}
-	
+
     $res=mysqli_query($conn, $sql);
     echo "<p><table width='900px'  border='1px' cellpadding='10px'></p>";
     echo "<tr><th>Project Number</th><th>Project Brief</th><th>Project Status</th></tr>";
