@@ -113,15 +113,23 @@ h2 {
 
 <body>
 <div class="Header">
-	<h1>Corral</h1>
+	<h1>Corral Project</h1>
 </div>
 
 <div class="navbar">
-	<a href="../PAGES/STUDENTHOME">Home</a>
-	<a href="../SURVEY/STUDENTSURVEY">Survey</a>
-	<a href="../PAGES/STUDENTCONTACT">Contacts</a>
-	<a href="../PAGES/STUDENTABOUTUS">About Us</a>
-	<a href="../Access/LOGOUT">Logout</a>
+	<a href="#Home">Home</a>
+	<a href="#Projects">Projects</a>
+	<a href="#Conatacts">Contacts</a>
+	<a href="#About Us">About Us</a>
+	<div class="dropdown">
+		<button class="dropbtn">Login
+			<i class="fa fa-caret-down"></i>
+		</button>
+		<div class="dropdown-content">
+			<a href="#Students">Students</a>
+			<a href="#Teachers">Teachers</a>
+		</div>
+	</div>
 </div>
 
 <h2><span style="font-size:32px"><strong>Student Survey Form</strong></span></h2>
@@ -131,7 +139,7 @@ h2 {
 <p>In order to serve student for their future career, we are interesting to learn more about your skills. This survey will take less than 5 minutes to complete.  </p>
 <p>Thank you for your time to participate in this survey. Please don’t hesitate to contact us for any enquires about the survey. </p>
 <hr>
-<form id="form" name="form" method="post" action="../SURVEY/STUDENTSURVEYSUCCESSFULSUB">
+<form id="form" name="form" method="post" action="STUDENTSURVEYSUCCESSFULSUB.PHP">
   <table width="720" border="0" style="">
     <tr>
       <td width="234" height="35"><strong>Student ID Number: </strong></td>
@@ -333,7 +341,8 @@ Web Developer: </td>
       </select></td>
     </tr>
     <tr>
-      <td height="35">6) Technical Skill: list at least three technical skills that you posses.</td>
+      <td height="35"><p>6) Technical Skill: list at least three technical skills that you posses.</p>
+      <p>Minimum Three Skills</p></td>
       <td>&nbsp;</td>
     </tr>
     <tr>
@@ -349,7 +358,20 @@ Web Developer: </td>
       <td><input type="text" name="techsk3" id="techsk1" /></td>
     </tr>
     <tr>
-      <td height="35">7) Technical Skill Proficiency: rate the proficiency of each technical skills in the previous question.</td>
+      <td height="35">Tech Skill 4:</td>
+      <td><input type="text" name="techsk4" id="techsk4" /></td>
+    </tr>
+    <tr>
+      <td height="35">Tech Skill 5:</td>
+      <td><input type="text" name="techsk5" id="techsk5" /></td>
+    </tr>
+    <tr>
+      <td height="35">Tech Skill 6:</td>
+      <td><input type="text" name="techsk6" id="techsk6" /></td>
+    </tr>
+    <tr>
+      <td height="35"><p>7) Technical Skill Proficiency: rate the proficiency of each technical skills in the previous question.</p>
+      <p>Minimum Three Skills</p></td>
       <td>&nbsp;</td>
     </tr>
     <tr>
@@ -383,7 +405,38 @@ Web Developer: </td>
       </select></td>
     </tr>
     <tr>
-      <td height="35">8) Soft Skills: list at least three soft skills.</td>
+      <td height="35">Tech Skill 4:</td>
+      <td><select name="techskpro3" id="techskpro3" >
+        <option selected="selected"  value="">Choose one of the list Below</option>
+        <option value="4">Expert skill</option>
+        <option value="3">High skill</option>
+        <option value="2">Intermediate skill</option>
+        <option value="1">Novice skill</option>
+      </select></td>
+    </tr>
+    <tr>
+      <td height="35">Tech Skill 5:</td>
+      <td><select name="techskpro5" id="techskpro5" >
+        <option selected="selected"  value="">Choose one of the list Below</option>
+        <option value="4">Expert skill</option>
+        <option value="3">High skill</option>
+        <option value="2">Intermediate skill</option>
+        <option value="1">Novice skill</option>
+      </select></td>
+    </tr>
+    <tr>
+      <td height="35">Tech Skill 6:</td>
+      <td><select name="techskpro6" id="techskpro6" >
+        <option selected="selected"  value="">Choose one of the list Below</option>
+        <option value="4">Expert skill</option>
+        <option value="3">High skill</option>
+        <option value="2">Intermediate skill</option>
+        <option value="1">Novice skill</option>
+      </select></td>
+    </tr>
+    <tr>
+      <td height="35"><p>8) Soft Skills: list at least three soft skills.</p>
+      <p> Minimum Three Skills</p></td>
       <td>&nbsp;</td>
     </tr>
     <tr>
@@ -399,7 +452,20 @@ Web Developer: </td>
       <td><input type="text" name="softsk3" id="softsk3" /></td>
     </tr>
     <tr>
-      <td height="35">9) Soft Skill Proficiency: rate the proficiency of each soft skills in the previous question.</td>
+      <td height="35">Soft Skill 4:</td>
+      <td><input type="text" name="softsk4" id="softsk4" /></td>
+    </tr>
+    <tr>
+      <td height="35">Soft Skill 5:</td>
+      <td><input type="text" name="softsk5" id="softsk5" /></td>
+    </tr>
+    <tr>
+      <td height="35">Soft Skill 6:</td>
+      <td><input type="text" name="softsk6" id="softsk6" /></td>
+    </tr>
+    <tr>
+      <td height="35"><p>9) Soft Skill Proficiency: rate the proficiency of each soft skills in the previous question. </p>
+      <p>Minimum Three Skills</p></td>
       <td>&nbsp;</td>
     </tr>
     <tr>
@@ -425,6 +491,36 @@ Web Developer: </td>
     <tr>
       <td height="35">Soft Skill 3:</td>
       <td><select name="softskpro3" id="softskpro3" >
+        <option selected="selected"  value="">Choose one of the list Below</option>
+        <option value="4">Expert skill</option>
+        <option value="3">High skill</option>
+        <option value="2">Intermediate skill</option>
+        <option value="1">Novice skill</option>
+      </select></td>
+    </tr>
+    <tr>
+      <td height="35">Soft Skill 4:</td>
+      <td><select name="softskpro4" id="softskpro4" >
+        <option selected="selected"  value="">Choose one of the list Below</option>
+        <option value="4">Expert skill</option>
+        <option value="3">High skill</option>
+        <option value="2">Intermediate skill</option>
+        <option value="1">Novice skill</option>
+      </select></td>
+    </tr>
+    <tr>
+      <td height="35">Soft Skill 5:</td>
+      <td><select name="softskpro5" id="softskpro5" >
+        <option selected="selected"  value="">Choose one of the list Below</option>
+        <option value="4">Expert skill</option>
+        <option value="3">High skill</option>
+        <option value="2">Intermediate skill</option>
+        <option value="1">Novice skill</option>
+      </select></td>
+    </tr>
+    <tr>
+      <td height="35">Soft Skill 6:</td>
+      <td><select name="softskpro6" id="softskpro6" >
         <option selected="selected"  value="">Choose one of the list Below</option>
         <option value="4">Expert skill</option>
         <option value="3">High skill</option>
@@ -491,7 +587,7 @@ Web Developer: </td>
 <p>&nbsp;</p>
 
 <div class="Footer">
-	<h4>© Copyright Deakin University & Group 29 2018</h4>
+	<h4>This is copy righted by Deakin and the project group 29</h4>
 </div>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script type="text/javascript" src="../STYLES/register.js"></script>

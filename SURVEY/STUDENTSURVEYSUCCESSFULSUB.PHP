@@ -36,15 +36,27 @@ $skill14 = mysqli_real_escape_string($CON, $_POST['skill14']);
 $techsk1 = mysqli_real_escape_string($CON, $_POST['techsk1']);
 $techsk2 = mysqli_real_escape_string($CON, $_POST['techsk2']);
 $techsk3 = mysqli_real_escape_string($CON, $_POST['techsk3']);
+$techsk4 = mysqli_real_escape_string($CON, $_POST['techsk4']);
+$techsk5 = mysqli_real_escape_string($CON, $_POST['techsk5']);
+$techsk6 = mysqli_real_escape_string($CON, $_POST['techsk6']);
 $techskpro1 = mysqli_real_escape_string($CON, $_POST['techskpro1']);
 $techskpro2 = mysqli_real_escape_string($CON, $_POST['techskpro2']);
 $techskpro3 = mysqli_real_escape_string($CON, $_POST['techskpro3']);
+$techskpro4 = mysqli_real_escape_string($CON, $_POST['techskpro4']);
+$techskpro5 = mysqli_real_escape_string($CON, $_POST['techskpro5']);
+$techskpro6 = mysqli_real_escape_string($CON, $_POST['techskpro6']);
 $softsk1 = mysqli_real_escape_string($CON, $_POST['softsk1']);
 $softsk2 = mysqli_real_escape_string($CON, $_POST['softsk2']);
 $softsk3 = mysqli_real_escape_string($CON, $_POST['softsk3']);
-$softskpro1 = mysqli_real_escape_string($CON, $_POST['techskpro1']);
-$softskpro2 = mysqli_real_escape_string($CON, $_POST['techskpro2']);
-$softskpro3 = mysqli_real_escape_string($CON, $_POST['techskpro3']);
+$softsk4 = mysqli_real_escape_string($CON, $_POST['softsk4']);
+$softsk5 = mysqli_real_escape_string($CON, $_POST['softsk5']);
+$softsk6 = mysqli_real_escape_string($CON, $_POST['softsk6']);
+$softskpro1 = mysqli_real_escape_string($CON, $_POST['softskpro1']);
+$softskpro2 = mysqli_real_escape_string($CON, $_POST['softskpro2']);
+$softskpro3 = mysqli_real_escape_string($CON, $_POST['softskpro3']);
+$softskpro4 = mysqli_real_escape_string($CON, $_POST['softskpro4']);
+$softskpro5 = mysqli_real_escape_string($CON, $_POST['softskpro5']);
+$softskpro6 = mysqli_real_escape_string($CON, $_POST['softskpro6']);
 $projti1 = mysqli_real_escape_string($CON, $_POST['projti1']);
 $projti2 = mysqli_real_escape_string($CON, $_POST['projti2']);
 $projti3 = mysqli_real_escape_string($CON, $_POST['projti3']);
@@ -57,22 +69,30 @@ $additi = mysqli_real_escape_string($CON, $_POST['additi']);
 ?>
 <div class="Header">
 
-	<h1>Corral</h1>
+	<h1>Corral Project</h1>
 
 </div>
 
 
 
 <div class="navbar">
-	<a href="../PAGES/STUDENTHOME">Home</a>
-	<a href="../SURVEY/STUDENTSURVEY">Survey</a>
-	<a href="../PAGES/STUDENTCONTACT">Contacts</a>
-	<a href="../PAGES/STUDENTABOUTUS">About Us</a>
-	<a href="../Access/LOGOUT">Logout</a>
+	<a href="file:///G|/Deakin/SIT374 - Project Design/Assignment/The-Corral-Project-master4/The-Corral-Project-master/PAGES/HOME.html">Home</a>
+	<a href="file:///G|/Deakin/SIT374 - Project Design/Assignment/The-Corral-Project-master4/The-Corral-Project-master/SURVEY/STUDENTSURVEY.PHP">Survey</a>
+	<a href="file:///G|/Deakin/SIT374 - Project Design/Assignment/The-Corral-Project-master4/The-Corral-Project-master/PAGES/CONTACT.html">Contacts</a>
+	<a href="file:///G|/Deakin/SIT374 - Project Design/Assignment/The-Corral-Project-master4/The-Corral-Project-master/PAGES/ABOUTUS.html">About Us</a>
+	<div class="dropdown">
+		<button class="dropbtn">Login
+			<i class="fa fa-caret-down"></i>
+		</button>
+		<div class="dropdown-content">
+			<a href="file:///G|/Deakin/SIT374 - Project Design/Assignment/The-Corral-Project-master4/The-Corral-Project-master/Access/login.php">Students</a>
+			<a href="file:///G|/Deakin/SIT374 - Project Design/Assignment/The-Corral-Project-master4/The-Corral-Project-master/ACCESS/stafflogin.php">Staff</a>
+		</div>
+	</div>
 </div>
 <?php
 
-$query = "INSERT INTO SURVEY ('', sid, location, employ, capstone, course, skill1, skill2, skill3, skill4, skill5, skill6, skill7, skill8, skill9, skill10, skill11, skill12, skill13, skill14, techsk1, techsk2, techsk3, techskpro1, techskpro2, techskpro3, softsk1, softsk2, softsk3, softskpro1, softskpro2, softskpro3, projti1, projti2, projti3, aspira, profile, Entrepre, permis, additi) VALUES ('', '$sid', '$location', '$employ', '$capstone', '$course', '$skill1', '$skill2', '$skill3', '$skill4', '$skill5', '$skill6', '$skill7', '$skill8', '$skill9', '$skill10', '$skill11', '$skill12', '$skill13', '$skill14', '$techsk1', '$techsk2', '$techsk3', '$techskpro1', '$techskpro2', '$techskpro3', '$softsk1', '$softsk2', '$softsk3', '$softskpro1', '$softskpro2', '$softskpro3', '$projti1', '$projti2', '$projti3', '$aspira', '$profile', '$Entrepre', '$permis', '$additi')";
+$query = "INSERT INTO SURVEY ('', sid, location, employ, capstone, course, skill1, skill2, skill3, skill4, skill5, skill6, skill7, skill8, skill9, skill10, skill11, skill12, skill13, skill14, techsk1, techsk2, techsk3, techsk4, techsk5, techsk6, techskpro1, techskpro2, techskpro3, techskpro4, techskpro5, techskpro6, softsk1, softsk2, softsk3, softsk4, softsk5, softsk6, softskpro1, softskpro2, softskpro3, softskpro4, softskpro5, softskpro6, projti1, projti2, projti3, aspira, profile, Entrepre, permis, additi) VALUES ('', '$sid', '$location', '$employ', '$capstone', '$course', '$skill1', '$skill2', '$skill3', '$skill4', '$skill5', '$skill6', '$skill7', '$skill8', '$skill9', '$skill10', '$skill11', '$skill12', '$skill13', '$skill14', '$techsk1', '$techsk2', '$techsk3', '$techsk4', '$techsk5', '$techsk6', '$techskpro1', '$techskpro2', '$techskpro3', '$techskpro4', '$techskpro5', '$techskpro6', '$softsk1', '$softsk2', '$softsk3', '$softsk4', '$softsk5','$softsk6', '$softskpro1', '$softskpro2', '$softskpro3', '$softskpro4', '$softskpro5', '$softskpro6' '$projti1', '$projti2', '$projti3', '$aspira', '$profile', '$Entrepre', '$permis', '$additi')";
 
 $result = mysqli_query($CON, $query);
 
@@ -84,13 +104,13 @@ if($result){
 ?>
 <h2 align="center">Your Survey is successfully submitted.</h2>
 
-<a href="file:///G|/Deakin/SIT374 - Project Design/Assignment/The-Corral-Project-master4/The-Corral-Project-master/Access/LOGIN">
+<a href="file:///G|/Deakin/SIT374 - Project Design/Assignment/The-Corral-Project-master4/The-Corral-Project-master/Access/LOGIN.php">
 <h2 align="center">&nbsp;</h2></a>
 
 
 <div class="Footer">
 
-	<h4>© Copyright Deakin University & Group 29 2018</h4>
+	<h4>This is copy righted by Deakin and the project group 29</h4>
 
 </div>
 
