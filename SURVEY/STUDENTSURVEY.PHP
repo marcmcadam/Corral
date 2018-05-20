@@ -3,7 +3,7 @@ session_start();
 
 if ( $_SESSION['STUDENT_ID'] != 1) {
 	$_SESSION['message'] = "You mus log in before viewing this page";
-	header("location: error");
+	header("location: error.php");
 	}
 	else {
 	$id = $_SESSION['STUDENT_ID'];
@@ -13,7 +13,7 @@ if ( $_SESSION['STUDENT_ID'] != 1) {
 ?>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
-<link rel="stylesheet" href="../styles/styleform.css" >
+<link rel="stylesheet" href="../styles/stylesheet.css" >
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.js"></script>
 
@@ -32,7 +32,7 @@ if ( $_SESSION['STUDENT_ID'] != 1) {
 	<a href="../Access/LOGOUT">Logout</a>
 </div>
 
-			<h2>Student Survey</h2>
+			<h1>Student Survey</h1>
 		  <br>
 			<p>
 				When you are ready, select the dropdown and choose the option most relevant to your skills. Upon reaching the 'Skill' section, simply enter in a skill
@@ -41,11 +41,12 @@ if ( $_SESSION['STUDENT_ID'] != 1) {
 			</p>
 			<br>
 
-			<FORM ACTION="../SURVEY/SURVEYSUBMIT" METHOD="POST">
+			<FORM ACTION="../SURVEY/SURVEYSUBMIT.PHP" METHOD="POST">
+			<table>
 			<p>
 			<label for="LOCATION">1) Campus Location: </label>
 			<p>
-			<select name="LOCATION" id="LOCATION">
+			<select name="LOCATION" id="location">
 			<option selected disabled hidden style='display: none' value="">Select</option>
 			<option value="Burwood">Burwood</option>
 			<option value="Geelong">Geelong</option>
@@ -77,9 +78,9 @@ if ( $_SESSION['STUDENT_ID'] != 1) {
 			</p>
 
 			<p>
-			<label for="TECHNICAL_SKILLS">3) Project role, choose roles you think best align with your skills</label>
+			<label for="ROLES">3) Project role, choose roles you think best align with your skills</label>
 			<p>Programmer (General)
-			<select name="TECHNICAL_SKILLS1" id="TECHNICAL_SKILLS1">
+			<select name="ROLE1" id="ROLE1">
 			<option selected disabled hidden style='display: none' value="">Select</option>
 			<option value="Expert skill">Expert skill</option>
 			<option value="High skill">High skill</option>
@@ -88,7 +89,7 @@ if ( $_SESSION['STUDENT_ID'] != 1) {
 			</select>
 			</p>
 			<p>UX/UI Designer
-			<select name="TECHNICAL_SKILLS2" id="TECHNICAL_SKILLS2">
+			<select name="ROLE2" id="ROLE2">
 			<option selected disabled hidden style='display: none' value="">Select</option>
 			<option value="Expert skill">Expert skill</option>
 			<option value="High skill">High skill</option>
@@ -97,7 +98,7 @@ if ( $_SESSION['STUDENT_ID'] != 1) {
 			</select>
 			</p>
 			<p>Security Specialist
-			<select name="TECHNICAL_SKILLS3" id="TECHNICAL_SKILLS3">
+			<select name="ROLE3" id="ROLE3">
 			<option selected disabled hidden style='display: none' value=''>Select</option>
 			<option value="Expert skill">Expert skill</option>
 			<option value="High skill">High skill</option>
@@ -252,7 +253,10 @@ if ( $_SESSION['STUDENT_ID'] != 1) {
 </form>
 
 <div class="Footer">
-	<h4>© Copyright Deakin University & Group 29 2018</h4>
+	<h4>This is copyrighted by Deakin and the project group 29</h4>
 </div>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script type="text/javascript" src="../STYLES/register.js"></script>
+
 </body>
 </html>
