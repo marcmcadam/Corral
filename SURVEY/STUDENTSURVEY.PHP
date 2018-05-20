@@ -18,12 +18,17 @@ if ( $_SESSION['STUDENT_ID'] != 1) {
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.js"></script>
 
 <html>
+<head>
+<meta charset="utf-8">
+<title>Student Survey</title>
+<link rel="stylesheet" type="text/css" href="../STYLES/stylesheet.css">
+</head>
 
 <body>
-
 <div class="Header">
 	<h1>Corral</h1>
 </div>
+
 <div class="navbar">
 	<a href="../PAGES/STUDENTHOME">Home</a>
 	<a href="../SURVEY/STUDENTSURVEY">Survey</a>
@@ -31,6 +36,7 @@ if ( $_SESSION['STUDENT_ID'] != 1) {
 	<a href="../PAGES/STUDENTABOUTUS">About Us</a>
 	<a href="../Access/LOGOUT">Logout</a>
 </div>
+<div id="contents">
 
 			<h1>Student Survey</h1>
 		  <br>
@@ -43,6 +49,15 @@ if ( $_SESSION['STUDENT_ID'] != 1) {
 
 			<FORM ACTION="../SURVEY/SURVEYSUBMIT.PHP" METHOD="POST">
 			<table>
+
+			<p>
+			<label for="STUDENTID">Enter nine-digit student ID below </label>
+			</p>
+			<p>Student ID:
+			<label for="STUDENT_ID"></label>
+			<input type="text" name="STUDENT_ID" id="STUDENT_ID" />
+			</p>
+
 			<p>
 			<label for="LOCATION">1) Campus Location: </label>
 			<p>
@@ -253,7 +268,9 @@ if ( $_SESSION['STUDENT_ID'] != 1) {
 </form>
 
 <div class="Footer">
-	<h4>This is copyrighted by Deakin and the project group 29</h4>
+
+	<h4>© Copyright Deakin University & Group 29 2018</h4>
+
 </div>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script type="text/javascript" src="../STYLES/register.js"></script>
