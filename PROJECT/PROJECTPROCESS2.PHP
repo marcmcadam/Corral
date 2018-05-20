@@ -19,7 +19,7 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 
 <meta charset="utf-8">
 
-<title>Project Process</title>
+<title>Template</title>
 <link rel="stylesheet" type="text/css" href="../STYLES/stylesstaff.css">
 
 </head>
@@ -72,45 +72,33 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 <div id="contents">
 
   <h2>Project Added</h2>
-	<?php
- require("../DATABASE/CONNECTDB.php");
+	<?PHP
+	REQUIRE('../DATABASE/CONNECTDB.PHP');
+	    // IF THE VALUES ARE POSTED, (CREATED BY MARC) INSERT THEM INTO THE DATABASE.
+	{
 
-	    $number=$_REQUEST['PROJECT_NUM'];
-			$title=$_POST['PROJECT_TITLE'];
-			$leader=$_POST['PROJECT_LEADER'];
-			$email=$_POST['PROJECT_EMAIL'];
-	    $brief=$_POST['PROJECT_BRIEF'];
-	    $status=$_POST['PROJECT_STATUS'];
+	  $PROJECTTITLE = MYSQLI_REAL_ESCAPE_STRING($CON, $_POST['PROJECT_TITLE']);
+		$PROJECTBRIEF = MYSQLI_REAL_ESCAPE_STRING($CON, $_POST['PROJECT_BRIEF']);
+		$PROJECTLEADER = MYSQLI_REAL_ESCAPE_STRING($CON, $_POST['PROJECT_LEADER']);
+		$PROJECTEMAIL = MYSQLI_REAL_ESCAPE_STRING($CON, $_POST['PROJECT_EMAIL']);
+		$PROJECTSTATUS = MYSQLI_REAL_ESCAPE_STRING($CON, $_POST['PROJECT_STATUS']);
 
+	  $QUERY = "INSERT INTO PROJECT (PROJECT_TITLE, PROJECT_LEADER, PROJECT_EMAIL, PROJECT_BRIEF, PROJECT_STATUS)
+					   VALUES ('$PROJECTTITLE', '$PROJECTLEADER', '$PROJECTEMAIL', 'PROJECT_BRIEF', '$PROJECTSTATUS')";
 
+	        $RESULT = MYSQLI_QUERY($CON, $QUERY);
+	        IF($RESULT){
+	            echo "<p>Information successfully added</p>";
+	        }ELSE{
+	            echo "<p>Failed to add information</p>";
 
-
-
-	    if(empty($brief)){
-	        echo "<p>you need to input project brief</p>";
-	    }else{
-
-
-
-	        $sql="UPDATE PROJECT SET PROJECT_TITLE='$title', PROJECT_LEADER='$leader', PROJECT_EMAIL='$email', PROJECT_BRIEF='$brief',PROJECT_STATUS='$status' WHERE PROJECT_NUM=$number";
-
-	        $b=mysqli_query($CON,$sql);
-
-	         if(!$b){
-	                echo "<p>Failed to update project</p>";
-	          }else{
-	                if(mysqli_affected_rows($CON)>0){
-	                    echo "<p>Project successfully updated</p>";
-	                    echo "<p><a href='PROJECTLIST.PHP'>Back to project list</a></p>";
-	                }else{
-	                    return "<p>not affected rows</p>";
-	                }
-	            }
-
-	        mysqli_close($CON);
+	        }
 	    }
 
-	?>
+	    ?>
+
+
+
 
 
 <hr>

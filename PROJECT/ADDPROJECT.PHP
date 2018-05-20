@@ -70,7 +70,7 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 
 <div id="contents" >
 <h2>Add New Project</h2>
-<form action="../PROJECT/PROJECTPROCESS" method="post">
+<form action="../PROJECT/PROJECTPROCESS2" method="post">
 <p>Project Title &nbsp<br><input type="text" name="PROJECT_TITLE" id="ip2"/></br></p>
 <p>Project Leader &nbsp<br><input type="text" name="PROJECT_LEADER" id="ip2"/></br></p>
 <p>Leader Email &nbsp<br><input type="email" name="PROJECT_EMAIL"/ id="ip2"></br></p>
