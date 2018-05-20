@@ -105,7 +105,7 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 	          }else{
 	                if(mysqli_affected_rows($CON)>0){
 	                    echo "<p>information successfully updated</p>";
-	                    echo "<p><a href='../PROJECT.STUDENTLIST.PHP'>Back to student list</a></p>";
+	                    echo "<p><a href='STUDENTLIST.PHP'>Back to student list</a></p>";
 	                }else{
 	                    return "<p>not affected rows</p>";
 	                }
