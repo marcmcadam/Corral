@@ -120,7 +120,7 @@ $(document).ready(function(){
 			e.preventDefault();
 		}
 						if(skill9 == ''){
-			valid += '<p>Invalid, Q5 VR/Game Developer (Programming) ' + required + '</p>';
+			valid += '<p>Invalid, Q5 VR/Game Developer ' + required + '</p>';
 			e.preventDefault();
 		}
 						if(skill10 == ''){
@@ -132,7 +132,7 @@ $(document).ready(function(){
 			e.preventDefault();
 		}
 						if(skill2 == ''){
-			valid += '<p>Invalid, Q5 Project Manager (Require technical skill) ' + required + '</p>';
+			valid += '<p>Invalid, Q5 Project Manager ' + required + '</p>';
 			e.preventDefault();
 		}
 						if(skill3 == ''){
