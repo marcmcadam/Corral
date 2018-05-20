@@ -158,3 +158,14 @@ h3 {
 	margin-left: 40px;
 	font-family: Arial, Helvetica,;
 }
+
+table {
+	border-collapse: collapse;
+}
+
+table, th, td {
+	font-family: Arial, Helvetica, sans-serif;
+	width: 900px;  
+	border: 1px solid;
+	cellpadding: 10px;
+}
