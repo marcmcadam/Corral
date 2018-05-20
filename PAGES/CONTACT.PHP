@@ -37,7 +37,7 @@
 <form style="margin-left: 40px" name="emailcontact" onSubmit="return validate(emailcontact)" method="post" action="../PAGES/SUCCESSFULCONTACT">
 	First Name: <input type="text" name="firstname" id="ip2" required><br><br>
 	Last Name: <input type="text" name="lastname" id="ip2" required><br><br>
-	Student ID: <input type="text" name="id" maxlength="9" ip="ip2" required><br><br>
+	Student ID: <input type="text" name="id" maxlength="9" id="ip2" required><br><br>
 	Email Address: <input type="text" name="email" size="40" id="ip2" required><br><br>
   Question: <input type="text" name="question" size="40" id="ip2" required><br><br>
 

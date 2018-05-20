@@ -13,7 +13,7 @@ if ( $_SESSION['STUDENT_ID'] != 1) {
 ?>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
-<link rel="stylesheet" href="../styles/stylesheet.css" >
+<link rel="stylesheet" href="../styles/styleform.css" >
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.js"></script>
 
@@ -32,7 +32,7 @@ if ( $_SESSION['STUDENT_ID'] != 1) {
 	<a href="../Access/LOGOUT">Logout</a>
 </div>
 
-			<h1>Student Survey</h1>
+			<h2>Student Survey</h2>
 		  <br>
 			<p>
 				When you are ready, select the dropdown and choose the option most relevant to your skills. Upon reaching the 'Skill' section, simply enter in a skill
@@ -42,7 +42,6 @@ if ( $_SESSION['STUDENT_ID'] != 1) {
 			<br>
 
 			<FORM ACTION="../SURVEY/SURVEYSUBMIT" METHOD="POST">
-			<table>
 			<p>
 			<label for="LOCATION">1) Campus Location: </label>
 			<p>

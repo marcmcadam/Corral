@@ -16,7 +16,7 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 <head>
 <meta charset="utf-8">
 <title>Project Search</title>
-<link rel="stylesheet" type="text/css" href="../STYLES/styesstaff.css">
+<link rel="stylesheet" type="text/css" href="../STYLES/stylesstaff.css">
 
 </style>
 </head>
