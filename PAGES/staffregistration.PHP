@@ -1,3 +1,6 @@
+<?php
+require ('../DATABASE/CONNECTDB.php');
+?>
 <!doctype html>
 <html>
 <head>
@@ -10,8 +13,15 @@
 		var temp
 		var email = document.registration.STAFF_EMAIL.value
 		var password = document.registration.STAFF_PASSWORD.value
-		var upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-		var lower = "abcdefghijklmnopqrstuvwxyz"
+		var upper = /[A-Z]/g;
+		var lower = /[a-z]/g;
+		var number = /[0-9]/g;
+		var deakin = "@deakin.edu.au"
+
+			if (document.registration.STAFF_ID.value.length < 9) {
+				alert("Invalid STAFF ID. Must be nine characters long")
+				return false
+			}
 
 			if (document.registration.STAFF_PASSWORD.value.length < 8) {
 				alert("Password is too short. It must be a minimum of eight characters long")
@@ -25,6 +35,13 @@
 			return false
 				}
 			}
+			
+			if(document.registration.STAFF_EMAIL.value.match(deakin)){
+				return true
+			}else {
+				alert("Email must be a Deakin email")
+				return false
+			}
 
 			if (document.registration.reemail.value != email) {
 				alert("Emails don't match. Please make sure they are the same")
@@ -34,6 +51,13 @@
 			if (document.registration.cpassword.value != password) {
 				alert("Passwords don't match. Please ensure that they are the same")
 				return false
+			}
+			
+			if (document.registration.STAFF_PASSWORD.value.match(upper) && document.registration.STAFF_PASSWORD.value.match(number)) {
+				return true
+			}else {
+				alert("Password must contain at least one upper case letter and number")
+				return false 
 			}
 		return true
 	}
@@ -62,7 +86,7 @@
 </div>
 
 <h2>Registration</h2>
-<form name="registration" onSubmit="return validate(registration)" method="post" action="../PAGES/STAFFSUCCESSFULREG">
+<form name="registration" onSubmit="return validate(registration)" method="post">
 	Staff ID: <input type="text" name="STAFF_ID" maxlength="9" id="ip2" required><br><br>
 	First Name: <input type="text" name="STAFF_FIRSTNAME" id="ip2" required><br><br>
 	Last Name: <input type="text" name="STAFF_LASTNAME" id="ip2" required><br><br>
@@ -82,6 +106,24 @@
 
 </form>
 
+<?php
+if (isset($_POST['STAFF_PASSWORD'])) {
+	$id = mysqli_real_escape_string($CON, $_POST['STAFF_ID']);
+	$firstname = mysqli_real_escape_string($CON, $_POST['STAFF_FIRSTNAME']);
+	$lastname = mysqli_real_escape_string($CON, $_POST['STAFF_LASTNAME']);
+	$location = mysqli_real_escape_string($CON, $_POST['STAFF_LOCATION']);
+	$email = mysqli_real_escape_string($CON, $_POST['STAFF_EMAIL']);
+	$password = mysqli_real_escape_string($CON, $_POST['STAFF_PASSWORD']);
+	$query = "INSERT INTO STAFF (STAFF_ID, STAFF_FIRSTNAME, STAFF_LASTNAME, STAFF_LOCATION, STAFF_EMAIL, STAFF_PASSWORD) VALUES ('$id', '$firstname', '$lastname', '$location', '$email', '$password')";
+	$result = mysqli_query($CON, $query);
+	
+	if($result){
+            header('location: ../PAGES/STAFFSUCCESSFULREG');
+        }else{
+            $fmsg ="User Registration Failed";
+        }
+}
+?>
 
 <div class="Footer">
 	<h4>© Copyright Deakin University & Group 29 2018</h4>
