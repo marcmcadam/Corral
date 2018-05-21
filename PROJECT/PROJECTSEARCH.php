@@ -19,6 +19,16 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 <link rel="stylesheet" type="text/css" href="../STYLES/stylesstaff.css">
 
 </style>
+
+<script type="text/javascript">
+fucntion validate(search) {
+	if(document.search.View.value == ""){
+		alert("Please select a search value");
+		return false
+	}
+	return true
+}
+</script>
 </head>
 
 <body>
@@ -62,7 +72,7 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 </div>
 
 <h2>Project View</h2>
-<form style="margin-left: 40px" action="../PROJECT/VIEWRESULTS" method="post" name="search" id="search">
+<form style="margin-left: 40px" action="../PROJECT/VIEWRESULTS" method="post" name="search" id="search" onSubmit="return validate(search)">
 	What are you searching for: <select name="View">
 		<option value="">-Select-</option>
 		<option value="All">All</option>
