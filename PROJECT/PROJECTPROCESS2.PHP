@@ -72,30 +72,8 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 <div id="contents">
 
   <h2>Project Added</h2>
-	<?PHP
-	REQUIRE('../DATABASE/CONNECTDB.PHP');
-	    // IF THE VALUES ARE POSTED, (CREATED BY MARC) INSERT THEM INTO THE DATABASE.
-	{
-
-	  $PROJECTTITLE = MYSQLI_REAL_ESCAPE_STRING($CON, $_POST['PROJECT_TITLE']);
-		$PROJECTBRIEF = MYSQLI_REAL_ESCAPE_STRING($CON, $_POST['PROJECT_BRIEF']);
-		$PROJECTLEADER = MYSQLI_REAL_ESCAPE_STRING($CON, $_POST['PROJECT_LEADER']);
-		$PROJECTEMAIL = MYSQLI_REAL_ESCAPE_STRING($CON, $_POST['PROJECT_EMAIL']);
-		$PROJECTSTATUS = MYSQLI_REAL_ESCAPE_STRING($CON, $_POST['PROJECT_STATUS']);
-
-	  $QUERY = "INSERT INTO PROJECT (PROJECT_TITLE, PROJECT_LEADER, PROJECT_EMAIL, PROJECT_BRIEF, PROJECT_STATUS)
-					   VALUES ('$PROJECTTITLE', '$PROJECTLEADER', '$PROJECTEMAIL', 'PROJECT_BRIEF', '$PROJECTSTATUS')";
-
-	        $RESULT = MYSQLI_QUERY($CON, $QUERY);
-	        IF($RESULT){
-	            echo "<p>Information successfully added</p>";
-	        }ELSE{
-	            echo "<p>Failed to add information</p>";
-
-	        }
-	    }
-
-	    ?>
+	<p><a href="../PROJECT/PROJECTLIST">Click here to see the list of projects</a></p>
+	<p><a href="../PROJECT/PROJECTSEARCH">Click here to search for a project</a></p>
 
 
 
