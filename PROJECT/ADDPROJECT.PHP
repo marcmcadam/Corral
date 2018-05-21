@@ -1,5 +1,6 @@
 <?php
 session_start();
+REQUIRE('../DATABASE/CONNECTDB.PHP');
 
 if ( $_SESSION['STAFF_ID'] != 1) {
 	$_SESSION['message'] = "You mus log in before viewing this page";
@@ -70,15 +71,32 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 
 <div id="contents" >
 <h2>Add New Project</h2>
-<form action="../PROJECT/PROJECTPROCESS2" method="post">
-<p>Project Title &nbsp<br><input type="text" name="PROJECT_TITLE" id="ip2"/></br></p>
-<p>Project Leader &nbsp<br><input type="text" name="PROJECT_LEADER" id="ip2"/></br></p>
-<p>Leader Email &nbsp<br><input type="email" name="PROJECT_EMAIL"/ id="ip2"></br></p>
-<p>Project Brief</br><textarea name="PROJECT_BRIEF" rows="5" cols="40" id="ip3"></textarea></br></p>
+<form method="post">
+<p>Project Title &nbsp<br><input type="text" name="PROJECT_TITLE" id="ip2" required/></br></p>
+<p>Project Leader &nbsp<br><input type="text" name="PROJECT_LEADER" id="ip2" required/></br></p>
+<p>Leader Email &nbsp<br><input type="email" name="PROJECT_EMAIL" id="ip2" required/></br></p>
+<p>Project Brief</br><textarea name="PROJECT_BRIEF" rows="5" cols="40" id="ip3" required></textarea></br></p>
 <p>Project Status &nbsp</br></br><input type="radio" name="PROJECT_STATUS" value="active"/>Active</br></br><input type="radio" name="PROJECT_STATUS" value="inactive"/>Inactive</br></br><input type="radio" name="PROJECT_STATUS" value="planning"/>Planning</br></br></p>
 
 <p><input type="submit">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="reset" value="reset"></p>
 </form>
+<?php
+if (isset($_POST['PROJECT_STATUS'])) {
+	$PROJECTTITLE = MYSQLI_REAL_ESCAPE_STRING($CON, $_POST['PROJECT_TITLE']);
+	$PROJECTBRIEF = MYSQLI_REAL_ESCAPE_STRING($CON, $_POST['PROJECT_BRIEF']);
+	$PROJECTLEADER = MYSQLI_REAL_ESCAPE_STRING($CON, $_POST['PROJECT_LEADER']);
+	$PROJECTEMAIL = MYSQLI_REAL_ESCAPE_STRING($CON, $_POST['PROJECT_EMAIL']);
+	$PROJECTSTATUS = MYSQLI_REAL_ESCAPE_STRING($CON, $_POST['PROJECT_STATUS']);
+	$QUERY = "INSERT INTO PROJECT (PROJECT_TITLE, PROJECT_LEADER, PROJECT_EMAIL, PROJECT_BRIEF, PROJECT_STATUS) VALUES ('$PROJECTTITLE', '$PROJECTLEADER', '$PROJECTEMAIL', 'PROJECT_BRIEF', '$PROJECTSTATUS')";
+	$RESULT = MYSQLI_QUERY($CON, $QUERY);
+	IF($RESULT){
+		header('location: ../PROJECT/PROJECTPROCESS2');
+	}ELSE{
+	        echo "<p>Failed to add information</p>";
+	}
+}
+?>
+
 </div>
 
 <hr>
