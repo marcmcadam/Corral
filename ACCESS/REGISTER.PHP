@@ -1,3 +1,6 @@
+<?php
+require ('../DATABASE/CONNECTDB.php');
+?>
 <!doctype html>
 <html>
 <head>
@@ -10,8 +13,10 @@
 		var temp
 		var email = document.registration.STUDENT_EMAIL.value
 		var password = document.registration.STUDENT_PASSWORD.value
-		var upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-		var lower = "abcdefghijklmnopqrstuvwxyz"
+		var upper = /[A-Z]/g;
+		var lower = /[a-z]/g;
+		var number = /[0-9]/g;
+		var deakin = "@deakin.edu.au"
 
 			if (document.registration.STUDENT_ID.value.length < 9) {
 				alert("Invalid Student ID. Must be nine characters long")
@@ -30,6 +35,13 @@
 			return false
 				}
 			}
+			
+			if(document.registration.STUDENT_EMAIL.value.match(deakin)){
+				return true
+			}else {
+				alert("Email must be a Deakin email")
+				return false
+			}
 
 			if (document.registration.reemail.value != email) {
 				alert("Emails don't match. Please make sure they are the same")
@@ -39,6 +51,13 @@
 			if (document.registration.cpassword.value != password) {
 				alert("Passwords don't match. Please ensure that they are the same")
 				return false
+			}
+			
+			if (document.registration.STUDENT_PASSWORD.value.match(upper) && document.registration.STUDENT_PASSWORD.value.match(number)) {
+				return true
+			}else {
+				alert("Password must contain at least one upper case letter and number")
+				return false 
 			}
 		return true
 	}
@@ -67,7 +86,7 @@
 </div>
 
 <h2>Registration</h2>
-<form name="registration" onSubmit="return validate(registration)" method="post" action="../PAGES/STUDENTSUCCESSFULREG">
+<form name="registration" onSubmit="return validate(registration)" method="post">
 	Student ID: <input type="text" name="STUDENT_ID" maxlength="9" id="ip2" required><br><br>
 	First Name: <input type="text" name="STUDENT_FIRSTNAME" id="ip2" required><br><br>
 	Last Name: <input type="text" name="STUDENT_LASTNAME" id="ip2" required><br><br>
@@ -87,6 +106,26 @@
 
 </form>
 
+<?php
+
+if (isset($_POST['STUDENT_PASSWORD'])) {
+	$id = mysqli_real_escape_string($CON, $_POST['STUDENT_ID']);
+	$firstname = mysqli_real_escape_string($CON, $_POST['STUDENT_FIRSTNAME']);
+	$lastname = mysqli_real_escape_string($CON, $_POST['STUDENT_LASTNAME']);
+	$location = mysqli_real_escape_string($CON, $_POST['STUDENT_LOCATION']);
+	$email = mysqli_real_escape_string($CON, $_POST['STUDENT_EMAIL']);
+	$password = mysqli_real_escape_string($CON, $_POST['STUDENT_PASSWORD']);
+	$query = "INSERT INTO student (STUDENT_ID, STUDENT_FIRSTNAME, STUDENT_LASTNAME, STUDENT_LOCATION, STUDENT_EMAIL, STUDENT_PASSWORD) VALUES ('$id', '$firstname', '$lastname', '$location', '$email', '$password')";
+	$result = mysqli_query($CON, $query);
+
+	if($result){
+            header('location: ../PAGES/STUDENTSUCCESSFULREG');
+        }else{
+            $fmsg ="User Registration Failed";
+        }
+}
+
+?>
 
 <div class="Footer">
 	<h4>© Copyright Deakin University & Group 29 2018</h4>
