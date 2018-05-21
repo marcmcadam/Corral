@@ -67,15 +67,15 @@ $View = $_POST['View'];
 <h2>Results</h2>
 
 <?php
-    $conn=mysqli_connect("localhost","root","") or die(mysqli_errno($conn));
-    mysqli_select_db($conn, "corral_project");
+    $CON=mysqli_connect("localhost","root","") or die(mysqli_errno($CON));
+    mysqli_select_db($CON, "corral_project");
 
 	$sql="select * from project where PROJECT_STATUS='".$View."'";
 	if ($View == "All") {
 		$sql="select * from project";
 	}
 
-    $res=mysqli_query($conn, $sql);
+    $res=mysqli_query($CON, $sql);
     echo "<p><table width='900px'  border='1px' cellpadding='10px'></p>";
     echo "<tr><th>Project Number</th><th>Project Brief</th><th>Project Status</th></tr>";
     while ($row=mysqli_fetch_assoc($res)){
@@ -83,7 +83,7 @@ $View = $_POST['View'];
     }
     echo "</table>";
     mysqli_free_result($res);
-    mysqli_close($conn);
+    mysqli_close($CON);
 ?>
 
 <br><hr>
