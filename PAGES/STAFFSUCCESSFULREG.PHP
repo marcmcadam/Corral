@@ -1,7 +1,3 @@
-<?php
-session_start();
-require ('../DATABASE/CONNECTDB.php');
-?>
 <!doctype html>
 <html>
 <head>
@@ -10,14 +6,6 @@ require ('../DATABASE/CONNECTDB.php');
 <link rel="stylesheet" type="text/css" href="../STYLES/stylesheet.css">
 </head>
 <body>
-<?php
-$id = mysqli_real_escape_string($CON, $_POST['STAFF_ID']);
-$firstname = mysqli_real_escape_string($CON, $_POST['STAFF_FIRSTNAME']);
-$lastname = mysqli_real_escape_string($CON, $_POST['STAFF_LASTNAME']);
-$location = mysqli_real_escape_string($CON, $_POST['STAFF_LOCATION']);
-$email = mysqli_real_escape_string($CON, $_POST['STAFF_EMAIL']);
-$password = mysqli_real_escape_string($CON, $_POST['STAFF_PASSWORD']);
-?>
 <div class="Header">
 	<h1>Corral</h1>
 </div>
@@ -39,15 +27,6 @@ $password = mysqli_real_escape_string($CON, $_POST['STAFF_PASSWORD']);
 	</div>
 </div>
 
-<?php
-$query = "INSERT INTO STAFF (STAFF_ID, STAFF_FIRSTNAME, STAFF_LASTNAME, STAFF_LOCATION, STAFF_EMAIL, STAFF_PASSWORD) VALUES ('$id', '$firstname', '$lastname', '$location', '$email', '$password')";
-$result = mysqli_query($CON, $query);
-if($result){
-            $smsg = "User Created Successfully.";
-        }else{
-            $fmsg ="User Registration Failed";
-        }
-?>
 <h2 align="center">You have successfully registered an ID.</h2>
 
 <a href="../ACCESS/stafflogin"><h2 align="center">Back to Log In</h2></a>
