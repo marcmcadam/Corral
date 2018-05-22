@@ -85,7 +85,7 @@ require ('../DATABASE/CONNECTDB.php');
 	</div>
 </div>
 
-<h2>Registration</h2>
+<h2 style="margin-left: 35%;">Registration</h2>
 <form name="registration" onSubmit="return validate(registration)" method="post">
 	Staff ID: <input type="text" name="STAFF_ID" maxlength="9" id="ip2" required><br><br>
 	First Name: <input type="text" name="STAFF_FIRSTNAME" id="ip2" required><br><br>
@@ -114,13 +114,15 @@ if (isset($_POST['STAFF_PASSWORD'])) {
 	$location = mysqli_real_escape_string($CON, $_POST['STAFF_LOCATION']);
 	$email = mysqli_real_escape_string($CON, $_POST['STAFF_EMAIL']);
 	$password = mysqli_real_escape_string($CON, $_POST['STAFF_PASSWORD']);
-	$query = "INSERT INTO STAFF (STAFF_ID, STAFF_FIRSTNAME, STAFF_LASTNAME, STAFF_LOCATION, STAFF_EMAIL, STAFF_PASSWORD) VALUES ('$id', '$firstname', '$lastname', '$location', '$email', '$password')";
-	$result = mysqli_query($CON, $query);
-	
-	if($result){
-            header('location: ../PAGES/STAFFSUCCESSFULREG');
-        }else{
-            $fmsg ="User Registration Failed";
+	$sql_id = "SELECT * FROM STAFF WHERE STAFF_ID = '$id'";
+	$res_id = mysqli_query($CON, $sql_id);
+
+	if (mysqli_num_rows($res_id) > 0) {
+		echo "<p style='margin-left: 35%;'>There is an account with that STAFF ID. Please try again</p>";
+	}else{
+			$query = "INSERT INTO STAFF (STAFF_ID, STAFF_FIRSTNAME, STAFF_LASTNAME, STAFF_LOCATION, STAFF_EMAIL, STAFF_PASSWORD) VALUES ('$id', '$firstname', '$lastname', '$location', '$email', '$password')";
+			$result = mysqli_query($CON, $query);
+			header('location: ../PAGES/STAFFSUCCESSFULREG');
         }
 }
 ?>
