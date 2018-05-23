@@ -68,7 +68,6 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 <p><a href="#Results">Project results</a></p>
 <p><a href="../PROJECT/PROJECTLIST">Past Projects</a></p>
 <p>If you wish to log out, <a href="../PAGES/STAFFLOGOUT">click here</a></p>
-<p>If you wish to log out, <a href="../PAGES/STAFFLOGOUT">click here</a></p>
 <div class="Footer">
 	<h4>© Copyright Deakin University & Group 29 2018</h4>
 </div>
