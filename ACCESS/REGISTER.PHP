@@ -115,13 +115,15 @@ if (isset($_POST['STUDENT_PASSWORD'])) {
 	$location = mysqli_real_escape_string($CON, $_POST['STUDENT_LOCATION']);
 	$email = mysqli_real_escape_string($CON, $_POST['STUDENT_EMAIL']);
 	$password = mysqli_real_escape_string($CON, $_POST['STUDENT_PASSWORD']);
+	$salt = 'juhladhfl465adfgadf564a3d5f4g6664645dfgvadf';
+	$md5 = md5($salt . $password . $salt);
 	$sql_id = "SELECT * FROM student WHERE STUDENT_ID = '$id'";
 	$res_id = mysqli_query($CON, $sql_id);
 
 	if (mysqli_num_rows($res_id) > 0) {
 		echo "<p style='margin-left: 35%;'>There is an account with that Student ID. Please try again</p>";
 	}else{
-			$query = "INSERT INTO student (STUDENT_ID, STUDENT_FIRSTNAME, STUDENT_LASTNAME, STUDENT_LOCATION, STUDENT_EMAIL, STUDENT_PASSWORD) VALUES ('$id', '$firstname', '$lastname', '$location', '$email', '$password')";
+			$query = "INSERT INTO student (STUDENT_ID, STUDENT_FIRSTNAME, STUDENT_LASTNAME, STUDENT_LOCATION, STUDENT_EMAIL, STUDENT_PASSWORD) VALUES ('$id', '$firstname', '$lastname', '$location', '$email', '$md5')";
 			$result = mysqli_query($CON, $query);
 			header('location: ../PAGES/STUDENTSUCCESSFULREG');
         }
