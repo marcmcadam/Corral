@@ -114,13 +114,15 @@ if (isset($_POST['STAFF_PASSWORD'])) {
 	$location = mysqli_real_escape_string($CON, $_POST['STAFF_LOCATION']);
 	$email = mysqli_real_escape_string($CON, $_POST['STAFF_EMAIL']);
 	$password = mysqli_real_escape_string($CON, $_POST['STAFF_PASSWORD']);
+	$salt = 'juhladhfl465adfgadf564a3d5f4g6664645dfgvadf';
+	$md5 = md5($salt . $password . $salt);
 	$sql_id = "SELECT * FROM STAFF WHERE STAFF_ID = '$id'";
 	$res_id = mysqli_query($CON, $sql_id);
 
 	if (mysqli_num_rows($res_id) > 0) {
 		echo "<p style='margin-left: 35%;'>There is an account with that STAFF ID. Please try again</p>";
 	}else{
-			$query = "INSERT INTO STAFF (STAFF_ID, STAFF_FIRSTNAME, STAFF_LASTNAME, STAFF_LOCATION, STAFF_EMAIL, STAFF_PASSWORD) VALUES ('$id', '$firstname', '$lastname', '$location', '$email', '$password')";
+			$query = "INSERT INTO STAFF (STAFF_ID, STAFF_FIRSTNAME, STAFF_LASTNAME, STAFF_LOCATION, STAFF_EMAIL, STAFF_PASSWORD) VALUES ('$id', '$firstname', '$lastname', '$location', '$email', '$md5')";
 			$result = mysqli_query($CON, $query);
 			header('location: ../PAGES/STAFFSUCCESSFULREG');
         }
