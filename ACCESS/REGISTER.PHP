@@ -31,11 +31,11 @@ require ('../DATABASE/CONNECTDB.php');
 			for (var i=0;i<document.registration.STUDENT_ID.value.length;i++) {
 			temp = document.registration.STUDENT_ID.value.substring(i,i+1)
 			if (digits.indexOf(temp)==-1) {
-			alert("Invalid Studnet ID. Must only be numbers")
+			alert("Invalid Student ID. Must only be numbers")
 			return false
 				}
 			}
-			
+
 			if(document.registration.STUDENT_EMAIL.value.match(deakin)){
 				return true
 			}else {
@@ -52,12 +52,12 @@ require ('../DATABASE/CONNECTDB.php');
 				alert("Passwords don't match. Please ensure that they are the same")
 				return false
 			}
-			
+
 			if (document.registration.STUDENT_PASSWORD.value.match(upper) && document.registration.STUDENT_PASSWORD.value.match(number)) {
 				return true
 			}else {
 				alert("Password must contain at least one upper case letter and number")
-				return false 
+				return false
 			}
 		return true
 	}
