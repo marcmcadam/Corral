@@ -45,9 +45,6 @@
 <h3>Can I decline a project after already being accepted into it?</h3>
 <p>This depends on the nature of the project (compulsory or on a volunteer-basis) but once again is at the discretion of those who have created the project. Please contact your supervisor directly.</p>
 <p>&nbsp;</p>
-<h2>Simple Guide</h2>
-<p>If you wish to read a simple guide, please click the link below.</p>
-<p><a href="../DOCUMENTATION/UserGuide-Student.pdf">Simple Guide</a></p>
 
 <div class="Footer">
 	<h4>© Copyright Deakin University & Group 29 2018</h4>
