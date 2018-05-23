@@ -15,7 +15,7 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 <html>
 <head>
 <meta charset="utf-8">
-<title>Welcome <?= $staff_firstname.' '.$staff_lastname ?> </title>
+<title>Staff Profile</title>
 <link rel="stylesheet" type="text/css" href="../STYLES/stylesstaff.css">
 </head>
 
@@ -64,9 +64,9 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 <p>From here you can look at the project form, past projects and results for project group pairings</p>
 
 <p>The following links below will get you to those pages:</p>
-<p><a href="../PROJECT/ADDPROJECT">Projects form</a></p>
-<p><a href="#Results">Project results</a></p>
-<p><a href="../PROJECT/PROJECTLIST">Past Projects</a></p>
+<p><a href="../PROJECT/ADDPROJECT">Create A Project</a></p>
+<p><a href="../PROJECT/PROJECTLIST">All Projects</a></p>
+<p><a href="../PROJECT/PROJECTSEARCH">Search Projects</a></p>
 <p>If you wish to log out, <a href="../PAGES/STAFFLOGOUT">click here</a></p>
 <div class="Footer">
 	<h4>© Copyright Deakin University & Group 29 2018</h4>
