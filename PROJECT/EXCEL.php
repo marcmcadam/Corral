@@ -16,14 +16,13 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 
 if(isset($_POST["export_excel"]))
 {
-	$conn=mysqli_connect("localhost","root","") or die(mysqli_errno($conn));
-	mysqli_select_db($conn, "corral_project");
+require('../DATABASE/CONNECTDB.PHP');
 	header('Content-Type: text/csv; charset=utf-8');
 	header('Content-Disposition: attachment; filename=data.csv');
 	$output = fopen("php://output", "w");
-	fputcsv($output, array('Project Number', 'Project Brief', 'Project Status'));
-	$query = "select * from SURVEYANSWER";
-	$result = mysqli_query($conn, $query);
+	fputcsv($output, array('Project Number', 'Project Brief', 'Project Leader', 'Project Status'));
+	$query = "SELECT PROJECT_NUM, PROJECT_BRIEF, PROJECT_LEADER, PROJECT_STATUS FROM PROJECT";
+	$result = mysqli_query($CON, $query);
 	while($row = mysqli_fetch_assoc($result))
 	{
 		fputcsv($output, $row);
