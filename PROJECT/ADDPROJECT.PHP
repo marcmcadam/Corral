@@ -76,7 +76,7 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 <p>Project Leader &nbsp<br><input type="text" name="PROJECT_LEADER" id="ip2" required/></br></p>
 <p>Leader Email &nbsp<br><input type="email" name="PROJECT_EMAIL" id="ip2" required/></br></p>
 <p>Project Brief</br><textarea name="PROJECT_BRIEF" rows="5" cols="40" id="ip3" required></textarea></br></p>
-<p>Project Status &nbsp</br></br><input type="radio" name="PROJECT_STATUS" value="active"/>Active</br></br><input type="radio" name="PROJECT_STATUS" value="inactive"/>Inactive</br></br><input type="radio" name="PROJECT_STATUS" value="planning"/>Planning</br></br></p>
+<p>Project Status &nbsp</br></br><input type="radio" name="PROJECT_STATUS" value="Active"/>Active</br></br><input type="radio" name="PROJECT_STATUS" value="Inactive"/>Inactive</br></br><input type="radio" name="PROJECT_STATUS" value="Planning"/>Planning</br></br></p>
 
 <p><input type="submit">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="reset" value="reset"></p>
 </form>

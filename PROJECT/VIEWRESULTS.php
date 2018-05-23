@@ -67,12 +67,11 @@ $View = $_POST['View'];
 <h2>Results</h2>
 
 <?php
-    $CON=mysqli_connect("localhost","root","") or die(mysqli_errno($CON));
-    mysqli_select_db($CON, "corral_project");
+require('../DATABASE/CONNECTDB.PHP');
 
-	$sql="select * from project where PROJECT_STATUS='".$View."'";
+	$sql="SELECT * FROM PROJECT WHERE PROJECT_STATUS='".$View."'";
 	if ($View == "All") {
-		$sql="select * from project";
+		$sql="SELECT * FROM PROJECT";
 	}
 
     $res=mysqli_query($CON, $sql);
@@ -97,7 +96,7 @@ $View = $_POST['View'];
 </form>
 
 <div class="Footer">
-	<h4>This is copy righted by Deakin and the project group 29</h4>
+	<h4>© Copyright Deakin University & Group 29 2018</h4>
 </div>
 </body>
 </html>

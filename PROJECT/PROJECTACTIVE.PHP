@@ -63,11 +63,10 @@
 <h2>Current Project List</h2>
 <?php
 
-    $conn=mysqli_connect("localhost","root","") or die(mysqli_errno($conn));
-    mysqli_select_db($conn, "test");
+require('../DATABASE/CONNECTDB.PHP');
 
-    $sql="select * from project where PROJECT_STATUS='Active'";
-    $res=mysqli_query($conn, $sql);
+    $sql="SELECT * FROM PROJECT WHERE PROJECT_STATUS='Active'";
+    $res=mysqli_query($CON, $sql);
 
     echo "<p><table width='900px'  border='1px' cellpadding='10px'></p>";
     echo "<tr><th>Project Number</th><th>Project Brief</th><th>Project Status</th></tr>";
@@ -78,7 +77,7 @@
 
     echo "</table>";
     mysqli_free_result($res);
-    mysqli_close($conn);
+    mysqli_close($CON);
 
 ?>
 </div>

@@ -78,7 +78,7 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 
 
 
-    $sql="SELECT * FROM PROJECT";
+    $sql="SELECT * FROM PROJECT ORDER BY PROJECT_STATUS ASC";
     $res=mysqli_query($CON, $sql);
 
     echo "<p><table width='1250px' height='150px' border='1px' cellpadding='10px' align='center'></p>";
