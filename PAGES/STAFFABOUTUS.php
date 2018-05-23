@@ -74,14 +74,10 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 <p>The process begins with users completing our quick survey, detailing their skills on both a technical and personal level. From there, the survey is submitted and added to our databases. From there your job as the user is done! When new projects are added, users can then be allocated certain roles, which is dependant on not only the users proficiency in certain skills, but also the skills required for the task at hand. Once the team has been finalised, users may access details of the project and contact other members of the group.</p>
 <h3>Who can use Corral?</h3>
 <p>Corral has been primarily designed for students and teachers as an interface for sharing upcoming projects that students will take part in. However, Corral can also be utilised by employers who desire a platform for showcase upcoming projects that require group work, as Corral takes away the pain and time of assigning equal teams to different tasks. </p>
-<h3>What options do I have if I don't get the project I want?</h3>
-<p>Changing projects is an option at the discretion of your teacher or employer, as we at the Corral do not oversee each team when they have been successful placed to a project.</p>
-<h3>Can I decline a project after already being accepted into it?</h3>
-<p>This depends on the nature of the project (compulsory or on a volunteer-basis) but once again is at the discretion of those who have created the project. Please contact your supervisor directly.</p>
 <p>&nbsp;</p>
 <h2>Simple Guide</h2>
 <p>If you wish to read a simple guide, please click the link below.</p>
-<p><a href="../DOCUMENTATION/UserGuide-Student.pdf">Simple Guide</a></p>
+<p><a href="../DOCUMENTATION/UserGuide-Staff.pdf">Simple Guide</a></p>
 
 <div class="Footer">
 	<h4>© Copyright Deakin University & Group 29 2018</h4>
