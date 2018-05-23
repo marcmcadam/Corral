@@ -12,17 +12,17 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 	}
 function fetch_data()
 {
-	$conn=mysqli_connect("localhost","root","") or die(mysqli_errno($conn));
-	mysqli_select_db($conn, "corral_project");
+require('../DATABASE/CONNECTDB.PHP');
 	$output = "";
-	$sql = "select * from project";
-	$result = mysqli_query($conn, $sql);
+	$sql = "SELECT PROJECT_NUM, PROJECT_BRIEF, PROJECT_LEADER, PROJECT_STATUS FROM PROJECT";
+	$result = mysqli_query($CON, $sql);
 	while($row = mysqli_fetch_array($result))
 	{
 		$output .= '
 			<tr>
 				<td>'.$row["PROJECT_NUM"].'</td>
 				<td>'.$row["PROJECT_BRIEF"].'</td>
+				<td>'.$row["PROJECT_LEADER"].'</td>
 				<td>'.$row["PROJECT_STATUS"].'</td>
 			</tr>
 		';
@@ -53,6 +53,7 @@ if(isset($_POST['export_PDF']))
 		<tr>
 			<th>Project Number</th>
 			<th>Project Brief</th>
+			<th>Project Leader</th>
 			<th>Project Status</th>
 		</tr>
 	';
