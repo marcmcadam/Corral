@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 if ( $_SESSION['STAFF_ID'] != 1) {
 	$_SESSION['message'] = "You mus log in before viewing this page";
 	header("location: ../ACCESS/error");
@@ -18,7 +19,7 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 
 <meta charset="utf-8">
 
-<title>Template</title>
+<title>Project List</title>
 <link rel="stylesheet" type="text/css" href="../STYLES/stylesstaff.css">
 
 </head>
@@ -30,8 +31,6 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 <div class="Header">
 	<h1>Corral</h1>
 </div>
-
-
 <div class ="navbar">
 	<ul>
 		<li><a href="../PAGES/STAFFHOME">Home</a></li>
@@ -68,51 +67,15 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 </div>
 
 
+<div id="contents" >
 
-<div id="contents">  <h2>Update Project</h2>
+<h2>Update Group - Under Construction</h2>
 
-<?php
-
-   $number=$_REQUEST['number'];
-
-   $brief=$_POST['brief'];
-
-   $status=$_POST['status'];
-
-   if(empty($brief)){
-
-       echo "<p>you need to input project brief</p>";
-
-   }else{        required('../DATABASE/CONNECTDB.php');
-
-       mysqli_select_db($conn, "test");        $sql="update project set PROJECT_BRIEF='$brief',PROJECT_STATUS='$status' where PROJECT_NUM=$number";        $b=mysqli_query($conn,$sql);         if(!$b){
-
-               echo "<p>fail</p>";
-
-         }else{
-
-               if(mysqli_affected_rows($conn)>0){
-
-                   echo "<p>success</p>";
-
-                   echo "<p><a href='proList.php'>back to project list</a></p>";
-
-               }else{
-
-                   return "<p>not affected rows</p>";
-
-               }
-
-           }
-
-
-
-       mysqli_close($conn);
-
-   }?></div>
+</div>
 
 
 <hr>
+
 
 <div class="Footer">
 

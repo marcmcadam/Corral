@@ -31,7 +31,6 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 <div class="Header">
 	<h1>Corral</h1>
 </div>
-
 <div class ="navbar">
 	<ul>
 		<li><a href="../PAGES/STAFFHOME">Home</a></li>
@@ -70,7 +69,7 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 
 <div id="contents" >
 
-<h2>Group List - Under Construction</h2>
+<h2>List Group - Under Construction</h2>
 
 </div>
 
