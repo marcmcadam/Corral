@@ -49,8 +49,10 @@ if (isset($_POST['STAFF_ID']) and isset($_POST['STAFF_PASSWORD'])){
 //3.1.1 Assigning posted values to variables.
 $id = mysqli_real_escape_string($CON, $_POST['STAFF_ID']);
 $password = mysqli_real_escape_string($CON, $_POST['STAFF_PASSWORD']);
+$salt = 'juhladhfl465adfgadf564a3d5f4g6664645dfgvadf';
+$md5 = md5($salt . $password . $salt);
 //3.1.2 Checking the values are existing in the database or not
-$query = "SELECT * FROM STAFF WHERE STAFF_ID='$id' and STAFF_PASSWORD='$password'";
+$query = "SELECT * FROM STAFF WHERE STAFF_ID='$id' and STAFF_PASSWORD='$md5'";
 $result = mysqli_query($CON, $query) or die(mysqli_error($CON));
 $count = mysqli_num_rows($result);
 //3.1.2 If the posted values are equal to the database values, then session will be created for the user.
