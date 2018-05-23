@@ -65,6 +65,11 @@ h2 {
 	font-family: Arial, Helvetica, sans-serif;
 }
 
+h3 {
+	margin-left: 40px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
 /* The navagation bar for the site, linked to the drop downs */
 	.navbar {
     background-color: #007399;
@@ -155,7 +160,7 @@ ul li {
 
 ul li a{
 	text-decoration:none;
-	padding:25px 20px;
+	padding:14px 40px;
 	color:white;
 }
 
@@ -169,7 +174,7 @@ ul li ul {
 	position:absolute;
 	top:70px;
 	left:0;
-	width:294px;
+	width:334px;
 	display:none;
 	visibility:hidden;
 }
