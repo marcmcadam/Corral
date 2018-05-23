@@ -76,9 +76,9 @@ require('../DATABASE/CONNECTDB.PHP');
 
     $res=mysqli_query($CON, $sql);
     echo "<p><table width='900px'  border='1px' cellpadding='10px'></p>";
-    echo "<tr><th>Project Number</th><th>Project Brief</th><th>Project Status</th></tr>";
+    echo "<tr><th>Project Number</th><th>Project Brief</th><th>Project Leader</th><th>Project Status</th></tr>";
     while ($row=mysqli_fetch_assoc($res)){
-        echo "<tr><td align='center'>{$row['PROJECT_NUM']}</td><td align='center'>{$row['PROJECT_BRIEF']}</td><td align='center'>{$row['PROJECT_STATUS']}</td></tr>";
+        echo "<tr><td align='center'>{$row['PROJECT_NUM']}</td><td align='center'>{$row['PROJECT_BRIEF']}</td><td align='center'>{$row['PROJECT_LEADER']}</td><td align='center'>{$row['PROJECT_STATUS']}</td></tr>";
     }
     echo "</table>";
     mysqli_free_result($res);
