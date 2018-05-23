@@ -83,7 +83,7 @@ echo "<p><table width='1250px' height='150px' border='1px' cellpadding='10px' al
 echo "<tr><th>ID</th><th>FIRSTNAME</th><th>LASTNAME</th><th>LOCATION</th><th>EMAIL</th><th>Update Information</th></tr>";
 
 while ($row=mysqli_fetch_assoc($res)){
-    echo "<tr><td align='center' width='70px'>{$row['STUDENT_ID']}</td><td align='center' width='190px'>{$row['STUDENT_FIRSTNAME']}</td><td align='center' width='190px'>{$row['STUDENT_LASTNAME']}</td><td align='center' width='180px'>{$row['STUDENT_LOCATION']}</td><td align='center'  width='500px'>{$row['STUDENT_EMAIL']}</td><td align='center'><a href='STUDENTUPDATE.php?number={$row['STUDENT_NUM']}&firstname={$row['STUDENT_FIRSTNAME']}&lastname={$row['STUDENT_LASTNAME']}&location={$row['STUDENT_LOCATION']}&email={$row['STUDENT_EMAIL']}'>Update</a></td></tr>";
+    echo "<tr><td align='center' width='70px'>{$row['STUDENT_ID']}</td><td align='center' width='190px'>{$row['STUDENT_FIRSTNAME']}</td><td align='center' width='190px'>{$row['STUDENT_LASTNAME']}</td><td align='center' width='180px'>{$row['STUDENT_LOCATION']}</td><td align='center'  width='500px'>{$row['STUDENT_EMAIL']}</td><td align='center'><a href='STUDENTUPDATE.php?number={$row['STUDENT_ID']}&firstname={$row['STUDENT_FIRSTNAME']}&lastname={$row['STUDENT_LASTNAME']}&location={$row['STUDENT_LOCATION']}&email={$row['STUDENT_EMAIL']}'>Update</a></td></tr>";
 }
 
 echo "</table>";

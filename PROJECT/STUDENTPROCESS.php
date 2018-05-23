@@ -77,7 +77,7 @@ if ( $_SESSION['STAFF_ID'] != 1) {
  require("../DATABASE/CONNECTDB.php");
 
 
-		$number=$_SESSION['number'];
+		$number=$_POST['STUDENT_ID'];
 		$firstname=$_POST['STUDENT_FIRSTNAME'];
 		$lastname=$_POST['STUDENT_LASTNAME'];
 		$location=$_POST['STUDENT_LOCATION'];
@@ -85,18 +85,18 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 
 
 	     if(empty($location)){
-	        echo "<p>you need to input location</p>";
+	        echo "<p>You need to input location</p>";
 	    }else if(empty($email)){
-			 echo "<p>you need to input email</p>";
+			 echo "<p>You need to input email</p>";
 		}else if(empty($firstname)){
-			 echo "<p>you need to input firstname</p>";
+			 echo "<p>You need to input firstname</p>";
 		}else if(empty($lastname)){
-			 echo "<p>you need to input lastname</p>";
+			 echo "<p>You need to input lastname</p>";
 		}else{
 
 
 
-	        $sql="UPDATE STUDENT SET STUDENT_LOCATION='$location',STUDENT_EMAIL='$email',STUDENT_FIRSTNAME='$firstname',STUDENT_LASTNAME='$lastname' WHERE STUDENT_NUM=$number";
+	        $sql="UPDATE STUDENT SET STUDENT_LOCATION='$location',STUDENT_EMAIL='$email',STUDENT_FIRSTNAME='$firstname',STUDENT_LASTNAME='$lastname' WHERE STUDENT_ID=$number";
 
 	        $b=mysqli_query($CON,$sql);
 
@@ -104,10 +104,10 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 	                echo "<p>Failed to update information</p>";
 	          }else{
 	                if(mysqli_affected_rows($CON)>0){
-	                    echo "<p>information successfully updated</p>";
+	                    echo "<p>Information successfully updated</p>";
 	                    echo "<p><a href='STUDENTLIST.PHP'>Back to student list</a></p>";
 	                }else{
-	                    return "<p>not affected rows</p>";
+	                    return "<p>Rows not affected</p>";
 	                }
 	            }
 

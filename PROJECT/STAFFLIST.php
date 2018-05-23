@@ -84,7 +84,7 @@ echo "<p><table width='1250px' height='150px' border='1px' cellpadding='10px' al
 echo "<tr><th>ID</th><th>FIRSTNAME</th><th>LASTNAME</th><th>LOCATION</th><th>EMAIL</th><th>Update Information</th></tr>";
 
 while ($row=mysqli_fetch_assoc($res)){
-    echo "<tr><td align='center' width='70px'>{$row['STAFF_ID']}</td><td align='center' width='190px'>{$row['STAFF_FIRSTNAME']}</td><td align='center' width='190px'>{$row['STAFF_LASTNAME']}</td><td align='center' width='180px'>{$row['STAFF_LOCATION']}</td><td align='center'  width='500px'>{$row['STAFF_EMAIL']}</td><td align='center'><a href='STAFFUPDATE.php?number={$row['STAFF_NUM']}&firstname={$row['STAFF_FIRSTNAME']}&lastname={$row['STAFF_LASTNAME']}&location={$row['STAFF_LOCATION']}&email={$row['STAFF_EMAIL']}'>Update</a></td></tr>";
+    echo "<tr><td align='center' width='70px'>{$row['STAFF_ID']}</td><td align='center' width='190px'>{$row['STAFF_FIRSTNAME']}</td><td align='center' width='190px'>{$row['STAFF_LASTNAME']}</td><td align='center' width='180px'>{$row['STAFF_LOCATION']}</td><td align='center'  width='500px'>{$row['STAFF_EMAIL']}</td><td align='center'><a href='STAFFUPDATE.php?number={$row['STAFF_ID']}&firstname={$row['STAFF_FIRSTNAME']}&lastname={$row['STAFF_LASTNAME']}&location={$row['STAFF_LOCATION']}&email={$row['STAFF_EMAIL']}'>Update</a></td></tr>";
 }
 
 echo "</table>";

@@ -87,9 +87,9 @@ if (isset($_POST['PROJECT_STATUS'])) {
 	$PROJECTLEADER = MYSQLI_REAL_ESCAPE_STRING($CON, $_POST['PROJECT_LEADER']);
 	$PROJECTEMAIL = MYSQLI_REAL_ESCAPE_STRING($CON, $_POST['PROJECT_EMAIL']);
 	$PROJECTSTATUS = MYSQLI_REAL_ESCAPE_STRING($CON, $_POST['PROJECT_STATUS']);
-	$sql_id = "SELECT * FROM PROJECT WHERE PROJECT_TITLE = '$PROJECTTITLE'";
+	$sql_id = "SELECT PROJECT_TITLE FROM PROJECT WHERE PROJECT_TITLE = '$PROJECTTITLE'";
 	$res_id = mysqli_query($CON, $sql_id);
-	
+
 	IF(mysqli_num_rows($res_id) > 0) {
 		echo "<p style='margin-left: 35%;'>There is already a project with the typed title. Please try again</p>";
 	}ELSE{

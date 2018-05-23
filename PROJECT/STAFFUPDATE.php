@@ -18,7 +18,7 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 
 <meta charset="utf-8">
 
-<title>Template</title>
+<title>Staff Update</title>
 <link rel="stylesheet" type="text/css" href="../STYLES/stylesstaff.css">
 
 </head>
@@ -65,8 +65,10 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 <div id="contents">
 <h2>Update Staff List</h2>
 <p><form action="../PROJECT/STAFFPROCESS" method="post"></p>
-<p>Staff number <?php echo $_GET['number'];?></p>
 
+
+<p>Staff ID </p>
+<p><input type="text" name="STAFF_ID" value="<?php echo $_GET['number'];?>" id="ip2"/></p>
 <p>Firstname </p>
 <p><input type="text" name="STAFF_FIRSTNAME" value="<?php echo $_GET['firstname'];?>" id="ip2"/></p>
 <p>Lastname </p>

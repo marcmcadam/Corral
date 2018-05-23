@@ -18,7 +18,7 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 
 <meta charset="utf-8">
 
-<title>Template</title>
+<title>Staff Update</title>
 <link rel="stylesheet" type="text/css" href="../STYLES/stylesstaff.css">
 
 </head>
@@ -76,7 +76,7 @@ if ( $_SESSION['STAFF_ID'] != 1) {
  require("../DATABASE/CONNECTDB.php");
 
 
-		$number=$_SESSION['number'];
+		$number=$_POST['STAFF_ID'];
 		$firstname=$_POST['STAFF_FIRSTNAME'];
 		$lastname=$_POST['STAFF_LASTNAME'];
 		$location=$_POST['STAFF_LOCATION'];
@@ -85,16 +85,16 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 		if(empty($location)){
 				echo "<p>you need to input location</p>";
 			}else if(empty($email)){
-				echo "<p>you need to input email</p>";
+				echo "<p>You need to input email</p>";
 			}else if(empty($firstname)){
-				echo "<p>you need to input firstname</p>";
+				echo "<p>You need to input firstname</p>";
 			}else if(empty($lastname)){
-				echo "<p>you need to input lastname</p>";
+				echo "<p>You need to input lastname</p>";
 			}else{
 
 
 
-	        $sql="UPDATE STAFF SET STAFF_LOCATION='$location',STAFF_EMAIL='$email',STAFF_FIRSTNAME='$firstname',STAFF_LASTNAME='$lastname' WHERE STAFF_NUM=$number";
+	        $sql="UPDATE STAFF SET STAFF_LOCATION='$location',STAFF_EMAIL='$email',STAFF_FIRSTNAME='$firstname',STAFF_LASTNAME='$lastname' WHERE STAFF_ID=$number";
 
 	        $b=mysqli_query($CON,$sql);
 
@@ -102,10 +102,10 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 	                echo "<p>Failed to update information</p>";
 	          }else{
 	                if(mysqli_affected_rows($CON)>0){
-	                    echo "<p>information successfully updated</p>";
+	                    echo "<p>Information successfully updated</p>";
 	                    echo "<p><a href='STAFFLIST.PHP'>Back to staff list</a></p>";
 	                }else{
-	                    return "<p>not affected rows</p>";
+	                    return "<p>Rows not affected</p>";
 	                }
 	            }
 
