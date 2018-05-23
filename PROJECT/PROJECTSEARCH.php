@@ -77,7 +77,7 @@ fucntion validate(search) {
 		<option value="">-Select-</option>
 		<option value="All">All</option>
 		<option value="Active">Active Projects</option>
-		<option value="Hold">Hold Projects</option>
+		<option value="Inactive">Inactive Projects</option>
 		<option value="Planning">Planning Projects</option>
 		<option value="Cancelled">Cancelled Projects</option>
 	</select><br><br>
