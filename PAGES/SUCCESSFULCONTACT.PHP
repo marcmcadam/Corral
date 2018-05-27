@@ -1,30 +1,54 @@
 <?php
-if(!isset($_POST['submit']))
+require '../PHPMailer/PHPMailerAutoload.php';
 
-
-$firstname = $_POST['firstname'];
-$lastname = $_POST['lastname'];
-$id = $_POST['id'];
+//Contact Us Form
+$name = $_POST['name'];
 $email = $_POST['email'];
-$question = $_POST['question'];
+$subject = $_POST['subject'];
+$message = $_POST['message'];
 
-if(empty($firstname)||empty($lastname)||empty($email))
-{
-    echo "Your Name and Email Address are Mandatory";
-    exit;
+//Gmail Configuration
+$mail = new PHPMailer;
+$mail->SMTPOptions = array(
+    'ssl' => array(
+        'verify_peer' => false,
+        'verify_peer_name' => false,
+        'allow_self_signed' => true
+    )
+);
+$mail->isSMTP();                                   // Set mailer to use SMTP
+$mail->Host = 'smtp.gmail.com';                    // Specify main and backup SMTP servers
+$mail->SMTPAuth = true;                            // Enable SMTP authentication
+$mail->Username = 'thecorralproject@gmail.com';    // SMTP username
+$mail->Password = 'corral374'; 						// SMTP password
+$mail->SMTPSecure = 'tls';                         // Enable TLS encryption, `ssl` also accepted
+$mail->Port = 587;                                 // TCP port to connect to
+
+$mail->setFrom($name);
+$mail->addReplyTo($email);
+$mail->addAddress('thecorralproject@gmail.com');   // Add a recipient
+//$mail->addCC('cc@example.com');
+//$mail->addBCC('bcc@example.com');
+
+$mail->isHTML(true);  // Set email format to HTML
+
+//Email body contents
+
+$bodyContent = '<h2>Corral Contact Us</h2>' . '<br>'. '<br>';
+$bodyContent .= $message . '<br>'. '<br>';
+$bodyContent .= $name . '<br>';
+$bodyContent .= $email . '<br>';
+//Email subject
+$mail->Subject = 'Contact Us -';
+$mail->Subject .= $subject;
+//Email body
+$mail->Body=$bodyContent;
+//Confirm message is sent or not
+if(!$mail->send()) {
+    echo 'Message could not be sent.';
+    echo 'Mailer Error: ' . $mail->ErrorInfo;
+} else {
 }
-
-$email_from = 'thecorralproject@gmail.com'; //our group email Address//
-$email_subject = "New Question Form";
-$email_body = "You have received a new question from the user $firstname $lastname. \n".
-    "email address: $email\n".
-    "The Message is:\n $question".
-
-$to = "thecorralproject@gmail.com";
-$headers = "From: $email_from \r\n";
-$headers = "Reply-To: $email \r\n";
-
-@mail($to,$email_subject,$email_body,$headers);
  ?>
 
 <html>
