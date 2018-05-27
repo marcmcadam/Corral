@@ -154,7 +154,7 @@ ul {
 ul li {
 	display:inline-block;
 	position:relative;
-	padding:25px 50px;
+	padding:25px 40px;
 	background:#007399;
 }
 
@@ -174,7 +174,7 @@ ul li ul {
 	position:absolute;
 	top:70px;
 	left:0;
-	width: 297px;
+	width: 277px;
 	display:none;
 	visibility:hidden;
 }
