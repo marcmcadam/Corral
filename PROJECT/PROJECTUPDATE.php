@@ -41,7 +41,7 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 				<li><a href ="#">Projects</a>
 					<ul>
 						<li><a href ="../PROJECT/ADDPROJECT">Create Project</a></li>
-						<li><a href ="../PROJECT/PROJECTLIST">List Projects</a></li>
+						<li><a href ="../PROJECT/PROJECTLIST">Project List</a></li>
 						<li><a href ="../PROJECT/PROJECTSEARCH">Project Search</a></li>
 					</ul>
 				</li>
@@ -57,6 +57,7 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 					<ul>
 						<li><a href ="../PROJECT/STUDENTLIST">Student List</a></li>
 						<li><a href ="../PROJECT/STAFFLIST">Staff List</a></li>
+						<li><a href ="../PROJECT/MEMBERSEARCH">Search For</a></li>
 						</li>
 					</ul>
 				</li>
