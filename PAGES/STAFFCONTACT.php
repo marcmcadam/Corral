@@ -48,6 +48,7 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 					<ul>
 						<li><a href ="../PROJECT/STUDENTLIST">Student List</a></li>
 						<li><a href ="../PROJECT/STAFFLIST">Staff List</a></li>
+						<li><a href ="../PROJECT/MEMBERSEARCH">Search For</a></li>
 						</li>
 					</ul>
 				</li>
@@ -65,16 +66,23 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 
 <hr>
 <h2>Tell Us What You Think!</h2>
-<p>Do you have a question that we didn't talk about in our FAQ section or would you like to give us some feedback? Insert your details below and we will get back to you as soon as possible!
-<form style="margin-left: 40px" name="emailcontact" onSubmit="return validate(emailcontact)" method="post" action="../PAGES/STAFFSUCCESS">
-	First Name: <input type="text" name="firstname" id="ip2" required><br><br>
-	Last Name: <input type="text" name="lastname" id="ip2" required><br><br>
-	Student ID: <input type="text" name="id" maxlength="9" id="ip2" required><br><br>
-	Email Address: <input type="text" name="email" size="40" id="ip2" required><br><br>
-  Question: <input type="text" name="question" size="40" id="ip2" required><br><br>
-
-		<input type="submit" name="Submit" value="Submit">
-		<input type="reset" value="Clear Form"><br><br>
+<p>Do you have a question that we didn't talk about in our FAQ section or would you like to give us some feedback? Insert your details below and we will get back to you as soon as possible!</p>
+<form action="../PAGES/STAFFSUCCESS" method="post">
+  <p>
+    <input name="name" type="text" placeholder="Please Enter Your Full Name" size="30" id="ip2" required="required"/>
+  </p>
+  <p>
+    <input name="email" type="email" placeholder="Please Enter Your Email Address" size="30" id="ip2" required="required"/>
+  </p>
+  <p>
+    <input name="subject" type="text" placeholder="Please Enter The Subject" size="30" id="ip2" required="required"/>
+  </p>
+  <p>
+    <textarea name="message" cols="60" rows="12" id="ip3" placeholder="Please Place Your Message Here" required="required" maxlength="600"></textarea>
+  </p>
+  <p>
+    <input type="submit" name="SEND" id="SEND" value="SEND MESSAGE" />
+  </p>
 </form>
 
 <div class="Footer">
