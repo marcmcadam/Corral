@@ -15,7 +15,7 @@ if ( $_SESSION['STUDENT_ID'] != 1) {
 <html>
 <head>
 <meta charset="utf-8">
-<title>Template</title>
+<title>Home</title>
 <link rel="stylesheet" type="text/css" href="../STYLES/stylesheet.css">
 <style>
 /*Picture wont float right?*/
