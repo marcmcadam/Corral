@@ -30,7 +30,6 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 <div class="Header">
 
 </div>
-
 <div class ="navbar">
 	<ul>
 		<li><a href="../PAGES/STAFFHOME">Home</a></li>
@@ -55,6 +54,7 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 					<ul>
 						<li><a href ="../PROJECT/STUDENTLIST">Student List</a></li>
 						<li><a href ="../PROJECT/STAFFLIST">Staff List</a></li>
+						<li><a href ="../PROJECT/MEMBERSEARCH">Search For</a></li>
 						</li>
 					</ul>
 				</li>
@@ -65,7 +65,6 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 		<li><a href ="../ACCESS/stafflogout">Logout</a></li>
 	</ul>
 </div>
-
 <div id="contents">
 	<h2>Welcome to Corral</h2>
 <p>This site aims to provide staff and students with a platform to view and request access to upcoming projects. Through this platform, staff and teachers may upload projects for students, including details of the skills sets and numbers required for the job. Students who register can then complete a quick survey to determine their levels or proficency in certain areas such as IT and communication. The Corral Project takes this information, and provides Teachers with a list of suitable candidates for the positions available.
