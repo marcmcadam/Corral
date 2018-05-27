@@ -53,6 +53,7 @@ $View = $_POST['View'];
 					<ul>
 						<li><a href ="../PROJECT/STUDENTLIST">Student List</a></li>
 						<li><a href ="../PROJECT/STAFFLIST">Staff List</a></li>
+						<li><a href ="../PROJECT/MEMBERSEARCH">Search For</a></li>
 						</li>
 					</ul>
 				</li>
