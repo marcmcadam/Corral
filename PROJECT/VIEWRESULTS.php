@@ -87,28 +87,34 @@ require('../DATABASE/CONNECTDB.PHP');
 ?>
 
 <br><hr>
-<p><a href="../PROJECT/PROJECTSEARCH">Back to Project Search</a></p>
+
+Export Project CSV:
 <form action="../PROJECT/PROJECTLISTCSV" method="post">
-	What do you want to export: <select name="View">
+	<select name="View">
 		<option value="All">All</option>
 		<option value="Active">Active Projects</option>
 		<option value="Inactive">Inactive Projects</option>
 		<option value="Planning">Planning Projects</option>
 		<option value="Cancelled">Cancelled Projects</option>
-	</select><br><br>
-	<input type="submit" name="export_excel" value="Export to Excel">
+	</select><br>
+	<input type="submit" name="export_excel" value="CSV">
 </form>
 
+<br>
+
+Export Project PDF:
 <form action="../PROJECT/PROJECTLISTPDF" method="post">
-	What do you want to export: <select name="View">
+ <select name="View">
 		<option value="All">All</option>
 		<option value="Active">Active Projects</option>
 		<option value="Inactive">Inactive Projects</option>
 		<option value="Planning">Planning Projects</option>
 		<option value="Cancelled">Cancelled Projects</option>
-	</select><br><br>
-	<input type="submit" name="export_PDF" value="Export to PDF">
+	</select><br>
+	<input type="submit" name="export_PDF" value="PDF">
 </form>
+<br>
+<a href="../PROJECT/PROJECTSEARCH">Back to Project Search</a>
 
 <div class="Footer">
 	<h4>© Copyright Deakin University & Group 29 2018</h4>
