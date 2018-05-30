@@ -98,6 +98,19 @@ mysqli_close($CON);
 <hr>
 
 
+<form action="../PROJECT/STUDENTCSV" method="post">
+	<input type="submit" name="STUDENT_CSV" value="Export Student List To CSV">
+</form>
+
+<p>
+
+<form action="../SURVEY/SURVEYCSV" method="post">
+	<input type="submit" name="SURVEY_CSV" value="Export Student Survey To CSV">
+</form>
+
+
+<br>
+
 <div class="Footer">
 
 	<h4>© Copyright Deakin University & Group 29 2018</h4>

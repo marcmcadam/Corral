@@ -18,7 +18,7 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 
 <meta charset="utf-8">
 
-<title>Staff List</title>
+<title>Student List</title>
 <link rel="stylesheet" type="text/css" href="../STYLES/stylesstaff.css">
 
 </head>
@@ -30,6 +30,7 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 <div class="Header">
 	<h1>Corral</h1>
 </div>
+
 
 
 <div class ="navbar">
@@ -56,7 +57,6 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 					<ul>
 						<li><a href ="../PROJECT/STUDENTLIST">Student List</a></li>
 						<li><a href ="../PROJECT/STAFFLIST">Staff List</a></li>
-						<li><a href ="../PROJECT/MEMBERSEARCH">Search For</a></li>
 						</li>
 					</ul>
 				</li>
@@ -69,22 +69,21 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 </div>
 
 
-
 <div id="contents" >
 
-<h2>Staff Information</h2>
+<h2>Student Information</h2>
 <?php
 
 require('../DATABASE/CONNECTDB.PHP');
 
-$sql="SELECT * FROM STAFF ORDER BY STAFF_ID ASC";
+$sql="SELECT * FROM STUDENT ORDER BY STUDENT_ID ASC";
 $res=mysqli_query($CON, $sql);
 
 echo "<p><table width='1250px' height='150px' border='1px' cellpadding='10px' align='center'></p>";
 echo "<tr><th>ID</th><th>FIRSTNAME</th><th>LASTNAME</th><th>LOCATION</th><th>EMAIL</th><th>Update Information</th></tr>";
 
 while ($row=mysqli_fetch_assoc($res)){
-    echo "<tr><td align='center' width='70px'>{$row['STAFF_ID']}</td><td align='center' width='190px'>{$row['STAFF_FIRSTNAME']}</td><td align='center' width='190px'>{$row['STAFF_LASTNAME']}</td><td align='center' width='180px'>{$row['STAFF_LOCATION']}</td><td align='center'  width='500px'>{$row['STAFF_EMAIL']}</td><td align='center'><a href='STAFFUPDATE.php?number={$row['STAFF_ID']}&firstname={$row['STAFF_FIRSTNAME']}&lastname={$row['STAFF_LASTNAME']}&location={$row['STAFF_LOCATION']}&email={$row['STAFF_EMAIL']}'>Update</a></td></tr>";
+    echo "<tr><td align='center' width='70px'>{$row['STUDENT_ID']}</td><br><td align='center' width='190px'>{$row['STUDENT_FIRSTNAME']}</td><td align='center' width='190px'>{$row['STUDENT_LASTNAME']}</td><td align='center' width='180px'>{$row['STUDENT_LOCATION']}</td><td align='center'  width='500px'>{$row['STUDENT_EMAIL']}</td><td align='center'><a href='STUDENTUPDATE.php?number={$row['STUDENT_ID']}&firstname={$row['STUDENT_FIRSTNAME']}&lastname={$row['STUDENT_LASTNAME']}&location={$row['STUDENT_LOCATION']}&email={$row['STUDENT_EMAIL']}'>Update</a></td></tr>";
 }
 
 echo "</table>";
@@ -97,11 +96,6 @@ mysqli_close($CON);
 
 <hr>
 
-<form action="../PROJECT/STAFFCSV" method="post">
-	<input type="submit" name="STAFF_CSV" value="Export Staff List To CSV">
-</form>
-
-<br>
 
 <div class="Footer">
 
