@@ -105,6 +105,15 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 
 <hr>
 
+<form action="../PROJECT/PROJECTLISTCSV" method="post">
+	<input type="submit" name="export_excel" value="Export to Excel">
+</form>
+
+<br>
+
+<form action="../PROJECT/PROJECTLISTPDF" method="post">
+	<input type="submit" name="export_PDF" value="Export to PDF">
+</form>
 
 <div class="Footer">
 

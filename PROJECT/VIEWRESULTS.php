@@ -88,11 +88,11 @@ require('../DATABASE/CONNECTDB.PHP');
 
 <br><hr>
 <p><a href="../PROJECT/PROJECTSEARCH">Back to Project Search</a></p>
-<form action="../PROJECT/EXCEL" method="post">
+<form action="../PROJECT/PROJECTLISTCSV" method="post">
 	<input type="submit" name="export_excel" value="Export to Excel">
 </form>
 
-<form action="../PROJECT/PDF" method="post">
+<form action="../PROJECT/PROJECTLISTPDF" method="post">
 	<input type="submit" name="export_PDF" value="Export to PDF">
 </form>
 
