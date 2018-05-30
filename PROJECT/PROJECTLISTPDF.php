@@ -13,8 +13,13 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 function fetch_data()
 {
 require('../DATABASE/CONNECTDB.PHP');
+	$Status = $_POST['View'];
 	$output = "";
-	$sql = "SELECT PROJECT_NUM, PROJECT_BRIEF, PROJECT_LEADER, PROJECT_STATUS FROM PROJECT";
+	if ($Status == "All"){
+		$sql = "SELECT PROJECT_NUM, PROJECT_BRIEF, PROJECT_LEADER, PROJECT_STATUS FROM PROJECT";
+	} else {
+		$sql = "SELECT PROJECT_NUM, PROJECT_BRIEF, PROJECT_LEADER, PROJECT_STATUS FROM PROJECT WHERE PROJECT_STATUS = '".$Status."'";
+	}
 	$result = mysqli_query($CON, $sql);
 	while($row = mysqli_fetch_array($result))
 	{
