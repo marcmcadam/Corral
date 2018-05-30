@@ -35,7 +35,7 @@ require('../DATABASE/CONNECTDB.PHP');
     <input type="text" name="STAFF_ID" id="ip2" placeholder="Staff ID" required><br><br>
         <input type="password" name="STAFF_PASSWORD" id="ip2" placeholder="Password" required><br><br>
         <button type="submit">LOGIN</button>
-        <button type="button" onclick="location.href='../PAGES/STAFFREGISTRATION';" value="Register" />REGISTER</button><br><br>
+        <button type="button" onclick="location.href='../PAGES/STAFFREGISTRATION';" val ue="Register" />REGISTER</button><br><br>
       </form>
 <p>Login error, Credentials do not match. Please try again.</p>
 <div class="Footer">
