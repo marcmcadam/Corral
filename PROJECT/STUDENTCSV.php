@@ -14,7 +14,7 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 
 	require('../DATABASE/CONNECTDB.PHP');
 
-	$query = "SELECT STUDENT_ID, STUDENT_FIRSTNAME, STUDENT_LASTNAME, STUDENT_LOCATION FROM STUDENT";
+	$query = "SELECT STUDENT_ID, STUDENT_FIRSTNAME, STUDENT_LASTNAME, STUDENT_LOCATION, STUDENT_EMAIL FROM STUDENT";
 	if (!$result = mysqli_query($CON, $query)) {
 	    exit(mysqli_error($CON));
 	}
@@ -27,9 +27,9 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 	        $survey[] = $row;
 	    }
 		header('Content-Type: text/csv; charset=utf-8');
-	header('Content-Disposition: attachment; filename=All_SURVEY.csv');
+	header('Content-Disposition: attachment; filename=STUDENTLIST.csv');
 	$output = fopen('php://output', 'w');
-	fputcsv($output, array('STUDENT ID', 'STUDENT FIRSTNAME', 'STUDENT LASTNAME', 'STUDENT LOCATION'));
+	fputcsv($output, array('STUDENT ID', 'STUDENT FIRSTNAME', 'STUDENT LASTNAME', 'STUDENT LOCATION', 'STUDENT EMAIL'));
 
 	//Load Student Survey Flieds
 	if (count($survey) > 0) {

@@ -14,7 +14,7 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 
 	require('../DATABASE/CONNECTDB.PHP');
 
-	$query = "SELECT STAFF_ID, STAFF_FIRSTNAME, STAFF_LASTNAME, STAFF_LOCATION FROM STAFF";
+	$query = "SELECT STAFF_ID, STAFF_FIRSTNAME, STAFF_LASTNAME, STAFF_LOCATION, STAFF_EMAIL FROM STAFF";
 	if (!$result = mysqli_query($CON, $query)) {
 	    exit(mysqli_error($CON));
 	}
@@ -27,9 +27,9 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 	        $survey[] = $row;
 	    }
 		header('Content-Type: text/csv; charset=utf-8');
-	header('Content-Disposition: attachment; filename=All_SURVEY.csv');
+	header('Content-Disposition: attachment; filename=STAFFLIST.csv');
 	$output = fopen('php://output', 'w');
-	fputcsv($output, array('STAFF ID', 'STAFF FIRSTNAME', 'STAFF LASTNAME', 'STAFF LOCATION'));
+	fputcsv($output, array('STAFF ID', 'STAFF FIRSTNAME', 'STAFF LASTNAME', 'STAFF LOCATION', 'STAFF EMAIL'));
 
 	//Load STAFF Survey Flieds
 	if (count($survey) > 0) {
