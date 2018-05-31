@@ -114,7 +114,7 @@ Export Project PDF:
 	<input type="submit" name="export_PDF" value="PDF">
 </form>
 <br>
-<a href="../PROJECT/PROJECTSEARCH">Back to Project Search</a>
+<a href="../PROJECT/PROJECTSEARCH">Back to Project Search</a><br>
 
 <div class="Footer">
 	<h4>© Copyright Deakin University & Group 29 2018</h4>
