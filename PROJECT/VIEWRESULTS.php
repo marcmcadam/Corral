@@ -70,16 +70,16 @@ $View = $_POST['View'];
 <?php
 require('../DATABASE/CONNECTDB.PHP');
 
-	$sql="SELECT * FROM PROJECT WHERE PROJECT_STATUS='".$View."'";
+	$sql="SELECT * FROM project WHERE pro_status ='".$View."'";
 	if ($View == "All") {
-		$sql="SELECT * FROM PROJECT";
+		$sql="SELECT * FROM project";
 	}
 
     $res=mysqli_query($CON, $sql);
     echo "<p><table width='900px'  border='1px' cellpadding='10px'></p>";
     echo "<tr><th>Project Number</th><th>Project Brief</th><th>Project Leader</th><th>Project Status</th></tr>";
     while ($row=mysqli_fetch_assoc($res)){
-        echo "<tr><td align='center'>{$row['PROJECT_NUM']}</td><td align='center'>{$row['PROJECT_BRIEF']}</td><td align='center'>{$row['PROJECT_LEADER']}</td><td align='center'>{$row['PROJECT_STATUS']}</td></tr>";
+        echo "<tr><td align='center'>{$row['pro_num']}</td><td align='center'>{$row['pro_brief']}</td><td align='center'>{$row['pro_leader']}</td><td align='center'>{$row['pro_status']}</td></tr>";
     }
     echo "</table>";
     mysqli_free_result($res);
