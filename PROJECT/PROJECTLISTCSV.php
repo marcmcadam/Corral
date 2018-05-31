@@ -23,9 +23,9 @@ require('../DATABASE/CONNECTDB.PHP');
 	$output = fopen("php://output", "w");
 	fputcsv($output, array('Project Number', 'Project Brief', 'Project Leader', 'Project Status'));
 	if ($Status == "All"){
-		$query = "SELECT PROJECT_NUM, PROJECT_BRIEF, PROJECT_LEADER, PROJECT_STATUS FROM PROJECT";
+		$query = "SELECT pro_num, pro_brief, pro_leader, pro_status FROM project";
 	} else {
-		$query = "SELECT PROJECT_NUM, PROJECT_BRIEF, PROJECT_LEADER, PROJECT_STATUS FROM PROJECT WHERE PROJECT_STATUS = '".$Status."'";
+		$query = "SELECT pro_num, pro_brief, pro_leader, pro_status FROM project WHERE pro_status = '".$Status."'";
 	}
 	$result = mysqli_query($CON, $query);
 	while($row = mysqli_fetch_assoc($result))

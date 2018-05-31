@@ -79,14 +79,14 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 
 
 
-    $sql="SELECT * FROM PROJECT ORDER BY PROJECT_STATUS ASC";
+    $sql="SELECT * FROM project ORDER BY pro_status ASC";
     $res=mysqli_query($CON, $sql);
 
     echo "<p><table width='1250px' height='150px' border='1px' cellpadding='10px' align='center'></p>";
     echo "<tr><th>Project Num</th><th>Project Title</th><th>Project Leader</th><th>Leader Email</th><th>Project Brief</th><th>Project Status</th><th>Update Information</th></tr>";
 
 		while ($row=mysqli_fetch_assoc($res)){
-		    echo "<tr><td align='center' width='70px'>{$row['PROJECT_NUM']}</td><td align='center' width='190px'>{$row['PROJECT_TITLE']}</td><td align='center' width='190px'>{$row['PROJECT_LEADER']}</td><td align='center' width='180px'>{$row['PROJECT_EMAIL']}</td><td align='center' width='500px'>{$row['PROJECT_BRIEF']}</td><td align='center'  width='180px'>{$row['PROJECT_STATUS']}</td><td align='center'><a href='PROJECTUPDATE.php?number={$row['PROJECT_NUM']}&title={$row['PROJECT_TITLE']}&leader={$row['PROJECT_LEADER']}&email={$row['PROJECT_EMAIL']}&brief={$row['PROJECT_BRIEF']}&status={$row['PROJECT_STATUS']}'>Update</a></td></tr>";
+		    echo "<tr><td align='center' width='70px'>{$row['pro_num']}</td><td align='center' width='190px'>{$row['pro_title']}</td><td align='center' width='190px'>{$row['pro_leader']}</td><td align='center' width='180px'>{$row['pro_email']}</td><td align='center' width='500px'>{$row['pro_brief']}</td><td align='center'  width='180px'>{$row['pro_status']}</td><td align='center'><a href='PROJECTUPDATE.php?number={$row['pro_num']}&title={$row['pro_title']}&leader={$row['pro_leader']}&email={$row['pro_email']}&brief={$row['pro_brief']}&status={$row['pro_status']}'>Update</a></td></tr>";
 		}
 
 
