@@ -22,6 +22,8 @@ if ( $_SESSION['STUDENT_ID'] != 1) {
 	<h1>Corral</h1>
 </div>
 
+
+
 <div class="navbar">
 	<a href="../PAGES/STUDENTHOME">Home</a>
 	<a href="../SURVEY/STUDENTSURVEY">Survey</a>
@@ -30,87 +32,88 @@ if ( $_SESSION['STUDENT_ID'] != 1) {
 	<a href="../Access/LOGOUT">Logout</a>
 </div>
 
+<h2>Student Survey</h2>
 <form action="../SURVEY/surveyprocess" method="post">
 
-STUDENT_FIRSTNAME:<input type="text" name="STUDENT_FIRSTNAME">
+<p>STUDENT_FIRSTNAME: <input type="text" name="STUDENT_FIRSTNAME" id="ip2"></p>
 
 <p>Project skills</p>
-html/css<select name="hc">
+<p>html/css: <select name="hc">
 <option value="Expert">Expert</option>
 <option value="High">High</option>
 <option value="Intermediate">Intermediate</option>
 <option value="Novice">Novice</option>
-<option value="not required" selected>Not required</option></select></br></br>
+<option value="not required" selected>Not required</option></select></p>
 
-Java Script<select name="js">
+<p>Java Script: <select name="js">
 <option value="Expert">Expert</option>
 <option value="High">High</option>
 <option value="Intermediate">Intermediate</option>
 <option value="Novice">Novice</option>
-<option value="not required" selected>Not required</option></select></br></br>
+<option value="not required" selected>Not required</option></select></p>
 
-PHP<select name="php">
+<p>PHP: <select name="php">
 <option value="Expert">Expert</option>
 <option value="High">High</option>
 <option value="Intermediate">Intermediate</option>
 <option value="Novice">Novice</option>
-<option value="not required" selected>Not required</option></select></br></br>
+<option value="not required" selected>Not required</option></select></p>
 
-JAVA<select name="java">
+<p>JAVA: <select name="java">
 <option value="Expert">Expert</option>
 <option value="High">High</option>
 <option value="Intermediate">Intermediate</option>
 <option value="Novice">Novice</option>
-<option value="not required" selected>Not required</option></select></br></br>
+<option value="not required" selected>Not required</option></select></p>
 
-C<select name="c">
+<p>C: <select name="c">
 <option value="Expert">Expert</option>
 <option value="High">High</option>
 <option value="Intermediate">Intermediate</option>
 <option value="Novice">Novice</option>
-<option value="not required" selected>Not required</option></select></br></br>
+<option value="not required" selected>Not required</option></select></p>
 
-C Plus Plus<select name="cpp">
+<p>C Plus Plus: <select name="cpp">
 <option value="Expert">Expert</option>
 <option value="High">High</option>
 <option value="Intermediate">Intermediate</option>
 <option value="Novice">Novice</option>
-<option value="not required" selected>Not required</option></select></br></br>
+<option value="not required" selected>Not required</option></select></p>
 
-Objective-C<select name="oc">
+<p>Objective-C: <select name="oc">
 <option value="Expert">Expert</option>
 <option value="High">High</option>
 <option value="Intermediate">Intermediate</option>
 <option value="Novice">Novice</option>
-<option value="not required" selected>Not required</option></select></br></br>
+<option value="not required" selected>Not required</option></select></p>
 
-Databse<select name="db">
+<p>Databse: <select name="db">
 <option value="Expert">Expert</option>
 <option value="High">High</option>
 <option value="Intermediate">Intermediate</option>
 <option value="Novice">Novice</option>
-<option value="not required" selected>Not required</option></select></br></br>
+<option value="not required" selected>Not required</option></select></p>
 
-Unity<select name="u3">
+<p>Unity: <select name="u3">
 <option value="Expert">Expert</option>
 <option value="High">High</option>
 <option value="Intermediate">Intermediate</option>
 <option value="Novice">Novice</option>
-<option value="not required" selected>Not required</option></select></br></br>
+<option value="not required" selected>Not required</option></select></p>
 
-UI<select name="ui">
+<p>UI: <select name="ui">
 <option value="Expert">Expert</option>
 <option value="High">High</option>
 <option value="Intermediate">Intermediate</option>
 <option value="Novice">Novice</option>
-<option value="not required" selected>Not required</option></select></br></br>
+<option value="not required" selected>Not required</option></select></p>
 
-Security<select name="se">
+<p>Security: <select name="se">
 <option value="Expert">Expert</option>
 <option value="High">High</option>
 <option value="Intermediate">Intermediate</option>
 <option value="Novice">Novice</option>
-<option value="not required" selected>Not required</option></select></br></br>
+<option value="not required" selected>Not required</option></select></p>
 
 <p><input type="submit">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="reset" value="reset"></p>
 </form>
