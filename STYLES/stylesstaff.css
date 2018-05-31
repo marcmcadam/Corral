@@ -143,6 +143,14 @@ a {
     height: 150px;    
 }
 
+#ip4 {
+    border-radius: 25px;
+    border: 1px;
+    padding: 20px; 
+    width: 200px;
+    height: 10px;    
+}
+
 ul {
 	text-align:left;
 	display:inline;
