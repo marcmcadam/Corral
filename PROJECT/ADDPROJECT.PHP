@@ -333,7 +333,9 @@ if (isset($_POST['se'])) {
 
             }
 	}
-        mysqli_close($CON);
+	mysqli_close($CON);
+}
+        
 ?>
 
 </div>
