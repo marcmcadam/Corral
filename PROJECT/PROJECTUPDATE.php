@@ -75,7 +75,7 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 <h2>Update Project</h2>
 <p><form action="../PROJECT/PROJECTPROCESS" method="post"></p>
 <p>Project Number </p>
-<p><input type="number" name="PROJECT_NUM" value="<?php echo $_GET['number'];?>" id="ip2"/></p>
+<p><input type="number" name="PROJECT_NUM" value="<?php echo $_GET['number'];?>" id="ip4"/></p>
 <p>Project Title </p>
 <p><input type="text" name="PROJECT_TITLE" value="<?php echo $_GET['title'];?>" id="ip2"/></p>
 <p>Project Leader </p>
