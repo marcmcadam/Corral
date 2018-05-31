@@ -16,19 +16,19 @@ require('../DATABASE/CONNECTDB.PHP');
 	$Status = $_POST['View'];
 	$output = "";
 	if ($Status == "All"){
-		$sql = "SELECT PROJECT_NUM, PROJECT_BRIEF, PROJECT_LEADER, PROJECT_STATUS FROM PROJECT";
+		$sql = "SELECT pro_num, pro_brief, pro_leader, pro_status FROM project";
 	} else {
-		$sql = "SELECT PROJECT_NUM, PROJECT_BRIEF, PROJECT_LEADER, PROJECT_STATUS FROM PROJECT WHERE PROJECT_STATUS = '".$Status."'";
+		$sql = "SELECT pro_num, pro_brief, pro_leader, pro_status FROM project WHERE pro_status = '".$Status."'";
 	}
 	$result = mysqli_query($CON, $sql);
 	while($row = mysqli_fetch_array($result))
 	{
 		$output .= '
 			<tr>
-				<td>'.$row["PROJECT_NUM"].'</td>
-				<td>'.$row["PROJECT_BRIEF"].'</td>
-				<td>'.$row["PROJECT_LEADER"].'</td>
-				<td>'.$row["PROJECT_STATUS"].'</td>
+				<td>'.$row["pro_num"].'</td>
+				<td>'.$row["pro_brief"].'</td>
+				<td>'.$row["pro_leader"].'</td>
+				<td>'.$row["pro_status"].'</td>
 			</tr>
 		';
 	}
