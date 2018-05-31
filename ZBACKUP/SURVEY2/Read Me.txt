@@ -1,0 +1,30 @@
+
+1)******************************************************************************************************************
+Submit Survey
+
+SURVEY.php (Main Pages to Fill the Survey) --> must be save in SURVEY/
+INSERT_SURVEY.php(Inserts the Survey to Database) --> must be save in SURVEY/
+SURVEY_CSV.php (Export Current/Filled Survey to CSV) --> must be save in SURVEY/
+ALL_SURVEY_CSV.php(Export All Survey to CSV) --> must be save in SURVEY/
+********************************************************************************************************************
+
+2)******************************************************************************************************************
+Update Survey
+
+Session.php (Dummy page used as a Student ID session as a test)  --> Save in SURVEY/
+UPDATE_SURVEY.php (View/Retreive Student Survey from Survey Table based on Session.php) --> must be save in SURVEY/
+UPDATE_SURVEY_TO_DATABASE.php (Update Survey) --> must be save in SURVEY/
+********************************************************************************************************************
+
+3)******************************************************************************************************************
+Export to CSV
+
+SURVEY_CSV.php (Export Survey to CSV) --> must be save in SURVEY/
+ALL_SURVEY_CSV.php (Export All Survey to CSV) --> must be save in SURVEY/
+********************************************************************************************************************
+
+4)******************************************************************************************************************
+Validation
+
+register.js(Jquert to Validate All Fields Been Filled) --> must be save in STYLES/
+********************************************************************************************************************
