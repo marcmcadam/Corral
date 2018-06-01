@@ -21,7 +21,7 @@ require('../DATABASE/CONNECTDB.PHP');
 	header('Content-Type: text/csv; charset=utf-8');
 	header('Content-Disposition: attachment; filename=data.csv');
 	$output = fopen("php://output", "w");
-	fputcsv($output, array('Project Number', 'Project Brief', 'Project Leader', 'Project Status'));
+	fputcsv($output, array('Project Number', 'Project Title', 'Project Brief', 'Project Leader', 'Project Email', 'Project Status'));
 	if ($Status == "All"){
 		$query = "SELECT pro_num, pro_title, pro_brief, pro_leader, pro_email, pro_status FROM project";
 	} else {

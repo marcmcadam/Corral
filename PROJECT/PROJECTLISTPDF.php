@@ -26,8 +26,10 @@ require('../DATABASE/CONNECTDB.PHP');
 		$output .= '
 			<tr>
 				<td>'.$row["pro_num"].'</td>
+				<td>'.$row["pro_title"].'</td>
 				<td>'.$row["pro_brief"].'</td>
-				<td>'.$row["pro_leader"].'</td>
+				<td>'.$row["pro_leader"].'</td
+				<td>'.$row["pro_email"].'</td>
 				<td>'.$row["pro_status"].'</td>
 			</tr>
 		';
@@ -57,8 +59,10 @@ if(isset($_POST['export_PDF']))
 	<table border="1" cellspacing="0" cellpadding="3">
 		<tr>
 			<th>Project Number</th>
+			<th>Project Title</th>
 			<th>Project Brief</th>
 			<th>Project Leader</th>
+			<th>Project Email</th>
 			<th>Project Status</th>
 		</tr>
 	';
