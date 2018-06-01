@@ -28,7 +28,7 @@ require('../DATABASE/CONNECTDB.PHP');
 				<td>'.$row["pro_num"].'</td>
 				<td>'.$row["pro_title"].'</td>
 				<td>'.$row["pro_brief"].'</td>
-				<td>'.$row["pro_leader"].'</td
+				<td>'.$row["pro_leader"].'</td>
 				<td>'.$row["pro_email"].'</td>
 				<td>'.$row["pro_status"].'</td>
 			</tr>
