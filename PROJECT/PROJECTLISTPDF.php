@@ -16,9 +16,9 @@ require('../DATABASE/CONNECTDB.PHP');
 	$Status = $_POST['View'];
 	$output = "";
 	if ($Status == "All"){
-		$sql = "SELECT pro_num, pro_brief, pro_leader, pro_status FROM project";
+		$sql = "SELECT pro_num, pro_title, pro_brief, pro_leader, pro_email, pro_status FROM project";
 	} else {
-		$sql = "SELECT pro_num, pro_brief, pro_leader, pro_status FROM project WHERE pro_status = '".$Status."'";
+		$sql = "SELECT pro_num, pro_title, pro_brief, pro_leader, pro_email, pro_status FROM project WHERE pro_status = '".$Status."'";
 	}
 	$result = mysqli_query($CON, $sql);
 	while($row = mysqli_fetch_array($result))
