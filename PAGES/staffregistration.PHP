@@ -35,7 +35,7 @@ require ('../DATABASE/CONNECTDB.php');
 			return false
 				}
 			}
-			
+
 			if(document.registration.STAFF_EMAIL.value.match(deakin)){
 				return true
 			}else {
@@ -52,12 +52,12 @@ require ('../DATABASE/CONNECTDB.php');
 				alert("Passwords don't match. Please ensure that they are the same")
 				return false
 			}
-			
+
 			if (document.registration.STAFF_PASSWORD.value.match(upper) && document.registration.STAFF_PASSWORD.value.match(number)) {
 				return true
 			}else {
 				alert("Password must contain at least one upper case letter and number")
-				return false 
+				return false
 			}
 		return true
 	}
@@ -66,7 +66,7 @@ require ('../DATABASE/CONNECTDB.php');
 
 <body>
 <div class="Header">
-	<h1>Corral</h1>
+
 </div>
 
 <div class="navbar">
@@ -130,6 +130,6 @@ if (isset($_POST['STAFF_PASSWORD'])) {
 ?>
 
 <div class="Footer">
-	<h4>© Copyright Deakin University & Group 29 2018</h4>
+	© Copyright Deakin University & Group 29 2018
 </div>
 </body>

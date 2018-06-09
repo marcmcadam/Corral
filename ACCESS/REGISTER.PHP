@@ -66,7 +66,6 @@ require ('../DATABASE/CONNECTDB.php');
 
 <body>
 <div class="Header">
-	<h1>Corral</h1>
 </div>
 
 <div class="navbar">
@@ -132,6 +131,6 @@ if (isset($_POST['STUDENT_PASSWORD'])) {
 ?>
 
 <div class="Footer">
-	<h4>© Copyright Deakin University & Group 29 2018</h4>
+	© Copyright Deakin University & Group 29 2018
 </div>
 </body>

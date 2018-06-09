@@ -28,7 +28,6 @@ $Location = $_POST['Location'];
 ?>
 
 <div class="Header">
-	<h1>Corral</h1>
 </div>
 
 <div class ="navbar">
@@ -165,7 +164,7 @@ echo "<p><table width='900px'  border='1px' cellpadding='10px'></p>";
 <p><a href="../PROJECT/MEMBERSEARCH">Back to Search</p></a><br>
 
 <div class="Footer">
-	<h4>© Copyright Deakin University & Group 29 2018</h4>
+	© Copyright Deakin University & Group 29 2018
 </div>
 </body>
 </html>

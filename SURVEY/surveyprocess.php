@@ -19,7 +19,6 @@ if ( $_SESSION['STUDENT_ID'] != 1) {
 
 <body>
 <div class="Header">
-	<h1>Corral</h1>
 </div>
 
 <div class="navbar">
@@ -28,7 +27,7 @@ if ( $_SESSION['STUDENT_ID'] != 1) {
 	<a href="../PAGES/STUDENTCONTACT">Contacts</a>
 	<a href="../PAGES/STUDENTABOUTUS">About Us</a>
 	<a href="../Access/LOGOUT">Logout</a>
-</div>	
+</div>
 <?php
 
 	require('../DATABASE/CONNECTDB.PHP');
@@ -201,9 +200,9 @@ if ( $_SESSION['STUDENT_ID'] != 1) {
 	?>
 	<h2>Thank for completing the survey</h2>
 	<p>Please log out</p>
-	
+
 <div class="Footer">
-	<h4>© Copyright Deakin University & Group 29 2018</h4>
+	© Copyright Deakin University & Group 29 2018
 </div>
 </body>
 </html>

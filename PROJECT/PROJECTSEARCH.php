@@ -33,7 +33,6 @@ fucntion validate(search) {
 
 <body>
 <div class="Header">
-	<h1>Corral</h1>
 </div>
 
 <div class ="navbar">
@@ -86,7 +85,7 @@ fucntion validate(search) {
 </form>
 <br><br>
 <div class="Footer">
-	<h4>© Copyright Deakin University & Group 29 2018</h4>
+	© Copyright Deakin University & Group 29 2018
 </div>
 </body>
 </html>

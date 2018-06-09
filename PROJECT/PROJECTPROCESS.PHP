@@ -28,7 +28,6 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 
 <body>
 <div class="Header">
-	<h1>Corral</h1>
 </div>
 
 
@@ -104,7 +103,7 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 	$js=3;
 	}elseif($_POST['js']=="Expert"){
 	$js=4;
-	}		
+	}
 	if($_POST['php']=="not required"){
 	$php=0;
 	}elseif($_POST['php']=="Novice"){
@@ -115,7 +114,7 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 	$php=3;
 	}elseif($_POST['php']=="Expert"){
 	$php=4;
-	}		
+	}
 	if($_POST['java']=="not required"){
 	$java=0;
 	}elseif($_POST['java']=="Novice"){
@@ -126,7 +125,7 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 	$java=3;
 	}elseif($_POST['java']=="Expert"){
 	$java=4;
-	}		
+	}
 	if($_POST['c']=="not required"){
 	$c=0;
 	}elseif($_POST['c']=="Novice"){
@@ -149,7 +148,7 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 	}elseif($_POST['cpp']=="Expert"){
 	$cpp=4;
 	}
-		
+
 	if($_POST['oc']=="not required"){
 	$oc=0;
 	}elseif($_POST['oc']=="Novice"){
@@ -183,7 +182,7 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 	}elseif($_POST['u3']=="Expert"){
 	$u3=4;
 	}
-	
+
 	if($_POST['ui']=="not required"){
 	$ui=0;
 	}elseif($_POST['ui']=="Novice"){
@@ -238,7 +237,7 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 
 <div class="Footer">
 
-	<h4>© Copyright Deakin University & Group 29 2018</h4>
+	© Copyright Deakin University & Group 29 2018
 
 </div>
 

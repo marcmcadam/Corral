@@ -28,7 +28,7 @@ if ( $_SESSION['STUDENT_ID'] != 1) {
 
 <body>
 <div class="Header">
-	<h1>Corral</h1>
+
 </div>
 <div class="navbar">
 	<a href="../PAGES/STUDENTHOME">Home</a>
@@ -52,7 +52,7 @@ if ( $_SESSION['STUDENT_ID'] != 1) {
 <p>&nbsp;</p>
 
 <div class="Footer">
-	<h4>© Copyright Deakin University & Group 29 2018</h4>
+	© Copyright Deakin University & Group 29 2018
 </div>
 </body>
 </html>

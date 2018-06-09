@@ -20,7 +20,7 @@ if ( $_SESSION['STUDENT_ID'] != 1) {
 
 <body>
 <div class="Header">
-	<h1>Corral</h1>
+
 </div>
 
 <div class="navbar">
@@ -54,7 +54,7 @@ if ( $_SESSION['STUDENT_ID'] != 1) {
 <p>If you wish to read a simple guide<a href="../DOCUMENTATION/UserGuide-Student.pdf">, please click here</a></p>
 
 <div class="Footer">
-	<h4>© Copyright Deakin University & Group 29 2018</h4>
+	© Copyright Deakin University & Group 29 2018
 </div>
 </body>
 </html>

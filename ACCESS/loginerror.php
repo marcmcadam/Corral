@@ -11,7 +11,6 @@ require('../DATABASE/CONNECTDB.PHP');
 </head>
 
 <div class="Header">
-	<h1>Corral</h1>
 </div>
 
 <div class="navbar">
@@ -39,7 +38,7 @@ require('../DATABASE/CONNECTDB.PHP');
       </form>
 <p style="margin-left: 400px">Login error, Credentials do not match. Please try again.</p>
 <div class="Footer">
-	<h4>© Copyright Deakin University & Group 29 2018</h4>
+	© Copyright Deakin University & Group 29 2018
 </div>
 <?php  //Start the Session
 

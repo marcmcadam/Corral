@@ -60,7 +60,7 @@ if(!$mail->send()) {
 <body>
 
 <div class="Header">
-	<h1>Corral</h1>
+
 </div>
 
 
@@ -86,7 +86,7 @@ if(!$mail->send()) {
 <p>Thank you for your feedback! We at Corral love to hear from those who use and value our website. We will reply to your comments as swiftly as possible.</p>
 <a href="../PAGES/HOME"><h2 align="center">Back to Home Page</h2></a>
 <div class="Footer">
-	<h4>© Copyright Deakin University & Group 29 2018</h4>
+  © Copyright Deakin University & Group 29 2018
 </div>
 </body>
 </html>

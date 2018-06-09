@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Template</title>
+<title>Home</title>
 <link rel="stylesheet" type="text/css" href="../STYLES/stylesheet.css">
 <style>
 /*Picture wont float right?*/
@@ -15,7 +15,7 @@
 
 <body>
 <div class="Header">
-	<h1>Corral</h1>
+
 </div>
 <div class="navbar">
 	<a href="../PAGES/HOME">Home</a>
@@ -46,7 +46,7 @@
 <p>&nbsp;</p>
 
 <div class="Footer">
-	<h4>© Copyright Deakin University & Group 29 2018</h4>
+	© Copyright Deakin University & Group 29 2018
 </div>
 </body>
 </html>

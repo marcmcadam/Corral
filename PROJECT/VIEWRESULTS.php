@@ -26,7 +26,6 @@ $View = $_POST['View'];
 
 ?>
 <div class="Header">
-	<h1>Corral</h1>
 </div>
 
 <div class ="navbar">
@@ -117,7 +116,7 @@ Export Project PDF:
 <a href="../PROJECT/PROJECTSEARCH">Back to Project Search</a><br>
 
 <div class="Footer">
-	<h4>© Copyright Deakin University & Group 29 2018</h4>
+	© Copyright Deakin University & Group 29 2018
 </div>
 </body>
 </html>

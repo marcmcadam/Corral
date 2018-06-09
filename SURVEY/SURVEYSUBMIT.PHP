@@ -66,7 +66,6 @@ REQUIRE('../DATABASE/CONNECTDB.PHP');
 
 		<body>
 		<div class="Header">
-			<h1>Corral</h1>
 		</div>
 
 		<div class="navbar">
@@ -184,7 +183,7 @@ REQUIRE('../DATABASE/CONNECTDB.PHP');
 <a href="../Access/LOGOUT.php">All done, click here to log out</a>
 
 <div class="Footer">
-	<h4>© Copyright Deakin University & Group 29 2018</h4>
+	© Copyright Deakin University & Group 29 2018
 </div>
    </BODY>
 </HTML>

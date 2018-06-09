@@ -28,7 +28,6 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 <body>
 
 <div class="Header">
-	<h1>Corral</h1>
 </div>
 
 
@@ -111,7 +110,7 @@ mysqli_close($CON);
 
 <div class="Footer">
 
-	<h4>© Copyright Deakin University & Group 29 2018</h4>
+	© Copyright Deakin University & Group 29 2018
 
 </div>
 

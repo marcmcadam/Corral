@@ -30,7 +30,7 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 <body>
 
 <div class="Header">
-	<h1>Corral</h1>
+
 </div>
 
 
@@ -164,7 +164,7 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 
 <?php
 if (isset($_POST['se'])) {
-	
+
 	$title= MYSQLI_REAL_ESCAPE_STRING($CON, $_POST['PRO_TITLE']);
 	$leader= MYSQLI_REAL_ESCAPE_STRING($CON, $_POST['PRO_LEADER']);
 	$email= MYSQLI_REAL_ESCAPE_STRING($CON, $_POST['PRO_EMAIL']);
@@ -193,7 +193,7 @@ if (isset($_POST['se'])) {
 	$js=3;
 	}elseif($_POST['js']=="Expert"){
 	$js=4;
-	}		
+	}
 
 	if($_POST['php']=="not required"){
 	$php=0;
@@ -205,7 +205,7 @@ if (isset($_POST['se'])) {
 	$php=3;
 	}elseif($_POST['php']=="Expert"){
 	$php=4;
-	}		
+	}
 
 	if($_POST['java']=="not required"){
 	$java=0;
@@ -217,7 +217,7 @@ if (isset($_POST['se'])) {
 	$java=3;
 	}elseif($_POST['java']=="Expert"){
 	$java=4;
-	}		
+	}
 
 	if($_POST['c']=="not required"){
 	$c=0;
@@ -242,7 +242,7 @@ if (isset($_POST['se'])) {
 	}elseif($_POST['cpp']=="Expert"){
 	$cpp=4;
 	}
-		
+
 	if($_POST['oc']=="not required"){
 	$oc=0;
 	}elseif($_POST['oc']=="Novice"){
@@ -278,7 +278,7 @@ if (isset($_POST['se'])) {
 	}elseif($_POST['u3']=="Expert"){
 	$u3=4;
 	}
-	
+
 	if($_POST['ui']=="not required"){
 	$ui=0;
 	}elseif($_POST['ui']=="Novice"){
@@ -302,7 +302,7 @@ if (isset($_POST['se'])) {
 	}elseif($_POST['se']=="Expert"){
 	$se=4;
 	}
-	
+
 	$sql_id = "SELECT * FROM project WHERE pro_title = '$title'";
 	$res_id = mysqli_query($CON, $sql_id);
 	IF(mysqli_num_rows($res_id) > 0) {
@@ -313,7 +313,7 @@ if (isset($_POST['se'])) {
 		header('location: ../PROJECT/PROJECTPROCESS2');
 	}
 }
-        
+
 ?>
 
 </div>
@@ -321,7 +321,7 @@ if (isset($_POST['se'])) {
 <hr>
 <div class="Footer">
 
-	<h4>© Copyright Deakin University & Group 29 2018</h4>
+	© Copyright Deakin University & Group 29 2018
 
 </div>
 

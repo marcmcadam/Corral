@@ -19,7 +19,7 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 
 <meta charset="utf-8">
 
-<title>Template</title>
+<title>Create Project</title>
 <link rel="stylesheet" type="text/css" href="../STYLES/stylesstaff.css">
 
 </head>
@@ -29,7 +29,6 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 <body>
 
 <div class="Header">
-	<h1>Corral</h1>
 </div>
 
 
@@ -118,7 +117,7 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 
 <div class="Footer">
 
-	<h4>© Copyright Deakin University & Group 29 2018</h4>
+	© Copyright Deakin University & Group 29 2018
 
 </div>
 
