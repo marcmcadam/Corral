@@ -1,4 +1,18 @@
 <?php
+/*
+    The code in this document is based on work by Robert Koster.
+    https://github.com/rpfk/Hungarian
+    The original work was licensed under the MIT License and must contain the following notice:
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+    SOFTWARE.
+*/
+
 namespace RPFK\Hungarian;
 
 class Hungarian
@@ -30,10 +44,10 @@ class Hungarian
         'column' => [],
         'row' => []
     ];
-	
-	// solver output text
-	protected $outputText = [];
-	
+    
+    // solver output text
+    protected $outputText = [];
+    
     public function __construct(array $matrix)
     {
         $this->isValid($matrix);
@@ -179,15 +193,15 @@ class Hungarian
         }
         return $non_covered_zero_matrix;
     }
-	
-	protected function addOutput($text)
-	{
-		array_push($this->outputText, sprintf(...func_get_args()));
-	}
-	
+    
+    protected function addOutput($text)
+    {
+        array_push($this->outputText, sprintf(...func_get_args()));
+    }
+    
     public function outputMatrix($matrix)
     {
-		/*
+        /*
         foreach ($matrix[key($matrix)] as $column => $cell) {
             if (array_search($column, $this->covered['column'], true) !== false) {
                 printf("C       ");
@@ -195,20 +209,20 @@ class Hungarian
                 printf("        ");
             }
         }
-		*/
-		$this->addOutput("<table align='center' style='border-collapse: collapse;'>");
-		$this->addOutput("<tr><th style='padding: 4px; width: 48px;'></th>");
-		for ($i = 0; $i < sizeof($matrix); $i += 1)
-			$this->addOutput("<th style='padding: 4px; width: 48px;'>C-" . $i . "</th>");
-		$this->addOutput("</tr>");
+        */
+        $this->addOutput("<table align='center' style='border-collapse: collapse;'>");
+        $this->addOutput("<tr><th style='padding: 4px; width: 48px;'></th>");
+        for ($i = 0; $i < sizeof($matrix); $i += 1)
+            $this->addOutput("<th style='padding: 4px; width: 48px;'>C-" . $i . "</th>");
+        $this->addOutput("</tr>");
         foreach ($matrix as $row => $cells) {
             $this->addOutput("<tr><th style='padding: 4px; height: 16px;'>R-" . $row . "</th>");
             foreach ($cells as $column => $cell) {
                 $this->addOutput("<td style='padding: 4px; border: 1px solid #e0e0e0;'>");
-				if (isset($this->starred[$row]) && $this->starred[$row] === $column)
+                if (isset($this->starred[$row]) && $this->starred[$row] === $column)
                     $this->addOutput("<span style='color: red; font-weight: bold'>");
-				else
-					$this->addOutput("<span>");
+                else
+                    $this->addOutput("<span>");
                 $this->addOutput("%d", $cell);
                 if (isset($this->primed[$row]) && $this->primed[$row] === $column) {
                     $this->addOutput("'");
@@ -220,9 +234,9 @@ class Hungarian
             //}
             $this->addOutput("</tr>");
         }
-		$this->addOutput("</table><br>");
+        $this->addOutput("</table><br>");
     }
-	
+    
     public function solve($print = false, $timeOut = 0)
     {
         $print ? $this->outputMatrix($this->matrix) : null;
@@ -247,14 +261,14 @@ class Hungarian
         /*
          * Generate zero matrix
          */
-		
+        
         start:
         $zero_matrix = $this->getZeroMatrix();
         $non_covered_zero_matrix = $this->getNonCoveredZeroMatrix($zero_matrix);
         while ($non_covered_zero_matrix) {
-			$timeOut -= 1;
-			if ($timeOut == 0)
-				die;
+            $timeOut -= 1;
+            if ($timeOut == 0)
+                return null;
             /*
              * Step 1:
              *  -  Select first non-covered zero and prime this selected zero
@@ -333,7 +347,7 @@ class Hungarian
                         $prime_column = $this->getPrimeFromRow($prime_row);
                         $primed[$prime_row] = $prime_column;
                     } else {
-                        die;
+                        return null;
                     }
 
                     $i = $prime_row;
@@ -346,10 +360,10 @@ class Hungarian
             $non_covered_zero_matrix = $this->getNonCoveredZeroMatrix($zero_matrix);
         }
 
-		$timeOut -= 1;
-		if ($timeOut == 0)
-			die;
-		
+        $timeOut -= 1;
+        if ($timeOut == 0)
+            return null;
+        
         /*
          * Step 3:
          *  -  If the number of covered columns is equal to the number of rows/columns of the cost matrix
@@ -393,36 +407,35 @@ class Hungarian
 
             goto start;
         }
-
     }
-	
-	public function getOutput()
-	{
-		return $this->outputText;
-	}
-	
-	public function clearOutput()
-	{
-		$this->outputText = [];
-	}
-	
-	public function takeOutput()
-	{
-		$output = $this->getOutput();
-		$this->clearOutput();
-		return $output;
-	}
-	
-	public function rowAssignments()
-	{
-		return $this->starred;
-	}
-	
-	public function cost($rowAssignments)
-	{
-		$cost = 0;
-		foreach ($rowAssignments as $row => $column)
-			$cost += $this->matrix[$row][$column];
-		return $cost;
-	}
+    
+    public function getOutput()
+    {
+        return $this->outputText;
+    }
+    
+    public function clearOutput()
+    {
+        $this->outputText = [];
+    }
+    
+    public function takeOutput()
+    {
+        $output = $this->getOutput();
+        $this->clearOutput();
+        return $output;
+    }
+    
+    public function rowAssignments()
+    {
+        return $this->starred;
+    }
+    
+    public function cost($rowAssignments)
+    {
+        $cost = 0;
+        foreach ($rowAssignments as $row => $column)
+            $cost += $this->matrix[$row][$column];
+        return $cost;
+    }
 }
