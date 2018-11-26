@@ -78,32 +78,6 @@
         array_push($projects, $project);
     }
 
-    // // Dump output of student skills
-    // echo "Student Skills<br />";
-    // for ($i = 0; $i < sizeof($students); $i += 1)
-    // {
-    //     echo $i . ": ";
-    //     for ($s = 0; $s < $numSkills; $s += 1)
-    //         echo $students[$i][$s] . ", ";
-    //     echo "<br />";
-    // }
-    // echo "<br />";
-    //
-    // // Dump output of project skills
-    // echo "Project Skills<br />";
-    // for ($p = 0; $p < sizeof($projects); $p += 1)
-    // {
-    //     echo "Difficulty: ";
-    //     for ($s = 0; $s < $numSkills; $s += 1)
-    //         echo $projects[$p][$s]->MaxDifficulty . ", ";
-    //     echo "<br />";
-    //     echo "Importance: ";
-    //     for ($s = 0; $s < $numSkills; $s += 1)
-    //         echo $projects[$p][$s]->Importance . ", ";
-    //     echo "<br /><br />";
-    // }
-    // echo "<br />";
-
     // Begin placement
     $solver = new Solver();
     $solver->students = $students;
@@ -111,7 +85,7 @@
 
     $solver->solve();
     // Set up display table
-    echo "<table>
+    echo "<table cellpadding='0' cellspacing='0'>
        <th width='50px'>&nbsp;</th>
        <th width='50px'>HTML/CSS</th>
        <th width='50px'>JavaScript</th>
@@ -131,21 +105,47 @@
         asort($projectStudents[$p]);
 
         // Print project name and skill requirements
-        echo "<tr><td colspan='12'>&nbsp;</td></tr><tr><td colspan='12'>Project: " . $projectNames[$p] . "</td></tr>";
-        echo "<tr><td>&nbsp;</td>";
+        echo "<tr><td colspan='12'>&nbsp;</td></tr><tr><td colspan='12' style='font-weight:bold;'>Project: " . $projectNames[$p] . "</td></tr>";
+        echo "<tr><td style='font-weight:bold; border-bottom: thin solid; border-right: thin solid'>&nbsp;</td>";
         for ($s = 0; $s < $numSkills; $s += 1)
-            echo "<td>" . $projects[$p][$s]->MaxDifficulty . "</td>";
+            echo "<td style='font-weight:bold; border-bottom: thin solid'>" . $projects[$p][$s]->MaxDifficulty . "</td>";
         echo "</tr>";
         // Print student names and skills
         echo "<tr>";
+        $num_students = 0; // Reset number of students to 0 for this project
+        $skill_total = [0,0,0,0,0,0,0,0,0,0,0]; // Reset skill totals (used in average calculation) to 0 for this project
         foreach ($projectStudents[$p] as $i)
         {
-            echo "<td>" . $studentNames[$i] . "</td>";
-            for ($s = 0; $s < $numSkills; $s += 1)
-                echo "<td>" . $students[$i][$s] . "</td>";
+
+            echo "<td style='border-right: thin solid;'>" . $studentNames[$i] . "</td>";
+            for ($s = 0; $s < $numSkills; $s += 1) {
+                echo "<td";
+                if ($projects[$p][$s]->MaxDifficulty == 0) {
+                  echo " style='color:#cfcfcf;'"; // If the project does not require the skill, set the color to grey.
+                } elseif ($projects[$p][$s]->MaxDifficulty > $students[$i][$s]) {
+                  echo " style='color:red';"; // If the student has a LOWER skill than the project requirement, set the color to red.
+                }
+                echo ">" . $students[$i][$s] . "</td>";
+                $skill_total[$s] += $students[$i][$s];
+
+            }
+            $num_students += 1;
           echo "</tr>";
-        }
-    }
+          }
+          echo "<tr>
+            <td style='font-weight:bold; border-right: thin solid; border-top: thin solid;'>Team Avg</td>
+            <td style='font-weight:bold; border-top: thin solid;'>".round($skill_total[0] / $num_students, 1)."</td>
+            <td style='font-weight:bold; border-top: thin solid;'>".round($skill_total[1] / $num_students, 1)."</td>
+            <td style='font-weight:bold; border-top: thin solid;'>".round($skill_total[2] / $num_students, 1)."</td>
+            <td style='font-weight:bold; border-top: thin solid;'>".round($skill_total[3] / $num_students, 1)."</td>
+            <td style='font-weight:bold; border-top: thin solid;'>".round($skill_total[4] / $num_students, 1)."</td>
+            <td style='font-weight:bold; border-top: thin solid;'>".round($skill_total[5] / $num_students, 1)."</td>
+            <td style='font-weight:bold; border-top: thin solid;'>".round($skill_total[6] / $num_students, 1)."</td>
+            <td style='font-weight:bold; border-top: thin solid;'>".round($skill_total[7] / $num_students, 1)."</td>
+            <td style='font-weight:bold; border-top: thin solid;'>".round($skill_total[8] / $num_students, 1)."</td>
+            <td style='font-weight:bold; border-top: thin solid;'>".round($skill_total[9] / $num_students, 1)."</td>
+            <td style='font-weight:bold; border-top: thin solid;'>".round($skill_total[10] / $num_students, 1)."</td>
+            </tr>";}
     echo "</table>";
     echo "</div>";
 ?>
