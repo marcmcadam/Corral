@@ -40,23 +40,41 @@ IF (MYSQLI_QUERY($CON,$PROJECT)) {
   ECHO "ERROR CREATING PROJECT TABLE: " . MYSQLI_ERROR($CON);
 }
 
+$numSkills = 11;
+$rarity = 4;
+
+function randomSkill()
+{
+    global $rarity;
+    return max(rand(0, 4 + $rarity) - $rarity, 0);
+}
+
+function randomSkills()
+{
+    global $numSkills;
+    $text = "";
+    for ($i = 0; $i < $numSkills; $i += 1)
+        $text .= "," . randomSkill();
+    return $text;
+}
+
 // Insert sample data into table
 $PROJECT = 'INSERT INTO project (pro_title, pro_hc, pro_js, pro_php, pro_java, pro_c, pro_cpp, pro_oc, pro_db, pro_u3, pro_ui, pro_se) VALUES 
-("Awesome Source",          4, 3, 1, 0, 1, 0, 0, 0, 0, 0, 0),
-("Gamers Anonymous",        2, 4, 2, 2, 0, 1, 0, 0, 1, 0, 0),
-("HD Certainty Calculator", 0, 1, 0, 2, 0, 0, 1, 0, 0, 3, 0),
-("The X Files",             0, 0, 1, 0, 3, 0, 1, 1, 0, 2, 1),
-("Algorythms",              1, 0, 0, 2, 0, 1, 0, 0, 3, 0, 4),
-("Team Encoding",           0, 2, 0, 3, 0, 1, 4, 1, 0, 0, 0),
-("Project 7",           0, 0, 1, 0, 4, 2, 1, 4, 2, 4, 0),
-("Project 8",           0, 2, 0, 3, 0, 0, 2, 2, 2, 1, 2),
-("Project 9",           1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1),
-("Project 10",           0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0),
-("Project 11",           0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1),
-("Project 12",           4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-("Project 13",           0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0),
-("Project 14",           1, 2, 3, 4, 3, 2, 1, 0, 0, 0, 0),
-("Project 15",           0, 0, 0, 0, 1, 2, 3, 4, 3, 2, 1)
+("Awesome Source"' . randomSkills() . '),
+("Gamers Anonymous"' . randomSkills() . '),
+("HD Certainty Calculator"' . randomSkills() . '),
+("The X Files"' . randomSkills() . '),
+("Algorythms"' . randomSkills() . '),
+("Team Encoding"' . randomSkills() . '),
+("Project 7"' . randomSkills() . '),
+("Project 8"' . randomSkills() . '),
+("Project 9"' . randomSkills() . '),
+("Project 10"' . randomSkills() . '),
+("Project 11"' . randomSkills() . '),
+("Project 12"' . randomSkills() . '),
+("Project 13"' . randomSkills() . '),
+("Project 14"' . randomSkills() . '),
+("Project 15"' . randomSkills() . ')
 ';
 
 IF (MYSQLI_QUERY($CON,$PROJECT)) {
