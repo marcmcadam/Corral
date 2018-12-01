@@ -3,15 +3,13 @@
     
     class SkillDemand
     {
-        public $minimum;
-        public $maximum;
         public $importance;
+        public $bias;
         
-        public function __construct($importance, $minimum, $maximum)
+        public function __construct($importance, $bias)
         {
-            $this->minimum = $minimum;
-            $this->maximum = $maximum;
             $this->importance = $importance;
+            $this->bias = $bias;
         }
     }
     
@@ -20,15 +18,18 @@
         public $displayOutput = false; // mostly unused at the moment
         public $numSkills;
         
+        // the level of skill that is average. because all member cost is divided by total, this number may have no effect
+        public $skillMiddle = 2.0;
+        
         // multiplies floating point by this before converting to integer
         public $discretisation = 100;
         
         // tiny randomisation bypasses an endless loop, caused by excessive identical values, in our acquired Hungarian algorithm code
         // the more randomisation there is, the faster it goes. could be because the values are more ordered instead of the same, and that reduces the number of possibilities
-        public $randomisation = 20;
+        public $randomisation = 3;
         
         // the cost of changing from the current situation. forces it to settle
-        public $inertia = 1;
+        public $inertia = 2;
         
         public $students;
         public $projects;
@@ -37,6 +38,11 @@
         
         public $studentProjects;
         public $projectStudents;
+        
+        public function memberScore($demand, $value)
+        {
+            return pow($value / $this->skillMiddle, pow(2.0, $demand->bias));
+        }
         
         public function iterate()
         {
@@ -62,22 +68,16 @@
             $displayOutput = $this->displayOutput;
             $randomisation = $this->randomisation;
             
-            $saturations = array_fill(0, sizeof($projects), array_fill(0, $numSkills, 0.0));
+            $totals = array_fill(0, sizeof($projects), array_fill(0, $numSkills, 0.0));
             for ($p = 0; $p < sizeof($projects); $p += 1)
             {
                 for ($s = 0; $s < $numSkills; $s += 1)
                 {
                     $demand = $projects[$p][$s];
-                    $min = $demand->minimum;
-                    $max = $demand->maximum;
-                    if ($min != $max)
-                    {
-                        $saturation = 0.0;
-                        foreach ($projectStudents[$p] as $y)
-                            $saturation += min($students[$y][$s], $max) - $min;
-                            //$saturation += min(max(($students[$y][$s] - $min) / ($max - $min), 0.0), 1.0);
-                        $saturations[$p][$s] = $saturation;
-                    }
+                    $total = 0.0;
+                    foreach ($projectStudents[$p] as $y)
+                        $total += $this->memberScore($demand, $students[$y][$s]);
+                    $totals[$p][$s] = $total;
                 }
             }
             
@@ -92,62 +92,47 @@
                     $c = 0.0;
                     for ($s = 0; $s < $numSkills; $s += 1)
                     {
+                        $d = 0.0;
                         if ($currentProject >= 0)
                         {
                             // current project satisfaction
                             $demand = $projects[$currentProject][$s];
-                            $min = $demand->minimum;
-                            $max = $demand->maximum;
-                            $importance = $demand->importance;
-                            
-                            if ($min != $max)
+                            $satisfaction = $this->memberScore($demand, $students[$y][$s]);
+                            if ($satisfaction > 0.0)
                             {
-                                //$satisfaction = min(($students[$y][$s] - $min) / ($max - $min), 1.0);
-                                $satisfaction = min($students[$y][$s], $max) - $min;
-                                if ($satisfaction > 0.0)
-                                {
-                                    $total = $saturations[$currentProject][$s];
-                                    $size = sizeof($projectTasks[$currentProject]);
-                                    // divide by total contribution by all members, so that if one member makes almost
-                                    // no difference, they are free to change groups
-                                    // the problem with this idea, is that if a skill has no contributors, it will attract many members
-                                    // if the skill has many contributors, it will lose many members
-                                    // causing the result to repeatedly reverse itself
-                                    // so reduce the power of this factor by how many members that it can gain or lose to try to reduce the effect (seems to work)
-                                    $satisfaction /= pow($total, 1.0 / $size);
-                                    $memberImportance = $importance * $satisfaction;
-                                    $c += $memberImportance;
-                                }
+                                $total = $totals[$currentProject][$s];
+                                $size = sizeof($projectTasks[$currentProject]);
+                                // divide by total contribution by all members, so that if one member makes almost
+                                // no difference, they are free to change groups
+                                // the problem with this idea, is that if a skill has no contributors, it will attract many members
+                                // if the skill has many contributors, it will lose many members
+                                // causing the result to repeatedly reverse itself
+                                // so reduce the power of this factor by how many members that it can gain or lose to try to reduce the effect (seems to work)
+                                $satisfaction /= pow($total, 1.0 / $size);
+                                $d += $demand->importance * $satisfaction;
                             }
                         }
                         {
                             // changed project satisfaction
                             $demand = $projects[$nextProject][$s];
-                            $min = $demand->minimum;
-                            $max = $demand->maximum;
-                            $importance = $demand->importance;
-                            if ($min != $max)
+                            $satisfaction = $this->memberScore($demand, $students[$y][$s]);
+                            if ($satisfaction > 0.0)
                             {
-                                //$satisfaction = min(($students[$y][$s] - $min) / ($max - $min), 1.0);
-                                $satisfaction = min($students[$y][$s], $max) - $min;
-                                if ($satisfaction > 0.0)
-                                {
-                                    $total = $saturations[$nextProject][$s];
-                                    if ($currentProject != $nextProject)
-                                        $total += $satisfaction;
-                                    $size = sizeof($projectTasks[$nextProject]);
-                                    $satisfaction /= pow($total, 1.0 / $size);
-                                    $memberImportance = $importance * $satisfaction;
-                                    $c -= $memberImportance;
-                                }
+                                $total = $totals[$nextProject][$s];
+                                if ($currentProject != $nextProject)
+                                    $total += $satisfaction;
+                                $size = sizeof($projectTasks[$nextProject]);
+                                $satisfaction /= pow($total, 1.0 / $size);
+                                $d -= $demand->importance * $satisfaction;
                             }
                         }
+                        $c += $d;
                     }
                     
                     $rowValue = $discretisation * $c;
                     $rowValue += rand(0, $randomisation);
                     if ($nextProject != $currentProject)
-                        $rowValue += $inertia; // prefer to stay where things are, to avoid endlessly flip-flopping large groups
+                        $rowValue += $inertia;
                     
                     $row[$x] = (int)$rowValue;
                 }
