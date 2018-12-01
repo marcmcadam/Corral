@@ -1,6 +1,6 @@
 <?php
  	$PageTitle = "Student Survey";
-	require "HEADER_STUDENT.PHP";
+	require "../PAGES/HEADER_STUDENT.PHP";
 ?>
 
 <h2>Student Survey</h2>
@@ -89,4 +89,4 @@
 <p><input type="submit">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="reset" value="reset"></p>
 </form>
 
-<?php require "FOOTER_STUDENT.PHP"; ?>
+<?php require "../PAGES/FOOTER_STUDENT.PHP"; ?>

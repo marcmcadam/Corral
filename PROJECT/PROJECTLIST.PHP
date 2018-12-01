@@ -1,6 +1,6 @@
 <?php
  	$PageTitle = "Project List";
-	require "HEADER_STAFF.PHP";
+	require "../PAGES/HEADER_STAFF.PHP";
 ?>
 <div id="contents">
 
@@ -66,4 +66,4 @@
 
 <br>
 
-<?php require "FOOTER_STAFF.PHP"; ?>
+<?php require "../PAGES/FOOTER_STAFF.PHP"; ?>

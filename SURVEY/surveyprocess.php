@@ -1,6 +1,6 @@
 <?php
  	$PageTitle = "Student Survey";
-	require "HEADER_STUDENT.PHP";
+	require "../PAGES/HEADER_STUDENT.PHP";
 	require('../DATABASE/CONNECTDB.PHP');
 
 			$student_firstname=$_POST['STUDENT_FIRSTNAME'];
@@ -172,4 +172,4 @@
 	<h2>Thank for completing the survey</h2>
 	<p>Please log out</p>
 
-<?php require "FOOTER_STUDENT.PHP"; ?>
+<?php require "../PAGES/FOOTER_STUDENT.PHP"; ?>

@@ -1,6 +1,6 @@
 <?php
  	$PageTitle = "Results";
-	require "HEADER_STAFF.PHP";
+	require "../PAGES/HEADER_STAFF.PHP";
 ?>
 
 <h2>Results</h2>
@@ -54,4 +54,4 @@ Export Project PDF:
 <br>
 <a href="../PROJECT/PROJECTSEARCH">Back to Project Search</a><br>
 
-<?php require "FOOTER_STAFF.PHP"; ?>
+<?php require "../PAGES/FOOTER_STAFF.PHP"; ?>

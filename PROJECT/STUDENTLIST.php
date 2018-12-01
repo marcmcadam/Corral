@@ -1,6 +1,6 @@
 <?php
  	$PageTitle = "Student List";
-	require "HEADER_STAFF.PHP";
+	require "../PAGES/HEADER_STAFF.PHP";
 ?>
 <div id="contents" >
 
@@ -49,4 +49,4 @@ mysqli_close($CON);
 
 <br>
 
-<?php require "FOOTER_STAFF.PHP"; ?>
+<?php require "../PAGES/FOOTER_STAFF.PHP"; ?>

@@ -2,7 +2,7 @@
 session_start();
 REQUIRE('../DATABASE/CONNECTDB.PHP');
 $PageTitle = "Login Page";
-require "HEADER_PUBLIC.PHP";
+require "../PAGES/HEADER_PUBLIC.PHP";
 ?>
 
       <form method="POST">
@@ -14,7 +14,7 @@ require "HEADER_PUBLIC.PHP";
         <button type="button" onclick="location.href='../ACCESS/REGISTER';" vaule="Register" />REGISTER</button><br><br>
       </form>
 
-<?php require "FOOTER_PUBLIC.PHP"; ?>
+<?php require "../PAGES/FOOTER_PUBLIC.PHP"; ?>
 <?php  //Start the Session
 
 //3. If the form is submitted or not.
@@ -51,6 +51,3 @@ header("location: ../PAGES/STUDENTPROFILE");
 }
 //3.2 When the user visits the page first time, simple login form will be displayed.
 ?>
-
-</body>
-</html>

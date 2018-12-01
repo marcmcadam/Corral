@@ -2,7 +2,7 @@
 session_start();
 require('../DATABASE/CONNECTDB.PHP');
 $PageTitle = "Error";
-require "HEADER_PUBLIC.PHP";
+require "../PAGES/HEADER_PUBLIC.PHP";
 ?>
 
       <form method="POST">
@@ -15,7 +15,7 @@ require "HEADER_PUBLIC.PHP";
       </form>
 <p style="margin-left: 400px">Login error, Credentials do not match. Please try again.</p>
 
-<?php require "FOOTER_PUBLIC.PHP"; ?>
+<?php require "../PAGES/FOOTER_PUBLIC.PHP"; ?>
 <?php  //Start the Session
 
 //3. If the form is submitted or not.
@@ -52,6 +52,3 @@ header("location: ../PAGES/STUDENTPROFILE");
 }
 //3.2 When the user visits the page first time, simple login form will be displayed.
 ?>
-
-</body>
-</html>

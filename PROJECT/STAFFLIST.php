@@ -1,6 +1,6 @@
 <?php
  	$PageTitle = "Staff List";
-	require "HEADER_STAFF.PHP";
+	require "../PAGES/HEADER_STAFF.PHP";
 ?>
 <div id="contents" >
 
@@ -41,12 +41,4 @@ mysqli_close($CON);
 
 <br>
 
-<div class="Footer">
-
-	© Copyright Deakin University & Group 29 2018
-
-</div>
-
-</body>
-
-</html>
+<?php require "../PAGES/FOOTER_STAFF.PHP"; ?>

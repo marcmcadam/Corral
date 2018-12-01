@@ -1,6 +1,6 @@
 <?php
 	$PageTitle = "Project Search";
-	require "HEADER_STAFF.PHP";
+	require "../PAGES/HEADER_STAFF.PHP";
 	$script = '
 
 <script type="text/javascript">
@@ -27,8 +27,5 @@ fucntion validate(search) {
 	<input type="submit" name="Submit" value="Search">
 </form>
 <br><br>
-<div class="Footer">
-	© Copyright Deakin University & Group 29 2018
-</div>
-</body>
-</html>
+
+<?php require "../PAGES/FOOTER_STAFF.PHP"; ?>

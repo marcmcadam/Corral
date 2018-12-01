@@ -1,6 +1,6 @@
 <?php
 	$PageTitle = "Project Search";
-	require "HEADER_STAFF.PHP";
+	require "../PAGES/HEADER_STAFF.PHP";
 	$script = '<script type="text/javascript">
 function validate(search) {
 	if(document.search.View.value == ""){
@@ -32,4 +32,4 @@ function validate(search) {
 </form>
 <br><br>
 
-<?php require "FOOTER_STAFF.PHP"; ?>
+<?php require "../PAGES/FOOTER_STAFF.PHP"; ?>

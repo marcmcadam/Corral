@@ -1,7 +1,7 @@
 <?php
 	$PageTitle = "Search Results";
-	require "HEADER_STAFF.PHP";
-	
+	require "../PAGES/HEADER_STAFF.PHP";
+
 $View = $_POST['View'];
 $FirstName = $_POST['FirstName'];
 $Email = $_POST['Email'];
@@ -104,8 +104,4 @@ echo "<p><table width='900px'  border='1px' cellpadding='10px'></p>";
 <hr>
 <p><a href="../PROJECT/MEMBERSEARCH">Back to Search</p></a><br>
 
-<div class="Footer">
-	© Copyright Deakin University & Group 29 2018
-</div>
-</body>
-</html>
+<?php require "../PAGES/FOOTER_STAFF.PHP"; ?>

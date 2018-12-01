@@ -1,7 +1,7 @@
 <?php
 require ('../DATABASE/CONNECTDB.php');
 $PageTitle = "Registration";
-require "HEADER_PUBLIC.PHP";
+require "../PAGES/HEADER_PUBLIC.PHP";
 $script = '<script type="text/javaScript">
 	function validate(registration) {
 		var digits="0123456789"
@@ -104,4 +104,4 @@ if (isset($_POST['STUDENT_PASSWORD'])) {
 }
 
 ?>
-<?php require "FOOTER_PUBLIC.PHP"; ?>
+<?php require "../PAGES/FOOTER_PUBLIC.PHP"; ?>

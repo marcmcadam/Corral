@@ -2,7 +2,7 @@
 REQUIRE('../DATABASE/CONNECTDB.PHP');
 ob_start();
 $PageTitle = "Add Project";
-require "HEADER_STAFF.PHP";
+require "../PAGES/HEADER_STAFF.PHP";
 ?>
 
 
@@ -254,4 +254,4 @@ if (isset($_POST['se'])) {
 </div>
 
 <hr>
-<?php require "FOOTER_STAFF.PHP"; ?>
+<?php require "../PAGES/FOOTER_STAFF.PHP"; ?>

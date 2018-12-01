@@ -1,6 +1,6 @@
 <?php
  	$PageTitle = "Project Update";
-	require "HEADER_STAFF.PHP";
+	require "../PAGES/HEADER_STAFF.PHP";
 ?>
 <div id="contents">
 <h2>Update Project</h2>
@@ -103,4 +103,4 @@ Security<select name="se">
 
 <hr>
 
-<?php require "FOOTER_STAFF.PHP"; ?>
+<?php require "../PAGES/FOOTER_STAFF.PHP"; ?>
