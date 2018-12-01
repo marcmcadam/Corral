@@ -1,35 +1,7 @@
 <?php
-session_start();
-
-if ( $_SESSION['STUDENT_ID'] != 1) {
-	$_SESSION['message'] = "You mus log in before viewing this page";
-	header("location: ../ACCESS/error");
-	}
-	else {
-	$id = $_SESSION['STUDENT_ID'];
-	$student_firstname = $_SESSION['STUDENT_FIRSTNAME'];
-	$student_lastname = $_SESSION['STUDENT_LASTNAME'];
-	}
+	$PageTitle = "Contact Us";
+	require "HEADER_STUDENT.PHP";
 ?>
-<!doctype html>
-<html>
-<head>
-<meta charset="utf-8">
-<title>Contact Us</title>
-<link rel="stylesheet" type="text/css" href="../STYLES/stylesheet.css">
-</head>
-
-<body>
-<div class="Header">
-
-</div>
-<div class="navbar">
-	<a href="../PAGES/STUDENTHOME">Home</a>
-	<a href="../SURVEY/STUDENTSURVEY">Survey</a>
-	<a href="../PAGES/STUDENTCONTACT">Contacts</a>
-	<a href="../PAGES/STUDENTABOUTUS">About Us</a>
-	<a href="../Access/LOGOUT">Logout</a>
-</div>
 
 <div id="contents">
 <h2>Contact Us</h2>
@@ -56,7 +28,4 @@ if ( $_SESSION['STUDENT_ID'] != 1) {
   </p>
 </form>
 
-<div class="Footer">
-	© Copyright Deakin University & Group 29 2018
-</div>
-</body>
+<?php require "FOOTER_STUDENT.PHP"; ?>

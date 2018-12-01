@@ -1,29 +1,7 @@
-<html>
-<head>
-<meta charset="utf-8">
-<title>About Us</title>
-<link rel="stylesheet" type="text/css" href="../STYLES/stylesheet.css">
-</head>
-<body>
-<div class="Header">
-
-</div>
-
-<div class="navbar">
-	<a href="../PAGES/HOME">Home</a>
-	<a href="../ACCESS/REGISTER">Register</a>
-	<a href="../PAGES/CONTACT">Contacts</a>
-	<a href="../PAGES/ABOUTUS">About Us</a>
-	<div class="dropdown">
-		<button class="dropbtn">Login
-			<i class="fa fa-caret-down"></i>
-		</button>
-		<div class="dropdown-content">
-			<a href="../Access/login">Students</a>
-			<a href="../ACCESS/stafflogin">Staff</a>
-		</div>
-	</div>
-</div>
+<?php
+	$PageTitle = "About Us";
+	require "HEADER_PUBLIC.PHP";
+?>
 <div id="contents">
   <h2>About Us</h2>
 <p>Welcome to the Corral 'about us' page. Here you will find details of how this project began along with some frequently asked questions as listed below:</p>
@@ -46,8 +24,4 @@
 <p>This depends on the nature of the project (compulsory or on a volunteer-basis) but once again is at the discretion of those who have created the project. Please contact your supervisor directly.</p>
 <p>&nbsp;</p>
 
-<div class="Footer">
-	© Copyright Deakin University & Group 29 2018
-</div>
-</body>
-</html>
+<?php require "FOOTER_PUBLIC.PHP"; ?>

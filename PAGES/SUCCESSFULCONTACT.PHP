@@ -1,4 +1,6 @@
 <?php
+  $PageTitle = "Thank You!";
+  require "HEADER_PUBLIC.PHP";
 require '../PHPMailer/PHPMailerAutoload.php';
 
 //Contact Us Form
@@ -51,42 +53,9 @@ if(!$mail->send()) {
 }
  ?>
 
-<html>
-<head>
-<meta charset="utf-8">
-<title>Thank You!</title>
-<link rel="stylesheet" type="text/css" href="../STYLES/stylesheet.css">
-</head>
-<body>
-
-<div class="Header">
-
-</div>
-
-
-
-<div class="navbar">
-	<a href="../PAGES/HOME">Home</a>
-	<a href="../ACCESS/REGISTER">Register</a>
-	<a href="../PAGES/CONTACT">Contacts</a>
-	<a href="../PAGES/ABOUTUS">About Us</a>
-	<div class="dropdown">
-		<button class="dropbtn">Login
-			<i class="fa fa-caret-down"></i>
-		</button>
-		<div class="dropdown-content">
-			<a href="../Access/login">Students</a>
-			<a href="../ACCESS/stafflogin">Staff</a>
-		</div>
-	</div>
-</div>
-
 <div id="contents">
 <h2>Question Succesfully Submitted!</h2>
 <p>Thank you for your feedback! We at Corral love to hear from those who use and value our website. We will reply to your comments as swiftly as possible.</p>
 <a href="../PAGES/HOME"><h2 align="center">Back to Home Page</h2></a>
-<div class="Footer">
-  © Copyright Deakin University & Group 29 2018
-</div>
-</body>
-</html>
+
+<?php require "FOOTER_PUBLIC.PHP"; ?>

@@ -1,13 +1,8 @@
 <?php
 require ('../DATABASE/CONNECTDB.php');
-?>
-<!doctype html>
-<html>
-<head>
-<meta charset="utf-8">
-<title>Registration</title>
-<link rel="stylesheet" type="text/css" href="../STYLES/styleform.css">
-<script type="text/javaScript">
+$PageTitle = "Registration";
+require "HEADER_PUBLIC.PHP";
+$script = '<script type="text/javaScript">
 	function validate(registration) {
 		var digits="0123456789"
 		var temp
@@ -44,12 +39,12 @@ require ('../DATABASE/CONNECTDB.php');
 			}
 
 			if (document.registration.reemail.value != email) {
-				alert("Emails don't match. Please make sure they are the same")
+				alert("Emails don\'t match. Please make sure they are the same")
 				return false
 			}
 
 			if (document.registration.cpassword.value != password) {
-				alert("Passwords don't match. Please ensure that they are the same")
+				alert("Passwords don\'t match. Please ensure that they are the same")
 				return false
 			}
 
@@ -61,28 +56,8 @@ require ('../DATABASE/CONNECTDB.php');
 			}
 		return true
 	}
-</script>
-</head>
-
-<body>
-<div class="Header">
-</div>
-
-<div class="navbar">
-	<a href="../PAGES/HOME">Home</a>
-	<a href="../ACCESS/REGISTER">Register</a>
-	<a href="../PAGES/CONTACT">Contacts</a>
-	<a href="../PAGES/ABOUTUS">About Us</a>
-	<div class="dropdown">
-		<button class="dropbtn">Login
-			<i class="fa fa-caret-down"></i>
-		</button>
-		<div class="dropdown-content">
-			<a href="../Access/login">Students</a>
-			<a href="../ACCESS/stafflogin">Staff</a>
-		</div>
-	</div>
-</div>
+</script>';
+?>
 
 <h2 style="margin-left: 35%;">Registration</h2>
 <form name="registration" onSubmit="return validate(registration)" method="post">
@@ -129,8 +104,4 @@ if (isset($_POST['STUDENT_PASSWORD'])) {
 }
 
 ?>
-
-<div class="Footer">
-	© Copyright Deakin University & Group 29 2018
-</div>
-</body>
+<?php require "FOOTER_PUBLIC.PHP"; ?>

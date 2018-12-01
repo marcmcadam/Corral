@@ -1,33 +1,10 @@
 <?php
 session_start();
 require('../DATABASE/CONNECTDB.PHP');
+$PageTitle = "Login Page";
+require "HEADER_PUBLIC.PHP";
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8">
-<title>Login Page</title>
-<link rel="stylesheet" type="text/css" href="../STYLES/styleform.css">
-</head>
 
-<div class="Header">
-</div>
-
-<div class="navbar">
-	<a href="../PAGES/HOME">Home</a>
-	<a href="../ACCESS/REGISTER">Register</a>
-	<a href="../PAGES/CONTACT">Contacts</a>
-	<a href="../PAGES/ABOUTUS">About Us</a>
-	<div class="dropdown">
-		<button class="dropbtn">Login
-			<i class="fa fa-caret-down"></i>
-		</button>
-		<div class="dropdown-content">
-			<a href="../Access/login">Students</a>
-			<a href="../ACCESS/stafflogin">Staff</a>
-		</div>
-	</div>
-</div>
       <form method="POST">
         <h2>Please Log In</h2>
     <span class="input-group-addon" id="basic-addon1"></span>
@@ -37,9 +14,7 @@ require('../DATABASE/CONNECTDB.PHP');
         <button type="button" onclick="location.href='../PAGES/STAFFREGISTRATION';" vaule="Register" />REGISTER</button><br><br>
       </form>
 
-<div class="Footer">
-	© Copyright Deakin University & Group 29 2018
-</div>
+<?php require "FOOTER_PUBLIC.PHP"; ?>
 <?php  //Start the Session
 
 //3. If the form is submitted or not.
