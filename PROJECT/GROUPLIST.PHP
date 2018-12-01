@@ -10,7 +10,6 @@
 
 <?php
 require('../DATABASE/CONNECTDB.PHP');
-file_get_contents("http://localhost:8080/CORRAL_PROJECT");
 $sql="SELECT student_firstname,project_num FROM surveyanswer ORDER BY project_num ASC";
 $res=mysqli_query($CON, $sql);
 
