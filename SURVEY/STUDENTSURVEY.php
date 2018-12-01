@@ -1,35 +1,7 @@
 <?php
-session_start();
-if ( $_SESSION['STUDENT_ID'] != 1) {
-	$_SESSION['message'] = "You mus log in before viewing this page";
-	header("location: ../ACCESS/error");
-	}
-	else {
-	$id = $_SESSION['STUDENT_ID'];
-	$student_firstname = $_SESSION['STUDENT_FIRSTNAME'];
-	$student_lastname = $_SESSION['STUDENT_LASTNAME'];
-	}
+ 	$PageTitle = "Student Survey";
+	require "../PAGES/HEADER_STUDENT.PHP";
 ?>
-<html>
-<head>
-<meta charset="utf-8">
-<title></title>
-<link rel="stylesheet" type="text/css" href="../STYLES/stylesheet.css">
-</head>
-
-<body>
-<div class="Header">
-</div>
-
-
-
-<div class="navbar">
-	<a href="../PAGES/STUDENTHOME">Home</a>
-	<a href="../SURVEY/STUDENTSURVEY">Survey</a>
-	<a href="../PAGES/STUDENTCONTACT">Contacts</a>
-	<a href="../PAGES/STUDENTABOUTUS">About Us</a>
-	<a href="../Access/LOGOUT">Logout</a>
-</div>
 
 <h2>Student Survey</h2>
 <form action="../SURVEY/surveyprocess" method="post">
@@ -117,8 +89,4 @@ if ( $_SESSION['STUDENT_ID'] != 1) {
 <p><input type="submit">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="reset" value="reset"></p>
 </form>
 
-<div class="Footer">
-	© Copyright Deakin University & Group 29 2018
-</div>
-</body>
-</html>
+<?php require "../PAGES/FOOTER_STUDENT.PHP"; ?>

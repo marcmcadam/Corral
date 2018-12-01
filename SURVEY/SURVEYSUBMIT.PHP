@@ -182,8 +182,4 @@ REQUIRE('../DATABASE/CONNECTDB.PHP');
 <br>
 <a href="../Access/LOGOUT.php">All done, click here to log out</a>
 
-<div class="Footer">
-	© Copyright Deakin University & Group 29 2018
-</div>
-   </BODY>
-</HTML>
+<?php require "../PAGES/FOOTER_STUDENT.PHP"; ?>
