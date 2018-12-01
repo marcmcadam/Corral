@@ -37,12 +37,12 @@ IF (MYSQLI_QUERY($CON,$SURVEYANSWER)) {
 }
 
 $numSkills = 11;
-$rarity = 4;
+$rarity = 3.0;
 
 function randomSkill()
 {
     global $rarity;
-    return max(rand(0, 4 + $rarity) - $rarity, 0);
+    return 4 - (int)floor(log(rand(0, (int)floor(pow($rarity, 5.0)) - 1)) / log($rarity));
 }
 
 function randomSkills()

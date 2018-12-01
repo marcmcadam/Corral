@@ -60,15 +60,18 @@
         $total = 0;
         for ($s = 0; $s < $numSkills; $s += 1)
         {
-            $demand = new SkillDemand($pro[$s]);
+            $importance = $pro[$s];
+            $demand = new SkillDemand(sqrt($importance), 0, ($importance > 0) ? /*rand(1, 4)*/4 : 0);
             array_push($project, $demand);
             $total += $demand->importance;
         }
+        /*
         if ($total > 0) // only for lazy setting of importance. if given as input then use the raw number
         {
             for ($s = 0; $s < $numSkills; $s += 1)
                 $project[$s]->importance /= $total;
         }
+        */
         array_push($projects, $project);
     }
 ?>

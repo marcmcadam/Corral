@@ -41,12 +41,12 @@ IF (MYSQLI_QUERY($CON,$PROJECT)) {
 }
 
 $numSkills = 11;
-$rarity = 4;
+$rarity = 3.0;
 
 function randomSkill()
 {
     global $rarity;
-    return max(rand(0, 4 + $rarity) - $rarity, 0);
+    return 4 - (int)floor(log(rand(0, (int)floor(pow($rarity, 5.0)) - 1)) / log($rarity));
 }
 
 function randomSkills()
@@ -60,12 +60,12 @@ function randomSkills()
 
 // Insert sample data into table
 $PROJECT = 'INSERT INTO project (pro_title, pro_hc, pro_js, pro_php, pro_java, pro_c, pro_cpp, pro_oc, pro_db, pro_u3, pro_ui, pro_se) VALUES 
-("Awesome Source"' . randomSkills() . '),
-("Gamers Anonymous"' . randomSkills() . '),
-("HD Certainty Calculator"' . randomSkills() . '),
-("The X Files"' . randomSkills() . '),
-("Algorythms"' . randomSkills() . '),
-("Team Encoding"' . randomSkills() . '),
+("Project 1"' . randomSkills() . '),
+("Project 2"' . randomSkills() . '),
+("Project 3"' . randomSkills() . '),
+("Project 4"' . randomSkills() . '),
+("Project 5"' . randomSkills() . '),
+("Project 6"' . randomSkills() . '),
 ("Project 7"' . randomSkills() . '),
 ("Project 8"' . randomSkills() . '),
 ("Project 9"' . randomSkills() . '),
