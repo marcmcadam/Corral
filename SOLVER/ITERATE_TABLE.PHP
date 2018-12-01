@@ -11,7 +11,8 @@
     $students = $solver->students;
     $projects = $solver->projects;
 
-    echo "<table align='center' cellpadding='0' cellspacing='0'>
+    echo "
+    <table border='0' align='center' cellpadding='0' cellspacing='0' style='text-align: center'><tr>
         <th width='192px' style='font-size: 1em'>&nbsp;</th>
         <th width='80px' style='font-size: 1em'>HTML</th>
         <th width='80px' style='font-size: 1em'>JS</th>
@@ -24,25 +25,7 @@
         <th width='80px' style='font-size: 1em'>Unity</th>
         <th width='80px' style='font-size: 1em'>UI</th>
         <th width='80px' style='font-size: 1em'>Security</th>
-       ";
-    echo "</table>";
-
-    // Set up display table
-    echo "<div>";
-    echo "<table align='center' cellpadding='0' cellspacing='0'>
-        <th width='192px' style='font-size: 1em'>&nbsp;</th>
-        <th width='80px' style='font-size: 1em'>&nbsp;</th>
-        <th width='80px' style='font-size: 1em'>&nbsp;</th>
-        <th width='80px' style='font-size: 1em'>&nbsp;</th>
-        <th width='80px' style='font-size: 1em'>&nbsp;</th>
-        <th width='80px' style='font-size: 1em'>&nbsp;</th>
-        <th width='80px' style='font-size: 1em'>&nbsp;</th>
-        <th width='80px' style='font-size: 1em'>&nbsp;</th>
-        <th width='80px' style='font-size: 1em'>&nbsp;</th>
-        <th width='80px' style='font-size: 1em'>&nbsp;</th>
-        <th width='80px' style='font-size: 1em'>&nbsp;</th>
-        <th width='80px' style='font-size: 1em'>&nbsp;</th>
-       ";
+       </tr><tr><td colspan='12'>&nbsp;</td></tr>";
     $importanceMax = 0.0;
     for ($p = 0; $p < sizeof($projects); $p += 1)
     {
@@ -53,7 +36,7 @@
     {
         sort($projectStudents[$p]);
 
-        $headerBackgroundColour = ['r' => 0.875, 'g' => 0.875, 'b' => 0.875];
+        $headerBackgroundColour = ['r' => 0.925, 'g' => 0.925, 'b' => 0.925];
         $headerColour = ['r' => 1.0, 'g' => 1.0, 'b' => 0.5];
 
         $backgroundColour = ['r' => 0.5, 'g' => 0.5, 'b' => 0.5];
@@ -61,7 +44,6 @@
         $weakColour = ['r' => 0.75, 'g' => 0.0, 'b' => 0.0];
 
         // Print project name and skill requirements
-        echo "<tr><td colspan='12'>&nbsp;</td></tr>";
         echo "<tr><td style='font-weight:bold; border-bottom: thin solid; border-right: thin solid; text-align: left;'>$projectNames[$p]</td>";
         for ($s = 0; $s < $numSkills; $s += 1)
         {
@@ -142,4 +124,5 @@
             </tr>";
         echo "<tr><td colspan='12'>&nbsp;</td></tr>";
     }
+    echo "</table>";
 ?>
