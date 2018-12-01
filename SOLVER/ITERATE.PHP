@@ -1,6 +1,7 @@
 <?php
+    $PageTitle = "Display Sorting Results";
     require "SOLVER.PHP";
-    session_start();
+    require "../PAGES/HEADER_STAFF.PHP";
     set_time_limit(120);
     $solver = $_SESSION['solver'];
     $solver->iterate();
