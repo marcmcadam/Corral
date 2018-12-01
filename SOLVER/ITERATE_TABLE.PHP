@@ -75,19 +75,8 @@
             $green = $notAlpha * $headerBackgroundColour['g'] + $alpha * $headerColour['g'];
             $blue = $notAlpha * $headerBackgroundColour['b'] + $alpha * $headerColour['b'];
             $hexColour = sprintf("#%20x%20x%20x", (int)floor($red * 255.9), (int)floor($green * 255.9), (int)floor($blue * 255.9));
-<<<<<<< HEAD
-            echo "<td bgcolor='$hexColour' style='font-weight:bold; border-bottom: thin solid; border-right: thin solid #c0c0c0'>";
-
-            //for ($v = 0; $v < $projects[$p][$s]->maximum; $v += 1)
-            //    echo "<img src='blackStar.png' width='12px' height='12px'>";
-            if ($projects[$p][$s]->minimum == 0)
-                echo $projects[$p][$s]->maximum;
-            else
-                echo $projects[$p][$s]->minimum . " - " . $projects[$p][$s]->maximum;
-
-=======
             echo "<td bgcolor='$hexColour' style='border-bottom: thin solid; border-right: thin solid #c0c0c0'>";
-            
+
             if ($importance > 0)
             {
                 $bias = $projects[$p][$s]->bias;
@@ -99,7 +88,6 @@
                     echo "Low";
             }
             
->>>>>>> e829eeee5a12a4f5f93fcb75d5bc0cffec3cb0ad
             echo "</td>";
         }
         echo "</tr>";
