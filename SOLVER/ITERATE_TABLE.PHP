@@ -65,8 +65,9 @@
         echo "<tr><td style='font-weight:bold; border-bottom: thin solid; border-right: thin solid; text-align: left;'>$projectNames[$p]</td>";
         for ($s = 0; $s < $numSkills; $s += 1)
         {
+            $importance = $projects[$p][$s]->importance;
             if ($importanceMax > 0.0)
-                $alpha = $projects[$p][$s]->importance / $importanceMax;
+                $alpha = $importance / $importanceMax;
             else
                 $alpha = 0.0;
             $notAlpha = 1.0 - $alpha;
@@ -74,14 +75,18 @@
             $green = $notAlpha * $headerBackgroundColour['g'] + $alpha * $headerColour['g'];
             $blue = $notAlpha * $headerBackgroundColour['b'] + $alpha * $headerColour['b'];
             $hexColour = sprintf("#%20x%20x%20x", (int)floor($red * 255.9), (int)floor($green * 255.9), (int)floor($blue * 255.9));
-            echo "<td bgcolor='$hexColour' style='font-weight:bold; border-bottom: thin solid; border-right: thin solid #c0c0c0'>";
+            echo "<td bgcolor='$hexColour' style='border-bottom: thin solid; border-right: thin solid #c0c0c0'>";
             
-            //for ($v = 0; $v < $projects[$p][$s]->maximum; $v += 1)
-            //    echo "<img src='blackStar.png' width='12px' height='12px'>";
-            if ($projects[$p][$s]->minimum == 0)
-                echo $projects[$p][$s]->maximum;
-            else
-                echo $projects[$p][$s]->minimum . " - " . $projects[$p][$s]->maximum;
+            if ($importance > 0)
+            {
+                $bias = $projects[$p][$s]->bias;
+                if ($bias > 0.25)
+                    echo "High";
+                else if ($bias > -0.25)
+                    echo "Medium";
+                else
+                    echo "Low";
+            }
             
             echo "</td>";
         }
@@ -103,15 +108,14 @@
                 $demand = $projects[$p][$s];
                 
                 $alpha = ($importanceMax <= 0.0) ? 0.0 : ($demand->importance / $importanceMax);
-                $ratio = ($demand->maximum == $demand->minimum) ? 0.0 : min(($value - $demand->minimum) / ($demand->maximum - $demand->minimum), 1.0);
-                $strength = 0.5 * (1.0 + $ratio); // -1 = bad, 0 = neutral, 1 = good
+                $strength = 0.5 + 0.125 * $solver->memberScore($demand, $value);
                 $weakness = 1.0 - $strength;
                 $notAlpha = 1.0 - $alpha;
                 $red = $notAlpha * $backgroundColour['r'] + $alpha * ($strength * $strongColour['r'] + $weakness * $weakColour['r']);
                 $green = $notAlpha * $backgroundColour['g'] + $alpha * ($strength * $strongColour['g'] + $weakness * $weakColour['g']);
                 $blue = $notAlpha * $backgroundColour['b'] + $alpha * ($strength * $strongColour['b'] + $weakness * $weakColour['b']);
                 $hexColour = sprintf("#%20x%20x%20x", (int)floor($red * 255.9), (int)floor($green * 255.9), (int)floor($blue * 255.9));
-                $style = ($projects[$p][$s]->maximum == 0) ? "" : "font-weight: bold;";
+                $style = ($projects[$p][$s]->importance == 0) ? "" : "font-weight: bold;";
                 echo "<td bgcolor='$hexColour' style='$style; border-bottom: thin solid #606060; border-right: thin solid #606060;'>";
                 for ($v = 0; $v < $value; $v += 1)
                     echo "<img src='whiteStar.png' width='12px' height='12x'>";

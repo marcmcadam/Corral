@@ -61,7 +61,7 @@
         for ($s = 0; $s < $numSkills; $s += 1)
         {
             $importance = $pro[$s];
-            $demand = new SkillDemand(sqrt($importance), 0, ($importance > 0) ? /*rand(1, 4)*/4 : 0);
+            $demand = new SkillDemand($importance, rand(-1, 1));
             array_push($project, $demand);
             $total += $demand->importance;
         }
