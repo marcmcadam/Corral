@@ -1,10 +1,11 @@
 <?php
     $PageTitle = "Begin Solving";
-    require "../PAGES/HEADER_STAFF.PHP";
     require "SOLVER.PHP";
 
     require "GETDATA.PHP";
 
+    set_time_limit(60);
+    
     $solver = new Solver();
     $solver->students = $students;
     $solver->projects = $projects;
@@ -47,9 +48,41 @@
 
     $solver->numSkills = $numSkills;
 
-    $_SESSION['solver'] = $solver;
+    while (true)
+    {
+        if ($solver->iteration < 0 || $solver->processing)
+            die;
+        $solver->iterate();
+        assignDatabase();
+    }
+    
+    function assignDatabase()
+    {
+        global $CON;
+        global $solver;
+        global $studentNames;
+        global $projectNames;
+        
+        $studentProjects = $solver->studentProjects;
+        foreach ($studentProjects as $x => $p)
+        {
+            if (!array_key_exists($x, $studentNames))
+                continue;
+            
+            $sid = $studentNames[$x];
+            $pid = $projectNames[$p];
+            
+            // delete student project assignments
+            $sql = "DELETE FROM groups WHERE stu_id = $sid";
+            if (!mysqli_query($CON, $sql))
+            // TODO: how to error for background process?
+                echo "Error deleting project member: " . mysqli_error($CON) . "<br>";
+            
+            // create new assignment
+            $sql = "INSERT INTO groups (pro_num, stu_id) VALUES ($pid, $sid)";
+            if (!mysqli_query($CON, $sql))
+            // TODO: how to error for background process?
+                echo "Error assigning project member: " . mysqli_error($CON) . "<br>";
+        }
+    }
 ?>
-<form action="iterate.php">
-    <input type="submit" value="Begin Assign">
-</form>
-<?php require "../PAGES/FOOTER_STAFF.PHP"; ?>

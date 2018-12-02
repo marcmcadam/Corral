@@ -31,6 +31,9 @@
         // the cost of changing from the current situation. forces it to settle
         public $inertia = 2;
         
+        public $processing = false;
+        public $iteration = 0;
+        
         public $students;
         public $projects;
         public $tasks;
@@ -46,6 +49,9 @@
         
         public function iterate()
         {
+            $this->processing = true;
+            $this->iteration += 1;
+            
             $displayOutput = $this->displayOutput;
             $numSkills = $this->numSkills;
             $discretisation = $this->discretisation;
@@ -62,6 +68,7 @@
             if (sizeof($tasks) != sizeof($students))
             {
                 echo "Task and student arrays must be equal in length.";
+                $this->iteration = -1;
                 return false;
             }
             
@@ -144,7 +151,10 @@
             
             $assignments = $h->solve($displayOutput, sizeof($tasks) * sizeof($tasks));
             if ($assignments == null)
+            {
+                $this->iteration = -1;
                 return false;
+            }
             
             $projectStudents = array_fill(0, sizeof($projects), []);
             $studentProjects = [];
@@ -158,6 +168,7 @@
             $this->projectStudents = $projectStudents;
             $this->studentProjects = $studentProjects;
             
+            $this->processing = false;
             return true;
         }
     }

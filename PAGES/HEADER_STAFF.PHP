@@ -39,7 +39,8 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 					<ul>
 						<li><a href ="../PROJECT/NEWGROUP">Create Group</a></li>
 						<li><a href ="../PROJECT/GROUPUPDATE">Update Group</a></li>
-						<li><a href ="../PROJECT/GROUPLIST">List Groups</a>
+						<!--<li><a href ="../PROJECT/GROUPLIST">List Groups</a>-->
+                        <li><a href ="../SOLVER/GROUPS.PHP">List Groups</a>
 						</li>
 					</ul>
 				</li>
@@ -52,7 +53,7 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 				</li>
 				<li><a href ="#">Sorting</a>
 					<ul>
-						<li><a href ="../SOLVER/BEGIN">Begin Sort</a></li>
+						<li><a href ="../SOLVER/BEGIN2">Begin Sort</a></li>
 					</ul>
 				</li>
 			</li>
