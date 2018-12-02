@@ -2,11 +2,11 @@
     require "../DATABASE/CONNECTDB.PHP";
 
     $numSkills = 11;
-    
+
     // TODO: fetch only students and projects for the current survey
-    
+
     // Fetch student names and skill assessments from database
-    $sql = "SELECT student_firstname,stu_hc,stu_js,stu_php,stu_java,stu_c,stu_cpp,stu_oc,stu_db,stu_u3,stu_ui,stu_se FROM surveyanswer";
+    $sql = "SELECT stu_ID,stu_hc,stu_js,stu_php,stu_java,stu_c,stu_cpp,stu_oc,stu_db,stu_u3,stu_ui,stu_se FROM surveyanswer";
     $res = mysqli_query($CON, $sql);
 
     $studentNames = [];
@@ -14,7 +14,7 @@
     $y = 0;
     while ($row = mysqli_fetch_assoc($res))
     {
-        $studentNames[$y++] = $row['student_firstname'];
+        $studentNames[$y++] = $row['stu_ID'];
 
         $student = [];
         array_push($student, (int)$row['stu_hc']);

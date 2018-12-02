@@ -14,30 +14,34 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 
 	require('../DATABASE/CONNECTDB.PHP');
 
-	$query = "SELECT STUDENT_ID, STUDENT_FIRSTNAME, STUDENT_LASTNAME, STUDENT_LOCATION, STUDENT_EMAIL FROM STUDENT";
+	$query = "SELECT stu_ID, stu_FirstName, stu_LastName, stu_Campus, stu_Email FROM student";
 	if (!$result = mysqli_query($CON, $query)) {
 	    exit(mysqli_error($CON));
 	}
 	else{
-
-	//Load Student Survey Heading
-	$survey = array();
-	if (mysqli_num_rows($result) > 0) {
-	    while ($row = mysqli_fetch_assoc($result)) {
-	        $survey[] = $row;
-	    }
+		//headers so file is downloaded, not displayed
 		header('Content-Type: text/csv; charset=utf-8');
-	header('Content-Disposition: attachment; filename=STUDENTLIST.csv');
-	$output = fopen('php://output', 'w');
-	fputcsv($output, array('STUDENT ID', 'STUDENT FIRSTNAME', 'STUDENT LASTNAME', 'STUDENT LOCATION', 'STUDENT EMAIL'));
+		header('Content-Disposition: attachment; filename=studentlist.csv');
+		//create output variable
+		$output = fopen('php://output', 'w');
+		//column headings
+		fputcsv($output, array('Student ID','FirstName','LastName','Campus','Email'));
 
-	//Load Student Survey Flieds
-	if (count($survey) > 0) {
-	    foreach ($survey as $row) {
-	        fputcsv($output, $row);
-	    }
-	}
-	}
+		//data rows, converting campus from int to campus name
+		while ($row = mysqli_fetch_assoc($result)) {
+			switch ($row["stu_Campus"]) {
+				case 1:
+					$row["stu_Campus"] = "Burwood";
+					break;
+				case 2:
+					$row["stu_Campus"] = "Geelong";
+					break;
+				case 3:
+					$row["stu_Campus"] = "Cloud";
+					break;
+			}
+			fputcsv($output, $row);
+		}
 	}
 
 ?>

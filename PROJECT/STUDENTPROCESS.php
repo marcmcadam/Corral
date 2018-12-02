@@ -9,11 +9,11 @@
  require("../DATABASE/CONNECTDB.php");
 
 
-		$number=$_POST['STUDENT_ID'];
-		$firstname=$_POST['STUDENT_FIRSTNAME'];
-		$lastname=$_POST['STUDENT_LASTNAME'];
-		$location=$_POST['STUDENT_LOCATION'];
-		$email=$_POST['STUDENT_EMAIL'];
+		$number=$_POST['stu_ID'];
+		$firstname=$_POST['stu_FirstName'];
+		$lastname=$_POST['stu_LastName'];
+		$location=$_POST['stu_Campus'];
+		$email=$_POST['stu_Email'];
 
 
 	     if(empty($location)){
@@ -28,7 +28,7 @@
 
 
 
-	        $sql="UPDATE STUDENT SET STUDENT_LOCATION='$location',STUDENT_EMAIL='$email',STUDENT_FIRSTNAME='$firstname',STUDENT_LASTNAME='$lastname' WHERE STUDENT_ID=$number";
+	        $sql="UPDATE student SET stu_Campus='$location',stu_Email='$email',stu_FirstName='$firstname',stu_LastName='$lastname' WHERE stu_ID=$number";
 
 	        $b=mysqli_query($CON,$sql);
 

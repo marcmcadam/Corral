@@ -9,14 +9,26 @@
 
 require('../DATABASE/CONNECTDB.PHP');
 
-$sql="SELECT * FROM student ORDER BY STUDENT_ID ASC";
+$sql="SELECT * FROM student ORDER BY stu_ID ASC";
 $res=mysqli_query($CON, $sql);
 
 echo "<p><table width='1250px' height='150px' border='1px' cellpadding='10px' align='center'></p>";
-echo "<tr><th>ID</th><th>FIRSTNAME</th><th>LASTNAME</th><th>LOCATION</th><th>EMAIL</th><th>Update Information</th></tr>";
+echo "<tr><th>ID</th><th>FirstName</th><th>LastName</th><th>Campus</th><th>Email</th><th>Update Information</th></tr>";
 
 while ($row=mysqli_fetch_assoc($res)){
-    echo "<tr><td align='center' width='70px'>{$row['STUDENT_ID']}</td><td align='center' width='190px'>{$row['STUDENT_FIRSTNAME']}</td><td align='center' width='190px'>{$row['STUDENT_LASTNAME']}</td><td align='center' width='180px'>{$row['STUDENT_LOCATION']}</td><td align='center'  width='500px'>{$row['STUDENT_EMAIL']}</td><td align='center'><a href='STUDENTUPDATE.php?number={$row['STUDENT_ID']}&firstname={$row['STUDENT_FIRSTNAME']}&lastname={$row['STUDENT_LASTNAME']}&location={$row['STUDENT_LOCATION']}&email={$row['STUDENT_EMAIL']}'>Update</a></td></tr>";
+    echo "<tr><td align='center' width='70px'>{$row['stu_ID']}</td><td align='center' width='190px'>{$row['stu_FirstName']}</td><td align='center' width='190px'>{$row['stu_LastName']}</td><td align='center' width='180px'>";
+    switch ($row["stu_Campus"]) {
+      case 1:
+        echo "Burwood";
+        break;
+      case 2:
+        echo "Geelong";
+        break;
+      case 3:
+        echo "Cloud";
+        break;
+    }
+    echo "</td><td align='center'  width='500px'>{$row['stu_Email']}</td><td align='center'><a href='STUDENTUPDATE.php?number={$row['stu_ID']}&firstname={$row['stu_FirstName']}&lastname={$row['stu_LastName']}&location={$row['stu_Campus']}&email={$row['stu_Email']}'>Update</a></td></tr>";
 }
 
 echo "</table>";
