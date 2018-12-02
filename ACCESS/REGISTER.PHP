@@ -58,28 +58,36 @@ $script = '<script type="text/javaScript">
 	}
 </script>';
 ?>
-
-<h2 style="margin-left: 35%;">Registration</h2>
+<div class="title">
+<h2 style="text-align: center">Student Registration</h2>
+</div>
+<div class="container">
 <form name="registration" onSubmit="return validate(registration)" method="post">
-	Student ID: <input type="text" name="STUDENT_ID" maxlength="9" id="ip2" required><br><br>
-	First Name: <input type="text" name="STUDENT_FIRSTNAME" id="ip2" required><br><br>
-	Last Name: <input type="text" name="STUDENT_LASTNAME" id="ip2" required><br><br>
-	Location: <select name="STUDENT_LOCATION">
+	<div class="title">Student ID:</div> <br> <input type="text" name="STUDENT_ID" maxlength="9" id="ip2" required placeholder="Create Your Student ID"><br><br>
+	<div class="title">Your name:</div> <br> <input type="text" name="STUDENT_FIRSTNAME" id="ip2" required placeholder="Your First Name">
+	<span class="otherinput">
+	<input type="text" name="STUDENT_LASTNAME" id="ip2" required placeholder="Your Last Name">
+</span><br><br><br>
+	<div class="title">Location:</div> <br> <select name="STUDENT_LOCATION" class="input" >
 		<option value="--">-----</option>
 		<option value="Burwood">Burwood</option>
 		<option value="Geelong">Geelong</option>
 		<option value="Cloud">Cloud</option>
-		</select><br><br>
-	Email Address: <input type="text" name="STUDENT_EMAIL" size="40" id="ip2" required><br><br>
-	Re-type Email Address: <input type="text" name="reemail" size="40" id="ip2" required><br><br>
-	Password: <input type="password" name="STUDENT_PASSWORD" id="ip2" required><br><br>
-	Re-type Password: <input type="password" name="cpassword" id="ip2" required><br><br>
+		</select><br><br><br>
+	<span class="title">Email Address:</span>
+	<span class="othertitle">Re-type Email Address: </span> <br><br>
+	<input type="text" name="STUDENT_EMAIL" size="40" id="ip2" required placeholder="Your Email Address">
+	<span class="otherinput"><input type="text"name="reemail" size="40" id="ip2" required placeholder="Confirm Your Email Address"><br><br><br></span>
+	<span class="title">Password:</span>
+	<span class="othertitleone">Re-type Password: </span> <br><br>
+	<input type="password" name="STUDENT_PASSWORD" id="ip2" required placeholder="Your Password">
+	<span class="otherinput"><input type="password" name="cpassword" id="ip2" required placeholder="Confirm Your Password"><br><br><br></span>
 
-		<input type="submit" name="Submit" value="Submit">
-		<input type="reset" value="Clear Form"><br><br>
+		<input type="submit" class="button" name="Submit" value="Submit"> &nbsp; &nbsp; &nbsp;
+		<input type="reset" class="button" "value="Clear Form"><br><br>
 
 </form>
-
+</div>
 <?php
 
 if (isset($_POST['STUDENT_PASSWORD'])) {

@@ -154,3 +154,46 @@ h3 {
 	margin-left: 40px;
 	font-family: Arial, Helvetica,;
 }
+
+
+/* This is for the Student & Staff Registration page */
+.container {
+    padding-left: 420px;
+}
+
+.otherinput {
+    padding-left: 60px;
+}
+
+.title {
+   font-family: Arial, Helvetica, sans-serif; 
+}
+
+.othertitle {
+   font-family: Arial, Helvetica, sans-serif;
+   padding-left: 200px;
+}
+
+.othertitleone {
+   font-family: Arial, Helvetica, sans-serif;
+   padding-left: 233px;
+}
+
+select {
+    width: 250px;
+    height: 35px;
+}
+
+.button {
+    background-color: #007399;
+    border: none;
+    color: white;
+    padding: 13px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+}
