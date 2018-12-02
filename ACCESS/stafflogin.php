@@ -8,7 +8,7 @@ require "../PAGES/HEADER_PUBLIC.PHP";
       <form method="POST">
         <h2>Please Log In</h2>
     <span class="input-group-addon" id="basic-addon1"></span>
-    <input type="text" name="STAFF_ID" placeholder="STAFF ID" id="ip2" required><br><br>
+    <input type="text" name="STAFF_ID" placeholder="Staff ID - 123456789" id="ip2" required><br><br>
         <input type="password" name="STAFF_PASSWORD" id="ip2" placeholder="Password" required><br><br>
         <button type="submit">LOGIN</button>
         <button type="button" onclick="location.href='../PAGES/STAFFREGISTRATION';" vaule="Register" />REGISTER</button><br><br>

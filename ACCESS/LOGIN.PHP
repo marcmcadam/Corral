@@ -8,7 +8,7 @@ require "../PAGES/HEADER_PUBLIC.PHP";
       <form method="POST">
         <h2>Please Log In</h2>
     <span class="input-group-addon" id="basic-addon1"></span>
-    <input type="text" name="STUDENT_ID" placeholder="Student ID" id="ip2" required><br><br>
+    <input type="text" name="STUDENT_ID" placeholder="Student ID - 123456789" id="ip2" required><br><br>
         <input type="password" name="STUDENT_PASSWORD" id="ip2" placeholder="Password" required><br><br>
         <button type="submit">LOGIN</button>
         <button type="button" onclick="location.href='../ACCESS/REGISTER';" vaule="Register" />REGISTER</button><br><br>
