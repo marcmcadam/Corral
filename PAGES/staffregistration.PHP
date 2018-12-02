@@ -58,28 +58,35 @@
 	require "HEADER_PUBLIC.PHP";
 require ('../DATABASE/CONNECTDB.php');
 ?>
-
-<h2 style="margin-left: 35%;">Registration</h2>
+<div class="title">
+<h2 style="text-align: center">Staff Registration</h2>
+</div>
+<div class="container">
 <form name="registration" onSubmit="return validate(registration)" method="post">
-	Staff ID: <input type="text" name="STAFF_ID" maxlength="9" id="ip2" required><br><br>
-	First Name: <input type="text" name="STAFF_FIRSTNAME" id="ip2" required><br><br>
-	Last Name: <input type="text" name="STAFF_LASTNAME" id="ip2" required><br><br>
-	Location: <select name="STAFF_LOCATION">
+	<div class="title">Staff ID:</div><br> <input type="text" name="STAFF_ID" maxlength="9" id="ip2" required placeholder="Create Your Staff ID"><br><br>
+  <div class="title">Your name:</div><br> <input type="text" name="STAFF_FIRSTNAME" id="ip2" required placeholder="Your First Name">
+  <span class="otherinput">
+  <input type="text" name="STAFF_LASTNAME" id="ip2" required placeholder="Your Last Name"><br><br><br></span>
+	<div class="title">Location:</div> <select name="STAFF_LOCATION">
 		<option value="--">-----</option>
 		<option value="Burwood">Burwood</option>
 		<option value="Geelong">Geelong</option>
 		<option value="Cloud">Cloud</option>
-		</select><br><br>
-	Email Address: <input type="text" name="STAFF_EMAIL" size="40" id="ip2" required><br><br>
-	Re-type Email Address: <input type="text" name="reemail" size="40" id="ip2" required><br><br>
-	Password: <input type="password" name="STAFF_PASSWORD" id="ip2" required><br><br>
-	Re-type Password: <input type="password" name="cpassword" id="ip2" required><br><br>
+  </select><br><br><br>
+	<span class="title">Email Address:</span>
+	<span class="othertitle">Re-type Email Address:</span><br><br>
+  <input type="text" name="STAFF_EMAIL" size="40" id="ip2" required placeholder="Your Email Address">
+  <span class="otherinput"><input type="text" name="reemail" size="40" id="ip2" required placeholder="Confirm Your Email Address"><br><br><br></span>
+	<span class="title">Password:</span>
+  <span class="othertitleone">Re-type Password:</span><br><br>
+  <input type="password" name="STAFF_PASSWORD" id="ip2" required placeholder="Your Password">
+  <span class="otherinput"><input type="password" name="cpassword" id="ip2" required placeholder="Confirm Your Password"><br><br></span>
 
-		<input type="submit" name="Submit" value="Submit">
-		<input type="reset" value="Clear Form"><br><br>
+		<input type="submit" class="button" name="Submit" value="Submit"> &nbsp; &nbsp; &nbsp;
+		<input type="reset" class="button" value="Reset"><br><br>
 
 </form>
-
+</div>
 <?php
 if (isset($_POST['STAFF_PASSWORD'])) {
 	$id = mysqli_real_escape_string($CON, $_POST['STAFF_ID']);
