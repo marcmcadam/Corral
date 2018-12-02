@@ -2,7 +2,7 @@
 session_start();
 
 if ( $_SESSION['STAFF_ID'] != 1) {
-	$_SESSION['message'] = "You mus log in before viewing this page";
+	$_SESSION['message'] = "You must log in before viewing this page";
 	header("location: ../ACCESS/error");
 	}
 	else {
@@ -14,17 +14,28 @@ function fetch_data()
 {
 require('../DATABASE/CONNECTDB.PHP');
 	$output = "";
-	$sql = "SELECT STUDENT_ID, STUDENT_FIRSTNAME, STUDENT_LASTNAME, STUDENT_LOCATION, STUDENT_EMAIL FROM STUDENT";
+	$sql = "SELECT stu_ID, stu_FirstName, stu_LastName, stu_Campus, stu_Email FROM student";
 	$result = mysqli_query($CON, $sql);
 	while($row = mysqli_fetch_array($result))
 	{
+		switch ($row["stu_Campus"]) {
+			case 1:
+				$row["stu_Campus"] = "Burwood";
+				break;
+			case 2:
+				$row["stu_Campus"] = "Geelong";
+				break;
+			case 3:
+				$row["stu_Campus"] = "Cloud";
+				break;
+		}
 		$output .= '
 			<tr>
-				<td>'.$row["STUDENT_ID"].'</td>
-				<td>'.$row["STUDENT_FIRSTNAME"].'</td>
-				<td>'.$row["STUDENT_LASTNAME"].'</td>
-				<td>'.$row["STUDENT_LOCATION"].'</td>
-				<td>'.$row["STUDENT_EMAIL"].'</td>
+				<td>'.$row["stu_ID"].'</td>
+				<td>'.$row["stu_FirstName"].'</td>
+				<td>'.$row["stu_LastName"].'</td>
+				<td>'.$row["stu_Campus"].'</td>
+				<td>'.$row["stu_Email"].'</td>
 			</tr>
 		';
 	}

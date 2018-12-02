@@ -1,76 +1,57 @@
-<?PHP
-REQUIRE('CONNECTDB.PHP');
-?>
+<?php
+require "CONNECTDB.PHP";
 
-<?PHP
+//drop surveyanswer table
+$surveyanswer = "DROP TABLE surveyanswer";
+if (mysqli_query($CON, $surveyanswer)) {
+  echo "<p>surveyanswer table dropped successfully</p>";
+} else {
+  echo "Error dropping surveyanswer table: " . mysqli_error($CON);
+}
 
-//SURVEYANSWER TABLE
-$SURVEYANSWER = "DROP TABLE SURVEYANSWER";
+//drop student table
+$student = "DROP TABLE student";
+if (mysqli_query($CON, $student)) {
+  echo "<p>student table dropped successfully</p>";
+} else {
+  echo "Error dropping student table: " . mysqli_error($CON);
+}
 
-//EXECUTE QUERY
-IF (MYSQLI_QUERY($CON, $SURVEYANSWER)) {
-  ECHO "<P>SURVEYANSWER TABLE DROPPED SUCCESSFULLY</P>";
-} ELSE {
-  ECHO "ERROR DROPPING SURVEYANSWER TABLE: " . MYSQLI_ERROR($CON);
+//drop staff table
+$staff = "DROP TABLE staff";
+if (mysqli_query($CON, $staff)) {
+  echo "<p>staff table dropped successfully</p>";
+} else {
+  echo "Error dropping staff table: " . mysqli_error($CON);
+}
+
+//drop project table
+$project = "DROP TABLE project";
+if (mysqli_query($CON, $project)) {
+  echo "<p>project table dropped successfully</p>";
+} else {
+  echo "Error dropping project table: " . mysqli_error($CON);
 }
 
 
-//STUDENT TABLE
-$STUDENT = "DROP TABLE STUDENT";
-
-//EXECUTE QUERY
-IF (MYSQLI_QUERY($CON, $STUDENT)) {
-  ECHO "<P>STUDENT TABLE DROPPED SUCCESSFULLY</P>";
-} ELSE {
-  ECHO "ERROR DROPPING STUDENT TABLE: " . MYSQLI_ERROR($CON);
+//create student table
+$student = "CREATE TABLE student (
+    stu_ID int(9) NOT NULL,
+    stu_FirstName varchar(32) NOT NULL,
+    stu_LastName varchar(32) NOT NULL,
+    stu_Campus int(1) NOT NULL,
+    stu_Email varchar(32) NOT NULL,
+    stu_Password varchar(64) NOT NULL,
+    PRIMARY KEY (stu_ID)
+)";
+if (mysqli_query($CON,$student)) {
+  echo "<p>student table created successfully</p>";
+} else {
+  echo "Error creating student table: " . mysqli_error($CON);
 }
 
-//STAFF TABLE
-$STAFF = "DROP TABLE STAFF";
-
-//EXECUTE QUERY
-IF (MYSQLI_QUERY($CON, $STAFF)) {
-  ECHO "<P>STAFF TABLE DROPPED SUCCESSFULLY</P>";
-} ELSE {
-  ECHO "ERROR DROPPING STAFF TABLE: " . MYSQLI_ERROR($CON);
-}
-
-//PROJECT TABLE
-$PROJECT = "DROP TABLE PROJECT";
-
-//EXECUTE QUERY
-IF (MYSQLI_QUERY($CON, $PROJECT)) {
-  ECHO "<P>PROJECT TABLE DROPPED SUCCESSFULLY</P>";
-} ELSE {
-  ECHO "ERROR DROPPING PROJECT TABLE: " . MYSQLI_ERROR($CON);
-}
-
-
-
-?>
-
-<?PHP
-
-//STUDENT TABLE
-$STUDENT = "CREATE TABLE STUDENT (
-STUDENT_NUM INT NOT NULL AUTO_INCREMENT,
-STUDENT_ID INT NOT NULL,
-STUDENT_FIRSTNAME VARCHAR(35) NOT NULL,
-STUDENT_LASTNAME VARCHAR(35) NOT NULL,
-STUDENT_LOCATION VARCHAR(35) NOT NULL,
-STUDENT_EMAIL VARCHAR(35) NOT NULL,
-STUDENT_PASSWORD VARCHAR(256) NOT NULL,
-PRIMARY KEY (STUDENT_NUM))";
-
-//EXECUTE QUERY
-IF (MYSQLI_QUERY($CON,$STUDENT)) {
-  ECHO "<P>STUDENT TABLES CREATED SUCCESSFULLY</P>";
-} ELSE {
-  ECHO "ERROR CREATING STUDENT TABLE: " . MYSQLI_ERROR($CON);
-}
-
-//STAFF TABLE
-$STAFF = "CREATE TABLE STAFF (
+//create staff table
+$staff = "CREATE TABLE STAFF (
 STAFF_NUM INT NOT NULL AUTO_INCREMENT,
 STAFF_ID INT NOT NULL,
 STAFF_FIRSTNAME VARCHAR(35) NOT NULL,
@@ -79,16 +60,14 @@ STAFF_LOCATION VARCHAR(35) NOT NULL,
 STAFF_EMAIL VARCHAR(35) NOT NULL,
 STAFF_PASSWORD VARCHAR(256) NOT NULL,
 PRIMARY KEY (STAFF_NUM))";
-
-//EXECUTE QUERY
-IF (MYSQLI_QUERY($CON,$STAFF)) {
-  ECHO "<P>STAFF TABLES CREATED SUCCESSFULLY</P>";
-} ELSE {
-  ECHO "ERROR CREATING STAFF TABLE: " . MYSQLI_ERROR($CON);
+if (mysqli_query($CON,$staff)) {
+  echo "<p>staff table created successfully</p>";
+} else {
+  echo "Error creating staff table: " . mysqli_error($CON);
 }
 
-// PROJECTS TABLE
-$PROJECT = "CREATE TABLE project (
+//create project table
+$project = "CREATE TABLE project (
 pro_num int(11) NOT NULL AUTO_INCREMENT,
 pro_title varchar(25) NOT NULL,
 pro_brief varchar(256) NOT NULL,
@@ -107,17 +86,14 @@ pro_u3 int(11) NOT NULL,
 pro_ui int(11) NOT NULL,
 pro_se int(11) NOT NULL,
 PRIMARY KEY (pro_num))";
-
-//EXECUTE QUERY
-IF (MYSQLI_QUERY($CON,$PROJECT)) {
-  ECHO "<P>PROJECT TABLES CREATED SUCCESSFULLY</P>";
-} ELSE {
-  ECHO "ERROR CREATING PROJECT TABLE: " . MYSQLI_ERROR($CON);
+if (mysqli_query($CON,$project)) {
+  echo "<p>project table created successfully</p>";
+} else {
+  echo "Error creating project table: " . mysqli_error($CON);
 }
 
-$SURVEYANSWER = "CREATE TABLE surveyanswer (
-survey_id int(11) NOT NULL AUTO_INCREMENT,
-student_firstname varchar(35) NOT NULL,
+$surveyanswer = "CREATE TABLE surveyanswer (
+stu_ID int(9) NOT NULL,
 stu_hc int(11) NOT NULL,
 stu_js int(11) NOT NULL,
 stu_php int(11) NOT NULL,
@@ -129,14 +105,10 @@ stu_db int(11) NOT NULL,
 stu_u3 int(11) NOT NULL,
 stu_ui int(11) NOT NULL,
 stu_se int(11) NOT NULL,
-project_num int(11) NOT NULL,
-PRIMARY KEY (`survey_id`))";
-
-//EXECUTE QUERY
-IF (MYSQLI_QUERY($CON,$SURVEYANSWER)) {
-  ECHO "<P>SURVEYANSWER TABLES CREATED SUCCESSFULLY</P>";
-} ELSE {
-  ECHO "ERROR CREATING SURVEYANSWER TABLE: " . MYSQLI_ERROR($CON);
+PRIMARY KEY (stu_ID))";
+if (mysqli_query($CON,$surveyanswer)) {
+  echo "<p>surveyanswer table created successfully</p>";
+} else {
+  echo "Error creating surveyanswer table: " . mysqli_error($CON);
 }
-
 ?>

@@ -16,7 +16,7 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 <meta charset="utf-8">
 <title><?php echo $PageTitle; ?></title>
 <link rel="stylesheet" type="text/css" href="../STYLES/stylesstaff.css">
-<?php echo isset($script) ? $script : "" ; // Echo header script if one exists (JavaScript Validation etc)?> 
+<?php echo isset($script) ? $script : "" ; // Echo header script if one exists (JavaScript Validation etc)?>
 </head>
 
 <body>
@@ -48,11 +48,15 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 						<li><a href ="../PROJECT/STUDENTLIST">Student List</a></li>
 						<li><a href ="../PROJECT/STAFFLIST">Staff List</a></li>
 						<li><a href ="../PROJECT/MEMBERSEARCH">Search For</a></li>
-						</li>
 					</ul>
 				</li>
-			</ul>
-		</li>
+				<li><a href ="#">Sorting</a>
+					<ul>
+						<li><a href ="../SOLVER/BEGIN">Begin Sort</a></li>
+					</ul>
+				</li>
+			</li>
+		</ul>
 		<li><a href ="../PAGES/STAFFCONTACT">Contact</a></li>
 		<li><a href ="../PAGES/STAFFABOUTUS">About Us</a></li>
 		<li><a href ="../ACCESS/stafflogout">Logout</a></li>
