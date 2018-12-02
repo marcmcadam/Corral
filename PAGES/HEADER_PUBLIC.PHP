@@ -11,7 +11,7 @@
     float:right;
 }
 </style>
-<?php echo isset($script) ? $script : "" ; // Echo header script if one exists (JavaScript Validation etc)?> 
+<?php echo isset($script) ? $script : "" ; // Echo header script if one exists (JavaScript Validation etc)?>
 </head>
 
 <body>
@@ -20,7 +20,15 @@
 </div>
 <div class="navbar">
 	<a href="../PAGES/HOME">Home</a>
-	<a href="../ACCESS/REGISTER">Register</a>
+  <div class="dropdown">
+    <button class="dropbtn">Register
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="../Access/REGISTER">Students</a>
+      <a href="../PAGES/staffregistration">Staff</a>
+    </div>
+</div>
 	<a href="../PAGES/CONTACT">Contacts</a>
 	<a href="../PAGES/ABOUTUS">About Us</a>
 	<div class="dropdown">
