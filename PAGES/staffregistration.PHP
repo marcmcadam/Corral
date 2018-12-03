@@ -6,7 +6,6 @@
 			var temp
 			var email = document.registration.STAFF_EMAIL.value
 			var password = document.registration.STAFF_PASSWORD.value
-      var strongpassword = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/;
 			var upper = /[A-Z]/g;
 			var lower = /[a-z]/g;
 			var number = /[0-9]/g;
@@ -17,10 +16,10 @@
 					return false
 				}
 
-        if (document.registration.STAFF_PASSWORD.value != strongpassword) {
-          alert("Password must be at least 8 characters long including at least 1 alphabetical, numerical and special character")
-          return false
-        }
+				if (document.registration.STAFF_PASSWORD.value.length < 8) {
+					alert("Password is too short. It must be a minimum of eight characters long")
+					return false
+				}
 
 				for (var i=0;i<document.registration.STAFF_ID.value.length;i++) {
 				temp = document.registration.STAFF_ID.value.substring(i,i+1)
