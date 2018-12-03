@@ -5,8 +5,6 @@
     require "SOLVER.PHP";
     require "GETDATA.PHP";
     
-    $solver = new Solver(); // assume the default values are all that's needed to get the right results from memberScore()
-    
     $idStudents = [];
     foreach ($studentNames as $x => $s)
         $idStudents[$s] = $x;
@@ -29,19 +27,19 @@
             <table border='0' align='center' cellpadding='0' cellspacing='0' style='text-align: center'>
                 <tr><td colspan='13'>&nbsp;</td></tr>
                 <tr>
+                    <th width='96px' style='font-size: 1em'>&nbsp;</th>
                     <th width='192px' style='font-size: 1em'>&nbsp;</th>
-                    <th width='128px' style='font-size: 1em'>&nbsp;</th>
-                    <th width='80px' style='font-size: 1em'>HTML</th>
-                    <th width='80px' style='font-size: 1em'>JS</th>
-                    <th width='80px' style='font-size: 1em'>PHP</th>
-                    <th width='80px' style='font-size: 1em'>Java</th>
-                    <th width='80px' style='font-size: 1em'>C</th>
-                    <th width='80px' style='font-size: 1em'>C++</th>
-                    <th width='80px' style='font-size: 1em'>Obj C</th>
-                    <th width='80px' style='font-size: 1em'>Database</th>
-                    <th width='80px' style='font-size: 1em'>Unity</th>
-                    <th width='80px' style='font-size: 1em'>UI</th>
-                    <th width='80px' style='font-size: 1em'>Security</th>
+                    <th width='64px' style='font-size: 1em'>HTML</th>
+                    <th width='64px' style='font-size: 1em'>JS</th>
+                    <th width='64px' style='font-size: 1em'>PHP</th>
+                    <th width='64px' style='font-size: 1em'>Java</th>
+                    <th width='64px' style='font-size: 1em'>C</th>
+                    <th width='64px' style='font-size: 1em'>C++</th>
+                    <th width='64px' style='font-size: 1em'>Obj C</th>
+                    <th width='64px' style='font-size: 1em'>Database</th>
+                    <th width='64px' style='font-size: 1em'>Unity</th>
+                    <th width='64px' style='font-size: 1em'>UI</th>
+                    <th width='64px' style='font-size: 1em'>Security</th>
                 </tr><tr><td colspan='13'>&nbsp;</td></tr>";
     $importanceMax = 0.0;
     for ($p = 0; $p < sizeof($projects); $p += 1)
@@ -94,6 +92,18 @@
         echo "</tr>";
         // Print student names and skills
         echo "<tr>";
+        /*
+        $size = sizeof($projectStudents[$p]);
+        $means = array_fill(0, $numSkills, 1.0);
+        for ($s = 0; $s < $numSkills; $s += 1)
+        {
+            $demand = $projects[$p][$s];
+            $total = 0.0;
+            foreach ($projectStudents[$p] as $y)
+                $total += Solver::memberScore($demand, $students[$y][$s]);
+            $means[$s] = ($size == 0.0 || $total == 0.0) ? 1.0 : ($total / $size);
+        }
+        */
         $num_students = 0; // Reset number of students to 0 for this project
         $skill_total = [0,0,0,0,0,0,0,0,0,0,0]; // Reset skill totals (used in average calculation) to 0 for this project
         foreach ($projectStudents[$p] as $i)
@@ -108,15 +118,18 @@
                 $text = "&nbsp;";
                 $name = "&nbsp;";
             }
-            echo "<td style='text-align: left; border-bottom: thin solid #c0c0c0'>$text</td>";
-            echo "<td style='text-align: right; border-right: thin solid; border-bottom: thin solid #c0c0c0'>$name&nbsp;</td>";
+            echo "<td style='text-align: right; border-bottom: thin solid #c0c0c0'>$name&nbsp;</td>";
+            echo "<td style='text-align: left; border-right: thin solid; border-bottom: thin solid #c0c0c0'>$text</td>";
 
+            $skillMax = 4.0;
+            
             for ($s = 0; $s < $numSkills; $s += 1) {
                 $value = $students[$i][$s];
                 $demand = $projects[$p][$s];
 
                 $alpha = ($importanceMax <= 0.0) ? 0.0 : ($demand->importance / $importanceMax);
-                $strength = 0.5 + 0.125 * $solver->memberScore($demand, $value);
+                $strength = $value / $skillMax;
+                //$strength = 0.5 * (1.0 + $strength);
                 $weakness = 1.0 - $strength;
                 $notAlpha = 1.0 - $alpha;
                 $red = $notAlpha * $backgroundColour['r'] + $alpha * ($strength * $strongColour['r'] + $weakness * $weakColour['r']);
@@ -137,8 +150,8 @@
           if ($num_students > 0)
           {
               echo "<tr>
-                <td style='text-align: left; font-weight:bold; border-top: thin solid;'>Team Average</td>
-                <td style='text-align: left; font-weight:bold; border-right: thin solid; border-top: thin solid;'>&nbsp;</td>
+                <td style='text-align: left; font-weight: bold; border-top: thin solid;'>&nbsp;</td>
+                <td style='text-align: right; font-weight: bold; border-top: thin solid; border-right: thin solid;'>Team Average&nbsp;</td>
                 <td style='border-top: thin solid;'>".round($skill_total[0] / $num_students, 1)."</td>
                 <td style='border-top: thin solid;'>".round($skill_total[1] / $num_students, 1)."</td>
                 <td style='border-top: thin solid;'>".round($skill_total[2] / $num_students, 1)."</td>

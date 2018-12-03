@@ -18,18 +18,15 @@
         public $displayOutput = false; // mostly unused at the moment
         public $numSkills;
         
-        // the level of skill that is average. because all member cost is divided by total, this number may have no effect
-        public $skillMiddle = 2.0;
-        
         // multiplies floating point by this before converting to integer
-        public $discretisation = 100;
+        public $discretisation = 10000;
         
         // tiny randomisation bypasses an endless loop, caused by excessive identical values, in our acquired Hungarian algorithm code
         // the more randomisation there is, the faster it goes. could be because the values are more ordered instead of the same, and that reduces the number of possibilities
-        public $randomisation = 3;
+        public $randomisation = 10;
         
-        // the cost of changing from the current situation. forces it to settle
-        public $inertia = 2;
+        // the cost of changing from the current situation. forces it to settle. increases per iteration
+        public $inertia = 1000;
         
         public $processing = false;
         public $iteration = 0;
@@ -42,9 +39,9 @@
         public $studentProjects;
         public $projectStudents;
         
-        public function memberScore($demand, $value)
+        public static function memberScore($demand, $value)
         {
-            return pow($value / $this->skillMiddle, pow(2.0, $demand->bias));
+            return pow($value, pow(2.0, $demand->bias));
         }
         
         public function iterate()
@@ -56,7 +53,7 @@
             $numSkills = $this->numSkills;
             $discretisation = $this->discretisation;
             $randomisation = $this->randomisation;
-            $inertia = $this->inertia;
+            $inertia = $this->inertia * $this->iteration;
             
             $students = $this->students;
             $projects = $this->projects;
@@ -83,7 +80,7 @@
                     $demand = $projects[$p][$s];
                     $total = 0.0;
                     foreach ($projectStudents[$p] as $y)
-                        $total += $this->memberScore($demand, $students[$y][$s]);
+                        $total += Solver::memberScore($demand, $students[$y][$s]);
                     $totals[$p][$s] = $total;
                 }
             }
@@ -104,48 +101,41 @@
                         {
                             // current project satisfaction
                             $demand = $projects[$currentProject][$s];
-                            $satisfaction = $this->memberScore($demand, $students[$y][$s]);
+                            $satisfaction = Solver::memberScore($demand, $students[$y][$s]);
                             if ($satisfaction > 0.0)
                             {
                                 $total = $totals[$currentProject][$s];
                                 $size = sizeof($projectTasks[$currentProject]);
-                                // divide by total contribution by all members, so that if one member makes almost
-                                // no difference, they are free to change groups
-                                // the problem with this idea, is that if a skill has no contributors, it will attract many members
-                                // if the skill has many contributors, it will lose many members
-                                // causing the result to repeatedly reverse itself
-                                // so reduce the power of this factor by how many members that it can gain or lose to try to reduce the effect (seems to work)
-                                $satisfaction /= pow($total, 1.0 / $size);
+                                $satisfaction /= $total;
                                 $d += $demand->importance * $satisfaction;
                             }
                         }
                         {
                             // changed project satisfaction
                             $demand = $projects[$nextProject][$s];
-                            $satisfaction = $this->memberScore($demand, $students[$y][$s]);
+                            $satisfaction = Solver::memberScore($demand, $students[$y][$s]);
                             if ($satisfaction > 0.0)
                             {
                                 $total = $totals[$nextProject][$s];
                                 if ($currentProject != $nextProject)
                                     $total += $satisfaction;
                                 $size = sizeof($projectTasks[$nextProject]);
-                                $satisfaction /= pow($total, 1.0 / $size);
+                                $satisfaction /= $total;
                                 $d -= $demand->importance * $satisfaction;
                             }
                         }
                         $c += $d;
                     }
                     
-                    $rowValue = $discretisation * $c;
-                    $rowValue += rand(0, $randomisation);
+                    $element = $discretisation * $c;
+                    $element += rand(0, $randomisation);
                     if ($nextProject != $currentProject)
-                        $rowValue += $inertia;
+                        $element += $inertia;
                     
-                    $row[$x] = (int)$rowValue;
+                    $row[$x] = (int)$element;
                 }
                 $matrix[$y] = $row;
             }
-            $copy = $matrix;
             
             $h = new RPFK\Hungarian\Hungarian($matrix);
             
