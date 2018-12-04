@@ -6,7 +6,7 @@
 			var temp
 			var email = document.registration.STAFF_EMAIL.value
 			var password = document.registration.STAFF_PASSWORD.value
-      var strongpassword = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/;
+      var special = (?=.[!@#\$%\^&]);
 			var upper = /[A-Z]/g;
 			var lower = /[a-z]/g;
 			var number = /[0-9]/g;
@@ -14,11 +14,6 @@
 
 				if (document.registration.STAFF_ID.value.length < 9) {
 					alert("Invalid STAFF ID. Must be nine characters long")
-					return false
-				}
-
-				if (document.registration.STAFF_PASSWORD.value != strongpassword) {
-					alert("Password must be at least 8 characters long including at least 1 alphabetical, numerical and special character)
 					return false
 				}
 
@@ -47,10 +42,15 @@
 					return false
 				}
 
-				if (document.registration.STAFF_PASSWORD.value.match(upper) && document.registration.STAFF_PASSWORD.value.match(number)) {
+        if (document.registration.STAFF_PASSWORD.value.length < 8) {
+          alert("Password must be at least eight characters long")
+          return false
+        }
+
+				if (document.registration.STAFF_PASSWORD.value.match(upper) && document.registration.STAFF_PASSWORD.value.match(number) && document.registration.STAFF_PASSWORD.value.match(special)) {
 					return true
 				}else {
-					alert("Password must contain at least one upper case letter and number")
+					alert("Password must contain at least one upper case letter, one number and one special character")
 					return false
 				}
 			return true
