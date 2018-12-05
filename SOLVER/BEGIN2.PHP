@@ -13,7 +13,7 @@
     execInBackground("C:\\xampp\\php\\php.exe processing.php");
 ?>
 <div style="text-align: center; width: 100%;">
-<p>The student allocations are being processed in the background. This will continue for the next 60 seconds.</p>
+<p>The student allocations are being processed in the background.</p>
 <p>You may view the progress and results from the Survey > Groups > List Groups page</p>
 </div>
 <script>

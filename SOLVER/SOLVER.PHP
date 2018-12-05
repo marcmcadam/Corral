@@ -25,14 +25,15 @@
         // the more randomisation there is, the faster it goes. could be because the values are more ordered instead of the same, and that reduces the number of possibilities
         public $randomisation = 10;
         
-        // the cost of changing from the current situation. forces it to settle. increases per iteration
-        public $inertia = 1000;
+        // the cost of changing from the current situation. forces it to settle
+        public $inertia = 0;
         
         public $processing = false;
         public $iteration = 0;
         
         public $students;
         public $projects;
+        
         public $tasks;
         public $projectTasks;
         
@@ -53,7 +54,7 @@
             $numSkills = $this->numSkills;
             $discretisation = $this->discretisation;
             $randomisation = $this->randomisation;
-            $inertia = $this->inertia * $this->iteration;
+            $inertia = $this->inertia;
             
             $students = $this->students;
             $projects = $this->projects;

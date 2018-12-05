@@ -20,7 +20,13 @@
     {
         $sid = (int)$row['stu_id'];
         $pid = (int)$row['pro_num'];
-        array_push($projectStudents[$idProjects[$pid]], $idStudents[$sid]);
+        
+        if (array_key_exists($pid, $idProjects) && array_key_exists($sid, $idStudents))
+            array_push($projectStudents[$idProjects[$pid]], $idStudents[$sid]);
+        else
+        {
+            // TODO: error
+        }
     }
     
     echo "<div style='width: 100%; text-align: center; font-family: sans-serif; font-size: 1em'>
@@ -28,7 +34,7 @@
                 <tr><td colspan='13'>&nbsp;</td></tr>
                 <tr>
                     <th width='96px' style='font-size: 1em'>&nbsp;</th>
-                    <th width='192px' style='font-size: 1em'>&nbsp;</th>
+                    <th width='256px' style='font-size: 1em'>&nbsp;</th>
                     <th width='64px' style='font-size: 1em'>HTML</th>
                     <th width='64px' style='font-size: 1em'>JS</th>
                     <th width='64px' style='font-size: 1em'>PHP</th>

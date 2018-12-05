@@ -1,71 +1,201 @@
+<!DOCTYPE html>
+<html><body>
 <?php
-    $PageTitle = "Begin Solving";
+    echo "Begin processing initialisation.<br>";
+    flush();
+    
     require "SOLVER.PHP";
 
     require "GETDATA.PHP";
-
-    set_time_limit(60);
     
-    $solver = new Solver();
-    $solver->students = $students;
-    $solver->projects = $projects;
+    // delete all student project assignments
+    $sql = "TRUNCATE groups";
+    if (!mysqli_query($CON, $sql))
+    // TODO: how to error for background process?
+        echo "Error deleting project member: " . mysqli_error($CON) . "<br>";
 
-    $solver->tasks = [];
+    echo "Assignments erased.<br>";
+    flush();
+        
+    $tasks = [];
 
     $minTasksEach = 3;
 
-    $dummySlots = (int)(0.25 * sizeof($solver->students));
+    // generate dummy students to allow empty slots in groups for variables group sizes
+    $dummySlots = (int)(0.25 * sizeof($students));
 
     for ($i = 0; $i < $dummySlots; $i += 1)
-        array_push($solver->students, array_fill(0, $numSkills, 0));
+        array_push($students, array_fill(0, $numSkills, 0));
 
-    $solver->projectTasks = array_fill(0, sizeof($solver->projects), []);
+    echo "Dummy students created.<br>";
+    flush();
+    
+    
+    // assign what project each task slot belongs to, and in reverse
+    $projectTasks = array_fill(0, sizeof($projects), []);
 
-    $tasksRemaining = sizeof($solver->students);
+    // assign each project the minimum number of slots it should have
+    $tasksRemaining = sizeof($students);
     $taskIndex = 0;
-    for ($p = 0; $p < sizeof($solver->projects); $p += 1)
+    for ($p = 0; $p < sizeof($projects); $p += 1)
     {
         $n = $minTasksEach;
         for ($t = 0; $t < $n; $t += 1)
         {
             $taskNumber = $taskIndex++;
-            $solver->tasks[$taskNumber] = $p;
-            array_push($solver->projectTasks[$p], $taskNumber);
+            $tasks[$taskNumber] = $p;
+            array_push($projectTasks[$p], $taskNumber);
         }
         $tasksRemaining -= $n;
     }
+    
+    // assign each project more tasks randomly
     for ($t = 0; $t < $tasksRemaining; $t += 1)
     {
-        $p = rand(0, sizeof($solver->projects) - 1);
+        $p = rand(0, sizeof($projects) - 1);
 
         $taskNumber = $taskIndex++;
-        $solver->tasks[$taskNumber] = $p;
-        array_push($solver->projectTasks[$p], $taskNumber);
+        $tasks[$taskNumber] = $p;
+        array_push($projectTasks[$p], $taskNumber);
     }
 
-    $solver->projectStudents = array_fill(0, sizeof($solver->projects), []);
-    $solver->studentProjects = array_fill(0, sizeof($solver->students), -1);
-
-    $solver->numSkills = $numSkills;
-
-    while (true)
+    echo "Project tasks created.<br>";
+    flush();
+        
+    
+    if (sizeof($tasks) != sizeof($students))
     {
-        if ($solver->iteration < 0 || $solver->processing)
-            die;
-        $solver->iterate();
-        assignDatabase();
+        echo "Sizes of student and task arrays do not match.<br>";
+        die;
     }
     
-    function assignDatabase()
+    
+    // assign students to random tasks to begin with
+    $projectStudents = array_fill(0, sizeof($projects), []);
+    $studentProjects = array_fill(0, sizeof($students), -1);
+    
+    $studentIndices = range(0, sizeof($students) - 1);
+    shuffle($studentIndices);
+    for ($i = 0; $i < sizeof($students); $i += 1)
+    {
+        $y = $studentIndices[$i];
+        $p = $tasks[$i];
+        $studentProjects[$y] = $p;
+        array_push($projectStudents[$p], $y);
+    }
+    
+    echo "Random assignments created.<br>";
+    flush();
+    
+    assignDatabase($studentProjects); 
+    
+    $iteration = 0;
+    while (true)
+    {
+        echo "iteration: $iteration<br>";
+        flush();
+        
+        // split the students into separate batches randomly
+        $projectStudentIndices = [];
+        for ($p = 0; $p < sizeof($projects); $p += 1)
+        {
+            $indices = range(0, sizeof($projectStudents[$p]) - 1);
+            shuffle($indices);
+            $projectStudentIndices[$p] = $indices;
+        }
+        
+        $batchSize = 50;
+        $numGroups = (int)ceil(sizeof($students) / $batchSize);
+
+        $projectStudentIndex = array_fill(0, sizeof($projects), 0);
+        
+        $toDatabase = [];
+        for ($g = 0; $g < $numGroups; $g += 1)
+        {
+            // iterate each batch and solve
+            $solver = new Solver();
+            $solver->numSkills = $numSkills;
+            
+            $solver->inertia = 500 * $iteration;
+            
+            $solver->students = [];
+            $solver->projects = $projects;
+            
+            $solver->tasks = [];
+            $solver->projectTasks = array_fill(0, sizeof($projects), []);
+            
+            $solver->projectStudents = array_fill(0, sizeof($projects), []);
+            $solver->studentProjects = array_fill(0, sizeof($students), -1);
+
+            $solverStudents = [];
+            
+            $remainingGroups = $numGroups - $g;
+            for ($p = 0; $p < sizeof($projects); $p += 1)
+            {
+                $position = $projectStudentIndex[$p];
+                
+                $remainingStudents = sizeof($projectStudents[$p]) - $position;
+                $r = 0.01 * rand(0, 99); // random rounding. allows groups with less than one student per project, to avoid taking zero students or all students at once
+                $takeSize = floor($remainingStudents / $remainingGroups + $r);
+                
+                $projectStudentIndex[$p] = $position + $takeSize;
+                
+                for ($i = 0; $i < $takeSize; $i += 1)
+                {
+                    $y = $projectStudents[$p][$projectStudentIndices[$p][$position + $i]];
+                    
+                    $studentIndex = sizeof($solver->students);
+                    array_push($solver->students, $students[$y]);
+                    
+                    $solverStudents[$studentIndex] = $y;
+                    
+                    $solver->studentProjects[$studentIndex] = $p;
+                    array_push($solver->projectStudents[$p], $studentIndex);
+                    
+                    $taskIndex = sizeof($solver->tasks);
+                    array_push($solver->tasks, $p);
+                    array_push($solver->projectTasks, $taskIndex);
+                    
+                    array_push($solver->projectStudents[$p], $studentIndex);
+                    $solver->studentProjects[$studentIndex] = $p;
+                }
+            }
+            
+            $solver->iterate();
+            if ($iteration < 0 || $solver->processing)
+                die;
+            
+            foreach ($solver->studentProjects as $studentIndex => $p)
+            {
+                $y = $solverStudents[$studentIndex];
+                $toDatabase[$y] = $p;
+            }
+        }
+        
+        assignDatabase($toDatabase);
+        
+        foreach ($toDatabase as $y => $p)
+            $studentProjects[$y] = $p;
+        $projectStudents = array_fill(0, sizeof($projects), []);
+        foreach ($studentProjects as $y => $p)
+            array_push($projectStudents[$p], $y);
+        
+        $iteration += 1;
+        if ($iteration >= 32)
+            break;
+    }
+    
+    function assignDatabase($studentProjects)
     {
         global $CON;
         global $solver;
         global $studentNames;
         global $projectNames;
         
-        $studentProjects = $solver->studentProjects;
         foreach ($studentProjects as $x => $p)
         {
+            set_time_limit(5); // each entry should be quick, but in total can take a long time
+            
             if (!array_key_exists($x, $studentNames))
                 continue;
             
@@ -86,3 +216,4 @@
         }
     }
 ?>
+</body></html>

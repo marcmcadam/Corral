@@ -267,6 +267,7 @@ class Hungarian
         $non_covered_zero_matrix = $this->getNonCoveredZeroMatrix($zero_matrix);
         while ($non_covered_zero_matrix) {
             $timeOut -= 1;
+            set_time_limit(30);
             if ($timeOut == 0)
                 return null;
             /*
@@ -361,6 +362,7 @@ class Hungarian
         }
 
         $timeOut -= 1;
+        set_time_limit(30);
         if ($timeOut == 0)
             return null;
         
