@@ -20,17 +20,11 @@
     $tasks = [];
 
     $minTasksEach = 3;
-
-    // generate dummy students to allow empty slots in groups for variables group sizes
-    $dummySlots = (int)(0.25 * sizeof($students));
-
-    for ($i = 0; $i < $dummySlots; $i += 1)
-        array_push($students, array_fill(0, $numSkills, 0));
-
-    echo "Dummy students created.<br>";
-    flush();
+    $minStudentsEach = 3;
     
-    
+    // minimum number of students per project. TODO: get from database
+    $projectMinima = array_fill(0, sizeof($projects), $minStudentsEach);
+
     // assign what project each task slot belongs to, and in reverse
     $projectTasks = array_fill(0, sizeof($projects), []);
 
@@ -62,6 +56,30 @@
     echo "Project tasks created.<br>";
     flush();
         
+    
+    // generate dummy students to allow empty slots in groups for variables group sizes
+    // the number of dummies needed depends on the difference between the total max size for projects and the number of students
+    $dummySlots = 0;
+    for ($p = 0; $p < sizeof($projects); $p += 1)
+        $dummySlots += sizeof($projectTasks[$p]);
+    $dummySlots -= sizeof($students);
+    if ($dummySlots < 0)
+    {
+        echo "Too few tasks for the number of students!";
+        die;
+    }
+    
+    $dummies = [];
+    for ($i = 0; $i < $dummySlots; $i += 1)
+    {
+        $y = sizeof($students);
+        array_push($students, array_fill(0, $numSkills, 0));
+        array_push($dummies, $y);
+    }
+
+    echo "Dummy students created.<br>";
+    flush();
+    
     
     if (sizeof($tasks) != sizeof($students))
     {
@@ -126,6 +144,9 @@
             
             $solver->projectStudents = array_fill(0, sizeof($projects), []);
             $solver->studentProjects = array_fill(0, sizeof($students), -1);
+            
+            $solver->dummies = [];
+            $solver->projectMinima = $projectMinima;
 
             $solverStudents = [];
             
@@ -148,6 +169,9 @@
                     array_push($solver->students, $students[$y]);
                     
                     $solverStudents[$studentIndex] = $y;
+                    
+                    if (in_array($studentIndex, $dummies))
+                        array_push($solver->dummies, $studentIndex);
                     
                     $solver->studentProjects[$studentIndex] = $p;
                     array_push($solver->projectStudents[$p], $studentIndex);

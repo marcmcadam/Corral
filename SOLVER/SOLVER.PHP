@@ -27,7 +27,7 @@
         
         // the cost of changing from the current situation. forces it to settle
         public $inertia = 0;
-        
+                
         public $processing = false;
         public $iteration = 0;
         
@@ -37,8 +37,12 @@
         public $tasks;
         public $projectTasks;
         
+        public $projectMinima;
+        
         public $studentProjects;
         public $projectStudents;
+        
+        public $dummies;
         
         public static function memberScore($demand, $value)
         {
@@ -50,6 +54,9 @@
             $this->processing = true;
             $this->iteration += 1;
             
+            // the cost to do something that should not be done
+            $lastResort = $this->discretisation * 100;
+            
             $displayOutput = $this->displayOutput;
             $numSkills = $this->numSkills;
             $discretisation = $this->discretisation;
@@ -59,9 +66,11 @@
             $students = $this->students;
             $projects = $this->projects;
             $tasks = $this->tasks;
+            $projectMinima = $this->projectMinima;
             $projectTasks = $this->projectTasks;
             $studentProjects = $this->studentProjects;
             $projectStudents = $this->projectStudents;
+            $dummies = $this->dummies;
             
             if (sizeof($tasks) != sizeof($students))
             {
@@ -74,6 +83,7 @@
             $randomisation = $this->randomisation;
             
             $totals = array_fill(0, sizeof($projects), array_fill(0, $numSkills, 0.0));
+            $projectFills = [];
             for ($p = 0; $p < sizeof($projects); $p += 1)
             {
                 for ($s = 0; $s < $numSkills; $s += 1)
@@ -84,6 +94,18 @@
                         $total += Solver::memberScore($demand, $students[$y][$s]);
                     $totals[$p][$s] = $total;
                 }
+                
+                // collect how full are projects, with valid members
+                $clevers = 0;
+                foreach ($projectStudents as $ys)
+                {
+                    foreach ($ys as $y)
+                    {
+                        if (!in_array($y, $dummies))
+                            $clevers += 1;
+                    }
+                }
+                $projectFills[$p] = $clevers;
             }
             
             $matrix = array();
@@ -125,6 +147,21 @@
                                 $d -= $demand->importance * $satisfaction;
                             }
                         }
+                        
+                        if (in_array($y, $dummies))
+                        {
+                            $difference = $projectFills[$nextProject] - $projectMinima[$nextProject];
+                            if ($difference < 0) // dummy joining a minimal project
+                                $d -= $difference * $lastResort;
+                        }
+                        else
+                        {
+                            $difference = $projectFills[$currentProject] - $projectMinima[$currentProject];
+                            if ($difference < 0) // valid member leaving a minimal project
+                                $d -= $difference * $lastResort;
+                        }
+                        // TODO: is it necessary to reward the opposite of these?: dummy leaving, valid joining
+                        
                         $c += $d;
                     }
                     
