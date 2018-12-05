@@ -16,7 +16,7 @@ if ( $_SESSION['STUDENT_ID'] != 1) {
 <meta charset="utf-8">
 <title><?php echo $PageTitle; ?></title>
 <link rel="stylesheet" type="text/css" href="../STYLES/stylesheet.css">
-<?php echo isset($script) ? $script : "" ; // Echo header script if one exists (JavaScript Validation etc)?> 
+<?php echo isset($script) ? $script : "" ; // Echo header script if one exists (JavaScript Validation etc)?>
 </head>
 
 <body>
@@ -27,7 +27,6 @@ if ( $_SESSION['STUDENT_ID'] != 1) {
 <div class="navbar">
 	<a href="../PAGES/STUDENTHOME">Home</a>
 	<a href="../SURVEY/STUDENTSURVEY">Survey</a>
-	<a href="../PAGES/STUDENTCONTACT">Contacts</a>
 	<a href="../PAGES/STUDENTABOUTUS">About Us</a>
 	<a href="../Access/LOGOUT">Logout</a>
 </div>

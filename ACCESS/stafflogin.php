@@ -47,7 +47,7 @@ $id = $_SESSION['STAFF_ID'];
 $staff_firstname = $_SESSION['STAFF_FIRSTNAME'];
 $staff_lastname = $_SESSION['STAFF_LASTNAME'];
 $_SESSION['STAFF_ID'] = true;
-header("location: ../PAGES/STAFFPROFILE");
+header("location: ../PAGES/STAFFHOME.PHP");
 }
 //3.2 When the user visits the page first time, simple login form will be displayed.
 ?>
