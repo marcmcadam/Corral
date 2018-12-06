@@ -10,7 +10,7 @@
             exec($cmd . " > /dev/null &");
         }
     }
-    execInBackground("C:\\xampp\\php\\php.exe PROCESSING2.PHP");
+    execInBackground("C:\\xampp\\php\\php.exe sort.php");
 ?>
 <div style="text-align: center; width: 100%;">
     <p>The student allocations are being processed in the background.</p>
