@@ -33,6 +33,15 @@ if (mysqli_query($CON, $project)) {
   echo "Error dropping project table: " . mysqli_error($CON);
 }
 
+//drop groups table
+$project = "DROP TABLE groups";
+if (mysqli_query($CON, $project)) {
+  echo "<p>groups table dropped successfully</p>";
+} else {
+  echo "Error dropping groups table: " . mysqli_error($CON);
+}
+
+
 
 //create student table
 $student = "CREATE TABLE student (
@@ -94,7 +103,7 @@ if (mysqli_query($CON,$project)) {
 } else {
   echo "Error creating project table: " . mysqli_error($CON);
 }
-
+//create surveyansswer table
 $surveyanswer = "CREATE TABLE surveyanswer (
 stu_ID int(9) NOT NULL,
 stu_hc int(11) NOT NULL,
@@ -113,5 +122,16 @@ if (mysqli_query($CON,$surveyanswer)) {
   echo "<p>surveyanswer table created successfully</p>";
 } else {
   echo "Error creating surveyanswer table: " . mysqli_error($CON);
+}
+
+//create groups mysql_list_tables
+$groups = "CREATE TABLE groups (
+  stu_ID int(9) NOT NULL,
+  pro_num int(11) NOT NULL,
+  PRIMARY KEY (stu_ID))";
+if (mysqli_query($CON,$groups)) {
+  echo "<p>groups table created successfully</p>";
+} else {
+  echo "Error creating groups table: " . mysqli_error($CON);
 }
 ?>
