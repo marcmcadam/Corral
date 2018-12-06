@@ -41,7 +41,13 @@ if (mysqli_query($CON, $project)) {
   echo "Error dropping groups table: " . mysqli_error($CON);
 }
 
-
+//drop password reset table
+$passwordreset = "DROP TABLE passwordreset";
+if (mysqli_query($CON,$passwordreset)) {
+  echo "<p>password reset table dropped successfully</p>";
+} else {
+  echo "Error dropping password reset table";
+}
 
 //create student table
 $student = "CREATE TABLE student (
@@ -108,7 +114,7 @@ if (mysqli_query($CON,$project)) {
   echo "Error creating project table: " . mysqli_error($CON);
 }
 
-//create surveyansswer table
+//create surveyanswer table
 $surveyanswer = "CREATE TABLE surveyanswer (
 stu_ID int(9) NOT NULL,
 stu_hc int(11) NOT NULL,
@@ -135,6 +141,20 @@ $groups = "CREATE TABLE groups (
   pro_num int(11) NOT NULL,
   PRIMARY KEY (stu_ID))";
 if (mysqli_query($CON,$groups)) {
+  echo "<p>groups table created successfully</p>";
+} else {
+  echo "Error creating groups table: " . mysqli_error($CON);
+}
+
+//create passwordreset table
+$passwordreset = "CREATE TABLE passwordreset (
+  ID int(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  email VARCHAR(255),
+  selector CHAR(16),
+  token CHAR(64),
+  expires BIGINT(20)
+)";
+if (mysqli_query($CON,$passwordreset)) {
   echo "<p>groups table created successfully</p>";
 } else {
   echo "Error creating groups table: " . mysqli_error($CON);
