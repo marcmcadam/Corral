@@ -44,14 +44,37 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $mail->Port = 587;                                 // TCP port to connect to
       $mail->setFrom('thecorralproject@gmail.com','Corral Project');
       //$mail->addReplyTo($email);
-      $mail->addAddress('thecorralproject@gmail.com');   // Add a recipient
+      $mail->addAddress($email);   // Add a recipient
       $mail->isHTML(true);                               // Set email format to HTML
+
+      // Create password reset URL
+      $selector = bin2hex(openssl_random_pseudo_bytes(8));
+      $token = openssl_random_pseudo_bytes(32);
+      $resetvar = http_build_query(['selector'=>$selector, 'validator'=>bin2hex($token)]);
+      $reseturl = "http://localhost:8080/corral/ACCESS/resetpassword.php?".$resetvar;
+      $expires = strtotime("+1 hour");
+
+
+      // Delete any previous tokens for this user
+      $query = "DELETE FROM passwordreset WHERE email='".$email."'";
+      if (!mysqli_query($CON,$query)) {
+        echo "Error deleting previous record: " . mysqli_error($CON);
+      }
+      // Insert this password reset information into database
+      $query = "INSERT INTO passwordreset (email,selector,token,expires) VALUES ('".$email."', '".$selector."', '".hash('sha256',$token)."', '".$expires."')";
+
+      if (!mysqli_query($CON,$query)) {
+        echo "Error inserting new reset record: " . mysqli_error($CON);
+      }
+
+      echo "URL is: <a href='".$reseturl."'>Here</a>";
+
 
       // Set email content
       $bodyContent = '<h2>Password Reset Request</h2>
         <p>Hello, you are receiving this email because somebody attempted to reset your password.</p>
         <p>If this was not you, please ignore this email. Otherwise, click the following link:</p>
-        <p><a href="http://localhost:8080/corral/ACCESS/resetpassword.php">Reset your password</a></p>
+        <p><a href="'.$reseturl.'">Reset your password</a></p>
       '; // TEAM NOTE: this exact link may not work for you depending on how you have set up your XAMPP!
       $mail->Subject = 'Password Reset';
       $mail->Body=$bodyContent;
