@@ -19,7 +19,7 @@
         public $numSkills;
         
         // multiplies floating point by this before converting to integer
-        public $discretisation = 10000;
+        public $discretisation = 100.0;
         
         // tiny randomisation bypasses an endless loop, caused by excessive identical values, in our acquired Hungarian algorithm code
         // the more randomisation there is, the faster it goes. could be because the values are more ordered instead of the same, and that reduces the number of possibilities
@@ -35,7 +35,6 @@
         public $projects;
         
         public $tasks;
-        public $projectTasks;
         
         public $projectMinima;
         
@@ -43,6 +42,8 @@
         public $projectStudents;
         
         public $dummies;
+        
+        public $cost;
         
         public static function memberScore($demand, $value)
         {
@@ -55,7 +56,7 @@
             $this->iteration += 1;
             
             // the cost to do something that should not be done
-            $lastResort = $this->discretisation * 100;
+            $lastResort = 100.0;
             
             $displayOutput = $this->displayOutput;
             $numSkills = $this->numSkills;
@@ -97,13 +98,10 @@
                 
                 // collect how full are projects, with valid members
                 $clevers = 0;
-                foreach ($projectStudents as $ys)
+                foreach ($projectStudents[$p] as $y)
                 {
-                    foreach ($ys as $y)
-                    {
-                        if (!in_array($y, $dummies))
-                            $clevers += 1;
-                    }
+                    if (!in_array($y, $dummies))
+                        $clevers += 1;
                 }
                 $projectFills[$p] = $clevers;
             }
@@ -117,56 +115,63 @@
                 {
                     $nextProject = $tasks[$x];
                     $c = 0.0;
-                    for ($s = 0; $s < $numSkills; $s += 1)
+                    if ($nextProject != $currentProject)
                     {
-                        $d = 0.0;
-                        if ($currentProject >= 0)
+                        for ($s = 0; $s < $numSkills; $s += 1)
                         {
-                            // current project satisfaction
-                            $demand = $projects[$currentProject][$s];
-                            $satisfaction = Solver::memberScore($demand, $students[$y][$s]);
-                            if ($satisfaction > 0.0)
+                            $d = 0.0;
+                            if ($currentProject >= 0)
                             {
+                                // current project satisfaction
+                                $demand = $projects[$currentProject][$s];
+                                $satisfaction = Solver::memberScore($demand, $students[$y][$s]);
                                 $total = $totals[$currentProject][$s];
-                                $size = sizeof($projectTasks[$currentProject]);
-                                $satisfaction /= $total;
+                                if ($total > 0.0)
+                                    $satisfaction /= $total;
                                 $d += $demand->importance * $satisfaction;
                             }
-                        }
-                        {
-                            // changed project satisfaction
-                            $demand = $projects[$nextProject][$s];
-                            $satisfaction = Solver::memberScore($demand, $students[$y][$s]);
-                            if ($satisfaction > 0.0)
                             {
+                                // changed project satisfaction
+                                $demand = $projects[$nextProject][$s];
+                                $satisfaction = Solver::memberScore($demand, $students[$y][$s]);
                                 $total = $totals[$nextProject][$s];
                                 if ($currentProject != $nextProject)
                                     $total += $satisfaction;
-                                $size = sizeof($projectTasks[$nextProject]);
-                                $satisfaction /= $total;
+                                if ($total > 0.0)
+                                    $satisfaction /= $total;
                                 $d -= $demand->importance * $satisfaction;
                             }
+                            /*
+                            if (in_array($y, $dummies))
+                            {
+                                $difference = $projectFills[$currentProject] - $projectMinima[$currentProject];
+                                $difference -= 1;
+                                if ($difference < 0) // dummy member leaving a minimal project
+                                    $d -= $lastResort;
+                                    
+                                $difference = $projectFills[$nextProject] - $projectMinima[$nextProject];
+                                $difference -= 1;
+                                if ($difference < 0) // dummy member joining a minimal project
+                                    $d += $lastResort;
+                            }
+                            else
+                            {
+                                $difference = $projectFills[$currentProject] - $projectMinima[$currentProject];
+                                $difference -= 1;
+                                if ($difference < 0) // valid member leaving a minimal project
+                                    $d += $lastResort;
+                                    
+                                $difference = $projectFills[$nextProject] - $projectMinima[$nextProject];
+                                $difference -= 1;
+                                if ($difference < 0) // valid member joining a minimal project
+                                    $d -= $lastResort;  
+                            }
+                            */
+                            $c += $d;
                         }
-                        
-                        if (in_array($y, $dummies))
-                        {
-                            $difference = $projectFills[$nextProject] - $projectMinima[$nextProject];
-                            if ($difference < 0) // dummy joining a minimal project
-                                $d -= $difference * $lastResort;
-                        }
-                        else
-                        {
-                            $difference = $projectFills[$currentProject] - $projectMinima[$currentProject];
-                            if ($difference < 0) // valid member leaving a minimal project
-                                $d -= $difference * $lastResort;
-                        }
-                        // TODO: is it necessary to reward the opposite of these?: dummy leaving, valid joining
-                        
-                        $c += $d;
                     }
-                    
                     $element = $discretisation * $c;
-                    $element += rand(0, $randomisation);
+                    $element += rand(-$randomisation, $randomisation);
                     if ($nextProject != $currentProject)
                         $element += $inertia;
                     
@@ -178,6 +183,9 @@
             $h = new RPFK\Hungarian\Hungarian($matrix);
             
             $assignments = $h->solve($displayOutput, sizeof($tasks) * sizeof($tasks));
+            
+            $this->cost = $h->cost($assignments) / sizeof($matrix);
+            
             if ($assignments == null)
             {
                 $this->iteration = -1;
@@ -186,11 +194,11 @@
             
             $projectStudents = array_fill(0, sizeof($projects), []);
             $studentProjects = [];
-            foreach ($assignments as $x => $y)
+            foreach ($assignments as $y => $x)
             {
-                $p = $tasks[$y];
-                array_push($projectStudents[$p], $x);
-                $studentProjects[$x] = $p;
+                $p = $tasks[$x];
+                array_push($projectStudents[$p], $y);
+                $studentProjects[$y] = $p;
             }
             
             $this->projectStudents = $projectStudents;

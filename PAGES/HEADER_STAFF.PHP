@@ -53,7 +53,7 @@ if ( !isset($_SESSION['STAFF_ID'])) {
 				</li>
 				<li><a href ="#">Sorting</a>
 					<ul>
-						<li><a href ="../SOLVER/BEGIN2">Begin Sort</a></li>
+						<li><a href ="../SOLVER/BEGIN2.PHP">Begin Sort</a></li>
 					</ul>
 				</li>
 			</li>

@@ -110,7 +110,7 @@ $insert = 'INSERT INTO student (stu_ID, stu_FirstName, stu_LastName, stu_Campus,
 (216776800,"George","Kennedy",2,"KenneG@deakin.edu.au","21e00641c260a79b8e5ad3eef52dd84c"),
 (216820558,"Stephen","Butler",2,"ButleS@deakin.edu.au","21e00641c260a79b8e5ad3eef52dd84c"),
 (216043880,"Debra","Saunders",2,"SaundD@deakin.edu.au","21e00641c260a79b8e5ad3eef52dd84c")';
-for ($i = 0; $i < 900; $i += 1)
+for ($i = 100; $i < 1000; $i += 1)
     $insert .= ',(217' . sprintf("%06d", $i) . ',"FirstName' . $i . '","LastName' . $i . '",' . rand(1, 3) . ',"student' . $i . '@deakin.edu.au","21e00641c260a79b8e5ad3eef52dd84c")';
 
 IF (MYSQLI_QUERY($CON,$insert)) {

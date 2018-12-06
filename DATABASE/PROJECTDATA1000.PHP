@@ -7,40 +7,37 @@ $project = "TRUNCATE project";
 if (mysqli_query($CON, $project)) {
   echo "<p>Project data deleted</p>";
 } else {
-  echo "Error deleting project data: " . mysql_error($CON);
+  echo "Error deleting project data: " . mysqli_error($CON);
 }
 
 
 $numSkills = 11;
 $rarity = 3.0;
 
-function randomSkill()
-{
-    global $rarity;
-    return 4 - (int)floor(log(rand(0, (int)floor(pow($rarity, 5.0)) - 1)) / log($rarity));
-}
-
-function randomSkills()
-{
-    global $numSkills;
-    $text = "";
-    for ($i = 0; $i < $numSkills; $i += 1)
-        $text .= "," . randomSkill();
-    return $text;
-}
+require_once "RANDOM.PHP";
 
 // Insert sample data into table
-$PROJECT = 'INSERT INTO project (pro_title, pro_hc, pro_js, pro_php, pro_java, pro_c, pro_cpp, pro_oc, pro_db, pro_u3, pro_ui, pro_se) VALUES ';
+$PROJECT = "INSERT INTO project (pro_title, pro_min, pro_max, pro_imp, pro_hc, pro_js, pro_php, pro_java, pro_c, pro_cpp, pro_oc, pro_db, pro_u3, pro_ui, pro_se) VALUES ";
 for ($i = 0; $i < 200; $i += 1)
 {
     if ($i > 0)
         $PROJECT .= ', ';
-    $PROJECT .= '("Project ' . $i . '"' . randomSkills() . ')';
+    $min = rand(0, 5);
+    $max = $min + rand(0, 10);
+    $skills = randomSkills($i + 1000);
+    $total = 0.0;
+    foreach ($skills as $skill)
+        $total += $skill;
+    if ($total > 0)
+        $importance = (int)round(1000 / $total);
+    else
+        $importance = 0;
+    $PROJECT .= '("Project ' . $i . '"' . ", $min, $max, $importance, " . join(", ", $skills) . ')';
 }
 
 if (mysqli_query($CON,$PROJECT)) {
   echo "<p>Sample projects inserted</p>";
 } else {
-  echo "Error inserting project data: " . mysql_error($CON);
+  echo "Error inserting project data: " . mysqli_error($CON);
 }
 ?>

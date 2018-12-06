@@ -1,7 +1,7 @@
 <?php
     $PageTitle = "Display Sorting Results";
     require "../PAGES/HEADER_STAFF.PHP";
-    require "../DATABASE/CONNECTDB.PHP";
+    require_once "../DATABASE/CONNECTDB.PHP";
     require "SOLVER.PHP";
     require "GETDATA.PHP";
     
@@ -28,25 +28,33 @@
             // TODO: error
         }
     }
-    
-    echo "<div style='width: 100%; text-align: center; font-family: sans-serif; font-size: 1em'>
-            <table border='0' align='center' cellpadding='0' cellspacing='0' style='text-align: center'>
-                <tr><td colspan='13'>&nbsp;</td></tr>
-                <tr>
-                    <th width='96px' style='font-size: 1em'>&nbsp;</th>
-                    <th width='256px' style='font-size: 1em'>&nbsp;</th>
-                    <th width='64px' style='font-size: 1em'>HTML</th>
-                    <th width='64px' style='font-size: 1em'>JS</th>
-                    <th width='64px' style='font-size: 1em'>PHP</th>
-                    <th width='64px' style='font-size: 1em'>Java</th>
-                    <th width='64px' style='font-size: 1em'>C</th>
-                    <th width='64px' style='font-size: 1em'>C++</th>
-                    <th width='64px' style='font-size: 1em'>Obj C</th>
-                    <th width='64px' style='font-size: 1em'>Database</th>
-                    <th width='64px' style='font-size: 1em'>Unity</th>
-                    <th width='64px' style='font-size: 1em'>UI</th>
-                    <th width='64px' style='font-size: 1em'>Security</th>
-                </tr><tr><td colspan='13'>&nbsp;</td></tr>";
+?>
+<div style='width: 100%; text-align: center; font-family: sans-serif; font-size: 1em'>
+<?php
+    if (isset($sortPID))
+    {
+        echo "<br>The sorter is running in the background.<br><br>";
+        echo "<a href='TERMINATE.PHP'>Stop</a><br><br>";
+    }
+?>
+<table border='0' align='center' cellpadding='0' cellspacing='0' style='text-align: center'>
+<?php
+    echo "<tr><td colspan='13'>&nbsp;</td></tr>
+            <tr>
+            <th width='96px' style='font-size: 1em'>&nbsp;</th>
+            <th width='256px' style='font-size: 1em'>&nbsp;</th>
+            <th width='64px' style='font-size: 1em'>HTML</th>
+            <th width='64px' style='font-size: 1em'>JS</th>
+            <th width='64px' style='font-size: 1em'>PHP</th>
+            <th width='64px' style='font-size: 1em'>Java</th>
+            <th width='64px' style='font-size: 1em'>C</th>
+            <th width='64px' style='font-size: 1em'>C++</th>
+            <th width='64px' style='font-size: 1em'>Obj C</th>
+            <th width='64px' style='font-size: 1em'>Database</th>
+            <th width='64px' style='font-size: 1em'>Unity</th>
+            <th width='64px' style='font-size: 1em'>UI</th>
+            <th width='64px' style='font-size: 1em'>Security</th>
+        </tr><tr><td colspan='13'>&nbsp;</td></tr>";
     $importanceMax = 0.0;
     for ($p = 0; $p < sizeof($projects); $p += 1)
     {
@@ -66,8 +74,7 @@
 
         // Print project name and skill requirements
         echo "<tr>";
-        echo "<td style='font-weight:bold; border-bottom: thin solid; text-align: left;'>$projectText[$p]</td>";
-        echo "<td style='font-weight:bold; border-bottom: thin solid; border-right: thin solid; text-align: left;'>&nbsp;</td>";
+        echo "<td colspan='2' style='font-weight:bold; border-bottom: thin solid; border-right: thin solid; text-align: left;'>$projectText[$p] ($projectMinima[$p] - $projectMaxima[$p])</td>";
         for ($s = 0; $s < $numSkills; $s += 1)
         {
             $importance = $projects[$p][$s]->importance;

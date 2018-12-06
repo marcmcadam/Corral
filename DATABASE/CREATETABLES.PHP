@@ -71,6 +71,7 @@ STAFF_LASTNAME VARCHAR(35) NOT NULL,
 STAFF_LOCATION VARCHAR(35) NOT NULL,
 STAFF_EMAIL VARCHAR(35) NOT NULL,
 STAFF_PASSWORD VARCHAR(256) NOT NULL,
+SORT_PID INT(11),
 PRIMARY KEY (STAFF_NUM))";
 if (mysqli_query($CON,$staff)) {
   echo "<p>staff table created successfully</p>";
@@ -86,6 +87,9 @@ pro_brief varchar(256) NOT NULL,
 pro_leader varchar(25) NOT NULL,
 pro_email varchar(25) NOT NULL,
 pro_status varchar(20) NOT NULL,
+pro_min int(11) NOT NULL,
+pro_max int(11) NOT NULL,
+pro_imp int(11) NOT NULL,
 pro_hc int(11) NOT NULL,
 pro_js int(11) NOT NULL,
 pro_php int(11) NOT NULL,
@@ -103,6 +107,7 @@ if (mysqli_query($CON,$project)) {
 } else {
   echo "Error creating project table: " . mysqli_error($CON);
 }
+
 //create surveyansswer table
 $surveyanswer = "CREATE TABLE surveyanswer (
 stu_ID int(9) NOT NULL,

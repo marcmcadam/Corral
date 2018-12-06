@@ -10,21 +10,11 @@
             exec($cmd . " > /dev/null &");
         }
     }
-    execInBackground("C:\\xampp\\php\\php.exe processing.php");
+    execInBackground("C:\\xampp\\php\\php.exe PROCESSING2.PHP");
 ?>
 <div style="text-align: center; width: 100%;">
-<p>The student allocations are being processed in the background.</p>
-<p>You may view the progress and results from the Survey > Groups > List Groups page</p>
-</div>
-<script>
-    function refresh()
-    {
-        sleep(1);
-        document.getElementById("updater").src = "progress.php";
-    }
-</script>
-<div style="text-align: center;">
-    <iframe id="updater" onload="refresh()" style="border: 0; width: 50%;"></iframe>
+    <p>The student allocations are being processed in the background.</p>
+    <p>You may view the progress and results from the Survey > Groups > List Groups page</p>
 </div>
 <?php
     require "../PAGES/FOOTER_STAFF.PHP";
