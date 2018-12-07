@@ -118,14 +118,9 @@
     $iteration = 0;
     $queue = [];
     $projectsRequeue = $projectStudents;
-    $batchSize = min(100, sizeof($students));
+    $batchSize = min(50, sizeof($students)); // 50 is about maximum to allow it to not time-out on most computers
     $numBatches = (int)(32 * sizeof($students) / $batchSize);
     echo "Total batches: $numBatches<br>";
-    $inertia = 1.0;
-    $meanCost = 0.0;
-    $inertiaMeanUp = 0.0;
-    $inertiaMeanDown = 0.0;
-    $meanInit = 0.0;
     for ($batch = 0; $batch < $numBatches; $batch += 1)
     {
         $sql = "SELECT staff_id, sort_pid FROM staff WHERE staff_id = $id";
@@ -166,7 +161,7 @@
             $solver->numSkills = $numSkills;
             
             $inertiaUp = (bool)(($batch % 2) == 1);
-            $solver->inertia = (int)(25000.0 * $batch / $numBatches);
+            $solver->inertia = (int)($solver->discretisation * $batch / $numBatches);
             //$solver->inertia = 0;
             
             $solver->students = [];

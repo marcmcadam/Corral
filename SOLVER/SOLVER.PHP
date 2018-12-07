@@ -184,7 +184,7 @@
             
             $assignments = $h->solve($displayOutput, sizeof($tasks) * sizeof($tasks));
             
-            $this->cost = $h->cost($assignments) / sizeof($matrix);
+            $this->cost = $h->cost($assignments);
             
             if ($assignments == null)
             {

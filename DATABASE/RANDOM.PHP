@@ -18,15 +18,31 @@
         return $skills;
     }
 
+    function randomImportance($s)
+    {
+        global $rarity;
+        $r = hashRandom16($s, (int)floor(100 + $rarity));
+        return (int)floor(min(max($r - $rarity, 0.0), 100.9));
+    }
+
+    function randomImportances($s)
+    {
+        global $numSkills;
+        $skills = [];
+        for ($i = 0; $i < $numSkills; $i += 1)
+            array_push($skills, randomImportance(($i << 11) | $s));
+        return $skills;
+    }
+
     function randomProject($p, &$importance)
     {
         global $numSkills;
-        $skills = randomSkills($p + 1000);
+        $skills = randomImportances($p + 1000);
         $total = 0.0;
         foreach ($skills as $skill)
             $total += $skill;
         if ($total > 0)
-            $importance = (int)round(1000 / sqrt($total));
+            $importance = (int)round(1000000 / $total);
         else
             $importance = 0;
         return $skills;

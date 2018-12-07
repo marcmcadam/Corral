@@ -12,7 +12,7 @@ if (mysqli_query($CON, $project)) {
 
 
 $numSkills = 11;
-$rarity = 3.0;
+$rarity = 200;
 
 require_once "RANDOM.PHP";
 
