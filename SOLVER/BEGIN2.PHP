@@ -2,15 +2,16 @@
     $PageTitle = "Begin Solving";
     require "../PAGES/HEADER_STAFF.PHP";
     
-    function execInBackground($cmd)
+    $isWindows = (substr(php_uname(), 0, 7) == "Windows");
+    if ($isWindows)
     {
-        if (substr(php_uname(), 0, 7) == "Windows"){
-            pclose(popen("start /B ". $cmd, "r"));
-        }else{
-            exec($cmd . " > /dev/null &");
-        }
+        // there is no good solution to backgrounding in windows
+        //exec("C:\\xampp\\php\\php.exe SORT.PHP > NUL"); // this hangs other php pages
+        header("location: SORT.PHP");
+        die;
     }
-    execInBackground("C:\\xampp\\php\\php.exe sort.php");
+    else
+        exec("C:\\xampp\\php\\php.exe SORT.PHP /dev/null");
 ?>
 <div style="text-align: center; width: 100%;">
     <p>The student allocations are being processed in the background.</p>

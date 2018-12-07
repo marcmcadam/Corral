@@ -47,13 +47,16 @@
         </tr>";
     }
 ?>
+<style>
+    th, td {
+        padding: 8px 16px;
+    }
+</style>
 <div style="text-align: center">
-    <h2>Project Details</h2>
+    <h1>Project Details</h1><br>
     <form action="UPDATE.PHP" method="post">
-        <table align="center">
         <?php
-            echo "<tr><td>
-                    <input hidden type='text' name='pro_num' value='$pro_num'>
+            echo "  <input hidden type='text' name='pro_num' value='$pro_num'>
                     Project Title<br>
                     <input type='text' name='PRO_TITLE' id='ip2' value='$title'><br><br>
                     Project Leader<br>
@@ -62,12 +65,17 @@
                     <input type='email' name='PRO_EMAIL' id='ip2' value='$email'><br><br>
                     Project Brief<br>
                     <textarea name='PRO_BRIEF' rows='5' cols='40' id='ip3'>$brief</textarea><br><br>
-                    Project Status<br>
+                    <h2>Project Status</h2>
                     <input type='text' name='PRO_STATUS' id='status' value='$status'><br><br>
-                </td></tr>
-                <tr><td>
-                    Project skills
-                </td></tr>
+                    <br>
+                    <h2>Project skills</h2>
+                    
+                    <table align='center'>
+                        <tr>
+                            <th>Skill</th>
+                            <th>Importance</th>
+                            <th> &nbsp; <!--bias--> </th>
+                        </tr>
             ";
             /*
                 <input type='radio' name='PRO_STATUS' value='active'>Active<br>

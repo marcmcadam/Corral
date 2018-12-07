@@ -1,4 +1,5 @@
 <?php
+    header('Cache-Control: no-cache');
     $id = 123456789;
     require "SOLVER.PHP";
     require "GETDATA.PHP";
@@ -35,7 +36,7 @@
         echo "Error deleting project member: " . mysqli_error($CON) . "<br>";
 
     echo "Assignments erased<br>";
-    flush();
+    update();
     
     // generate dummy students to allow empty slots in groups for variables group sizes
     // the number of dummies needed depends on the difference between the total max size for projects and the number of students
@@ -115,7 +116,7 @@
     
     assignDatabase($studentProjects, false); 
 
-    $iteration = 0;
+    $maxInertia = 50000;
     $queue = [];
     $projectsRequeue = $projectStudents;
     $batchSize = min(50, sizeof($students)); // 50 is about maximum to allow it to not time-out on most computers
@@ -147,8 +148,29 @@
         for ($p = 0; $p < sizeof($projects); $p += 1)
         {
             $indices = range(0, sizeof($projectStudents[$p]) - 1);
-            shuffle($indices);
-            $projectStudentIndices[$p] = $indices;
+            
+            // shuffle() is very repetetive. shuffle manually:
+            $choices = range(0, sizeof($projectStudents[$p]) - 1);
+            $shuffled = [];
+            $choicesRemaining = sizeof($choices);
+            foreach ($indices as $index)
+            {
+                $last = $choicesRemaining - 1;
+                $chosen = random_int(0, $last);
+                $choice = $choices[$chosen];
+                $shuffled[$choice] = $index;
+                if ($chosen < $last);
+                    $choices[$chosen] = $choices[$last];
+                unset($choices[$last]);
+                $choicesRemaining -= 1;
+            }
+            if ($choicesRemaining != 0)
+            {
+                echo "Shuffle failed";
+                die;
+            }
+            
+            $projectStudentIndices[$p] = $shuffled;
         }
         
         $numGroups = (int)ceil(sizeof($students) / $batchSize);
@@ -161,7 +183,7 @@
             $solver->numSkills = $numSkills;
             
             $inertiaUp = (bool)(($batch % 2) == 1);
-            $solver->inertia = (int)($solver->discretisation * $batch / $numBatches);
+            $solver->inertia = (int)($maxInertia * $batch / $numBatches);
             //$solver->inertia = 0;
             
             $solver->students = [];
@@ -214,6 +236,13 @@
                     array_push($solver->projectTasks[$p], $taskIndex);
                 }
             }
+            
+            asort($solverStudents);
+            echo "<table cellpadding='4px' style='border-collapse: collapse;'><tr>";
+            foreach ($solverStudents as $y)
+                echo "<td>$y</td>";
+            echo "</tr></table>";
+            update();
             
             set_time_limit(30);
             $solver->iterate();

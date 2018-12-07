@@ -125,7 +125,7 @@ for ($i = 0; $i < 100; $i += 1)
         $surveydata .= ",";
     $surveydata .= "($studentIDs[$i], " . join(", ", randomSkills($i)) . ")";
 }
-for ($i = 100; $i < 900; $i += 1)
+for ($i = 0; $i < 900; $i += 1)
     $surveydata .= ', (217' . sprintf("%06d", $i) . ", " . join(", ", randomSkills($i)) . ')';
 
 if (mysqli_query($CON,$surveydata)) {

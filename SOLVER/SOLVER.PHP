@@ -19,7 +19,7 @@
         public $numSkills;
         
         // multiplies floating point by this before converting to integer
-        public $discretisation = 100.0;
+        public $discretisation = 1.0;
         
         // tiny randomisation bypasses an endless loop, caused by excessive identical values, in our acquired Hungarian algorithm code
         // the more randomisation there is, the faster it goes. could be because the values are more ordered instead of the same, and that reduces the number of possibilities
@@ -84,9 +84,11 @@
             $randomisation = $this->randomisation;
             
             $totals = array_fill(0, sizeof($projects), array_fill(0, $numSkills, 0.0));
+            $impTotals = array_fill(0, sizeof($projects), 0.0);
             $projectFills = [];
             for ($p = 0; $p < sizeof($projects); $p += 1)
             {
+                $impTotal = 0.0;
                 for ($s = 0; $s < $numSkills; $s += 1)
                 {
                     $demand = $projects[$p][$s];
@@ -94,7 +96,10 @@
                     foreach ($projectStudents[$p] as $y)
                         $total += Solver::memberScore($demand, $students[$y][$s]);
                     $totals[$p][$s] = $total;
+                    
+                    $impTotal += Solver::memberScore($demand, $demand->importance);
                 }
+                $impTotals[$p] = $impTotal;
                 
                 // collect how full are projects, with valid members
                 $clevers = 0;
@@ -117,21 +122,60 @@
                     $c = 0.0;
                     if ($nextProject != $currentProject)
                     {
+                        // measure how much the project suits the member's skills
+                        // ((i*a)^m + (j*b)^n)/(i^m + j^n)
+                        if ($currentProject >= 0)
+                        {
+                            // current project
+                            $total = $impTotals[$currentProject];
+                            if ($total > 0.0)
+                            {
+                                $satisfaction = 0.0;
+                                for ($s = 0; $s < $numSkills; $s += 1)
+                                {
+                                    $demand = $projects[$currentProject][$s];
+                                    $satisfaction += Solver::memberScore($demand, $demand->importance * $students[$y][$s]);
+                                }
+                                $memberScoreA = $satisfaction / $total;
+                            }
+                            else
+                                $memberScoreA = 0.0;
+                        }
+                        {
+                            // changed project
+                            $total = $impTotals[$nextProject];
+                            if ($total > 0.0)
+                            {
+                                $satisfaction = 0.0;
+                                for ($s = 0; $s < $numSkills; $s += 1)
+                                {
+                                    $demand = $projects[$nextProject][$s];
+                                    $satisfaction += Solver::memberScore($demand, $demand->importance * $students[$y][$s]);
+                                }
+                                $memberScoreB = $satisfaction / $total;
+                            }
+                            else
+                                $memberScoreB = 0.0;
+                        }
+                        
                         for ($s = 0; $s < $numSkills; $s += 1)
                         {
                             $d = 0.0;
+                            
+                            // measure how significant the member is to satisfying the project's needs
+                            // i*a1^n/(a1^n + a2^n)
                             if ($currentProject >= 0)
                             {
-                                // current project satisfaction
+                                // current project
                                 $demand = $projects[$currentProject][$s];
                                 $satisfaction = Solver::memberScore($demand, $students[$y][$s]);
                                 $total = $totals[$currentProject][$s];
                                 if ($total > 0.0)
                                     $satisfaction /= $total;
-                                $d += $demand->importance * $satisfaction;
+                                $d += $memberScoreA * $demand->importance * $satisfaction;
                             }
                             {
-                                // changed project satisfaction
+                                // changed project
                                 $demand = $projects[$nextProject][$s];
                                 $satisfaction = Solver::memberScore($demand, $students[$y][$s]);
                                 $total = $totals[$nextProject][$s];
@@ -139,8 +183,9 @@
                                     $total += $satisfaction;
                                 if ($total > 0.0)
                                     $satisfaction /= $total;
-                                $d -= $demand->importance * $satisfaction;
+                                $d -= $memberScoreB * $demand->importance * $satisfaction;
                             }
+                            
                             /*
                             if (in_array($y, $dummies))
                             {
@@ -167,6 +212,7 @@
                                     $d -= $lastResort;  
                             }
                             */
+                            
                             $c += $d;
                         }
                     }

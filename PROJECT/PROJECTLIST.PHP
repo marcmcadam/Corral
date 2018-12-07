@@ -28,16 +28,22 @@
 <?php
     require_once '../DATABASE/CONNECTDB.PHP';
 
-    $sql="SELECT * FROM project ORDER BY pro_status ASC";
-    $res=mysqli_query($CON, $sql);
+    $sql = "SELECT * FROM project ORDER BY pro_num ASC";
+    $res = mysqli_query($CON, $sql);
 
-    echo "<p><table width='1250px' height='150px' border='1px' cellpadding='10px' align='center'></p>";
-    echo "<tr><th>Project Num</th><th>Project Title</th><th>Project Leader</th><th>Leader Email</th><th>Project Brief</th><th>Project Status</th><th>Update Information</th></tr>";
+    echo "<table width='1250px' border='1px' cellpadding='8px' align='center'>
+        <tr>
+            <th>Project Title</th>
+            <th>Project Leader</th>
+            <th>Leader Email</th>
+            <th>Project Brief</th>
+            <th>Project Status</th>
+            <th>Update</th>
+        </tr>";
 
     while ($row=mysqli_fetch_assoc($res))
     {
         echo "<tr>
-                <td align='center' width='70px'>{$row['pro_num']}</td>
                 <td align='center' width='190px'>{$row['pro_title']}</td>
                 <td align='center' width='190px'>{$row['pro_leader']}</td>
                 <td align='center' width='180px'>{$row['pro_email']}</td>

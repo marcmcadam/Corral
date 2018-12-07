@@ -15,6 +15,6 @@
     
     function hashRandom16($r, $m)
     {
-        return floor(hash16($r) * $m / 65536);
+        return (int)floor(hash16($r) * $m / 65536);
     }
 ?>
