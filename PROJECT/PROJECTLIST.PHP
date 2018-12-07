@@ -2,12 +2,31 @@
  	$PageTitle = "Project List";
 	require "../PAGES/HEADER_STAFF.PHP";
 ?>
-<div id="contents">
-
 <h2>Project List</h2>
-<?php
 
-    require('../DATABASE/CONNECTDB.PHP');
+<form action="../PROJECT/PROJECTLISTCSV" method="post">
+    <select name="View">
+		<option value="All">All</option>
+		<option value="Active">Active Projects</option>
+		<option value="Inactive">Inactive Projects</option>
+		<option value="Planning">Planning Projects</option>
+		<option value="Cancelled">Cancelled Projects</option>
+	</select>
+	<input type="submit" name="export_excel" value="Export As CSV">
+</form>
+<form action="../PROJECT/PROJECTLISTPDF" method="post">
+	<select name="View">
+		<option value="All">All</option>
+		<option value="Active">Active Projects</option>
+		<option value="Inactive">Inactive Projects</option>
+		<option value="Planning">Planning Projects</option>
+		<option value="Cancelled">Cancelled Projects</option>
+	</select>
+	<input type="submit" name="export_PDF" value="Export As PDF">
+</form>
+
+<?php
+    require_once ('../DATABASE/CONNECTDB.PHP');
 
 
 
@@ -28,42 +47,5 @@
     mysqli_free_result($res);
     mysqli_close($CON);
 
-
-
-
-
+    require "../PAGES/FOOTER_STAFF.PHP";
 ?>
-</div>
-
-
-<hr>
-<br>
-
-
-<form action="../PROJECT/PROJECTLISTCSV" method="post">
-<select name="View">
-		<option value="All">All</option>
-		<option value="Active">Active Projects</option>
-		<option value="Inactive">Inactive Projects</option>
-		<option value="Planning">Planning Projects</option>
-		<option value="Cancelled">Cancelled Projects</option>
-	</select>
-	<input type="submit" name="export_excel" value="Export As CSV">
-</form>
-
-<br>
-
-<form action="../PROJECT/PROJECTLISTPDF" method="post">
-	<select name="View">
-		<option value="All">All</option>
-		<option value="Active">Active Projects</option>
-		<option value="Inactive">Inactive Projects</option>
-		<option value="Planning">Planning Projects</option>
-		<option value="Cancelled">Cancelled Projects</option>
-	</select>
-	<input type="submit" name="export_PDF" value="Export As PDF">
-</form>
-
-<br>
-
-<?php require "../PAGES/FOOTER_STAFF.PHP"; ?>
