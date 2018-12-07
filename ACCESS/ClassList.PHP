@@ -70,7 +70,7 @@ function SanitiseName($input, $CON){
 			//accessing $stu_info[] to access the information
 if( isset( $_POST['Submit'] ) ) {
 	$Student_List = $_POST['Student_List'];
-	print "Raw Data: ". $Student_List."<br><br> Other Stuff: <br>";
+//	print "Raw Data: ". $Student_List."<br><br> Other Stuff: <br>";
 
 //NB explode could be replaced by fgetcsv()
 	$StudentArr = explode("\r", $Student_List);
