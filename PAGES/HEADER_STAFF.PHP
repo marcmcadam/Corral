@@ -15,50 +15,112 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 <head>
 <meta charset="utf-8">
 <title><?php echo $PageTitle; ?></title>
-<link rel="stylesheet" type="text/css" href="../STYLES/stylesstaff.css">
 <?php echo isset($script) ? $script : "" ; // Echo header script if one exists (JavaScript Validation etc)?>
 </head>
+<style>
 
+ul {
+	display:inline;
+	margin:0;
+	padding:0px;
+	list-style:none;
+}
+
+ul li {
+	display:inline-block;
+	position:relative;
+    margin: 0px;
+	width:20%;
+	/*padding:25px 40px;*/
+	background:#007399;	
+}
+
+ul li a{
+	text-decoration:none;
+	color:white;
+	text-align:center;
+}
+
+ul li:hover {
+	background:#0086b3;
+	color:white;
+}
+
+ul li ul {
+	position:absolute;
+	left:0;
+	width: 500%;
+	display:none;
+	visibility:hidden;
+}
+
+ul li ul li {
+	background:#007399;
+	display:block;
+}
+
+ul li ul li:hover {
+	background:#0086b3;
+}
+ul li:hover ul {
+	display:block;
+	opacity:1;
+	visibility:visible;
+}
+
+ul ul ul li {
+	display:none;
+}
+
+ul ul li:hover li{
+	display:block;
+}
+
+ul ul ul {
+	left:100%;
+	top:0;
+}
+
+li p {
+    padding: 5% 10% 5% 10%;
+    margin: 0;
+}
+</style>
 <body>
-<div class="Header">
-</div>
-
 <div class ="navbar">
 	<ul>
-		<li><a href="../PAGES/STAFFHOME">Home</a></li>
-		<li><a href ="#">Survey</a>
+		<li><a href="../PAGES/STAFFHOME"><p>Home</p></a></li><!--
+		--><li><a href ="#"><p>Survey</p></a>
 			<ul>
-				<li><a href ="#">Projects</a>
+				<li><a href ="#"><p>Projects</p></a>
 					<ul>
-						<li><a href ="../PROJECT/ADDPROJECT">Create Project</a></li>
-						<li><a href ="../PROJECT/PROJECTLIST">Project List</a></li>
-						<li><a href ="../PROJECT/PROJECTSEARCH">Project Search</a></li>
+						<li><a href ="../PROJECT/ADDPROJECT"><p>Create Project</p></a></li>
+						<li><a href ="../PROJECT/PROJECTLIST"><p>Project List</p></a></li>
+						<li><a href ="../PROJECT/PROJECTSEARCH"><p>Project Search</p></a></li>
 					</ul>
 				</li>
-				<li><a href ="#">Groups</a>
+				<li><a href ="#"><p>Groups</p></a>
 					<ul>
-						<li><a href ="../PROJECT/NEWGROUP">Create Group</a></li>
-						<li><a href ="../PROJECT/GROUPUPDATE">Update Group</a></li>
-						<li><a href ="../PROJECT/GROUPLIST">List Groups</a>
+						<li><a href ="../PROJECT/NEWGROUP"><p>Create Group</p></a></li>
+						<li><a href ="../PROJECT/GROUPUPDATE"><p>Update Group</p></a></li>
+						<li><a href ="../PROJECT/GROUPLIST"><p>List Groups</p></a>
 						</li>
 					</ul>
 				</li>
-				<li><a href ="#">Users</a>
+				<li><a href ="#"><p>Users</p></a>
 					<ul>
-						<li><a href ="../PROJECT/STUDENTLIST">Student List</a></li>
-						<li><a href ="../PROJECT/STAFFLIST">Staff List</a></li>
-						<li><a href ="../PROJECT/MEMBERSEARCH">Search For</a></li>
+						<li><a href ="../PROJECT/STUDENTLIST"><p>Student List</p></a></li>
+						<li><a href ="../PROJECT/STAFFLIST"><p>Staff List</p></a></li>
+						<li><a href ="../PROJECT/MEMBERSEARCH"><p>Search For</p></a></li>
+						</li>
 					</ul>
 				</li>
-				<li><a href ="#">Sorting</a>
-					<ul>
-						<li><a href ="../SOLVER/BEGIN">Begin Sort</a></li>
-					</ul>
-				</li>
-			</li>
-		</ul>
-		<li><a href ="../PAGES/STAFFCONTACT">Contact</a></li>
-		<li><a href ="../PAGES/STAFFABOUTUS">About Us</a></li>
-		<li><a href ="../ACCESS/stafflogout">Logout</a></li>
+			</ul>
+		</li><!--
+		--><li><a href ="../PAGES/STAFFCONTACT"><p>Contacts</p></a></li><!--
+		--><li><a href ="../PAGES/STAFFABOUTUS"><p>About Us</p></a></li><!--
+		--><li><a href ="../ACCESS/stafflogout"><p>Logout</p></a></li>
 	</ul>
 </div>
+</body>
+</html>
