@@ -17,4 +17,18 @@
             array_push($skills, randomSkill(($i << 11) | $s));
         return $skills;
     }
+
+    function randomProject($p, &$importance)
+    {
+        global $numSkills;
+        $skills = randomSkills($p + 1000);
+        $total = 0.0;
+        foreach ($skills as $skill)
+            $total += $skill;
+        if ($total > 0)
+            $importance = (int)round(1000 / sqrt($total));
+        else
+            $importance = 0;
+        return $skills;
+    }
 ?>

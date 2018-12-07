@@ -119,7 +119,7 @@
     $queue = [];
     $projectsRequeue = $projectStudents;
     $batchSize = min(100, sizeof($students));
-    $numBatches = (int)(10 * sizeof($students) / $batchSize);
+    $numBatches = (int)(32 * sizeof($students) / $batchSize);
     echo "Total batches: $numBatches<br>";
     $inertia = 1.0;
     $meanCost = 0.0;
@@ -166,8 +166,8 @@
             $solver->numSkills = $numSkills;
             
             $inertiaUp = (bool)(($batch % 2) == 1);
-            //$solver->inertia = (int)(1000.0 * $batch / $numBatches);
-            $solver->inertia = 0;
+            $solver->inertia = (int)(25000.0 * $batch / $numBatches);
+            //$solver->inertia = 0;
             
             $solver->students = [];
             $solver->projects = $projects;

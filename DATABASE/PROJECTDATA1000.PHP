@@ -22,17 +22,10 @@ for ($i = 0; $i < 200; $i += 1)
 {
     if ($i > 0)
         $PROJECT .= ', ';
-    $min = rand(0, 5);
-    $max = $min + rand(0, 10);
-    $skills = randomSkills($i + 1000);
-    $total = 0.0;
-    foreach ($skills as $skill)
-        $total += $skill;
-    if ($total > 0)
-        $importance = (int)round(1000 / $total);
-    else
-        $importance = 0;
-    $PROJECT .= '("Project ' . $i . '"' . ", $min, $max, $importance, " . join(", ", $skills) . ')';
+    $min = rand(3, 10); //rand(0, 5);
+    $max = $min; // + rand(0, 10);
+    $skills = randomProject($i, $imp);
+    $PROJECT .= '("Project ' . $i . '"' . ", $min, $max, $imp, " . join(", ", $skills) . ')';
 }
 
 if (mysqli_query($CON,$PROJECT)) {
