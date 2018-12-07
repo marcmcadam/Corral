@@ -1,9 +1,9 @@
 <?php
 session_start();
 
-if ( $_SESSION['STAFF_ID'] != 1) {
+if ( !isset($_SESSION['STAFF_ID'])) {
 	$_SESSION['message'] = "You must log in before viewing this page";
-	header("location: ../ACCESS/error");
+	header("location: ../ACCESS/stafflogin.php");
 	}
 	else {
 	$id = $_SESSION['STAFF_ID'];
@@ -101,14 +101,22 @@ li p {
 				</li>
 				<li><a href ="#"><p>Groups</p></a>
 					<ul>
+<<<<<<< HEAD
 						<li><a href ="../PROJECT/NEWGROUP"><p>Create Group</p></a></li>
 						<li><a href ="../PROJECT/GROUPUPDATE"><p>Update Group</p></a></li>
 						<li><a href ="../PROJECT/GROUPLIST"><p>List Groups</p></a>
+=======
+						<li><a href ="../PROJECT/NEWGROUP">Create Group</a></li>
+						<li><a href ="../PROJECT/GROUPUPDATE">Update Group</a></li>
+						<!--<li><a href ="../PROJECT/GROUPLIST">List Groups</a>-->
+                        <li><a href ="../SOLVER/GROUPS.PHP">List Groups</a>
+>>>>>>> master
 						</li>
 					</ul>
 				</li>
 				<li><a href ="#"><p>Users</p></a>
 					<ul>
+<<<<<<< HEAD
 						<li><a href ="../PROJECT/STUDENTLIST"><p>Student List</p></a></li>
 						<li><a href ="../PROJECT/STAFFLIST"><p>Staff List</p></a></li>
 						<li><a href ="../PROJECT/MEMBERSEARCH"><p>Search For</p></a></li>
@@ -120,6 +128,22 @@ li p {
 		--><li><a href ="../PAGES/STAFFCONTACT"><p>Contacts</p></a></li><!--
 		--><li><a href ="../PAGES/STAFFABOUTUS"><p>About Us</p></a></li><!--
 		--><li><a href ="../ACCESS/stafflogout"><p>Logout</p></a></li>
+=======
+						<li><a href ="../PROJECT/STUDENTLIST">Student List</a></li>
+						<li><a href ="../PROJECT/STAFFLIST">Staff List</a></li>
+						<li><a href ="../PROJECT/MEMBERSEARCH">Search For</a></li>
+					</ul>
+				</li>
+				<li><a href ="#">Sorting</a>
+					<ul>
+						<li><a href ="../SOLVER/BEGIN2">Begin Sort</a></li>
+					</ul>
+				</li>
+			</li>
+		</ul>
+		<li><a href ="../PAGES/STAFFABOUTUS">About Us</a></li>
+		<li><a href ="../ACCESS/stafflogout">Logout</a></li>
+>>>>>>> master
 	</ul>
 </div>
 </body>
