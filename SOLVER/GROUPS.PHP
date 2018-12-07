@@ -148,12 +148,11 @@
                 $red = $notAlpha * $backgroundColour['r'] + $alpha * ($strength * $strongColour['r'] + $weakness * $weakColour['r']);
                 $green = $notAlpha * $backgroundColour['g'] + $alpha * ($strength * $strongColour['g'] + $weakness * $weakColour['g']);
                 $blue = $notAlpha * $backgroundColour['b'] + $alpha * ($strength * $strongColour['b'] + $weakness * $weakColour['b']);
-                $hexColour = sprintf("#%20x%20x%20x", (int)floor($red * 255.9), (int)floor($green * 255.9), (int)floor($blue * 255.9));
+                $hexColour = sprintf("#%02X%02X%02X", (int)floor($red * 255.9), (int)floor($green * 255.9), (int)floor($blue * 255.9));
                 $style = ($projects[$p][$s]->importance == 0) ? "" : "font-weight: bold;";
                 echo "<td bgcolor='$hexColour' style='$style; border-bottom: thin solid #606060; border-right: thin solid #606060;'>";
                 for ($v = 0; $v < $value; $v += 1)
-                    echo "<img src='whiteStar.png' width='12px' height='12x'>";
-
+                    echo "<img src='whiteStar.png' width='12px' height='12px'>";
                 echo "</td>";
                 $skill_total[$s] += $students[$i][$s];
             }
