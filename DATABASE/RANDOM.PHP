@@ -1,6 +1,6 @@
 <?php
     require_once("../SOLVER/HASH.PHP");
-    
+
     function randomSkill($s)
     {
         global $rarity;
@@ -46,5 +46,25 @@
         else
             $importance = 0;
         return $skills;
+    }
+
+    function randomProjectStatus()
+    {
+      $choice = rand(0,3);
+      switch ($choice) {
+        case 0:
+          $status = "Active";
+          break;
+        case 1:
+          $status = "Inactive";
+          break;
+        case 2:
+          $status = "Planning";
+          break;
+        case 3:
+          $status = "Cancelled";
+          break;
+      }
+      return $status;
     }
 ?>
