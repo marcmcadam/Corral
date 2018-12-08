@@ -15,7 +15,7 @@
 ?>
 <div style="text-align: center; width: 100%;">
     <p>The student allocations are being processed in the background.</p>
-    <p>You may view the progress and results from the Survey > Groups > List Groups page</p>
+    <p>You may view the progress and results from the <a href="GROUPS.PHP">List Groups</a> page.</p>
 </div>
 <?php
     require "../PAGES/FOOTER_STAFF.PHP";

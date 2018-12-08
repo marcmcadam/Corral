@@ -39,10 +39,11 @@
 ?>
 <table border='0' align='center' cellpadding='0' cellspacing='0' style='text-align: center'>
 <?php
-    echo "<tr><td colspan='13'>&nbsp;</td></tr>
+    echo "<tr><td colspan='14'>&nbsp;</td></tr>
             <tr>
             <th width='96px' style='font-size: 1em'>&nbsp;</th>
             <th width='256px' style='font-size: 1em'>&nbsp;</th>
+            <th width='16px' style='font-size: 1em'>&nbsp;</th>
             <th width='64px' style='font-size: 1em'>HTML</th>
             <th width='64px' style='font-size: 1em'>JS</th>
             <th width='64px' style='font-size: 1em'>PHP</th>
@@ -74,7 +75,7 @@
 
         // Print project name and skill requirements
         echo "<tr>";
-        echo "<td colspan='2' style='font-weight:bold; border-bottom: thin solid; border-right: thin solid; text-align: left;'>$projectText[$p] ($projectMinima[$p] - $projectMaxima[$p])</td>";
+        echo "<td colspan='3' style='font-weight:bold; border-bottom: thin solid; border-right: thin solid; text-align: left;'>$projectText[$p] ($projectMinima[$p] - $projectMaxima[$p])</td>";
         for ($s = 0; $s < $numSkills; $s += 1)
         {
             $importance = $projects[$p][$s]->importance;
@@ -132,8 +133,27 @@
                 $name = "&nbsp;";
             }
             echo "<td style='text-align: right; border-bottom: thin solid #c0c0c0'>$name&nbsp;</td>";
-            echo "<td style='text-align: left; border-right: thin solid; border-bottom: thin solid #c0c0c0'>$text</td>";
-
+            echo "<td style='text-align: left; border-bottom: thin solid #c0c0c0'>$text</td>";
+            
+            $satisfaction = 0.0;
+            $skillTotal = 0.0;
+            $impTotal = 0.0;
+            for ($s = 0; $s < $numSkills; $s += 1)
+            {
+                $value = $students[$i][$s];
+                $demand = $projects[$p][$s];
+                
+                $satisfaction += $demand->importance * $value;
+                $skillTotal += $value * $value;
+                $impTotal += $demand->importance * $demand->importance;
+            }
+            $divisor = sqrt($skillTotal * $impTotal);
+            if ($divisor > 0.0)
+                $satisfaction /= $divisor;
+            $satisfactionText = str_repeat("!", (int)floor(4.0 * (1.0 - $satisfaction)));
+            
+            echo "<td style='text-align: center; border-right: thin solid; border-bottom: thin solid #c0c0c0'>$satisfactionText</td>";
+            
             $skillMax = 4.0;
             
             for ($s = 0; $s < $numSkills; $s += 1) {
@@ -142,7 +162,6 @@
 
                 $alpha = ($importanceMax <= 0.0) ? 0.0 : ($demand->importance / $importanceMax);
                 $strength = $value / $skillMax;
-                //$strength = 0.5 * (1.0 + $strength);
                 $weakness = 1.0 - $strength;
                 $notAlpha = 1.0 - $alpha;
                 $red = $notAlpha * $backgroundColour['r'] + $alpha * ($strength * $strongColour['r'] + $weakness * $weakColour['r']);
@@ -162,8 +181,7 @@
           if ($num_students > 0)
           {
               echo "<tr>
-                <td style='text-align: left; font-weight: bold; border-top: thin solid;'>&nbsp;</td>
-                <td style='text-align: right; font-weight: bold; border-top: thin solid; border-right: thin solid;'>Team Average&nbsp;</td>
+                <td colspan='3' style='text-align: right; font-weight: bold; border-top: thin solid; border-right: thin solid;'>Team Average&nbsp;</td>
                 <td style='border-top: thin solid;'>".round($skill_total[0] / $num_students, 1)."</td>
                 <td style='border-top: thin solid;'>".round($skill_total[1] / $num_students, 1)."</td>
                 <td style='border-top: thin solid;'>".round($skill_total[2] / $num_students, 1)."</td>
@@ -177,7 +195,7 @@
                 <td style='border-top: thin solid;'>".round($skill_total[10] / $num_students, 1)."</td>
                 </tr>";
           }
-        echo "<tr><td colspan='13'>&nbsp;</td></tr>";
+        echo "<tr><td colspan='14'>&nbsp;</td></tr>";
     }
     echo "</table></div>";
     require "../PAGES/FOOTER_STAFF.PHP";

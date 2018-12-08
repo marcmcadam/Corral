@@ -16,6 +16,7 @@
         flush();
     }
 
+    echo "<p>You may view the progress and results from the <a href='GROUPS.PHP' target='_blank'>List Groups</a> page.</p>";
     echo "Begin processing initialisation<br>";
     update();
     
