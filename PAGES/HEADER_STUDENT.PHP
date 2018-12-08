@@ -1,15 +1,18 @@
 <?php
 session_start();
 
-if ( !isset($_SESSION['STUDENT_ID'])) {
+if (!isset($_SESSION['STUDENT_ID']))
+{
 	$_SESSION['message'] = "You must log in before viewing this page";
 	header("location: ../ACCESS/LOGIN.PHP");
-	}
-	else {
+    die;
+}
+else
+{
 	$id = $_SESSION['STUDENT_ID'];
 	$student_firstname = $_SESSION['STUDENT_FIRSTNAME'];
 	$student_lastname = $_SESSION['STUDENT_LASTNAME'];
-	}
+}
 ?>
 <html>
 <head>
@@ -20,13 +23,9 @@ if ( !isset($_SESSION['STUDENT_ID'])) {
 </head>
 
 <body>
-<div class="Header">
-
-</div>
-
 <div class="navbar">
-	<a href="../PAGES/STUDENTHOME">Home</a>
+	<a href="../PAGES/STUDENTHOME">Corral</a>
 	<a href="../SURVEY/STUDENTSURVEY">Survey</a>
-	<a href="../PAGES/STUDENTABOUTUS">About Us</a>
 	<a href="../Access/LOGOUT">Logout</a>
 </div>
+<div style="padding: 8px 32px">
