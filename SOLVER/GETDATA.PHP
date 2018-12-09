@@ -33,30 +33,26 @@
     while ($row = mysqli_fetch_assoc($res))
     {
         $rowY = $y++;
-        
+
         $studentNames[$rowY] = $row['stu_ID'];
         $studentText[$rowY] = $row['stu_FirstName'] . " " . $row['stu_LastName'];
 
         $student = [];
-        array_push($student, (int)$row['stu_hc']);
-        array_push($student, (int)$row['stu_js']);
-        array_push($student, (int)$row['stu_php']);
-        array_push($student, (int)$row['stu_java']);
-        array_push($student, (int)$row['stu_c']);
-        array_push($student, (int)$row['stu_cpp']);
-        array_push($student, (int)$row['stu_oc']);
-        array_push($student, (int)$row['stu_db']);
-        array_push($student, (int)$row['stu_u3']);
-        array_push($student, (int)$row['stu_ui']);
-        array_push($student, (int)$row['stu_se']);
+
+        // Populate student skills array with stu_skill_## (01-20) if that skill has a value
+        for ($i=1; $i<21; $i++) {
+          if (isset($row['stu_skill_'.sprintf('%02d',$i)])) {
+            array_push($student, (int)$row['stu_skill_'.sprintf('%02d',$i)]);
+          }
+        }
 
         array_push($students, $student);
     }
 
     // Fetch project names and skill requirements from database
-    $sql = "SELECT pro_num, pro_title, pro_min, pro_max, pro_imp, pro_hc,pro_js,pro_php,pro_java,pro_c,pro_cpp,pro_oc,pro_db,pro_u3,pro_ui,pro_se FROM project";
+    $sql = "SELECT pro_num, pro_title, pro_min, pro_max, pro_imp, pro_skill_01, pro_skill_02, pro_skill_03, pro_skill_04, pro_skill_05, pro_skill_06, pro_skill_07, pro_skill_08, pro_skill_09, pro_skill_10, pro_skill_11, pro_skill_12, pro_skill_13, pro_skill_14, pro_skill_15, pro_skill_16, pro_skill_17, pro_skill_18, pro_skill_19, pro_skill_20 FROM project";
     $res = mysqli_query($CON, $sql);
- 
+
     $projectNames = [];
     $projectText = [];
     $projectMinima = [];
@@ -67,40 +63,36 @@
     while ($row = mysqli_fetch_assoc($res))
     {
         $pid = (int)$row['pro_num'];
-        
+
         $rowP = $p++;
-        
+
         $projectText[$rowP] = $row['pro_title'] ;
-        
+
         $projectNames[$rowP] = $pid;
 
         $projectMinima[$rowP] = (int)$row['pro_min'];
         $projectMaxima[$rowP] = (int)$row['pro_max'];
         $imp = (int)$row['pro_imp'];
         $projectImportance[$rowP] = $imp;
-        
+
+        // Create project skills array
         $pro = [];
-        array_push($pro, (int)$row['pro_hc']);
-        array_push($pro, (int)$row['pro_js']);
-        array_push($pro, (int)$row['pro_php']);
-        array_push($pro, (int)$row['pro_java']);
-        array_push($pro, (int)$row['pro_c']);
-        array_push($pro, (int)$row['pro_cpp']);
-        array_push($pro, (int)$row['pro_oc']);
-        array_push($pro, (int)$row['pro_db']);
-        array_push($pro, (int)$row['pro_u3']);
-        array_push($pro, (int)$row['pro_ui']);
-        array_push($pro, (int)$row['pro_se']);
-        
+        // Populate project skills array with pro_skill_## (01-20) if that skill has a value
+        for ($i=1; $i<21; $i++) {
+          if (isset($row['pro_skill_'.sprintf('%02d',$i)])) {
+            array_push($pro, (int)$row['pro_skill_'.sprintf('%02d',$i)]);
+          }
+        }
+
         $project = [];
         $total = 0;
         for ($s = 0; $s < $numSkills; $s += 1)
         {
             $importance = $pro[$s];
-            
+
             // use hash to consistently decide the bias where there's no room for it in the database
             $r = hash16(($pid << 8) | $s);
-            
+
             $demand = new SkillDemand($imp * $importance, ($r % 3) - 1);
             array_push($project, $demand);
             $total += $demand->importance;
