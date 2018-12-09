@@ -28,6 +28,7 @@ for ($i = 0; $i < 20; $i += 1)
     $status = randomProjectStatus();
     $PROJECT .= '("Project ' . $i . '"' . ",'Lorem Ipsum','Project Leader','projectleader@deakin.edu.au','".$status."',$min,$max,$imp," . join(", ", $skills) . ')';
 }
+echo "Query is: ".$PROJECT;
 
 if (mysqli_query($CON,$PROJECT)) {
   echo "<p>Sample projects inserted</p>";

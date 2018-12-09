@@ -28,7 +28,7 @@
 <?php
     require_once '../DATABASE/CONNECTDB.PHP';
 
-    $sql = "SELECT * FROM project ORDER BY pro_num ASC";
+    $sql = "SELECT * FROM project ORDER BY FIELD(pro_status, 'Active', 'Planning', 'Inactive', 'Cancelled'), pro_title ASC";
     $res = mysqli_query($CON, $sql);
 
     echo "<table width='1250px' border='1px' cellpadding='8px' align='center'>
@@ -52,7 +52,7 @@
                 <td align='center'><a href='PROJECT.PHP?number={$row['pro_num']}'>Update</a></td>
             </tr>";
     }
-    
+
     echo "</table>";
     mysqli_free_result($res);
     mysqli_close($CON);
