@@ -1,9 +1,9 @@
 <?php
 session_start();
 
-if ( $_SESSION['STAFF_ID'] != 1) {
+if ( !isset($_SESSION['STAFF_ID'])) {
 	$_SESSION['message'] = "You mus log in before viewing this page";
-	header("location: ../ACCESS/error");
+	header("location: ../ACCESS/stafflogin.php");
 	}
 	else {
 	$id = $_SESSION['STAFF_ID'];

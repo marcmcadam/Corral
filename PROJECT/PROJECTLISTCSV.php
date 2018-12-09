@@ -21,9 +21,9 @@ if(isset($_POST['View']) && in_array($_POST['View'], $view)) {
 	$output = fopen("php://output", "w");
 	fputcsv($output, array('Project Title', 'Project Brief', 'Project Leader', 'Project Email', 'Project Status'));
 	if ($status == "All"){
-		$query = "SELECT pro_title, pro_brief, pro_leader, pro_email, pro_status FROM project";
+		$query = "SELECT pro_title, pro_brief, pro_leader, pro_email, pro_status FROM project ORDER BY FIELD(pro_status, 'Active', 'Planning', 'Inactive', 'Cancelled'), pro_title ASC";
 	} else {
-		$query = "SELECT pro_title, pro_brief, pro_leader, pro_email, pro_status FROM project WHERE pro_status = '".$status."'";
+		$query = "SELECT pro_title, pro_brief, pro_leader, pro_email, pro_status FROM project WHERE pro_status = '".$status."' ORDER BY FIELD(pro_status, 'Active', 'Planning', 'Inactive', 'Cancelled'), pro_title ASC";
 	}
 	$result = mysqli_query($CON, $query);
 	while($row = mysqli_fetch_assoc($result))

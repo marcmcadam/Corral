@@ -1,6 +1,17 @@
 <?php
+session_start();
 
-require('../DATABASE/CONNECTDB.PHP');
+if ( !isset($_SESSION['STAFF_ID'])) {
+	$_SESSION['message'] = "You must log in before viewing this page";
+	header("location: ../ACCESS/error");
+	}
+	else {
+	$id = $_SESSION['STAFF_ID'];
+	$staff_firstname = $_SESSION['STAFF_FIRSTNAME'];
+	$staff_lastname = $_SESSION['STAFF_LASTNAME'];
+	}
+
+require_once "../DATABASE/CONNECTDB.PHP";
 
 //Get All Survey
 $query = "SELECT student.stu_FirstName, student.stu_LastName, surveyanswer.* FROM surveyanswer INNER JOIN student ON surveyanswer.stu_ID = student.stu_ID";
@@ -10,7 +21,7 @@ if (!$result = mysqli_query($CON, $query)) {
 else{
   //headers so file is downloaded, not displayed
   header('Content-Type: text/csv; charset=utf-8');
-  header('Content-Disposition: attachment; filename=studentlist.csv');
+  header('Content-Disposition: attachment; filename=surveyanswers.csv');
   //create output variable
   $output = fopen('php://output', 'w');
   //column headings

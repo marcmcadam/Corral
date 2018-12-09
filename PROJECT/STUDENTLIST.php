@@ -9,7 +9,7 @@
 <form action="STUDENTPDF" method="post">
 	<input type="submit" value="Export Student List To PDF">
 </form>
-<form action="SURVEYCSV" method="post">
+<form action="../SURVEY/SURVEYCSV" method="post">
 	<input type="submit" value="Export Student Survey To CSV">
 </form>
 <br>
@@ -34,10 +34,10 @@
     while ($row = mysqli_fetch_assoc($res))
     {
         $stu_id = $row["stu_ID"];
-        
+
         $surveySQL = "SELECT a.stu_Id as 'stu_Id' FROM surveyanswer a WHERE a.stu_Id = $stu_id";
         $surveys = mysqli_query($CON, $surveySQL);
-        
+
         if (!$surveys)
             $surveyDone = "?";
         else
@@ -45,7 +45,7 @@
             $count = 0;
             while ($surveyRow = mysqli_fetch_assoc($surveys))
                 $count += 1;
-            
+
             if ($count == 0)
                 $surveyDone = "-";
             else if ($count == 1)
@@ -53,10 +53,10 @@
             else
                 $surveyDone = "$count!";
         }
-        
+
         $groupsSQL = "SELECT * FROM groups WHERE stu_Id = $stu_id";
         $groups = mysqli_query($CON, $groupsSQL);
-        
+
         if (!$groups)
             $projectText = "?";
         else
@@ -65,13 +65,13 @@
             while ($groupRow = mysqli_fetch_assoc($groups))
             {
                 $pro_num = $groupRow["pro_num"];
-                
+
                 $found = false;
                 if (!is_null($pro_num))
                 {
                     $projectSQL = "SELECT * FROM project WHERE pro_num = $pro_num";
                     $projects = mysqli_query($CON, $projectSQL);
-                    
+
                     if ($projects)
                     {
                         while ($projectRow = mysqli_fetch_assoc($projects))
@@ -89,7 +89,7 @@
             else
                 $projectText = join(", ", $projectTitles);
         }
-        
+
         echo "<tr>
             <td align='center'>$stu_id</td>
             <td align='center'>{$row['stu_FirstName']}</td>
@@ -117,6 +117,6 @@
     echo "</table>";
     mysqli_free_result($res);
     mysqli_close($CON);
-    
+
     require "../PAGES/FOOTER_STAFF.PHP";
 ?>

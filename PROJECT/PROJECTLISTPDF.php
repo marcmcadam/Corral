@@ -1,44 +1,20 @@
 <?php
 session_start();
 
-if ( $_SESSION['STAFF_ID'] != 1) {
-	$_SESSION['message'] = "You mus log in before viewing this page";
-	header("location: ../ACCESS/error");
+if ( !isset($_SESSION['STAFF_ID'])) {
+	$_SESSION['message'] = "You must log in before viewing this page";
+	header("location: ../ACCESS/stafflogin.php");
 	}
 	else {
 	$id = $_SESSION['STAFF_ID'];
 	$staff_firstname = $_SESSION['STAFF_FIRSTNAME'];
 	$staff_lastname = $_SESSION['STAFF_LASTNAME'];
 	}
-function fetch_data()
-{
-require('../DATABASE/CONNECTDB.PHP');
-	$Status = $_POST['View'];
-	$output = "";
-	if ($Status == "All"){
-		$sql = "SELECT pro_num, pro_title, pro_brief, pro_leader, pro_email, pro_status FROM project";
-	} else {
-		$sql = "SELECT pro_num, pro_title, pro_brief, pro_leader, pro_email, pro_status FROM project WHERE pro_status = '".$Status."'";
-	}
-	$result = mysqli_query($CON, $sql);
-	while($row = mysqli_fetch_array($result))
-	{
-		$output .= '
-			<tr>
-				<td>'.$row["pro_num"].'</td>
-				<td>'.$row["pro_title"].'</td>
-				<td>'.$row["pro_brief"].'</td>
-				<td>'.$row["pro_leader"].'</td>
-				<td>'.$row["pro_email"].'</td>
-				<td>'.$row["pro_status"].'</td>
-			</tr>
-		';
-	}
-	return $output;
-}
-if(isset($_POST['export_PDF']))
-{
-	require_once('../TCPDF/tcpdf.php');
+
+$view = ["All", "Active","Inactive","Planning","Cancelled"];
+if(isset($_POST['View']) && in_array($_POST['View'], $view)) {
+	require_once "../DATABASE/CONNECTDB.PHP";
+	require_once "../TCPDF/tcpdf.php";
 	$obj_pdf = new TCPDF('P', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 	$obj_pdf->SetCreator(PDF_CREATOR);
 	$obj_pdf->SetTitle("Project Results");
@@ -58,7 +34,6 @@ if(isset($_POST['export_PDF']))
 	<h4>Project Results</h4>
 	<table border="1" cellspacing="0" cellpadding="3">
 		<tr>
-			<th>Project Number</th>
 			<th>Project Title</th>
 			<th>Project Brief</th>
 			<th>Project Leader</th>
@@ -66,10 +41,27 @@ if(isset($_POST['export_PDF']))
 			<th>Project Status</th>
 		</tr>
 	';
-	$content .= fetch_data();
+
+	$status = $_POST['View'];
+	if ($status == "All"){
+		$sql = "SELECT pro_title, pro_brief, pro_leader, pro_email, pro_status FROM project";
+	} else {
+		$sql = "SELECT pro_title, pro_brief, pro_leader, pro_email, pro_status FROM project WHERE pro_status = '".$status."'";
+	}
+	$result = mysqli_query($CON, $sql);
+	while($row = mysqli_fetch_array($result)) {
+		$content .= '
+			<tr>
+				<td>'.$row["pro_title"].'</td>
+				<td>'.$row["pro_brief"].'</td>
+				<td>'.$row["pro_leader"].'</td>
+				<td>'.$row["pro_email"].'</td>
+				<td>'.$row["pro_status"].'</td>
+			</tr>
+		';
+	}
 	$content .= '</table>';
 	$obj_pdf->writeHTML($content);
 	$obj_pdf->Output('file.pdf', 'I');
 }
-
 ?>
