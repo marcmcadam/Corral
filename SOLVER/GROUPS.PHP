@@ -96,7 +96,7 @@
                 if ($bias > 0.25)
                     echo "High";
                 else if ($bias > -0.25)
-                    echo "Medium";
+                    echo "Normal";
                 else
                     echo "Low";
             }

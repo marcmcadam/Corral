@@ -15,7 +15,7 @@ $numSkills = 11;
 $rarity = 2.0;
 
 // Insert sample data into table
-$surveydata = "INSERT INTO surveyanswer (stu_ID,stu_hc,stu_js,stu_php,stu_java,stu_c,stu_cpp,stu_oc,stu_db,stu_u3,stu_ui,stu_se) VALUES ";
+$surveydata = "INSERT INTO surveyanswer (stu_ID,stu_skill_01, stu_skill_02, stu_skill_03, stu_skill_04, stu_skill_05, stu_skill_06, stu_skill_07, stu_skill_08, stu_skill_09, stu_skill_10, stu_skill_11) VALUES ";
 $studentIDs = [
 216856084,
 216116590,

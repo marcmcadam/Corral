@@ -17,7 +17,7 @@ $rarity = 200;
 require_once "RANDOM.PHP";
 
 // Insert sample data into table
-$PROJECT = "INSERT INTO project (pro_title, pro_brief, pro_leader, pro_email, pro_status, pro_min, pro_max, pro_imp, pro_hc, pro_js, pro_php, pro_java, pro_c, pro_cpp, pro_oc, pro_db, pro_u3, pro_ui, pro_se) VALUES ";
+$PROJECT = "INSERT INTO project (pro_title, pro_brief, pro_leader, pro_email, pro_status, pro_min, pro_max, pro_imp, pro_skill_01, pro_skill_02, pro_skill_03, pro_skill_04, pro_skill_05, pro_skill_06, pro_skill_07, pro_skill_08, pro_skill_09, pro_skill_10, pro_skill_11) VALUES ";
 for ($i = 0; $i < 20; $i += 1)
 {
     if ($i > 0)
@@ -28,7 +28,6 @@ for ($i = 0; $i < 20; $i += 1)
     $status = randomProjectStatus();
     $PROJECT .= '("Project ' . $i . '"' . ",'Lorem Ipsum','Project Leader','projectleader@deakin.edu.au','".$status."',$min,$max,$imp," . join(", ", $skills) . ')';
 }
-echo "Query is: ".$PROJECT;
 
 if (mysqli_query($CON,$PROJECT)) {
   echo "<p>Sample projects inserted</p>";
