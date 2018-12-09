@@ -24,7 +24,6 @@ else
 
 <body>
 <div class="navbar">
-	<a href="../PAGES/STUDENTHOME">Corral</a>
 	<a href="../SURVEY/STUDENTSURVEY">Survey</a>
 	<a href="../Access/LOGOUT">Logout</a>
 </div>
