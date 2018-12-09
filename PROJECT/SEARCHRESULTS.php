@@ -17,13 +17,13 @@ $where = "";
 if ($FirstName != ""){
 	if ($where == ""){
 		if ($View == 'student') {
-			$where = " WHERE stu_FirstName like '".$FirstName."'";
+			$where = " WHERE STUDENT_FIRSTNAME like '".$FirstName."'";
 		} else {
 			$where = " WHERE STAFF_FIRSTNAME like '".$FirstName."'";
 		}
 	} else {
 		if ($View == "student") {
-			$where = " AND WHERE stu_FirstName like '".$FirstName."'";
+			$where = " AND WHERE STUDENT_FIRSTNAME like '".$FirstName."'";
 		} else {
 			$where = " AND WHERE STAFF_FIRSTNAME like '".$FirstName."'";
 		}
@@ -33,13 +33,13 @@ if ($FirstName != ""){
 if ($Email != ""){
 	if ($where == ""){
 		if ($View == 'student') {
-			$where = " WHERE stu_Email like '".$Email."'";
+			$where = " WHERE STUDENT_EMAIL like '".$Email."'";
 		} else {
 			$where = " WHERE STAFF_EMAIL like '".$Email."'";
 		}
 	} else {
 		if ($View == "student") {
-			$where = " WHERE stu_FirstName like '".$FirstName."' AND stu_Email like '".$Email."'";
+			$where = " WHERE STUDENT_FIRSTNAME like '".$FirstName."' AND STUDENT_EMAIL like '".$Email."'";
 		} else {
 			$where = " WHERE STAFF_FIRSTNAME like '".$FirstName."'  AND STAFF_EMAIL like '".$Email."'";
 		}
@@ -49,7 +49,7 @@ if ($Email != ""){
 if ($Location != ""){
 	if ($where == ""){
 		if ($View == 'student') {
-			$where = " WHERE stu_Campus = '".$Location."'";
+			$where = " WHERE STUDENT_LOCATION = '".$Location."'";
 		} else {
 			$where = " WHERE STAFF_LOCATION = '".$Location."'";
 		}
@@ -57,13 +57,13 @@ if ($Location != ""){
 		if ($FirstName != ""){
 			if ($Email != ""){
 				if ($View == 'student'){
-					$where = " WHERE stu_FirstName like '".$FirstName."' AND stu_Email like '".$Email."' AND stu_Campus = '".$Location."'";
+					$where = " WHERE STUDENT_FIRSTNAME like '".$FirstName."' AND STUDENT_EMAIL like '".$Email."' AND STUDENT_LOCATION = '".$Location."'";
 				} else {
 					$where = " WHERE STAFF_FIRSTNAME like '".$FirstName."' AND STAFF_EMAIL like '".$Email."' AND STAFF_LOCATION = '".$Location."'";
 				}
 			} else {
 				if ($View == 'student'){
-					$where = " WHERE stu_FirstName like '".$FirstName."' AND stu_Campus = '".$Location."'";
+					$where = " WHERE STUDENT_FIRSTNAME like '".$FirstName."' AND STUDENT_LOCATION = '".$Location."'";
 				} else {
 					$where = " WHERE STAFF_FIRSTNAME like '".$FirstName."' AND STAFF_LOCATION = '".$Location."'";
 				}
@@ -71,7 +71,7 @@ if ($Location != ""){
 		} else {
 			if ($Email != ""){
 				if ($View == 'student'){
-					$where = " WHERE stu_Email like '".$Email."' AND stu_Campus = '".$Location."'";
+					$where = " WHERE STUDENT_EMAIL like '".$Email."' AND STUDENT_LOCATION = '".$Location."'";
 				} else {
 					$where = " WHERE STAFF_EMAIL like '".$Email."' AND STAFF_LOCATION = '".$Location."'";
 				}
@@ -87,7 +87,7 @@ echo "<p><table width='900px'  border='1px' cellpadding='10px'></p>";
 		echo "<tr><th>ID</th><th>First Name</th><th>Email</th><th>Location</th></tr>";
 		while ($row=mysqli_fetch_assoc($res)){
 			if ($View == "student") {
-				echo "<tr><td align='center'>{$row['stu_ID']}</td><td align='center'>{$row['stu_FirstName']}</td><td align='center'>{$row['stu_Email']}</td><td align='center'>{$row['stu_Campus']}</td></tr>";
+				echo "<tr><td align='center'>{$row['STUDENT_ID']}</td><td align='center'>{$row['STUDENT_FIRSTNAME']}</td><td align='center'>{$row['STUDENT_EMAIL']}</td><td align='center'>{$row['STUDENT_LOCATION']}</td></tr>";
 			}
 			if ($View == "staff") {
 				echo "<tr><td align='center'>{$row['STAFF_ID']}</td><td align='center'>{$row['STAFF_FIRSTNAME']}</td><td align='center'>{$row['STAFF_EMAIL']}</td><td align='center'>{$row['STAFF_LOCATION']}</td></tr>";
