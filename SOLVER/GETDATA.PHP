@@ -53,6 +53,10 @@
     $sql = "SELECT pro_num, pro_title, pro_min, pro_max, pro_imp, pro_skill_01, pro_skill_02, pro_skill_03, pro_skill_04, pro_skill_05, pro_skill_06, pro_skill_07, pro_skill_08, pro_skill_09, pro_skill_10, pro_skill_11, pro_skill_12, pro_skill_13, pro_skill_14, pro_skill_15, pro_skill_16, pro_skill_17, pro_skill_18, pro_skill_19, pro_skill_20 FROM project";
     $res = mysqli_query($CON, $sql);
 
+    $proportionalOverride = true;
+    $projectOverride = [];
+    $overrideTotal = 0;
+
     $projectNames = [];
     $projectText = [];
     $projectMinima = [];
@@ -70,8 +74,21 @@
 
         $projectNames[$rowP] = $pid;
 
-        $projectMinima[$rowP] = (int)$row['pro_min'];
-        $projectMaxima[$rowP] = (int)$row['pro_max'];
+        $min = (int)$row['pro_min'];
+        $max = (int)$row['pro_max'];
+
+        if ($proportionalOverride)
+        {
+            $value = (int)round($min + $max);
+            $projectOverride[$rowP] = $value;
+            $overrideTotal += $value;
+        }
+        else
+        {
+            $projectMinima[$rowP] = $min;
+            $projectMaxima[$rowP] = $max;
+        }
+
         $imp = (int)$row['pro_imp'];
         $projectImportance[$rowP] = $imp;
 
@@ -98,5 +115,26 @@
             $total += $demand->importance;
         }
         array_push($projects, $project);
+    }
+
+    // proportionally distribute students based on middles of projects min/max
+    $remaining = sizeof($students);
+    foreach ($projectOverride as $p => $value)
+    {
+        if ($overrideTotal == 0)
+            $proportion = 0.0;
+        else
+            $proportion = $value / $overrideTotal;
+        
+        $take = (int)round($remaining * $proportion);
+        $remaining -= $take;
+        $overrideTotal -= $value;
+        $projectMinima[$p] = $take;
+        $projectMaxima[$p] = $take;
+    }
+    if ($overrideTotal != 0 || $remaining != 0)
+    {
+        echo "Group size override failed";
+        die;
     }
 ?>

@@ -1,5 +1,5 @@
 <?php
-    require '../DATABASE/CONNECTDB.PHP';
+    require_once '../DATABASE/CONNECTDB.PHP';
     
     $pro_num = (int)mysqli_real_escape_string($CON, $_POST['pro_num']);
     $title = mysqli_real_escape_string($CON, $_POST['PRO_TITLE']);
@@ -7,6 +7,9 @@
     $email = mysqli_real_escape_string($CON, $_POST['PRO_EMAIL']);
     $brief = mysqli_real_escape_string($CON, $_POST['PRO_BRIEF']);
     $status = mysqli_real_escape_string($CON, $_POST['PRO_STATUS']);
+    $minimum = mysqli_real_escape_string($CON, $_POST['min']);
+    $maximum = mysqli_real_escape_string($CON, $_POST['max']);
+    $importance = mysqli_real_escape_string($CON, $_POST['impAll']);
 
     function postImportance($key)
     {
@@ -29,7 +32,7 @@
 
     // TODO: include updating pro_min, pro_max, pro_imp and biases
     
-    $sql = "UPDATE project SET pro_title='$title',pro_leader='$leader',pro_email='$email',pro_brief='$brief',pro_status='$status'";
+    $sql = "UPDATE project SET pro_title='$title',pro_leader='$leader',pro_email='$email',pro_brief='$brief',pro_status='$status', pro_min='$minimum', pro_max='$maximum', pro_imp='$importance'";
     for ($i = 0; $i < sizeof($columns); $i += 1)
     {
         $c = $columns[$i];

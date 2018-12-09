@@ -18,6 +18,9 @@
       $leader = $project['pro_leader'];
       $email = $project['pro_email'];
       $status = $project['pro_status'];
+      $minimum = $project['pro_min'];
+      $maximum = $project['pro_max'];
+      $importance = $project['pro_imp'];
 
       $columns = ["hc", "js", "php", "java", "c", "cpp", "oc", "db", "u3", "ui", "se"];
       $skillImp = [];
@@ -73,8 +76,13 @@
                   		<option value='Cancelled' ". ($status=='Cancelled' ? 'Selected' : '') .">Cancelled</option>
                   	</select>
                     <br>
-                    <h2>Project skills</h2>
-
+                    <h2>Sorting</h2>
+                    Number of members:<br>
+                    <br>
+                    Minimum <input type='text' name='min' value='$minimum'><br>
+                    <br>
+                    Maximum <input type='text' name='max' value='$maximum'><br>
+                    <h2>Skills</h2>
                     <table align='center'>
                         <tr>
                             <th>Skill</th>
@@ -82,11 +90,6 @@
                             <th> &nbsp; <!--bias--> </th>
                         </tr>
             ";
-            /*
-                <input type='radio' name='PRO_STATUS' value='active'>Active<br>
-                <input type='radio' name='PRO_STATUS' value='inactive'>Inactive<br>
-                <input type='radio' name='PRO_STATUS' value='planning'>Planning<br>
-            */
 
             skillOptions("HTML/CSS", 0);
             skillOptions("JavaScript", 1);
@@ -101,7 +104,7 @@
             skillOptions("Security", 10);
 
         echo '</table>
-        <input type="submit" action="UPDATE.PHP" value="Update Details">
+        <input type="submit" action="UPDATE.PHP" value="Save Changes" style="font-size: 1.5em; padding: 8px;">
     </form>';
 
   } else {

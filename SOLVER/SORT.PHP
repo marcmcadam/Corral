@@ -6,7 +6,7 @@
     
     if (isset($sortPID))
     {
-        echo "<br>Stop the previous sort before starting a new one.<br><br>";
+        echo "<p>Stop the previous sort before starting a new one.</p>";
         die;
     }
     
@@ -16,7 +16,7 @@
         flush();
     }
 
-    echo "<p>You may view the progress and results from the <a href='GROUPS.PHP' target='_blank'>List Groups</a> page.</p>";
+    echo "<p>You may view the results from <a href='GROUPS.PHP' target='_blank'>this page</a>.</p>";
     echo "Begin processing initialisation<br>";
     update();
     
@@ -39,7 +39,7 @@
     echo "Assignments erased<br>";
     update();
     
-    // generate dummy students to allow empty slots in groups for variables group sizes
+    // generate dummy students to allow empty slots in groups for variable group sizes
     // the number of dummies needed depends on the difference between the total max size for projects and the number of students
     $slots = 0;
     for ($p = 0; $p < sizeof($projects); $p += 1)
