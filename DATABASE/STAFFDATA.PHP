@@ -1,7 +1,7 @@
 <?php
 require "CONNECTDB.PHP";
 
-//empty existing student table
+//empty existing staff table
 $staff = "TRUNCATE staff";
 IF (MYSQLI_QUERY($CON, $staff)) {
   ECHO "<P>Staff data deleted</P>";
