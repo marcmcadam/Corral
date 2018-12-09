@@ -44,9 +44,9 @@ if(isset($_POST['View']) && in_array($_POST['View'], $view)) {
 
 	$status = $_POST['View'];
 	if ($status == "All"){
-		$sql = "SELECT pro_title, pro_brief, pro_leader, pro_email, pro_status FROM project";
+		$sql = "SELECT pro_title, pro_brief, pro_leader, pro_email, pro_status FROM project ORDER BY FIELD(pro_status, 'Active', 'Planning', 'Inactive', 'Cancelled'), pro_title ASC";
 	} else {
-		$sql = "SELECT pro_title, pro_brief, pro_leader, pro_email, pro_status FROM project WHERE pro_status = '".$status."'";
+		$sql = "SELECT pro_title, pro_brief, pro_leader, pro_email, pro_status FROM project WHERE pro_status = '".$status."' ORDER BY FIELD(pro_status, 'Active', 'Planning', 'Inactive', 'Cancelled'), pro_title ASC";
 	}
 	$result = mysqli_query($CON, $sql);
 	while($row = mysqli_fetch_array($result)) {
