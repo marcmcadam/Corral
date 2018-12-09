@@ -11,7 +11,8 @@
         die;
     }
     
-    echo "<br><br>Sorting will terminate at the next batch.<br><br>";
+    echo "<p>Sorting will terminate at the next batch.</p>";
+    echo "<p><a href='GROUPS'>Return to the results page.</a></p>";
     
     require "../PAGES/FOOTER_STAFF.PHP";
 ?>

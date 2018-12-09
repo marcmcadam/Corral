@@ -33,8 +33,8 @@
 <?php
     if (isset($sortPID))
     {
-        echo "<br>The sorter is running in the background.<br><br>";
-        echo "<a href='TERMINATE.PHP'>Stop</a><br><br>";
+        echo "<p>The sorter is running in the background.</p>";
+        echo "<p><a href='TERMINATE.PHP'>Stop</a></p>";
     }
 ?>
 <table border='0' align='center' cellpadding='0' cellspacing='0' style='text-align: center'>

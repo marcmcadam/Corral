@@ -41,7 +41,7 @@ else
 		</li><!--
         --><li><a href ="#"><p>Sorting</p></a>
             <ul>
-                <li><a href ="../SOLVER/BEGIN2"><p>Begin</p></a></li>
+                <li><a href ="../SOLVER/BEGIN"><p>Begin</p></a></li>
 				<li><a href ="../SOLVER/GROUPS"><p>Results</p></a></li>
             </ul>
         </li><!--

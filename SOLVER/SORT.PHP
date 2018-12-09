@@ -10,14 +10,16 @@
         die;
     }
     
+    $displayBatches = false;
+    
     function update()
     {
         ob_flush();
         flush();
     }
 
-    echo "<p>You may view the progress and results from the <a href='GROUPS.PHP' target='_blank'>List Groups</a> page.</p>";
-    echo "Begin processing initialisation<br>";
+    echo "<p>You may view the progress <a href='GROUPS.PHP' target='_blank'>from this page</a>.</p>";
+    echo "Begin initialisation<br>";
     update();
     
     $sortPID = getmypid();
@@ -238,12 +240,15 @@
                 }
             }
             
-            asort($solverStudents);
-            echo "<table cellpadding='4px' style='border-collapse: collapse;'><tr>";
-            foreach ($solverStudents as $y)
-                echo "<td>$y</td>";
-            echo "</tr></table>";
-            update();
+            if ($displayBatches)
+            {
+                asort($solverStudents);
+                echo "<table cellpadding='4px' style='border-collapse: collapse;'><tr>";
+                foreach ($solverStudents as $y)
+                    echo "<td>$y</td>";
+                echo "</tr></table>";
+                update();
+            }
             
             set_time_limit(30);
             $solver->iterate();

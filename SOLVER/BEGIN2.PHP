@@ -1,5 +1,5 @@
 <?php
-    $PageTitle = "Begin Solving";
+    $PageTitle = "Sorting Started";
     require "../PAGES/HEADER_STAFF.PHP";
     
     $isWindows = (substr(php_uname(), 0, 7) == "Windows");
