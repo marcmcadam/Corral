@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['STUDENT_FIRSTNAME'] = $user['STUDENT_FIRSTNAME'];
         $_SESSION['STUDENT_LASTNAME'] = $user['STUDENT_LASTNAME'];
         // Successful login.
-        header("location: ../PAGES/STUDENTHOME.PHP");
+        header("location: ../SURVEY/STUDENTSURVEY.PHP");
       } else {
         // Invalid login.
         $login_Error = TRUE;
