@@ -1,7 +1,7 @@
 <?php
  	$PageTitle = "Student Survey";
 	require "../PAGES/HEADER_STUDENT.PHP";
-    
+
     function skillOptions($title, $key)
     {
         /*echo "<tr>
@@ -57,7 +57,7 @@
 <div style="text-align: center;">
     <h1>Skills Survey</h1>
     <form action="../SURVEY/surveyprocess" method="post">
-    
+
     <table align="center"><tr>
     <th>&nbsp;</th>
     <th>Expert</th>
@@ -81,7 +81,7 @@
     ?>
     </table>
     <br>
-    <input type="submit" value="Submit Responses" class="inputSubmit">
+    <input type="submit" onclick="return confirm('Are you sure?')" value="Submit Responses" class="inputSubmit">
     </form>
 </div>
 <?php require "../PAGES/FOOTER_STUDENT.PHP"; ?>
