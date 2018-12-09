@@ -57,9 +57,9 @@ $student = "CREATE TABLE student (
     stu_Campus int(1) NOT NULL,
     stu_Email varchar(32) NOT NULL,
     stu_Password varchar(64) NOT NULL,
-    stu_Timestamp datetime,
-    stu_LockedOut tinyint(1),
-    stu_LoginAttempts int(11),
+    stu_Timestamp timestamp NOT NULL default now(),
+    stu_LockedOut boolean NOT NULL default false,
+    stu_LoginAttempts tinyint(1) NOT NULL default 3,
     PRIMARY KEY (stu_ID)
 )";
 if (mysqli_query($CON,$student)) {
