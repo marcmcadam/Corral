@@ -14,8 +14,8 @@ function validate(search) {
 
 <h2>Project View</h2>
 <form action="../PROJECT/SEARCHRESULTS" style="margin-left: 40px" method="post" name="search" id="search" onSubmit="return validate(search)">
-	What are you searching for: <select name="View">
-		<option value="">--Select--</option>
+	What are you searching for: <select required name="View">
+		<option value="">--Select-- </option>
 		<option value="student">Students</option>
 		<option value="staff">Staff</option>
 	</select><br><br>
