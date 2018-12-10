@@ -19,6 +19,7 @@ $skillNames = [
   "Python",
   "Database",
   "Network",
+  null,
   "Unity",
   "Security",
   "Cloud",
@@ -26,12 +27,9 @@ $skillNames = [
   "UI",
   "Maths",
   "Media",
-  null,
-  null,
-  null,
   "Management",
   "Written",
-  "Verbal",
+  "Verbal"
 ];
 
 $insert = "INSERT INTO skillnames (skill_ID";

@@ -29,20 +29,27 @@
     // Validate inputs
     $valid = TRUE;
 
-    $i = 1;
+    $i = 0;
     $survey_results = [];
-    while (isset($_POST[$i])) {
-      if(preg_match('/^[0-4]$/',$_POST[$i])) {
-        $survey_results['stu_skill_'.sprintf("%02d", $i)] = $_POST[$i];
-      } else {
-        $valid = FALSE;
-      }
-      $i++;
+    for ($i = 0; $i < 20; $i += 1)
+    {
+        if (isset($_POST[$i]))
+        {
+            $value = $_POST[$i];
+            if (!is_null($value))
+            {
+              if(preg_match('/^[0-4]$/', $value)) {
+                $survey_results['stu_skill_'.sprintf("%02d", $i)] = $value;
+              } else {
+                $valid = FALSE;
+              }
+            }
+        }
     }
     if ($valid) {
+      $count = sizeof($survey_results);
       $keys = array_keys($survey_results);
       $values = array_values($survey_results);
-      $count = --$i; // How many skills assessed
       // Check to see if a survey exists already for this student
       $query = "SELECT * FROM surveyanswer WHERE stu_ID='$id'";
       $result = mysqli_query($CON, $query) or die(mysqli_error($CON));
@@ -83,7 +90,7 @@
     }
     if (!$error) {
       echo "<h2>Survey Complete</h2>";
-      echo "<p>Thankyou for completing the skills survey.</p>";
+      echo "<p>Thank you for completing the skills survey.</p>";
     }
   } else { // If not submitted, print form:
 ?>
@@ -100,6 +107,9 @@
     td div {
         width: 100%;
         height: 100%;
+    }
+    td:hover div {
+        background: #e0e0e0;
     }
     .inputSubmit {
         font-size: 1.5em;
@@ -128,9 +138,10 @@
   $row = mysqli_fetch_assoc($res);
 
   // Call skillOptions() to print a row for skill_## (01-20) if that skill has a name value
-  for ($i=0; $i<20; $i++) {
-    if (isset($row['skill_'.sprintf('%02d',$i)])) {
-      skillOptions($row['skill_'.sprintf('%02d',$i)], $i);
+    for ($i=0; $i<20; $i++) {
+        $name = $row['skill_'.sprintf('%02d',$i)];
+        if (!is_null($name)) {
+        skillOptions($name, $i);
     }
   }
 ?>
