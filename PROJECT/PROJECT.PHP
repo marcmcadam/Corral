@@ -1,8 +1,66 @@
 <?php
     $PageTitle = "Project Details";
     require "../PAGES/HEADER_STAFF.PHP";
-    require '../DATABASE/CONNECTDB.PHP';
+    require_once '../DATABASE/CONNECTDB.PHP';
+    
+    if ($_SERVER["REQUEST_METHOD"] == "POST")
+    {
+        $pro_num = (int)mysqli_real_escape_string($CON, $_POST['pro_num']);
+        $title = mysqli_real_escape_string($CON, $_POST['PRO_TITLE']);
+        $leader = mysqli_real_escape_string($CON, $_POST['PRO_LEADER']);
+        $email = mysqli_real_escape_string($CON, $_POST['PRO_EMAIL']);
+        $brief = mysqli_real_escape_string($CON, $_POST['PRO_BRIEF']);
+        $status = mysqli_real_escape_string($CON, $_POST['PRO_STATUS']);
+        $minimum = mysqli_real_escape_string($CON, $_POST['min']);
+        $maximum = mysqli_real_escape_string($CON, $_POST['max']);
+        $importance = mysqli_real_escape_string($CON, $_POST['impAll']);
 
+        function postImportance($key)
+        {
+            global $CON;
+            $value = mysqli_real_escape_string($CON, $_POST["imp$key"]);
+            return min(max((int)$value, 0), 100);
+        }
+        
+        function postBias($key)
+        {
+            global $CON;
+            $value = mysqli_real_escape_string($CON, $_POST["bias$key"]);
+            return min(max((int)$value, -1), 1);
+        }
+        
+        $numSkills = 20;
+
+        $skillImp = [];
+        $skillBias = [];
+        for ($s = 0; $s < $numSkills; $s += 1)
+        {
+            array_push($skillImp, postImportance($s));
+            array_push($skillBias, postBias($s));
+        }
+
+        $sql = "UPDATE project SET pro_title='$title',pro_leader='$leader',pro_email='$email',pro_brief='$brief',pro_status='$status', pro_min='$minimum', pro_max='$maximum', pro_imp='$importance'";
+        for ($i = 0; $i < $numSkills; $i += 1)
+        {
+            $imp = $skillImp[$i];
+            $bias = $skillBias[$i];
+            $sql .= ", pro_skill_".sprintf("%02d", $i)."=$imp";
+            $sql .= ", pro_bias_".sprintf("%02d", $i)."=$bias";
+        }
+        $sql .= " WHERE pro_num = $pro_num";
+        $query = mysqli_query($CON, $sql);
+        if (!$query)
+            echo mysqli_error($CON);
+        else
+            header("location: PROJECTLIST.PHP");
+    }
+    else
+    {
+
+    }
+?>
+
+<?php
     $numSkills = 20;
     $surveyID = 1;
     require '../DATABASE/SKILLNAMES.PHP';
@@ -56,17 +114,16 @@
               <td><input type='range' min='-1' max='1' name='bias$key' value='$bias'><br><br></td>
           </tr>";
       }
-      echo ';
+      echo ";
         <style>
           th, td {
               padding: 8px 16px;
           }
         </style>
-        <div style="text-align: center">
+        <div style='text-align: center'>
         <h1>Project Details</h1><br>
-        <form action="UPDATE.PHP" method="post">';
-
-        echo "  <input hidden type='text' name='pro_num' value='$pro_num'>
+        <form method='post'>
+            <input hidden type='text' name='pro_num' value='$pro_num'>
                 Project Title<br>
                 <input type='text' name='PRO_TITLE' id='ip2' value='$title'><br><br>
                 Project Leader<br>
@@ -76,7 +133,7 @@
                 Project Brief<br>
                 <textarea name='PRO_BRIEF' rows='5' cols='40' id='ip3'>$brief</textarea><br><br>
                 <h2>Project Status</h2>
-                <select name='View'>
+                <select name='PRO_STATUS'>
                     <option value='Active' ". ($status=='Active' ? 'Selected' : '') .">Active</option>
                     <option value='Inactive' ". ($status=='Inactive' ? 'Selected' : '') .">Inactive</option>
                     <option value='Planning' ". ($status=='Planning' ? 'Selected' : '') .">Planning</option>
@@ -107,12 +164,12 @@
         for ($i = 0; $i < $numSkills; $i += 1)
             skillOptions($i);
 
-        echo '</table>
-        <input type="submit" action="UPDATE.PHP" value="Save Changes" style="font-size: 1.5em; padding: 8px;">
-    </form>';
-
-  } else {
-    echo "<h2>Invalid Project</h2>";
-  } ?>
-</div>
-<?php require "../PAGES/FOOTER_STAFF.PHP"; ?>
+        echo '  </table>
+            <input type="submit" value="Save Changes" style="font-size: 1.5em; padding: 8px;">
+        </form>
+        </div>';
+    } else {
+        echo "<h2>Invalid Project</h2>";
+    }
+    require "../PAGES/FOOTER_STAFF.PHP";
+?>

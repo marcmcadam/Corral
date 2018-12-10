@@ -197,7 +197,6 @@
             $solver->numSkills = $numSkills;
             $solver->usedSkills = $usedSkills;
             
-            $inertiaUp = (bool)(($batch % 2) == 1);
             $solver->inertia = (int)($maxInertia * $batch / $numBatches);
             //$solver->inertia = 0;
             

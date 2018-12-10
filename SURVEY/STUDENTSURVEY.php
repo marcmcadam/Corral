@@ -137,7 +137,7 @@
   $res = mysqli_query($CON, $sql);
   $row = mysqli_fetch_assoc($res);
 
-  // Call skillOptions() to print a row for skill_## (01-20) if that skill has a name value
+  // Call skillOptions() to print a row for skill_## if that skill has a name value
     for ($i=0; $i<20; $i++) {
         $name = $row['skill_'.sprintf('%02d',$i)];
         if (!is_null($name)) {
