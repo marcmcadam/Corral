@@ -3,6 +3,10 @@
     require "../PAGES/HEADER_STAFF.PHP";
     require '../DATABASE/CONNECTDB.PHP';
 
+    $numSkills = 20;
+    $surveyID = 1;
+    require '../DATABASE/SKILLNAMES.PHP';
+
     $pro_num = filter_input(INPUT_GET, 'number', FILTER_VALIDATE_INT);
     if($pro_num) {
       $sql="SELECT * FROM project WHERE pro_num = $pro_num";
@@ -22,31 +26,34 @@
       $maximum = $project['pro_max'];
       $importance = $project['pro_imp'];
 
-      $columns = ["hc", "js", "php", "java", "c", "cpp", "oc", "db", "u3", "ui", "se"];
+      $numSkills = 20;
+
       $skillImp = [];
-      $skillBias = array_fill(0, 11, 0); //[];
-      foreach ($columns as $c)
+      $skillBias = [];
+      for ($i = 0; $i < $numSkills; $i += 1)
       {
-          $imp = (int)$project["pro_$c"];
-          // TODO: bias from database
+          $imp = (int)$project["pro_skill_".sprintf("%02d", $i)];
+          $bias = (int)$project["pro_bias_".sprintf("%02d", $i)];
           array_push($skillImp, $imp);
+          array_push($skillBias, $bias);
       }
 
-      function skillOptions($title, $n)
+      function skillOptions($n)
       {
-          global $columns;
+          global $skillNames;
           global $skillImp;
           global $skillBias;
 
-          $key = $columns[$n];
+          $key = $n;
+          $name = $skillNames[$n];
           $imp = $skillImp[$n];
           $bias = $skillBias[$n];
 
           echo "<tr>
-              <td>$title</td>
+              <td>$name</td>
               <td><input type='range' min='0' max='100' id='imp$key' name='imp$key' value='$imp' oninput='outImp$key.value=imp$key.value'><br><br></td>
               <td style='width: 32px'><output name='outImp$key' id='outImp$key' for='imp$key'>$imp</output><br><br></td>
-              <td><input hidden type='range' min='-1' max='1' value='0' name='bias$key' value='$bias'><br><br></td>
+              <td><input type='range' min='-1' max='1' name='bias$key' value='$bias'><br><br></td>
           </tr>";
       }
       echo ';
@@ -59,49 +66,46 @@
         <h1>Project Details</h1><br>
         <form action="UPDATE.PHP" method="post">';
 
-            echo "  <input hidden type='text' name='pro_num' value='$pro_num'>
-                    Project Title<br>
-                    <input type='text' name='PRO_TITLE' id='ip2' value='$title'><br><br>
-                    Project Leader<br>
-                    <input type='text' name='PRO_LEADER' id='ip2' value='$leader'><br><br>
-                    Leader Email<br>
-                    <input type='email' name='PRO_EMAIL' id='ip2' value='$email'><br><br>
-                    Project Brief<br>
-                    <textarea name='PRO_BRIEF' rows='5' cols='40' id='ip3'>$brief</textarea><br><br>
-                    <h2>Project Status</h2>
-                    <select name='View'>
-                  		<option value='Active' ". ($status=='Active' ? 'Selected' : '') .">Active</option>
-                  		<option value='Inactive' ". ($status=='Inactive' ? 'Selected' : '') .">Inactive</option>
-                  		<option value='Planning' ". ($status=='Planning' ? 'Selected' : '') .">Planning</option>
-                  		<option value='Cancelled' ". ($status=='Cancelled' ? 'Selected' : '') .">Cancelled</option>
-                  	</select>
-                    <br>
-                    <h2>Sorting</h2>
-                    Number of members:<br>
-                    <br>
-                    Minimum <input type='text' name='min' value='$minimum'><br>
-                    <br>
-                    Maximum <input type='text' name='max' value='$maximum'><br>
-                    <h2>Skills</h2>
-                    <table align='center'>
-                        <tr>
-                            <th>Skill</th>
-                            <th>Importance</th>
-                            <th> &nbsp; <!--bias--> </th>
-                        </tr>
-            ";
+        echo "  <input hidden type='text' name='pro_num' value='$pro_num'>
+                Project Title<br>
+                <input type='text' name='PRO_TITLE' id='ip2' value='$title'><br><br>
+                Project Leader<br>
+                <input type='text' name='PRO_LEADER' id='ip2' value='$leader'><br><br>
+                Leader Email<br>
+                <input type='email' name='PRO_EMAIL' id='ip2' value='$email'><br><br>
+                Project Brief<br>
+                <textarea name='PRO_BRIEF' rows='5' cols='40' id='ip3'>$brief</textarea><br><br>
+                <h2>Project Status</h2>
+                <select name='View'>
+                    <option value='Active' ". ($status=='Active' ? 'Selected' : '') .">Active</option>
+                    <option value='Inactive' ". ($status=='Inactive' ? 'Selected' : '') .">Inactive</option>
+                    <option value='Planning' ". ($status=='Planning' ? 'Selected' : '') .">Planning</option>
+                    <option value='Cancelled' ". ($status=='Cancelled' ? 'Selected' : '') .">Cancelled</option>
+                </select>
+                <br>
+                <h2>Sorting</h2>
+                Number of members:<br>
+                <br>
+                Minimum <input type='text' name='min' value='$minimum'><br>
+                <br>
+                Maximum <input type='text' name='max' value='$maximum'><br>
+                <h2>Skills</h2>
+                <table align='center'>
+                    <tr>
+                        <th>Skill</th>
+                        <th>Importance</th>
+                        <th>&nbsp;</th>
+                        <th>Bias</th>
+                    </tr>
+                    <tr>
+                        <td>All</td>
+                        <td><input type='range' min='0' max='100' id='impAll' name='impAll' value='$importance' oninput='outImpAll.value=impAll.value'><br><br></td>
+                        <td style='width: 32px'><output name='outImpAll' id='outImpAll' for='impAll'>$importance</output><br><br></td>
+                    </tr>
+        ";
 
-            skillOptions("HTML/CSS", 0);
-            skillOptions("JavaScript", 1);
-            skillOptions("PHP", 2);
-            skillOptions("Java", 3);
-            skillOptions("C", 4);
-            skillOptions("C++", 5);
-            skillOptions("Objective-C", 6);
-            skillOptions("Database", 7);
-            skillOptions("Unity", 8);
-            skillOptions("UI", 9);
-            skillOptions("Security", 10);
+        for ($i = 0; $i < $numSkills; $i += 1)
+            skillOptions($i);
 
         echo '</table>
         <input type="submit" action="UPDATE.PHP" value="Save Changes" style="font-size: 1.5em; padding: 8px;">

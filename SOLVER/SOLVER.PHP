@@ -17,6 +17,7 @@
     {
         public $displayOutput = false; // mostly unused at the moment
         public $numSkills;
+        public $usedSkills;
         
         // multiplies floating point by this before converting to integer
         public $discretisation = 1.0;
@@ -60,6 +61,7 @@
             
             $displayOutput = $this->displayOutput;
             $numSkills = $this->numSkills;
+            $usedSkills = $this->usedSkills;
             $discretisation = $this->discretisation;
             $randomisation = $this->randomisation;
             $inertia = $this->inertia;
@@ -89,6 +91,9 @@
             {
                 for ($s = 0; $s < $numSkills; $s += 1)
                 {
+                    if (!$usedSkills[$s])
+                        continue;
+
                     $demand = $projects[$p][$s];
                     $total = 0.0;
                     foreach ($projectStudents[$p] as $y)
@@ -114,6 +119,9 @@
                 $skillTotal = 0.0;
                 for ($s = 0; $s < $numSkills; $s += 1)
                 {
+                    if (!$usedSkills[$s])
+                        continue;
+                        
                     $value = $students[$y][$s];
                     $skillTotal += $value * $value;
                 }
@@ -135,6 +143,9 @@
                             $impTotal = 0.0;
                             for ($s = 0; $s < $numSkills; $s += 1)
                             {
+                                if (!$usedSkills[$s])
+                                    continue;
+                                    
                                 $demand = $projects[$currentProject][$s];
                                 $satisfaction += $demand->importance * $students[$y][$s];
                                 $impTotal += $demand->importance * $demand->importance;
@@ -150,6 +161,9 @@
                             $impTotal = 0.0;
                             for ($s = 0; $s < $numSkills; $s += 1)
                             {
+                                if (!$usedSkills[$s])
+                                    continue;
+                                    
                                 $demand = $projects[$nextProject][$s];
                                 $satisfaction += $demand->importance * $students[$y][$s];
                                 $impTotal += $demand->importance * $demand->importance;
@@ -161,6 +175,9 @@
                         
                         for ($s = 0; $s < $numSkills; $s += 1)
                         {
+                            if (!$usedSkills[$s])
+                                continue;
+                                
                             $d = 0.0;
                             
                             // measure how significant the member is to satisfying the project's needs

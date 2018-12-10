@@ -114,7 +114,7 @@ $insert = 'INSERT INTO student (stu_ID, stu_FirstName, stu_LastName, stu_Campus,
 IF (MYSQLI_QUERY($CON,$insert)) {
   ECHO "<P>Sample student data inserted</P>";
 } ELSE {
-  ECHO "Error inserting sample sstudent data: " . MYSQLI_ERROR($CON);
+  ECHO "Error inserting sample student data: " . MYSQLI_ERROR($CON);
 }
 
 ?>

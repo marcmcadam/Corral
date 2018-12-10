@@ -21,23 +21,25 @@
         return min(max((int)$_POST["bias$key"], -1), 1);
     }
     
-    $columns = ["hc", "js", "php", "java", "c", "cpp", "oc", "db", "u3", "ui", "se"];
+    $numSkills = 20;
+
     $skillImp = [];
     $skillBias = [];
-    foreach ($columns as $c)
+    for ($s = 0; $s < $numSkills; $s += 1)
     {
-        array_push($skillImp, postImportance($c));
-        array_push($skillBias, postBias($c));
+        array_push($skillImp, postImportance($s));
+        array_push($skillBias, postBias($s));
     }
 
     // TODO: include updating pro_min, pro_max, pro_imp and biases
     
     $sql = "UPDATE project SET pro_title='$title',pro_leader='$leader',pro_email='$email',pro_brief='$brief',pro_status='$status', pro_min='$minimum', pro_max='$maximum', pro_imp='$importance'";
-    for ($i = 0; $i < sizeof($columns); $i += 1)
+    for ($i = 0; $i < $numSkills; $i += 1)
     {
-        $c = $columns[$i];
         $imp = $skillImp[$i];
-        $sql .= ", pro_$c=$imp";
+        $bias = $skillBias[$i];
+        $sql .= ", pro_skill_".sprintf("%02d", $i)."=$imp";
+        $sql .= ", pro_bias_".sprintf("%02d", $i)."=$bias";
     }
     $sql .= " WHERE pro_num = $pro_num";
     $query = mysqli_query($CON, $sql);

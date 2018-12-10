@@ -105,6 +105,7 @@ $project = "CREATE TABLE project (
   pro_min int(11) NOT NULL,
   pro_max int(11) NOT NULL,
   pro_imp int(11) NOT NULL,
+  pro_skill_00 int(11) NOT NULL,
   pro_skill_01 int(11) NOT NULL,
   pro_skill_02 int(11) NOT NULL,
   pro_skill_03 int(11) NOT NULL,
@@ -124,7 +125,26 @@ $project = "CREATE TABLE project (
   pro_skill_17 int(11) NOT NULL,
   pro_skill_18 int(11) NOT NULL,
   pro_skill_19 int(11) NOT NULL,
-  pro_skill_20 int(11) NOT NULL
+  pro_bias_00 int(11) NOT NULL,
+  pro_bias_01 int(11) NOT NULL,
+  pro_bias_02 int(11) NOT NULL,
+  pro_bias_03 int(11) NOT NULL,
+  pro_bias_04 int(11) NOT NULL,
+  pro_bias_05 int(11) NOT NULL,
+  pro_bias_06 int(11) NOT NULL,
+  pro_bias_07 int(11) NOT NULL,
+  pro_bias_08 int(11) NOT NULL,
+  pro_bias_09 int(11) NOT NULL,
+  pro_bias_10 int(11) NOT NULL,
+  pro_bias_11 int(11) NOT NULL,
+  pro_bias_12 int(11) NOT NULL,
+  pro_bias_13 int(11) NOT NULL,
+  pro_bias_14 int(11) NOT NULL,
+  pro_bias_15 int(11) NOT NULL,
+  pro_bias_16 int(11) NOT NULL,
+  pro_bias_17 int(11) NOT NULL,
+  pro_bias_18 int(11) NOT NULL,
+  pro_bias_19 int(11) NOT NULL
 )";
 
 if (mysqli_query($CON,$project)) {
@@ -136,6 +156,7 @@ if (mysqli_query($CON,$project)) {
 //create surveyanswer table
 $surveyanswer = "CREATE TABLE surveyanswer (
   stu_ID int(9) NOT NULL PRIMARY KEY,
+  stu_skill_00 int(11) NOT NULL,
   stu_skill_01 int(11) NOT NULL,
   stu_skill_02 int(11) NOT NULL,
   stu_skill_03 int(11) NOT NULL,
@@ -154,8 +175,7 @@ $surveyanswer = "CREATE TABLE surveyanswer (
   stu_skill_16 int(11) NOT NULL,
   stu_skill_17 int(11) NOT NULL,
   stu_skill_18 int(11) NOT NULL,
-  stu_skill_19 int(11) NOT NULL,
-  stu_skill_20 int(11) NOT NULL
+  stu_skill_19 int(11) NOT NULL
 )";
 
 if (mysqli_query($CON,$surveyanswer)) {
@@ -193,6 +213,7 @@ if (mysqli_query($CON,$passwordreset)) {
 //create skill names table
 $skillnames = "CREATE TABLE skillnames (
   skill_ID int(11) AUTO_INCREMENT PRIMARY KEY,
+  skill_00 VARCHAR(30) DEFAULT NULL,
   skill_01 VARCHAR(30) DEFAULT NULL,
   skill_02 VARCHAR(30) DEFAULT NULL,
   skill_03 VARCHAR(30) DEFAULT NULL,
@@ -211,8 +232,7 @@ $skillnames = "CREATE TABLE skillnames (
   skill_16 VARCHAR(30) DEFAULT NULL,
   skill_17 VARCHAR(30) DEFAULT NULL,
   skill_18 VARCHAR(30) DEFAULT NULL,
-  skill_19 VARCHAR(30) DEFAULT NULL,
-  skill_20 VARCHAR(30) DEFAULT NULL
+  skill_19 VARCHAR(30) DEFAULT NULL
 )";
 if (mysqli_query($CON,$skillnames)) {
   echo "<p>skill names table created successfully</p>";

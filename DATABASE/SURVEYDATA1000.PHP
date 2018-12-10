@@ -10,13 +10,17 @@ if (mysqli_query($CON, $surveyanswer)) {
   echo "Error deleting surveyanswer data: " . mysqli_error($CON);
 }
 
-$numSkills = 11;
+$numSkills = 20;
 $rarity = 2.0;
 
 require_once "RANDOM.PHP";
 
 // Insert sample data into table
-$surveydata = "INSERT INTO surveyanswer (stu_ID,stu_skill_01, stu_skill_02, stu_skill_03, stu_skill_04, stu_skill_05, stu_skill_06, stu_skill_07, stu_skill_08, stu_skill_09, stu_skill_10, stu_skill_11) VALUES ";
+$surveydata = "INSERT INTO surveyanswer (stu_ID";
+for ($i = 0; $i < 20; $i += 1)
+    $surveydata .= ", stu_skill_" . sprintf("%02d", $i);
+$surveydata .= ") VALUES ";
+
 $studentIDs = [
 216856084,
 216116590,
