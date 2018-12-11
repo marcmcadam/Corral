@@ -19,6 +19,7 @@ else
 <meta charset="utf-8">
 <title><?php echo $PageTitle; ?></title>
 <link rel="stylesheet" type="text/css" href="../STYLES/stylesheet.css">
+<link rel="icon" type="image/ico" href="../favicon.ico">
 <?php echo isset($script) ? $script : "" ; // Echo header script if one exists (JavaScript Validation etc)?>
 </head>
 
