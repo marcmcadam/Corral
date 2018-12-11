@@ -37,7 +37,7 @@ else
 		--><li><a href ="#"><p>Groups</p></a>
 			<ul>
 				<li><a href ="../PROJECT/PROJECTLIST"><p>Projects</p></a></li>
-				<li><a href ="#"><p>Groups</p></a></li>
+				<li><a href ="../PROJECT/GROUPLIST"><p>Group List</p></a></li>
 			</ul>
 		</li><!--
         --><li><a href ="#"><p>Sorting</p></a>
