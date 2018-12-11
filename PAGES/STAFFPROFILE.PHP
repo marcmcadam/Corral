@@ -4,10 +4,10 @@
 	<style>
 	/* Center the loader */
 	#loader {
-		position: absolute;
-	  z-index: 1;
-	  width: 1400px;
-	  height: 1400px;
+			margin: auto;
+			top: 50%;
+			width: 516px;
+			height: 335px;
 		background-image: url("logo.png");
 	}
 
@@ -34,10 +34,13 @@
 	  display: none;
 	  text-align: center;
 	}
+
 	</style>
 </head>
+
 <body onload="myFunction()" style="margin:0;">
-<div id="loader"></div>
+<div id="loader" ></div>
+
 <div style="display:none;" id="myDiv" class="animate-bottom">
 	<?php
 	$PageTitle = "Staff Profile";
