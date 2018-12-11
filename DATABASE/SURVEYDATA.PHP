@@ -11,11 +11,17 @@ if (mysqli_query($CON, $surveyanswer)) {
 }
 
 // TODO Random skills not yet implemented
-$numSkills = 11;
+$numSkills = 20;
 $rarity = 2.0;
 
+require_once "RANDOM.PHP";
+
 // Insert sample data into table
-$surveydata = "INSERT INTO surveyanswer (stu_ID,stu_hc,stu_js,stu_php,stu_java,stu_c,stu_cpp,stu_oc,stu_db,stu_u3,stu_ui,stu_se) VALUES ";
+$surveydata = "INSERT INTO surveyanswer (stu_ID";
+for ($i = 0; $i < 20; $i += 1)
+    $surveydata .= ", stu_skill_" . sprintf("%02d", $i);
+$surveydata .= ") VALUES ";
+
 $studentIDs = [
 216856084,
 216116590,

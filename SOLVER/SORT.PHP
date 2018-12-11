@@ -4,11 +4,17 @@
     require "SOLVER.PHP";
     require "GETDATA.PHP";
     
+    echo "<!DOCTYPE html>";
+    echo "<html>";
+    echo "<body>";
+
     if (isset($sortPID))
     {
-        echo "<br>Stop the previous sort before starting a new one.<br><br>";
+        echo "<p>Stop the previous sort before starting a new one.</p>";
         die;
     }
+    
+    $displayBatches = false;
     
     function update()
     {
@@ -16,8 +22,8 @@
         flush();
     }
 
-    echo "<p>You may view the progress and results from the <a href='GROUPS.PHP' target='_blank'>List Groups</a> page.</p>";
-    echo "Begin processing initialisation<br>";
+    echo "<p>You may view the progress from <a href='GROUPS.PHP' target='_blank'>this page</a>.</p>";
+    echo "<p>Begin initialisation</p>";
     update();
     
     $sortPID = getmypid();
@@ -34,19 +40,19 @@
     $sql = "TRUNCATE groups";
     if (!mysqli_query($CON, $sql))
     // TODO: how to error for background process?
-        echo "Error deleting project member: " . mysqli_error($CON) . "<br>";
+        echo "<p>Error deleting project member: " . mysqli_error($CON) . "</p>";
 
-    echo "Assignments erased<br>";
+    echo "<p>Assignments erased</p>";
     update();
     
-    // generate dummy students to allow empty slots in groups for variables group sizes
+    // generate dummy students to allow empty slots in groups for variable group sizes
     // the number of dummies needed depends on the difference between the total max size for projects and the number of students
     $slots = 0;
     for ($p = 0; $p < sizeof($projects); $p += 1)
         $slots += $projectMaxima[$p];
     if ($slots < sizeof($students))
     {
-        echo "Too few tasks for the number of students";
+        echo "<p>Too few tasks for the number of students</p>";
         die;
     }
     
@@ -58,13 +64,13 @@
         array_push($students, array_fill(0, $numSkills, 0));
     }
 
-    echo "Dummy students created<br>";
+    echo "<p>Dummy students created</p>";
     update();
     
     
     if ($slots != sizeof($students))
     {
-        echo "Sizes of student and task arrays do not match<br>";
+        echo "<p>Sizes of student and task arrays do not match</p>";
         die;
     }
     
@@ -108,21 +114,25 @@
     }
     if ($index != sizeof($students))
     {
-        echo "Did not place the right number of students into projects<br>";
+        echo "<p>Did not place the right number of students into projects</p>";
         die;
     }
     
-    echo "Random assignments created<br>";
+    echo "<p>Random assignments created</p>";
     update();
     
     assignDatabase($studentProjects, false); 
 
-    $maxInertia = 50000;
+    $usedSkills = [];
+    for ($s = 0; $s < $numSkills; $s += 1)
+        array_push($usedSkills, !is_null($skillNames[$s]));
+
+    $maxInertia = 0;
     $queue = [];
     $projectsRequeue = $projectStudents;
     $batchSize = min(50, sizeof($students)); // 50 is about maximum to allow it to not time-out on most computers
     $numBatches = (int)(32 * sizeof($students) / $batchSize);
-    echo "Total batches: $numBatches<br>";
+    echo "<p>Total batches: $numBatches</p>";
     for ($batch = 0; $batch < $numBatches; $batch += 1)
     {
         $sql = "SELECT staff_id, sort_pid FROM staff WHERE staff_id = $id";
@@ -134,14 +144,17 @@
         }
         
         if ($row = mysqli_fetch_assoc($res))
-            $sortPID = $row["sort_pid"];
+            $pid = $row["sort_pid"];
         else
-            $sortPID = null;
-            
-        if ($sortPID != getmypid())
-            break;
+            $pid = null;
         
-        echo "Batch: $batch<br>";
+        if ($pid != $sortPID)
+        {
+            echo "<p>Sorting terminated</p>";
+            break;
+        }
+        
+        echo "<p>Batch: $batch</p>";
         update();
         
         // split the students into separate batches randomly
@@ -150,7 +163,7 @@
         {
             $indices = range(0, sizeof($projectStudents[$p]) - 1);
             
-            // shuffle() is very repetetive. shuffle manually:
+            // shuffle() is very repetitive. shuffle manually:
             $choices = range(0, sizeof($projectStudents[$p]) - 1);
             $shuffled = [];
             $choicesRemaining = sizeof($choices);
@@ -182,8 +195,8 @@
         {
             $solver = new Solver();
             $solver->numSkills = $numSkills;
+            $solver->usedSkills = $usedSkills;
             
-            $inertiaUp = (bool)(($batch % 2) == 1);
             $solver->inertia = (int)($maxInertia * $batch / $numBatches);
             //$solver->inertia = 0;
             
@@ -238,12 +251,15 @@
                 }
             }
             
-            asort($solverStudents);
-            echo "<table cellpadding='4px' style='border-collapse: collapse;'><tr>";
-            foreach ($solverStudents as $y)
-                echo "<td>$y</td>";
-            echo "</tr></table>";
-            update();
+            if ($displayBatches)
+            {
+                asort($solverStudents);
+                echo "<table cellpadding='4px' style='border-collapse: collapse;'><tr>";
+                foreach ($solverStudents as $y)
+                    echo "<td>$y</td>";
+                echo "</tr></table>";
+                update();
+            }
             
             set_time_limit(30);
             $solver->iterate();
@@ -269,9 +285,9 @@
         $cost = $solver->cost;
         $progress = -$cost;
         
-        echo "Gain: $progress<br>";
+        echo "<p>Gain: $progress</p>";
     }
-    echo "<br>Finished<br>";
+    echo "<p>Finished</p>";
     
     $sql = "UPDATE staff SET sort_pid = null WHERE staff_id = $id";
     $res = mysqli_query($CON, $sql);

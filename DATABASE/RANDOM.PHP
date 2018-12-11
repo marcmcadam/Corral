@@ -34,15 +34,36 @@
         return $skills;
     }
 
-    function randomProject($p, &$importance)
+    function randomBias($s)
+    {
+        $r = hashRandom16($s, 8);
+        if ($r < 1)
+            return 1;
+        else if ($r < 3)
+            return -1;
+        else
+            return 0;
+    }
+
+    function randomBiases($s)
+    {
+        global $numSkills;
+        $biases = [];
+        for ($i = 0; $i < $numSkills; $i += 1)
+            array_push($biases, randomBias((($i + 100) << 11) | $s));
+        return $biases;
+    }
+
+    function randomProject($p, &$importance, &$biases)
     {
         global $numSkills;
         $skills = randomImportances($p + 1000);
+        $biases = randomBiases($p + 1000);
         $total = 0.0;
         foreach ($skills as $skill)
             $total += $skill;
         if ($total > 0)
-            $importance = (int)round(100000 / $total);
+            $importance = (int)round(10000 / $total);
         else
             $importance = 0;
         return $skills;

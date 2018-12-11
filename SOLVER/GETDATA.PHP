@@ -2,8 +2,10 @@
     require_once "../DATABASE/CONNECTDB.PHP";
     require_once "HASH.PHP";
     
-    $numSkills = 11;
+    $numSkills = 20;
 
+    
+    // get the process ID for the sorting
     $sql = "SELECT staff_id, sort_pid FROM staff WHERE staff_id = $id";
     $res = mysqli_query($CON, $sql);
     if (!$res)
@@ -16,6 +18,11 @@
         $sortPID = $row["sort_pid"];
     else
         $sortPID = null;
+    
+    
+    $surveyID = 1;
+    require "../DATABASE/SKILLNAMES.PHP"; // skill names decide whether numbers are relevant or not, using null
+    
     
     // Fetch student names and skill assessments from database
     $sql = "SELECT a.*, s.stu_FirstName, s.stu_LastName FROM surveyanswer a, student s WHERE a.stu_Id = s.stu_Id";
@@ -33,78 +40,106 @@
     while ($row = mysqli_fetch_assoc($res))
     {
         $rowY = $y++;
-        
+
         $studentNames[$rowY] = $row['stu_ID'];
         $studentText[$rowY] = $row['stu_FirstName'] . " " . $row['stu_LastName'];
 
         $student = [];
-        array_push($student, (int)$row['stu_hc']);
-        array_push($student, (int)$row['stu_js']);
-        array_push($student, (int)$row['stu_php']);
-        array_push($student, (int)$row['stu_java']);
-        array_push($student, (int)$row['stu_c']);
-        array_push($student, (int)$row['stu_cpp']);
-        array_push($student, (int)$row['stu_oc']);
-        array_push($student, (int)$row['stu_db']);
-        array_push($student, (int)$row['stu_u3']);
-        array_push($student, (int)$row['stu_ui']);
-        array_push($student, (int)$row['stu_se']);
 
+        // Populate student skills array with stu_skill_##
+        for ($i = 0; $i < $numSkills; $i += 1)
+        {
+            if (is_null($skillNames[$i]))
+                $skill = 0;
+            else
+                $skill = (int)$row['stu_skill_'.sprintf('%02d', $i)];
+            array_push($student, $skill);
+        }
         array_push($students, $student);
     }
 
     // Fetch project names and skill requirements from database
-    $sql = "SELECT pro_num, pro_title, pro_min, pro_max, pro_imp, pro_hc,pro_js,pro_php,pro_java,pro_c,pro_cpp,pro_oc,pro_db,pro_u3,pro_ui,pro_se FROM project";
+    $sql = "SELECT * FROM project";
     $res = mysqli_query($CON, $sql);
- 
+
+    $proportionalOverride = true;
+    $projectOverride = [];
+    $overrideTotal = 0;
+
     $projectNames = [];
     $projectText = [];
     $projectMinima = [];
     $projectMaxima = [];
     $projectImportance = [];
     $projects = [];
+    $projectBiases = [];
     $p = 0;
     while ($row = mysqli_fetch_assoc($res))
     {
         $pid = (int)$row['pro_num'];
-        
+
         $rowP = $p++;
-        
+
         $projectText[$rowP] = $row['pro_title'] ;
-        
+
         $projectNames[$rowP] = $pid;
 
-        $projectMinima[$rowP] = (int)$row['pro_min'];
-        $projectMaxima[$rowP] = (int)$row['pro_max'];
-        $imp = (int)$row['pro_imp'];
-        $projectImportance[$rowP] = $imp;
-        
-        $pro = [];
-        array_push($pro, (int)$row['pro_hc']);
-        array_push($pro, (int)$row['pro_js']);
-        array_push($pro, (int)$row['pro_php']);
-        array_push($pro, (int)$row['pro_java']);
-        array_push($pro, (int)$row['pro_c']);
-        array_push($pro, (int)$row['pro_cpp']);
-        array_push($pro, (int)$row['pro_oc']);
-        array_push($pro, (int)$row['pro_db']);
-        array_push($pro, (int)$row['pro_u3']);
-        array_push($pro, (int)$row['pro_ui']);
-        array_push($pro, (int)$row['pro_se']);
-        
-        $project = [];
-        $total = 0;
-        for ($s = 0; $s < $numSkills; $s += 1)
+        $min = (int)$row['pro_min'];
+        $max = (int)$row['pro_max'];
+
+        if ($proportionalOverride)
         {
-            $importance = $pro[$s];
-            
-            // use hash to consistently decide the bias where there's no room for it in the database
-            $r = hash16(($pid << 8) | $s);
-            
-            $demand = new SkillDemand($imp * $importance, ($r % 3) - 1);
+            $value = (int)round($min + $max);
+            $projectOverride[$rowP] = $value;
+            $overrideTotal += $value;
+        }
+        else
+        {
+            $projectMinima[$rowP] = $min;
+            $projectMaxima[$rowP] = $max;
+        }
+
+        $importance = (int)$row['pro_imp'];
+        $projectImportance[$rowP] = $importance;
+
+        // Create project skills
+        $project = [];
+        for ($i = 0; $i < $numSkills; $i += 1)
+        {
+            if (is_null($skillNames[$i]))
+            {
+                $imp = 0;
+                $bias = 0;
+            }
+            else
+            {
+                $imp = (int)$row['pro_skill_'.sprintf('%02d', $i)];
+                $bias = (int)$row['pro_bias_'.sprintf('%02d', $i)];
+            }
+            $demand = new SkillDemand($imp * $importance, $bias);
             array_push($project, $demand);
-            $total += $demand->importance;
         }
         array_push($projects, $project);
+    }
+
+    // proportionally distribute students based on middles of projects min/max
+    $remaining = sizeof($students);
+    foreach ($projectOverride as $p => $value)
+    {
+        if ($overrideTotal == 0)
+            $proportion = 0.0;
+        else
+            $proportion = $value / $overrideTotal;
+        
+        $take = (int)round($remaining * $proportion);
+        $remaining -= $take;
+        $overrideTotal -= $value;
+        $projectMinima[$p] = $take;
+        $projectMaxima[$p] = $take;
+    }
+    if ($overrideTotal != 0 || $remaining != 0)
+    {
+        echo "Group size override failed";
+        die;
     }
 ?>

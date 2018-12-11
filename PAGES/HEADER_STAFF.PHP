@@ -19,6 +19,7 @@ else
 <meta charset="utf-8">
 <title><?php echo $PageTitle; ?></title>
 <link rel="stylesheet" type="text/css" href="../STYLES/stylesstaff.css">
+<link rel="icon" type="image/ico" href="../favicon.ico">
 <?php echo isset($script) ? $script : "" ; // Echo header script if one exists (JavaScript Validation etc)?>
 </head>
 
@@ -41,7 +42,7 @@ else
 		</li><!--
         --><li><a href ="#"><p>Sorting</p></a>
             <ul>
-                <li><a href ="../SOLVER/BEGIN2"><p>Begin</p></a></li>
+                <li><a href ="../SOLVER/BEGIN"><p>Begin</p></a></li>
 				<li><a href ="../SOLVER/GROUPS"><p>Results</p></a></li>
             </ul>
         </li><!--
