@@ -8,12 +8,20 @@
     // Clean skillnames and assign variables
     for ($i=0;$i<20;$i++) {
       $skillfield = sprintf('skill_%02d',$i);
-      $$skillfield = mysqli_real_escape_string($CON, $_POST[sprintf('skill_%02d', $i)]);
+      $p = mysqli_real_escape_string($CON, $_POST[sprintf('skill_%02d', $i)]);
+      if (strlen($p) == 0)
+        $p = null;
+      $$skillfield = $p;
     }
     $sql = "UPDATE skillnames SET ";
     for ($i=0;$i<20;$i++) {
       $skillvalue = sprintf('skill_%02d',$i);
-      $sql .= sprintf('skill_%02d',$i)." = '".$$skillvalue."', ";
+      $v = $$skillvalue;
+      $sql .= sprintf('skill_%02d',$i);
+      if ($v == null)
+        $sql .= " = null, ";
+      else
+        $sql .= " = '".$v."', ";
     }
     $sql = substr($sql, 0, -2); // Remove last comma
     $sql .= " WHERE skill_ID = 1";
