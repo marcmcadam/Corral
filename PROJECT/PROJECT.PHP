@@ -132,7 +132,7 @@
                 <input type='email' name='PRO_EMAIL' id='ip2' value='$email'><br><br>
                 Project Brief<br>
                 <textarea name='PRO_BRIEF' rows='5' cols='40' id='ip3'>$brief</textarea><br><br>
-                <h2>Project Status</h2>
+                Project Status
                 <select name='PRO_STATUS'>
                     <option value='Active' ". ($status=='Active' ? 'Selected' : '') .">Active</option>
                     <option value='Inactive' ". ($status=='Inactive' ? 'Selected' : '') .">Inactive</option>
@@ -162,7 +162,12 @@
         ";
 
         for ($i = 0; $i < $numSkills; $i += 1)
+        {
+            if (is_null($skillNames[$i]))
+                continue;
+            
             skillOptions($i);
+        }
 
         echo '  </table>
             <input type="submit" value="Save Changes" style="font-size: 1.5em; padding: 8px;">

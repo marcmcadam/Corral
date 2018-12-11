@@ -62,10 +62,11 @@
         $total = 0.0;
         foreach ($skills as $skill)
             $total += $skill;
-        if ($total > 0)
+        /*if ($total > 0)
             $importance = (int)round(10000 / $total);
         else
-            $importance = 0;
+            $importance = 0;*/
+        $importance = 20;
         return $skills;
     }
 

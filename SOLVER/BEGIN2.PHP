@@ -1,5 +1,5 @@
 <?php
-    $PageTitle = "Sorting Started";
+    $PageTitle = "Sorting";
     require "../PAGES/HEADER_STAFF.PHP";
     
     $isWindows = (substr(php_uname(), 0, 7) == "Windows");
@@ -15,7 +15,7 @@
 ?>
 <div style="text-align: center; width: 100%;">
     <p>The student allocations are being processed in the background.</p>
-    <p>You may view the progress and results from the <a href="GROUPS.PHP">List Groups</a> page.</p>
+    <p>You may view the progress from <a href="GROUPS.PHP">this page</a>.</p>
 </div>
 <?php
     require "../PAGES/FOOTER_STAFF.PHP";
