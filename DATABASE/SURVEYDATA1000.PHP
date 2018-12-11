@@ -10,9 +10,10 @@ if (mysqli_query($CON, $surveyanswer)) {
   echo "Error deleting surveyanswer data: " . mysqli_error($CON);
 }
 
-// TODO Random skills not yet implemented
 $numSkills = 11;
 $rarity = 2.0;
+
+require_once "RANDOM.PHP";
 
 // Insert sample data into table
 $surveydata = "INSERT INTO surveyanswer (stu_ID,stu_hc,stu_js,stu_php,stu_java,stu_c,stu_cpp,stu_oc,stu_db,stu_u3,stu_ui,stu_se) VALUES ";
@@ -124,6 +125,8 @@ for ($i = 0; $i < 100; $i += 1)
         $surveydata .= ",";
     $surveydata .= "($studentIDs[$i], " . join(", ", randomSkills($i)) . ")";
 }
+for ($i = 0; $i < 900; $i += 1)
+    $surveydata .= ', (217' . sprintf("%06d", $i) . ", " . join(", ", randomSkills($i)) . ')';
 
 if (mysqli_query($CON,$surveydata)) {
   echo "<P>Sample surveyanswer data inserted</P>";

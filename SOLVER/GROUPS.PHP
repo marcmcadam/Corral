@@ -1,7 +1,7 @@
 <?php
     $PageTitle = "Display Sorting Results";
     require "../PAGES/HEADER_STAFF.PHP";
-    require "../DATABASE/CONNECTDB.PHP";
+    require_once "../DATABASE/CONNECTDB.PHP";
     require "SOLVER.PHP";
     require "GETDATA.PHP";
     
@@ -20,27 +20,42 @@
     {
         $sid = (int)$row['stu_id'];
         $pid = (int)$row['pro_num'];
-        array_push($projectStudents[$idProjects[$pid]], $idStudents[$sid]);
+        
+        if (array_key_exists($pid, $idProjects) && array_key_exists($sid, $idStudents))
+            array_push($projectStudents[$idProjects[$pid]], $idStudents[$sid]);
+        else
+        {
+            // TODO: error
+        }
     }
-    
-    echo "<div style='width: 100%; text-align: center; font-family: sans-serif; font-size: 1em'>
-            <table border='0' align='center' cellpadding='0' cellspacing='0' style='text-align: center'>
-                <tr><td colspan='13'>&nbsp;</td></tr>
-                <tr>
-                    <th width='96px' style='font-size: 1em'>&nbsp;</th>
-                    <th width='192px' style='font-size: 1em'>&nbsp;</th>
-                    <th width='64px' style='font-size: 1em'>HTML</th>
-                    <th width='64px' style='font-size: 1em'>JS</th>
-                    <th width='64px' style='font-size: 1em'>PHP</th>
-                    <th width='64px' style='font-size: 1em'>Java</th>
-                    <th width='64px' style='font-size: 1em'>C</th>
-                    <th width='64px' style='font-size: 1em'>C++</th>
-                    <th width='64px' style='font-size: 1em'>Obj C</th>
-                    <th width='64px' style='font-size: 1em'>Database</th>
-                    <th width='64px' style='font-size: 1em'>Unity</th>
-                    <th width='64px' style='font-size: 1em'>UI</th>
-                    <th width='64px' style='font-size: 1em'>Security</th>
-                </tr><tr><td colspan='13'>&nbsp;</td></tr>";
+?>
+<div style='width: 100%; text-align: center; font-family: sans-serif; font-size: 1em'>
+<?php
+    if (isset($sortPID))
+    {
+        echo "<br>The sorter is running in the background.<br><br>";
+        echo "<a href='TERMINATE.PHP'>Stop</a><br><br>";
+    }
+?>
+<table border='0' align='center' cellpadding='0' cellspacing='0' style='text-align: center'>
+<?php
+    echo "<tr><td colspan='14'>&nbsp;</td></tr>
+            <tr>
+            <th width='96px' style='font-size: 1em'>&nbsp;</th>
+            <th width='256px' style='font-size: 1em'>&nbsp;</th>
+            <th width='16px' style='font-size: 1em'>&nbsp;</th>
+            <th width='64px' style='font-size: 1em'>HTML</th>
+            <th width='64px' style='font-size: 1em'>JS</th>
+            <th width='64px' style='font-size: 1em'>PHP</th>
+            <th width='64px' style='font-size: 1em'>Java</th>
+            <th width='64px' style='font-size: 1em'>C</th>
+            <th width='64px' style='font-size: 1em'>C++</th>
+            <th width='64px' style='font-size: 1em'>Obj C</th>
+            <th width='64px' style='font-size: 1em'>Database</th>
+            <th width='64px' style='font-size: 1em'>Unity</th>
+            <th width='64px' style='font-size: 1em'>UI</th>
+            <th width='64px' style='font-size: 1em'>Security</th>
+        </tr><tr><td colspan='13'>&nbsp;</td></tr>";
     $importanceMax = 0.0;
     for ($p = 0; $p < sizeof($projects); $p += 1)
     {
@@ -60,8 +75,7 @@
 
         // Print project name and skill requirements
         echo "<tr>";
-        echo "<td style='font-weight:bold; border-bottom: thin solid; text-align: left;'>$projectText[$p]</td>";
-        echo "<td style='font-weight:bold; border-bottom: thin solid; border-right: thin solid; text-align: left;'>&nbsp;</td>";
+        echo "<td colspan='3' style='font-weight:bold; border-bottom: thin solid; border-right: thin solid; text-align: left;'>$projectText[$p] ($projectMinima[$p] - $projectMaxima[$p])</td>";
         for ($s = 0; $s < $numSkills; $s += 1)
         {
             $importance = $projects[$p][$s]->importance;
@@ -119,8 +133,27 @@
                 $name = "&nbsp;";
             }
             echo "<td style='text-align: right; border-bottom: thin solid #c0c0c0'>$name&nbsp;</td>";
-            echo "<td style='text-align: left; border-right: thin solid; border-bottom: thin solid #c0c0c0'>$text</td>";
-
+            echo "<td style='text-align: left; border-bottom: thin solid #c0c0c0'>$text</td>";
+            
+            $satisfaction = 0.0;
+            $skillTotal = 0.0;
+            $impTotal = 0.0;
+            for ($s = 0; $s < $numSkills; $s += 1)
+            {
+                $value = $students[$i][$s];
+                $demand = $projects[$p][$s];
+                
+                $satisfaction += $demand->importance * $value;
+                $skillTotal += $value * $value;
+                $impTotal += $demand->importance * $demand->importance;
+            }
+            $divisor = sqrt($skillTotal * $impTotal);
+            if ($divisor > 0.0)
+                $satisfaction /= $divisor;
+            $satisfactionText = str_repeat("!", (int)floor(4.0 * (1.0 - $satisfaction)));
+            
+            echo "<td style='text-align: center; border-right: thin solid; border-bottom: thin solid #c0c0c0'>$satisfactionText</td>";
+            
             $skillMax = 4.0;
             
             for ($s = 0; $s < $numSkills; $s += 1) {
@@ -129,18 +162,16 @@
 
                 $alpha = ($importanceMax <= 0.0) ? 0.0 : ($demand->importance / $importanceMax);
                 $strength = $value / $skillMax;
-                //$strength = 0.5 * (1.0 + $strength);
                 $weakness = 1.0 - $strength;
                 $notAlpha = 1.0 - $alpha;
                 $red = $notAlpha * $backgroundColour['r'] + $alpha * ($strength * $strongColour['r'] + $weakness * $weakColour['r']);
                 $green = $notAlpha * $backgroundColour['g'] + $alpha * ($strength * $strongColour['g'] + $weakness * $weakColour['g']);
                 $blue = $notAlpha * $backgroundColour['b'] + $alpha * ($strength * $strongColour['b'] + $weakness * $weakColour['b']);
-                $hexColour = sprintf("#%20x%20x%20x", (int)floor($red * 255.9), (int)floor($green * 255.9), (int)floor($blue * 255.9));
+                $hexColour = sprintf("#%02X%02X%02X", (int)floor($red * 255.9), (int)floor($green * 255.9), (int)floor($blue * 255.9));
                 $style = ($projects[$p][$s]->importance == 0) ? "" : "font-weight: bold;";
                 echo "<td bgcolor='$hexColour' style='$style; border-bottom: thin solid #606060; border-right: thin solid #606060;'>";
                 for ($v = 0; $v < $value; $v += 1)
-                    echo "<img src='whiteStar.png' width='12px' height='12x'>";
-
+                    echo "<img src='whiteStar.png' width='12px' height='12px'>";
                 echo "</td>";
                 $skill_total[$s] += $students[$i][$s];
             }
@@ -150,8 +181,7 @@
           if ($num_students > 0)
           {
               echo "<tr>
-                <td style='text-align: left; font-weight: bold; border-top: thin solid;'>&nbsp;</td>
-                <td style='text-align: right; font-weight: bold; border-top: thin solid; border-right: thin solid;'>Team Average&nbsp;</td>
+                <td colspan='3' style='text-align: right; font-weight: bold; border-top: thin solid; border-right: thin solid;'>Team Average&nbsp;</td>
                 <td style='border-top: thin solid;'>".round($skill_total[0] / $num_students, 1)."</td>
                 <td style='border-top: thin solid;'>".round($skill_total[1] / $num_students, 1)."</td>
                 <td style='border-top: thin solid;'>".round($skill_total[2] / $num_students, 1)."</td>
@@ -165,7 +195,7 @@
                 <td style='border-top: thin solid;'>".round($skill_total[10] / $num_students, 1)."</td>
                 </tr>";
           }
-        echo "<tr><td colspan='13'>&nbsp;</td></tr>";
+        echo "<tr><td colspan='14'>&nbsp;</td></tr>";
     }
     echo "</table></div>";
     require "../PAGES/FOOTER_STAFF.PHP";

@@ -1,8 +1,8 @@
 <?php
 session_start();
 
-if ( $_SESSION['STAFF_ID'] != 1) {
-	$_SESSION['message'] = "You mus log in before viewing this page";
+if ( !isset($_SESSION['STAFF_ID'])) {
+	$_SESSION['message'] = "You must log in before viewing this page";
 	header("location: ../ACCESS/error");
 	}
 	else {
@@ -12,7 +12,7 @@ if ( $_SESSION['STAFF_ID'] != 1) {
 	}
 
 
-	require('../DATABASE/CONNECTDB.PHP');
+	require_once "../DATABASE/CONNECTDB.PHP";
 
 	$query = "SELECT stu_ID, stu_FirstName, stu_LastName, stu_Campus, stu_Email FROM student";
 	if (!$result = mysqli_query($CON, $query)) {

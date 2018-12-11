@@ -17,16 +17,15 @@ $rarity = 200;
 require_once "RANDOM.PHP";
 
 // Insert sample data into table
-$PROJECT = "INSERT INTO project (pro_title, pro_brief, pro_leader, pro_email, pro_status, pro_min, pro_max, pro_imp, pro_hc, pro_js, pro_php, pro_java, pro_c, pro_cpp, pro_oc, pro_db, pro_u3, pro_ui, pro_se) VALUES ";
-for ($i = 0; $i < 20; $i += 1)
+$PROJECT = "INSERT INTO project (pro_title, pro_min, pro_max, pro_imp, pro_hc, pro_js, pro_php, pro_java, pro_c, pro_cpp, pro_oc, pro_db, pro_u3, pro_ui, pro_se) VALUES ";
+for ($i = 0; $i < 200; $i += 1)
 {
     if ($i > 0)
         $PROJECT .= ', ';
-    $min = rand(3, 10); // rand(0, 5);
+    $min = rand(3, 10); //rand(0, 5);
     $max = $min; // + rand(0, 10);
     $skills = randomProject($i, $imp);
-    $status = randomProjectStatus();
-    $PROJECT .= '("Project ' . $i . '"' . ",'Lorem Ipsum','Project Leader','projectleader@deakin.edu.au','".$status."',$min,$max,$imp," . join(", ", $skills) . ')';
+    $PROJECT .= '("Project ' . $i . '"' . ", $min, $max, $imp, " . join(", ", $skills) . ')';
 }
 
 if (mysqli_query($CON,$PROJECT)) {
