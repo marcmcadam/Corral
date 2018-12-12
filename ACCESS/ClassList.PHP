@@ -1,5 +1,4 @@
 <?php
-session_start();
 REQUIRE('../DATABASE/CONNECTDB.PHP');
 $PageTitle = "Class List";
 require "../PAGES/HEADER_STAFF.PHP";
@@ -87,7 +86,7 @@ if( isset( $_POST['Submit'] ) ) {
 		//[0] = Student ID
 		$stu_ID = SanitiseGeneric($stu_info[0], $CON);
 		//Validate student id is only numbers
-	 	if(preg_match('/[0-9]/', $stu_ID) ){
+	 	if(preg_match('/[0-9]{9}/', $stu_ID) ){
 
 			if($stu_ID != 0 || $stu_ID != NULL){
 
@@ -138,7 +137,7 @@ if( isset( $_POST['Submit'] ) ) {
 
 
 				if ($Validation == 0){
-					print "An error occured, see error list above."
+					print "An error occured, see error list above.";
 				} else {
 					//SQL check if Student exists
 					$query = "SELECT stu_ID FROM student WHERE stu_ID = '".$stu_info[0]."'";
@@ -186,7 +185,7 @@ if( isset( $_POST['Submit'] ) ) {
 				print "Student ID of '0' was detected <br>";
 
 		} else {
-			print "Student number must contain only numbers for: ".$stu_ID.",<br>";
+			print "Student number must contain only nine numbers for: ".$stu_ID.",<br>";
 		}
 
 	}
