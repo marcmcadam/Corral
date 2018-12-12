@@ -5,21 +5,27 @@
 
   function skillOptions($title, $key) {
     echo "<tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr><tr>
             <th>$title</th>
-            <td><label for='4$key'><div>
-                <br><input type='radio' id='4$key' name='$key' value='4'><br>&nbsp;
+            <td><label for='4$key'><div class='radioCell'>
+                <input type='radio' id='4$key' name='$key' value='4' class='radioCell'>&nbsp;
             </div></label></td>
-            <td><label for='3$key'><div>
-                <br><input type='radio' id='3$key' name='$key' value='3'><br>&nbsp;
+            <td><label for='3$key'><div class='radioCell'>
+                <input type='radio' id='3$key' name='$key' value='3' class='radioCell'>&nbsp;
             </div></label></td>
-            <td><label for='2$key'><div>
-                <br><input type='radio' id='2$key' name='$key' value='2'><br>&nbsp;
+            <td><label for='2$key'><div class='radioCell'>
+                <input type='radio' id='2$key' name='$key' value='2' class='radioCell'>&nbsp;
             </div></label></td>
-            <td><label for='1$key'><div>
-                <br><input type='radio' id='1$key' name='$key' value='1'><br>&nbsp;
+            <td><label for='1$key'><div class='radioCell'>
+                <input type='radio' id='1$key' name='$key' value='1' class='radioCell'>&nbsp;
             </div></label></td>
-            <td><label for='0$key'><div>
-                <br><input type='radio' id='0$key' name='$key' value='0' checked><br>&nbsp;
+            <td><label for='0$key'><div class='radioCell'>
+                <input type='radio' id='0$key' name='$key' value='0' checked class='radioCell'>&nbsp;
             </div></label></td>
         </tr>";
   }
@@ -96,24 +102,29 @@
 ?>
 
 <style>
-    table { border-collapse: collapse; }
+    table {
+        border-collapse: collapse;
+    }
     td, th {
         text-align: center;
         width: 96px;
-        border-right: thin solid #808080;
-        border-bottom: thin solid #808080;
+        border: 0;
         padding: 0;
     }
     td div {
         width: 100%;
         height: 100%;
     }
-    td:hover div {
-        background: #e0e0e0;
-    }
     .inputSubmit {
         font-size: 1.5em;
-        padding: 16px;
+        padding: 8px;
+    }
+    .radioCell {
+        background: #e0e0e0;
+        cursor: pointer;
+    }
+    .radioCell:hover {
+        background: #e0f0ff;
     }
 </style>
 

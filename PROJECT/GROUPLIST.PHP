@@ -9,7 +9,14 @@
 <form action="GROUPPDF" method="post">
 	<input type="submit" value="Export Group List To PDF">
 </form>
-<br />
+<style>
+    tr:nth-child(odd) {
+        background-color: #f4f4f4;
+    }
+    tr:nth-child(even) {
+        background-color: #ececec;
+    }
+</style>
 <?php
   require_once "../DATABASE/CONNECTDB.PHP";
 

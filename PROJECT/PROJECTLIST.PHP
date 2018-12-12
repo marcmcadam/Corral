@@ -47,6 +47,15 @@
     <input type="submit" value="Create Project">
 </form>
 
+<style>
+    tr:nth-child(odd) {
+        background-color: #f4f4f4;
+    }
+    tr:nth-child(even) {
+        background-color: #ececec;
+    }
+</style>
+
 <?php
     require_once '../DATABASE/CONNECTDB.PHP';
 

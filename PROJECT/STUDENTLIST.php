@@ -13,6 +13,14 @@
 	<input type="submit" value="Export Student Survey To CSV">
 </form>
 <br>
+<style>
+    tr:nth-child(odd) {
+        background-color: #f4f4f4;
+    }
+    tr:nth-child(even) {
+        background-color: #ececec;
+    }
+</style>
 <?php
     require_once '../DATABASE/CONNECTDB.PHP';
 
