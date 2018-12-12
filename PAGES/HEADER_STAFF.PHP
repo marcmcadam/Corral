@@ -32,6 +32,7 @@ else
           <li><a href ="../PROJECT/STUDENTLIST"><p>Students</p></a></li>
           <li><a href ="../PROJECT/STAFFLIST"><p>Staff</p></a></li>
           <li><a href ="../PROJECT/MEMBERSEARCH"><p>Search</p></a></li>
+					<li><a href ="../ACCESS/CLASSLIST"><p>Add Students</p></a></li>
       </ul>
     </li>
 		<li><a href ="#"><p>Projects</p></a>
