@@ -70,6 +70,7 @@ function SanitiseName($input, $CON){
 			//accessing $stu_info[] to access the information
 if( isset( $_POST['Submit'] ) ) {
 	$Student_List = $_POST['Student_List'];
+//DEBUG
 //	print "Raw Data: ". $Student_List."<br><br> Other Stuff: <br>";
 
 //NB explode could be replaced by fgetcsv()
@@ -86,16 +87,9 @@ if( isset( $_POST['Submit'] ) ) {
 		//[0] = Student ID
 		$stu_ID = SanitiseGeneric($stu_info[0], $CON);
 		//Validate student id is only numbers
+	 	if(preg_match('/[0-9]/', $stu_ID) ){
 
-		if($stu_ID != 0 || $stu_ID != NULL){
-			//SQL check if Student exists
-			$query = "SELECT stu_ID FROM student WHERE stu_ID = '".$stu_info[0]."'";
-			$result = mysqli_query($CON, $query) or die(mysqli_error($CON));
-			//if they do, break
-			if(mysqli_num_rows($result) > 0){
-				//do nothing
-			} else {
-			//if not then
+			if($stu_ID != 0 || $stu_ID != NULL){
 
 				//[1] = First name
 				$stu_FirstName = SanitiseName($stu_info[1], $CON);
@@ -105,40 +99,98 @@ if( isset( $_POST['Submit'] ) ) {
 				$stu_Campus = SanitiseGeneric($stu_info[3], $CON);
 				//[4] = email
 				$stu_Email = SanitiseString($stu_info[4], $CON);
-				//[5] = password
+				//password
 					//NB this is not meant to be encrypted at all.
 						//it is meant to be impossible for the encryption produced in
 						//the login form to match with the string saved here
-				$stu_Password = SanitiseString($stu_info[5], $CON);
-				//[6] =  locked out
-				$stu_LockedOut = SanitiseGeneric($stu_info[6], $CON);
-				//[7] = login attmepts
-				$stu_loginAttempts = SanitiseGeneric($stu_info[7], $CON);
+				$stu_Password = "NoneSet";
+				//locked out
+				$stu_LockedOut = "1";
+				//login attmepts
+				$stu_loginAttempts = "5";
 
 				//VALIDATE THEM HERE
+				$stu_FirstName = preg_replace("/[^a-zA-Z0-9]+/", "", $stu_FirstName);
+				$stu_LastName = preg_replace("/[^a-zA-Z0-9]+/", "", $stu_LastName);
 
-				//add to
-				$insert_query =
-					"INSERT INTO student
-							(stu_ID, stu_FirstName, stu_LastName, stu_Campus,
-								stu_Email, stu_Password, stu_LockedOut, stu_LoginAttempts  )
-						VALUES
-							('".$stu_ID."', '".$stu_FirstName."', '".$stu_LastName."', '".$stu_Campus."',
-								'".$stu_Email."', '".$stu_Password."', '".$stu_LockedOut."', '".$stu_loginAttempts."')";
+				if(!preg_match('/[A-Za-z]/', $stu_FirstName) ){
+					print "ERROR in first name: $stu_FirstName <br>";
+					$Validation = 0;
+				} else {
+					if(!preg_match('/[A-Za-z]/', $stu_LastName) ){
+						print "ERROR in stu_LastName: $stu_LastName <br>";
+						$Validation = 0;
+					} else {
+						if(!preg_match('/[1-3]{1}/', $stu_Campus) ){
+							print "ERROR in stu_Campus: $stu_Campus <br>";
+							$Validation = 0;
+						} else {
+							if(!preg_match('/[A-Za-z0-9]*@deakin.edu.au/', $stu_Email) ){
+								print "ERROR in stu_Email: $stu_Email <br>";
+								$Validation = 0;
+							} else {
+								$Validation = 1;
+							}
+						}
+					}
+				}
 
 
-				$insert_SQL = mysqli_query($CON, $insert_query) or die(mysqli_error($CON));
 
-				//DEBUG
-				print"<b>".$stu_FirstName." "."$stu_LastName"."</b> was added to the DB<br><br>";
+				if ($Validation == 0){
+					print "An error occured, see error list above."
+				} else {
+					//SQL check if Student exists
+					$query = "SELECT stu_ID FROM student WHERE stu_ID = '".$stu_info[0]."'";
+					$result = mysqli_query($CON, $query) or die(mysqli_error($CON));
+					//if they do, break
+					if(mysqli_num_rows($result) > 0){
+						//update
+						$insert_query =
+							"UPDATE student SET
+									stu_FirstName = '".$stu_FirstName."',
+									stu_LastName = '".$stu_LastName."',
+									stu_Campus = '".$stu_Campus."',
+									stu_Email = '".$stu_Email."',
+									stu_Password = '".$stu_Password."',
+									stu_LockedOut = '".$stu_LockedOut."',
+									stu_LoginAttempts =  '".$stu_loginAttempts."'
+								WHERE
+									stu_ID	= '".$stu_ID."' ";
+
+
+						$insert_SQL = mysqli_query($CON, $insert_query) or die(mysqli_error($CON));
+
+						//DEBUG
+						print "<b>Duplicate</b> found for ID: ".$stu_ID." <b>".$stu_FirstName." "."$stu_LastName"."</b>, updateding the DB with the new information<br><br>";
+					} else {
+						//if not then
+						//add to
+						$insert_query =
+							"INSERT INTO student
+									(stu_ID, stu_FirstName, stu_LastName, stu_Campus,
+										stu_Email, stu_Password, stu_LockedOut, stu_LoginAttempts  )
+								VALUES
+									('".$stu_ID."', '".$stu_FirstName."', '".$stu_LastName."', '".$stu_Campus."',
+										'".$stu_Email."', '".$stu_Password."', '".$stu_LockedOut."', '".$stu_loginAttempts."')";
+
+
+						$insert_SQL = mysqli_query($CON, $insert_query) or die(mysqli_error($CON));
+
+						//DEBUG
+						print"<b>".$stu_FirstName." "."$stu_LastName"."</b> was added to the DB<br><br>";
+					}
+				}
 			}
-		}else {
-			print "Student ID of '0' was detected";
+		} elseif ($stu_ID == 0 || $stu_ID == NULL) {
+				print "Student ID of '0' was detected <br>";
+
+		} else {
+			print "Student number must contain only numbers for: ".$stu_ID.",<br>";
 		}
+
 	}
-
 }
-
 
 
 ?>
