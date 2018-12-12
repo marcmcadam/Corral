@@ -198,7 +198,6 @@
             $solver->usedSkills = $usedSkills;
             
             $solver->inertia = (int)($maxInertia * $batch / $numBatches);
-            //$solver->inertia = 0;
             
             $solver->students = [];
             $solver->projects = $projects;
@@ -263,6 +262,11 @@
             
             set_time_limit(30);
             $solver->iterate();
+            if ($solver->iteration < 0)
+            {
+                echo "<p>Solver encountered an error.</p>";
+                die;
+            }
 
             foreach ($solver->studentProjects as $solverY => $p)
             {
