@@ -19,14 +19,16 @@ require('../DATABASE/CONNECTDB.PHP');
 $sql="SELECT * FROM STAFF ORDER BY STAFF_ID ASC";
 $res=mysqli_query($CON, $sql);
 
-echo "<p><table width='1250px' height='150px' border='1px' cellpadding='10px' align='center'></p>";
+echo "
+  <form  name ='staffListForm' action='STAFFUPDATE.php'  method='post'>
+    <table width='1250px' height='150px' border='1px' cellpadding='10px' align='center'>";
 echo "<tr><th>ID</th><th>FIRSTNAME</th><th>LASTNAME</th><th>LOCATION</th><th>EMAIL</th><th>Update Information</th></tr>";
 
 while ($row=mysqli_fetch_assoc($res)){
-    echo "<tr>
-            <td align='center' width='70px'>{$row['STAFF_ID']}</td>
-            <td align='center' width='190px'>{$row['STAFF_FIRSTNAME']}</td>
-            <td align='center' width='190px'>{$row['STAFF_LASTNAME']}</td>
+    print "<tr>
+            <td align='center' width='70px'>".$row['STAFF_ID']."</td>
+            <td align='center' width='190px'>".$row['STAFF_FIRSTNAME']."</td>
+            <td align='center' width='190px'>".$row['STAFF_LASTNAME']."</td>
             <td align='center' width='180px'>";
             switch ($row["STAFF_LOCATION"]) {
               case 1:
@@ -38,9 +40,9 @@ while ($row=mysqli_fetch_assoc($res)){
               case 3:
                 echo "Cloud";
                 break;
-            } echo "</td>
-            <td align='center'  width='500px'>{$row['STAFF_EMAIL']}</td>
-            <td align='center'><a href='STAFFUPDATE.php?number={$row['STAFF_ID']}&firstname={$row['STAFF_FIRSTNAME']}&lastname={$row['STAFF_LASTNAME']}&location={$row['STAFF_LOCATION']}&email={$row['STAFF_EMAIL']}'>Update</a></td>
+            } print "</td>
+            <td align='center' width='500px'>".$row['STAFF_EMAIL']."</td>
+            <td align='center'><button  action='STAFFUPDATE.php'  value ='".$row['STAFF_ID']."' name='staffid'>Update</a></td>
           </tr>";
 }
 

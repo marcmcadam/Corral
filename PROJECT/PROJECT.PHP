@@ -2,18 +2,50 @@
     $PageTitle = "Project Details";
     require "../PAGES/HEADER_STAFF.PHP";
     require_once '../DATABASE/CONNECTDB.PHP';
-    
+
+//Sanitisation functions
+function SanitiseGeneric($CON, $input){
+	$input = mysqli_real_escape_string($CON,$input);
+  $input = preg_replace("/[,]+/", "", $input);
+  $input = strip_tags($input);
+	$input = trim($input);
+  return $input;
+}
+function SanitiseString($CON, $input){
+	$input = mysqli_real_escape_string($CON,$input);
+  $input = preg_replace("/[,]+/", "", $input);
+  $input = strip_tags($input);
+	$input = trim($input);
+  $input = strtolower($input);
+  return $input;
+}
+
+function SanitiseName($CON, $input){
+  $input = mysqli_real_escape_string($CON,$input);
+  $input = preg_replace("/[,]+/", "", $input);
+  $input = strip_tags($input);
+	$input = trim($input);
+  $input = strtolower($input);
+  $input = ucfirst($input);
+  return $input;
+}
+
+
     if ($_SERVER["REQUEST_METHOD"] == "POST")
     {
-        $pro_num = (int)mysqli_real_escape_string($CON, $_POST['pro_num']);
-        $title = mysqli_real_escape_string($CON, $_POST['PRO_TITLE']);
-        $leader = mysqli_real_escape_string($CON, $_POST['PRO_LEADER']);
-        $email = mysqli_real_escape_string($CON, $_POST['PRO_EMAIL']);
-        $brief = mysqli_real_escape_string($CON, $_POST['PRO_BRIEF']);
+        $pro_num = (int)SanitiseGeneric($CON, $_POST['pro_num']);
+        $title = SanitiseName($CON, $_POST['PRO_TITLE']);
+        $leader = SanitiseName($CON, $_POST['PRO_LEADER']);
+        $email = SanitiseString($CON, $_POST['PRO_EMAIL']);
+        $brief = SanitiseGeneric($CON, $_POST['PRO_BRIEF']);
         $status = mysqli_real_escape_string($CON, $_POST['PRO_STATUS']);
         $minimum = mysqli_real_escape_string($CON, $_POST['min']);
         $maximum = mysqli_real_escape_string($CON, $_POST['max']);
         $importance = mysqli_real_escape_string($CON, $_POST['impAll']);
+
+        if($status != "Active" && $status != "Inactive" && $status != "Planning" && $status != "Cancelled" ){
+          $status = "Planning";
+        }
 
         function postImportance($key)
         {
@@ -21,14 +53,14 @@
             $value = mysqli_real_escape_string($CON, $_POST["imp$key"]);
             return min(max((int)$value, 0), 100);
         }
-        
+
         function postBias($key)
         {
             global $CON;
             $value = mysqli_real_escape_string($CON, $_POST["bias$key"]);
             return min(max((int)$value, -1), 1);
         }
-        
+
         $numSkills = 20;
 
         $skillImp = [];

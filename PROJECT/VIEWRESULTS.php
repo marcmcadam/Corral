@@ -11,6 +11,8 @@ require_once "../DATABASE/CONNECTDB.PHP";
 $view = ["Active","Inactive","Planning","Cancelled"];
 
 if (isset($_POST['View'])) {
+
+
   if ($_POST['View'] == "All") {
     $sql = "SELECT * FROM project";
   } elseif (in_array($_POST['View'], $view)){
