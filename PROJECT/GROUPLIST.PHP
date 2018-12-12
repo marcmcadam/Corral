@@ -4,12 +4,19 @@
 ?>
 <h2>Student Group Listing</h2>
 <form action="GROUPCSV" method="post">
-	<input type="submit" value="Export Group List To CSV">
+	<input type="submit" value="Export Group List To CSV" class="inputButton">
 </form>
 <form action="GROUPPDF" method="post">
-	<input type="submit" value="Export Group List To PDF">
+	<input type="submit" value="Export Group List To PDF" class="inputButton">
 </form>
-<br />
+<style>
+    tr:nth-child(odd) {
+        background-color: #f4f4f4;
+    }
+    tr:nth-child(even) {
+        background-color: #ececec;
+    }
+</style>
 <?php
   require_once "../DATABASE/CONNECTDB.PHP";
 
