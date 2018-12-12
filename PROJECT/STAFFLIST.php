@@ -6,11 +6,11 @@
 
 <h2>Staff Information</h2>
 <form action="../PROJECT/STAFFCSV" method="post">
-	<input type="submit" name="STAFF_CSV" value="Export Staff List To CSV">
+	<input type="submit" name="STAFF_CSV" value="Export Staff List To CSV" class="inputButton">
 </form>
 
 <form action="../PROJECT/STAFFPDF" method="post">
-	<input type="submit" name="STAFF_PDF" value="Export Staff List to PDF">
+	<input type="submit" name="STAFF_PDF" value="Export Staff List to PDF" class="inputButton">
 </form>
 <?php
 

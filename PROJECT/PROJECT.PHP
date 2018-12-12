@@ -12,7 +12,7 @@
         $brief = mysqli_real_escape_string($CON, $_POST['PRO_BRIEF']);
         $status = mysqli_real_escape_string($CON, $_POST['PRO_STATUS']);
         $minimum = mysqli_real_escape_string($CON, $_POST['min']);
-        $maximum = mysqli_real_escape_string($CON, $_POST['max']);
+        $maximum = $minimum; // mysqli_real_escape_string($CON, $_POST['max']);
         $importance = mysqli_real_escape_string($CON, $_POST['impAll']);
 
         function postImportance($key)
@@ -125,27 +125,28 @@
         <form method='post'>
             <input hidden type='text' name='pro_num' value='$pro_num'>
                 Project Title<br>
-                <input type='text' name='PRO_TITLE' id='ip2' value='$title'><br><br>
+                <input type='text' name='PRO_TITLE' class='inputBox' value='$title'><br><br>
                 Project Leader<br>
-                <input type='text' name='PRO_LEADER' id='ip2' value='$leader'><br><br>
+                <input type='text' name='PRO_LEADER' class='inputBox' value='$leader'><br><br>
                 Leader Email<br>
-                <input type='email' name='PRO_EMAIL' id='ip2' value='$email'><br><br>
+                <input type='email' name='PRO_EMAIL' class='inputBox' value='$email'><br><br>
                 Project Brief<br>
-                <textarea name='PRO_BRIEF' rows='5' cols='40' id='ip3'>$brief</textarea><br><br>
+                <textarea name='PRO_BRIEF' rows='5' cols='40' class='inputBox'>$brief</textarea><br><br>
                 Project Status
-                <select name='PRO_STATUS'>
-                    <option value='Active' ". ($status=='Active' ? 'Selected' : '') .">Active</option>
-                    <option value='Inactive' ". ($status=='Inactive' ? 'Selected' : '') .">Inactive</option>
-                    <option value='Planning' ". ($status=='Planning' ? 'Selected' : '') .">Planning</option>
-                    <option value='Cancelled' ". ($status=='Cancelled' ? 'Selected' : '') .">Cancelled</option>
-                </select>
+                <select name='PRO_STATUS' class='inputBox' size='1'>
+                    <option value='Active'". ($status=='Active' ? 'Selected' : '') .">Active</option>
+                    <option value='Inactive'". ($status=='Inactive' ? 'Selected' : '') .">Inactive</option>
+                    <option value='Planning'". ($status=='Planning' ? 'Selected' : '') .">Planning</option>
+                    <option value='Cancelled'". ($status=='Cancelled' ? 'Selected' : '') .">Cancelled</option>
+                </select><br>
                 <br>
-                <h2>Sorting</h2>
-                Number of members:<br>
-                <br>
+                Number of members:<br>";
+                /*<br>";
                 Minimum <input type='text' name='min' value='$minimum'><br>
                 <br>
-                Maximum <input type='text' name='max' value='$maximum'><br>
+                Maximum <input type='text' name='max' value='$maximum'><br>*/
+        echo "  <input type='text' name='min' class='inputBox' value='$minimum'><br>
+                <input hidden type='text' name='max' value='0'><br>
                 <h2>Skills</h2>
                 <table align='center'>
                     <tr>
@@ -170,7 +171,7 @@
         }
 
         echo '  </table>
-            <input type="submit" value="Save Changes" style="font-size: 1.5em; padding: 8px;">
+            <input type="submit" value="Save Changes" style="font-size: 1.5em" class="inputButton">
         </form>
         </div>';
     } else {

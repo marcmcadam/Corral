@@ -46,13 +46,13 @@
       $j = $i + 1;
       echo '
        <tr>
-        <td><label for="'.sprintf('skill_%02d', $i).'">Skill '.$j.'</label></td>
-        <td><input type="text" name="'.sprintf('skill_%02d', $i).'" value="'.$row[sprintf('skill_%02d',$i)].'" /></td>
+        <td>Skill '.$j.'</td>
+        <td><input type="text" name="'.sprintf('skill_%02d', $i).'" value="'.$row[sprintf('skill_%02d',$i)].'" class="inputBox"></td>
        </tr>';
     }
   ?>
   </table>
-  <p><input type="submit" value="Update">&nbsp;&nbsp;<input type="reset" value="Reset"></p>
+  <p><input type="submit" value="Update" class="inputButton">&nbsp;&nbsp;<input type="reset" value="Reset" class="inputButton"></p>
 </form>
 <hr>
 <?php } // End of form display ?>

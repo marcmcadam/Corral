@@ -123,20 +123,23 @@ body {
 }
 
 
-#ip2 {
-    border-radius: 25px;
-    border: 1px;
-    padding: 20px; 
-    width: 200px;
-    height: 1px;    
+.inputBox {
+    border-radius: 16px;
+    border: 0;
+    padding: 8px 16px;  
 }
 
-#ip3 {
-    border-radius: 25px;
-    border: 1px;
-    padding: 20px; 
-    width: 350px;
-    height: 150px;    
+.inputButton {
+    border: 2px solid #c0c0c0;
+    background: #f0f0f0;
+    border-radius: 16px;
+    padding: 8px 16px;  
+}
+.inputButton:hover {
+    border: 2px solid #406080;
+    background: #d0e0f0;
+    border-radius: 16px;
+    padding: 8px 16px;  
 }
 
 table {

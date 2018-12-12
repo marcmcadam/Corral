@@ -4,10 +4,10 @@
 ?>
 <h2>Student Group Listing</h2>
 <form action="GROUPCSV" method="post">
-	<input type="submit" value="Export Group List To CSV">
+	<input type="submit" value="Export Group List To CSV" class="inputButton">
 </form>
 <form action="GROUPPDF" method="post">
-	<input type="submit" value="Export Group List To PDF">
+	<input type="submit" value="Export Group List To PDF" class="inputButton">
 </form>
 <style>
     tr:nth-child(odd) {

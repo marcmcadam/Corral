@@ -115,10 +115,6 @@
         width: 100%;
         height: 100%;
     }
-    .inputSubmit {
-        font-size: 1.5em;
-        padding: 8px;
-    }
     .radioCell {
         background: #e0e0e0;
         cursor: pointer;
@@ -158,7 +154,7 @@
 ?>
     </table>
     <br>
-    <input type="submit" value="Submit Responses" class="inputSubmit">
+    <input type="submit" value="Submit Responses" style="font-size: 1.5em" class="inputButton">
     </form>
 </div> <?php } ?>
 <?php require "../PAGES/FOOTER_STUDENT.PHP"; ?>

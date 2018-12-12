@@ -1,5 +1,5 @@
 <?php
-    $PageTitle = "Sorting Results";
+    $PageTitle = "Sort Results";
     require "../PAGES/HEADER_STAFF.PHP";
     require_once "../DATABASE/CONNECTDB.PHP";
     require "SOLVER.PHP";
@@ -84,7 +84,9 @@
 
         // Print project name and skill requirements
         echo "<tr>";
-        echo "<td colspan='3' style='font-weight:bold; border-bottom: thin solid; border-right: thin solid; text-align: left;'>$projectText[$p] ($projectMinima[$p] - $projectMaxima[$p])</td>";
+        //echo "<td colspan='3' style='font-weight:bold; border-bottom: thin solid; border-right: thin solid; text-align: left;'>$projectText[$p] ($projectMinima[$p] - $projectMaxima[$p])</td>";
+        $memberCount = sizeof($projectStudents[$p]);
+        echo "<td colspan='3' style='font-weight:bold; border-bottom: thin solid; border-right: thin solid; text-align: left;'>$projectText[$p] ($memberCount)</td>";
         for ($s = 0; $s < $numSkills; $s += 1)
         {
             if (is_null($skillNames[$s]))

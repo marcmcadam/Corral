@@ -4,13 +4,13 @@
 ?>
 <h2>Student Information</h2>
 <form action="STUDENTCSV" method="post">
-	<input type="submit" value="Export Student List To CSV">
+	<input type="submit" value="Export Student List To CSV" class="inputButton">
 </form>
 <form action="STUDENTPDF" method="post">
-	<input type="submit" value="Export Student List To PDF">
+	<input type="submit" value="Export Student List To PDF" class="inputButton">
 </form>
 <form action="../SURVEY/SURVEYCSV" method="post">
-	<input type="submit" value="Export Student Survey To CSV">
+	<input type="submit" value="Export Student Survey To CSV" class="inputButton">
 </form>
 <br>
 <style>
