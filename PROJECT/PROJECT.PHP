@@ -165,7 +165,7 @@ function SanitiseName($CON, $input){
                 Project Brief<br>
                 <textarea name='PRO_BRIEF' rows='5' cols='40' class='inputBox'>$brief</textarea><br><br>
                 Project Status
-                <select name='PRO_STATUS' class='inputBox' size='1'>
+                <select name='PRO_STATUS' class='inputList' size='1'>
                     <option value='Active'". ($status=='Active' ? 'Selected' : '') .">Active</option>
                     <option value='Inactive'". ($status=='Inactive' ? 'Selected' : '') .">Inactive</option>
                     <option value='Planning'". ($status=='Planning' ? 'Selected' : '') .">Planning</option>

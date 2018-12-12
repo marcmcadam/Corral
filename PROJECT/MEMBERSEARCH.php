@@ -17,7 +17,7 @@ function validate(search) {
     <table>
         <tr>
             <td> What are you searching for:</td>
-            <td><select name="View" class="inputBox">
+            <td><select name="View" class="inputList">
                     <option value="">--Select--</option>
                     <option value="student">Students</option>
                     <option value="staff">Staff</option>
@@ -37,7 +37,7 @@ function validate(search) {
         <td>&nbsp;</td><td>&nbsp;</td>
         </tr><tr>
             <td>Location:</td>
-            <td><select name="Location" class="inputBox">
+            <td><select name="Location" class="inputList">
                     <option value="">--Select--</option>
                     <option value="Burwood">Burwood</option>
                     <option value="Geelong">Geelong</option>

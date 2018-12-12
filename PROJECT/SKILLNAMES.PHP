@@ -37,6 +37,12 @@
   $row = mysqli_fetch_assoc($res);
 ?>
 
+<style>
+    td {
+        padding: 4px;
+    }
+</style>
+
 <h2>Update Skill List</h2>
 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
 

@@ -122,11 +122,16 @@ body {
     display: block;
 }
 
-
 .inputBox {
     border-radius: 16px;
     border: 0;
     padding: 8px 16px;  
+}
+
+.inputList {
+    border-radius: 16px 0 0 16px;
+    border: 0;
+    padding: 8px 16px; 
 }
 
 .inputButton {

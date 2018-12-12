@@ -118,6 +118,12 @@ body {
     padding: 8px 16px;  
 }
 
+.inputList {
+    border-radius: 16px 0 0 16px;
+    border: 0;
+    padding: 8px 16px; 
+}
+
 .inputButton {
     border: 2px solid #c0c0c0;
     background: #f0f0f0;

@@ -23,7 +23,7 @@
 <h2>Project List</h2>
 
 <form action="../PROJECT/PROJECTLISTCSV" method="post">
-    <select name="View" class="inputBox">
+    <select name="View" class="inputList">
 		<option value="All">All</option>
 		<option value="Active">Active Projects</option>
 		<option value="Inactive">Inactive Projects</option>
@@ -33,7 +33,7 @@
 	<input type="submit" name="export_excel" value="Export As CSV" class="inputButton">
 </form>
 <form action="../PROJECT/PROJECTLISTPDF" method="post">
-	<select name="View" class="inputBox">
+	<select name="View" class="inputList">
 		<option value="All">All</option>
 		<option value="Active">Active Projects</option>
 		<option value="Inactive">Inactive Projects</option>

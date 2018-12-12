@@ -85,8 +85,7 @@
         // Print project name and skill requirements
         echo "<tr>";
         //echo "<td colspan='3' style='font-weight:bold; border-bottom: thin solid; border-right: thin solid; text-align: left;'>$projectText[$p] ($projectMinima[$p] - $projectMaxima[$p])</td>";
-        $memberCount = sizeof($projectStudents[$p]);
-        echo "<td colspan='3' style='font-weight:bold; border-bottom: thin solid; border-right: thin solid; text-align: left;'>$projectText[$p] ($memberCount)</td>";
+        echo "<td colspan='3' style='font-weight:bold; border-bottom: thin solid; border-right: thin solid; text-align: left;'>$projectText[$p]</td>";
         for ($s = 0; $s < $numSkills; $s += 1)
         {
             if (is_null($skillNames[$s]))
