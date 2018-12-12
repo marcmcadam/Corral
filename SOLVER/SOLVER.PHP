@@ -124,11 +124,13 @@
                     if ($nextProject != $currentProject)
                     {
                         // measure how much the project suits the member's skills
-                        // i*a + j*b
+                        // (i*a + j*b)/(i + j)
+                        $memberScoreA = 0.0;
                         if ($currentProject >= 0)
                         {
                             // current project
                             $satisfaction = 0.0;
+                            $impTotal = 0.0;
                             for ($s = 0; $s < $numSkills; $s += 1)
                             {
                                 if (!$usedSkills[$s])
@@ -136,9 +138,12 @@
                                     
                                 $demand = $projects[$currentProject][$s];
                                 $satisfaction += $demand->importance * $students[$y][$s];
+                                $impTotal += $demand->importance;
                             }
-                            $memberScoreA = $satisfaction;
+                            if ($impTotal > 0.0)
+                                $memberScoreA = $satisfaction / $impTotal;
                         }
+                        $memberScoreB = 0.0;
                         {
                             // changed project
                             $satisfaction = 0.0;
@@ -150,8 +155,10 @@
                                     
                                 $demand = $projects[$nextProject][$s];
                                 $satisfaction += $demand->importance * $students[$y][$s];
+                                $impTotal += $demand->importance;
                             }
-                            $memberScoreB = $satisfaction;
+                            if ($impTotal > 0.0)
+                                $memberScoreB = $satisfaction / $impTotal;
                         }
                         
                         $projectScoreA = 0.0;
@@ -211,21 +218,21 @@
                                     $d -= $lastResort;  
                             }
                             */
-                            
-                            $cost += sqrt($memberScoreA * $projectScoreA) - sqrt($memberScoreB * $projectScoreB);
                         }
+                        
+                        $cost += sqrt($memberScoreA * $projectScoreA) - sqrt($memberScoreB * $projectScoreB);
                     }
                     $element = $discretisation * $cost;
                     if ($nextProject != $currentProject)
                         $element += $inertia;
-                    
                     if ($element > PHP_INT_MAX)
                     {
                         $this->iteration = -1;
                         return false;
                     }
                     $discrete = (int)$element;
-                    $discrete += random_int(-$randomisation, $randomisation);
+                    if ($nextProject != $currentProject)
+                        $discrete += random_int(0, $randomisation);
                     $row[$x] = $discrete;
                 }
                 $matrix[$y] = $row;
