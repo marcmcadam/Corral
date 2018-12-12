@@ -7,4 +7,9 @@ $SELECT_DB = MYSQLI_SELECT_DB($CON, 'CORRAL_PROJECT');
 IF (!$SELECT_DB){
     DIE("DATABASE SELECTION FAILED" . MYSQLI_ERROR($CON));
 }
+
+
+//set charset
+$CON->set_charset("utf8");
+
 ?>
