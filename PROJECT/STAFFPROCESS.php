@@ -1,29 +1,48 @@
 <?php
  	$PageTitle = "Staff Update";
 	require "../PAGES/HEADER_STAFF.PHP";
+  require("../DATABASE/CONNECTDB.php");
 ?>
 <div id="contents">
 
   <h2>Updated staff information</h2>
 	<?php
- require("../DATABASE/CONNECTDB.php");
 
+   //SANITISATION FUNCTIONS
+  function SanitiseGeneric($input, $CON){
+    $input = mysqli_real_escape_string($CON,$input);
+    $input = preg_replace("/[,]+/", "", $input);
+    $input = strip_tags($input);
+    $input = trim($input);
+    return $input;
+  }
+  function SanitiseName($input, $CON){
+    $input = mysqli_real_escape_string($CON,$input);
+    $input = preg_replace("/[,]+/", "", $input);
+    $input = strip_tags($input);
+    $input = trim($input);
+    $input = strtolower($input);
+    $input = ucfirst($input);
+    return $input;
+  }
 
-		$number=$_POST['STAFF_ID'];
-		$firstname=$_POST['STAFF_FIRSTNAME'];
-		$lastname=$_POST['STAFF_LASTNAME'];
-		$location=$_POST['STAFF_LOCATION'];
-		$email=$_POST['STAFF_EMAIL'];
+		$number = SanitiseGeneric($_POST['STAFF_ID'], $CON);
+		$firstname = SanitiseName($_POST['STAFF_FIRSTNAME'], $CON);
+		$lastname = SanitiseName($_POST['STAFF_LASTNAME'], $CON);
+		$location = SanitiseGeneric($_POST['STAFF_LOCATION'], $CON);
+		$email = SanitiseGeneric($_POST['STAFF_EMAIL'], $CON);
 
 		if(empty($location)){
 				echo "<p>you need to input location</p>";
-			}else if(empty($email)){
-				echo "<p>You need to input email</p>";
-			}else if(empty($firstname)){
-				echo "<p>You need to input firstname</p>";
-			}else if(empty($lastname)){
-				echo "<p>You need to input lastname</p>";
-			}else{
+  		}else if(empty($email)){
+  			echo "<p>You need to input email</p>";
+  		}else if(empty($firstname)){
+  			echo "<p>You need to input firstname</p>";
+  		}else if(empty($lastname)){
+  			echo "<p>You need to input lastname</p>";
+  		}else if(!preg_match('/[A-Za-z0-9]*@deakin.edu.au/', $email)){
+  			echo "<p>You need to input a deakin email</p>";
+  		}else {
 
 
 
