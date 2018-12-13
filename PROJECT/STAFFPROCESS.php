@@ -11,26 +11,26 @@
    //SANITISATION FUNCTIONS
   function SanitiseGeneric($input, $CON){
     $input = mysqli_real_escape_string($CON,$input);
+    //dont want commas breaking the csv output fn
     $input = preg_replace("/[,]+/", "", $input);
     $input = strip_tags($input);
     $input = trim($input);
-    return $input;
-  }
-  function SanitiseName($input, $CON){
-    $input = mysqli_real_escape_string($CON,$input);
-    $input = preg_replace("/[,]+/", "", $input);
-    $input = strip_tags($input);
-    $input = trim($input);
-    $input = strtolower($input);
-    $input = ucfirst($input);
     return $input;
   }
 
+  function SanitiseEmail($input, $CON){
+  	$input = mysqli_real_escape_string($CON,$input);
+  	$input = preg_replace("/[,]+/", "", $input);
+    $input = strip_tags($input);
+  	$input = trim($input);
+    $input = strtolower($input);
+    return $input;
+  }
 		$number = SanitiseGeneric($_POST['STAFF_ID'], $CON);
-		$firstname = SanitiseName($_POST['STAFF_FIRSTNAME'], $CON);
-		$lastname = SanitiseName($_POST['STAFF_LASTNAME'], $CON);
+		$firstname = SanitiseGeneric($_POST['STAFF_FIRSTNAME'], $CON);
+		$lastname = SanitiseGeneric($_POST['STAFF_LASTNAME'], $CON);
 		$location = SanitiseGeneric($_POST['STAFF_LOCATION'], $CON);
-		$email = SanitiseGeneric($_POST['STAFF_EMAIL'], $CON);
+		$email = SanitiseString($_POST['STAFF_EMAIL'], $CON);
 
 		if(empty($location)){
 				echo "<p>you need to input location</p>";
