@@ -43,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <h2>Please Log In</h2>
   <?php if($login_Error) echo "<p>Invalid Username or Password.</p>";?>
   <input type="text" name="STAFF_ID" placeholder="Staff ID" class="inputBox" required><br><br>
-  <input type="password" name="STAFF_PASSWORD" id="ip2" placeholder="Password" class="inputBox" required><br><br>
+  <input type="password" name="STAFF_PASSWORD" placeholder="Password" class="inputBox" required><br><br>
   <button type="submit" class="inputButton">Login</button>
   <button type="button" onclick="location.href='../ACCESS/forgotpassword.php';" value="Forgot Password" class="inputButton">Forgot Password</button><br /><br />
 </form>

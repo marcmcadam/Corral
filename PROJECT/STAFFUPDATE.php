@@ -26,7 +26,7 @@ if(!isset($_POST['staffid'])){
 
       print "<p><form action='../PROJECT/STAFFPROCESS' method='post'></p>";
       print "<p>Staff ID </p>
-      <p><input type ='text' name ='STAFF_ID' value ='".$row["STAFF_ID"]."' id='ip2' class='inputBox'></p>
+      <p><input type ='text' name ='STAFF_ID' value ='".$row["STAFF_ID"]."' class='inputBox'></p>
       <p>Firstname </p>
       <p><input type ='text' name ='STAFF_FIRSTNAME' value ='". $row['STAFF_FIRSTNAME']."' class='inputBox'></p>
       <p>Lastname </p>
@@ -45,7 +45,6 @@ if(!isset($_POST['staffid'])){
       </select></p>
       <p>Email </p>
       <p><input type='text' name='STAFF_EMAIL' value='".$row['STAFF_EMAIL']."' class='inputBox'></p>
-
       <p><input type='submit' value='Update' class='inputButton'>&nbsp&nbsp<input type='reset' value='Reset' class='inputButton'></p>
       </form>
       </div>";
