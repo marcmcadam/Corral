@@ -14,14 +14,14 @@ require "../PAGES/HEADER_STAFF.PHP";
 			<tr valign='top'>
 					<td> Student List:
 						</td>
-					<td colspan='2'><textarea rows="10" cols="75" name="Student_List" ></textarea>
+					<td colspan='2'><textarea rows="10" cols="75" name="Student_List" class="inputBox"></textarea>
 						</td>
 			</tr>
 			<tr>
 					<td></td>
 					<td><input type="file" name="csvFile"></td>
-					<td align='right'><input type="submit" name="Submit" value="Submit" style"color:green">
-							<input type="reset" value="Clear Form">
+					<td align='right'><input type="submit" name="Submit" value="Submit" class="inputButton" />
+							<input type="reset" value="Clear Form" class="inputButton" />
 							</td>
 			</tr>
 	</table>

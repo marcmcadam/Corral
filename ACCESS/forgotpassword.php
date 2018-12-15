@@ -104,8 +104,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if($email_Sent) echo "<p>Password reset email sent.</p>";
     if($email_NotFound) echo "<p>You are not a registered user.</p>";
   ?>
-  <input type="email" name="forgotemail" placeholder="Deakin Email Address" id="ip2" required><br><br>
-  <button type="submit">Password Reset</button><br /><br />
+  <input type="email" name="forgotemail" placeholder="Deakin Email Address" class="inputBox" required><br><br>
+  <button type="submit" class="inputButton">Password Reset</button><br /><br />
 </form>
 
 <?php require "../PAGES/FOOTER_PUBLIC.PHP"; ?>

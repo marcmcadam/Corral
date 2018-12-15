@@ -42,7 +42,7 @@ while ($row=mysqli_fetch_assoc($res)){
                 break;
             } print "</td>
             <td align='center' width='500px'>".$row['STAFF_EMAIL']."</td>
-            <td align='center'><button  action='STAFFUPDATE.php'  value ='".$row['STAFF_ID']."' name='staffid'>Update</a></td>
+            <td align='center'><button  action='STAFFUPDATE.php'  value ='".$row['STAFF_ID']."' name='staffid' class='inputButton'>Update</a></td>
           </tr>";
 }
 
