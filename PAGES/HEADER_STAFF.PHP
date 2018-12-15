@@ -27,13 +27,13 @@ else
 <div class ="navbar">
 	<ul>
 		<li><a href="../PAGES/STAFFHOME"><p>Corral</p></a></li>
-    <li><a href ="#"><p>Users</p></a>
-      <ul>
-          <li><a href ="../PROJECT/STUDENTLIST"><p>Students</p></a></li>
-          <li><a href ="../PROJECT/STAFFLIST"><p>Staff</p></a></li>
-          <li><a href ="../PROJECT/MEMBERSEARCH"><p>Search</p></a></li>
-      </ul>
-    </li>
+        <li><a href ="#"><p>Users</p></a>
+            <ul>
+                <li><a href ="../PROJECT/STUDENTLIST"><p>Students</p></a></li>
+                <li><a href ="../PROJECT/STAFFLIST"><p>Staff</p></a></li>
+                <li><a href ="../PROJECT/MEMBERSEARCH"><p>Search</p></a></li>
+            </ul>
+        </li>
 		<li><a href ="#"><p>Projects</p></a>
 			<ul>
 				<li><a href ="../PROJECT/PROJECTLIST"><p>View Projects</p></a></li>
@@ -41,13 +41,12 @@ else
 			</ul>
 		</li>
 		<li><a href ="#"><p>Admin</p></a>
-      <ul>
-        <li><a href ="../PROJECT/SKILLNAMES"><p>Edit Skills</p></a></li>
-				<li><a href ="../ACCESS/CLASSLIST"><p>Import Students</p></a></li>
-				<li><a href ="../SOLVER/BEGIN"><p>Begin Sort</p></a></li>
-				<li><a href ="../SOLVER/GROUPS"><p>Sort Results</p></a></li>
-			</ul>
-		</li>
+        <ul>
+            <li><a href ="../PROJECT/SKILLNAMES"><p>Edit Skills</p></a></li>
+            <li><a href ="../ACCESS/CLASSLIST"><p>Import Students</p></a></li>
+            <li><a href ="../SOLVER/BEGIN"><p>Begin Sort</p></a></li>
+            <li><a href ="../SOLVER/GROUPS"><p>Sort Results</p></a></li>
+		</ul>
 		<li><a href ="../ACCESS/stafflogout"><p>Logout</p></a></li>
 	</ul>
 </div>

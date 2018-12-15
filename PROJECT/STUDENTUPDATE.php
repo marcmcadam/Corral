@@ -22,7 +22,7 @@
 <p>Email </p>
 <p><input type="text" name="stu_Email" value="<?php echo $_GET['email'];?>" class="inputBox"/></p>
 
-<p><input type="submit" value="update" class="inputButton">&nbsp&nbsp<input type="reset" value="reset" class="inputButton"></p>
+<p><input type="submit" value="Update" class="inputButton">&nbsp&nbsp<input type="reset" value="Reset" class="inputButton"></p>
 </form>
 </div>
 

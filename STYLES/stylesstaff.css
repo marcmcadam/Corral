@@ -113,6 +113,7 @@ body {
 }
 
 .inputBox {
+    font-family: Arial, Helvetica, sans-serif;
     border-radius: 16px;
     border: 0;
     padding: 8px 16px;  
