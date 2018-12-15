@@ -12,11 +12,11 @@ function validate(search) {
 </script>'
 ?>
 
-<h1>Search</h1>
-<form action="../PROJECT/SEARCHRESULTS" style="margin-left: 40px" method="post" name="search" id="search" onSubmit="return validate(search)">
-    <table>
+<h2>Search</h2>
+<form action="../PROJECT/SEARCHRESULTS" method="post" name="search" id="search" onSubmit="return validate(search)">
+    <table align="center">
         <tr>
-            <td> What are you searching for:</td>
+            <td>What are you searching for:&nbsp;</td>
             <td><select name="View" class="inputList">
                     <option value="">--Select--</option>
                     <option value="student">Students</option>

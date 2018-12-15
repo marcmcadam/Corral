@@ -40,7 +40,6 @@
     // delete all student project assignments
     $sql = "TRUNCATE groups";
     if (!mysqli_query($CON, $sql))
-    // TODO: how to error for background process?
         echo "<p>Error deleting project member: " . mysqli_error($CON) . "</p>";
 
     echo "<p>Assignments erased</p>";
@@ -128,7 +127,7 @@
     for ($s = 0; $s < $numSkills; $s += 1)
         array_push($usedSkills, !is_null($skillNames[$s]));
 
-    $maxInertia = 0;
+    $maxInertia = 100;
     $queue = [];
     $projectsRequeue = $projectStudents;
     $batchSize = min(50, sizeof($students)); // 50 is about maximum to allow it to not time-out on most computers
@@ -324,14 +323,12 @@
                 // delete student project assignments
                 $sql = "DELETE FROM groups WHERE stu_id = $sid";
                 if (!mysqli_query($CON, $sql))
-                // TODO: how to error for background process?
                     echo "Error deleting project member: " . mysqli_error($CON) . "<br>";
             }
             
             // create new assignment
             $sql = "INSERT INTO groups (pro_num, stu_id) VALUES ($pid, $sid)";
             if (!mysqli_query($CON, $sql))
-            // TODO: how to error for background process?
                 echo "Error assigning project member: " . mysqli_error($CON) . "<br>";
         }
     }

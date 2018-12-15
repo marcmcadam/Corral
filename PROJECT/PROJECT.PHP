@@ -50,14 +50,22 @@ function SanitiseName($CON, $input){
         function postImportance($key)
         {
             global $CON;
-            $value = mysqli_real_escape_string($CON, $_POST["imp$key"]);
+            $text = "imp$key";
+            if (array_key_exists($text, $_POST))
+                $value = mysqli_real_escape_string($CON, $_POST[$text]);
+            else
+                $value = 0;
             return min(max((int)$value, 0), 100);
         }
 
         function postBias($key)
         {
             global $CON;
-            $value = mysqli_real_escape_string($CON, $_POST["bias$key"]);
+            $text = "bias$key";
+            if (array_key_exists($text, $_POST))
+                $value = mysqli_real_escape_string($CON, $_POST[$text]);
+            else
+                $value = 0;
             return min(max((int)$value, -1), 1);
         }
 
@@ -85,6 +93,7 @@ function SanitiseName($CON, $input){
             echo mysqli_error($CON);
         else
             header("location: PROJECTLIST.PHP");
+        die;
     }
     else
     {
@@ -152,8 +161,8 @@ function SanitiseName($CON, $input){
               padding: 8px 16px;
           }
         </style>
-        <div style='text-align: center'>
-        <h1>Project Details</h1><br>
+        <div style='text-align: center;'>
+        <h2>Project Details</h2><br>
         <form method='post'>
             <input hidden type='text' name='pro_num' value='$pro_num'>
                 Project Title<br>

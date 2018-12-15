@@ -45,26 +45,34 @@
 <table border='0' align='center' cellpadding='0' cellspacing='0' style='text-align: center'>
 <?php
     $numTableColumns = 3;
+    
+    // count used columns
     for ($i = 0; $i < $numSkills; $i += 1)
     {
         if (is_null($skillNames[$i]))
             continue;
         $numTableColumns += 1;
     }
+    // empty page-top column headers
     echo "<tr><td colspan='". $numTableColumns ."'>&nbsp;</td></tr>
             <tr>
-            <th width='96px' style='font-size: 1em'>&nbsp;</th>
-            <th width='256px' style='font-size: 1em'>&nbsp;</th>
-            <th width='16px' style='font-size: 1em'>&nbsp;</th>
+            <th width='96px'>&nbsp;</th>
+            <th width='256px'>&nbsp;</th>
+            <th width='16px'>&nbsp;</th>
         ";
+    // page-top column name headers
     for ($i = 0; $i < $numSkills; $i += 1)
     {
         $name = $skillNames[$i];
         if (is_null($name))
             continue;
-        echo "<th width='64px'>$name</th>";
+        echo "<th>$name</th>";
     }
+
+    // spacing row
     echo "</tr><tr><td colspan='". $numTableColumns ."'>&nbsp;</td></tr>";
+
+    // find the max importance entry of everything, as the brightest value
     $importanceMax = 0.0;
     for ($p = 0; $p < sizeof($projects); $p += 1)
     {
@@ -101,17 +109,17 @@
             $green = $notAlpha * $headerBackgroundColour['g'] + $alpha * $headerColour['g'];
             $blue = $notAlpha * $headerBackgroundColour['b'] + $alpha * $headerColour['b'];
             $hexColour = sprintf("#%02X%02X%02X", (int)floor($red * 255.9), (int)floor($green * 255.9), (int)floor($blue * 255.9));
-            echo "<td bgcolor='$hexColour' style='border-bottom: thin solid; border-right: thin solid #c0c0c0'>";
+            echo "<td bgcolor='$hexColour' style='font-size: 0.75em; border-bottom: thin solid; border-right: thin solid #c0c0c0'>";
 
             if ($importance > 0)
             {
                 $bias = $projects[$p][$s]->bias;
                 if ($bias > 0.25)
-                    echo "High";
+                    echo "H";
                 else if ($bias > -0.25)
-                    echo "Normal";
+                    echo "";
                 else
-                    echo "Low";
+                    echo "L";
             }
             
             echo "</td>";
@@ -173,9 +181,9 @@
                 $blue = $notAlpha * $backgroundColour['b'] + $alpha * ($strength * $strongColour['b'] + $weakness * $weakColour['b']);
                 $hexColour = sprintf("#%02X%02X%02X", (int)floor($red * 255.9), (int)floor($green * 255.9), (int)floor($blue * 255.9));
                 $style = ($projects[$p][$s]->importance == 0) ? "" : "font-weight: bold;";
-                echo "<td bgcolor='$hexColour' style='$style; border-bottom: thin solid #606060; border-right: thin solid #606060;'>";
+                echo "<td bgcolor='$hexColour' style='$style; color: white; border-bottom: thin solid #606060; border-right: thin solid #606060;'>";
                 for ($v = 0; $v < $value; $v += 1)
-                    echo "<img src='whiteStar.png' width='12px' height='12px'>";
+                    echo "<img src='whiteStar.png' width='10px' height='10px'>";
                 echo "</td>";
             }
           echo "</tr>";

@@ -5,7 +5,7 @@
     
     if ($_SERVER["REQUEST_METHOD"] == "POST")
     {
-        $insert = "INSERT INTO project VALUES ()";
+        $insert = "INSERT INTO project (pro_imp) VALUES (20)";
         $query = mysqli_query($CON, $insert);
         if ($query)
         {
