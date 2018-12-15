@@ -14,7 +14,7 @@ function validate(search) {
 
 <h2>Search</h2>
 <form action="../PROJECT/SEARCHRESULTS" method="post" name="search" id="search" onSubmit="return validate(search)">
-    <table align="center">
+    <table>
         <tr>
             <td>What are you searching for:&nbsp;</td>
             <td><select name="View" class="inputList">

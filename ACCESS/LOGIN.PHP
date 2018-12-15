@@ -125,10 +125,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
   <h2>Please Log In</h2>
   <?php if($login_Error) echo "<p>$login_Error_Text</p>";?>
-  <input type="text" name="STUDENT_ID" placeholder="Student ID" id="ip2" required><br><br>
-  <input type="password" name="STUDENT_PASSWORD" id="ip2" placeholder="Password" required><br><br>
-  <button type="submit">Login</button>
-  <button type="button" onclick="location.href='../ACCESS/forgotpassword.php';" value="Forgot Password" />Forgot Password</button><br><br>
+  <input type="text" name="STUDENT_ID" placeholder="Student ID" class="inputBox" required><br><br>
+  <input type="password" name="STUDENT_PASSWORD" id="ip2" placeholder="Password" class="inputBox" required><br><br>
+  <button type="submit" class="inputButton">Login</button>
+  <button type="button" onclick="location.href='../ACCESS/forgotpassword.php';" value="Forgot Password" class="inputButton">Forgot Password</button><br><br>
 </form>
 
 <?php require "../PAGES/FOOTER_PUBLIC.PHP"; ?>
