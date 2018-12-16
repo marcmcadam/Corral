@@ -46,25 +46,36 @@
     }
     
     echo "<table border='0' align='center' cellpadding='0' cellspacing='0' style='text-align: left;'>";
+    
+    $skillLetters = [];
+    $usedSkills = [];
+    for ($i = 0; $i < $numSkills; $i += 1)
+    {
+        $name = $skillNames[$i];
+        if (is_null($name))
+            continue;
+        $skillLetters[$i] = chr(65 + sizeof($usedSkills));
+        array_push($usedSkills, $i);
+    }
+    
     for ($j = 0; $j < 10; $j += 1)
     {
         echo "<tr>";
         for ($k = 0; $k < 4; $k += 1)
         {
-            $i = $k * 10 + $j;
-            if ($i < $numSkills)
+            $z = $k * 10 + $j;
+            if ($z < sizeof($usedSkills))
             {
-                $letter = chr(65 + $i);
+                $i = $usedSkills[$z];
                 $name = $skillNames[$i];
-                if (is_null($name))
-                    continue;
+                $letter = $skillLetters[$i];
                 echo "<td style='width: 32px'>$letter</td>
                       <td style='width: 256px'>$name</td>";
             }
         }
         echo "</tr>";
     }
-    echo "</tr></table>";
+    echo "</table>";
     echo "<div align='center' style='margin: 16px 0; padding: 16px; background: #404040; border: solid black;'>";
     echo "<table border='0' align='center' cellpadding='0' cellspacing='0' style='text-align: center; color: #f0f0f0;'>";
     
@@ -89,7 +100,7 @@
         $name = $skillNames[$i];
         if (is_null($name))
             continue;
-        $letter = chr(65 + $i);
+        $letter = $skillLetters[$i];
         //echo "<th>$name</th>";
         echo "<th style='width: 48px'>$letter</th>";
     }
