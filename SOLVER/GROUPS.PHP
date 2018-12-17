@@ -1,7 +1,7 @@
 <?php
-    $PageTitle = "Display Sorting Results";
+    $PageTitle = "Sort Results";
     require "../PAGES/HEADER_STAFF.PHP";
-    require "../DATABASE/CONNECTDB.PHP";
+    require_once "../DATABASE/CONNECTDB.PHP";
     require "SOLVER.PHP";
     require "GETDATA.PHP";
     
@@ -20,27 +20,59 @@
     {
         $sid = (int)$row['stu_id'];
         $pid = (int)$row['pro_num'];
-        array_push($projectStudents[$idProjects[$pid]], $idStudents[$sid]);
+        
+        if (array_key_exists($pid, $idProjects) && array_key_exists($sid, $idStudents))
+            array_push($projectStudents[$idProjects[$pid]], $idStudents[$sid]);
+        else
+        {
+            // TODO: error
+        }
     }
+?>
+<style>
+    td, th {
+        white-space: nowrap;
+    }
+</style>
+<div style='width: 100%; text-align: center; font-family: sans-serif; font-size: 1em'>
+<?php
+    if (isset($sortPID))
+    {
+        echo "<p>The sorter is running in the background.</p>";
+        echo "<p><a href='TERMINATE.PHP'>Stop</a></p>";
+    }
+?>
+<table border='0' align='center' cellpadding='0' cellspacing='0' style='text-align: center'>
+<?php
+    $numTableColumns = 3;
     
-    echo "<div style='width: 100%; text-align: center; font-family: sans-serif; font-size: 1em'>
-            <table border='0' align='center' cellpadding='0' cellspacing='0' style='text-align: center'>
-                <tr><td colspan='13'>&nbsp;</td></tr>
-                <tr>
-                    <th width='96px' style='font-size: 1em'>&nbsp;</th>
-                    <th width='192px' style='font-size: 1em'>&nbsp;</th>
-                    <th width='64px' style='font-size: 1em'>HTML</th>
-                    <th width='64px' style='font-size: 1em'>JS</th>
-                    <th width='64px' style='font-size: 1em'>PHP</th>
-                    <th width='64px' style='font-size: 1em'>Java</th>
-                    <th width='64px' style='font-size: 1em'>C</th>
-                    <th width='64px' style='font-size: 1em'>C++</th>
-                    <th width='64px' style='font-size: 1em'>Obj C</th>
-                    <th width='64px' style='font-size: 1em'>Database</th>
-                    <th width='64px' style='font-size: 1em'>Unity</th>
-                    <th width='64px' style='font-size: 1em'>UI</th>
-                    <th width='64px' style='font-size: 1em'>Security</th>
-                </tr><tr><td colspan='13'>&nbsp;</td></tr>";
+    // count used columns
+    for ($i = 0; $i < $numSkills; $i += 1)
+    {
+        if (is_null($skillNames[$i]))
+            continue;
+        $numTableColumns += 1;
+    }
+    // empty page-top column headers
+    echo "<tr><td colspan='". $numTableColumns ."'>&nbsp;</td></tr>
+            <tr>
+            <th width='96px'>&nbsp;</th>
+            <th width='256px'>&nbsp;</th>
+            <th width='16px'>&nbsp;</th>
+        ";
+    // page-top column name headers
+    for ($i = 0; $i < $numSkills; $i += 1)
+    {
+        $name = $skillNames[$i];
+        if (is_null($name))
+            continue;
+        echo "<th>$name</th>";
+    }
+
+    // spacing row
+    echo "</tr><tr><td colspan='". $numTableColumns ."'>&nbsp;</td></tr>";
+
+    // find the max importance entry of everything, as the brightest value
     $importanceMax = 0.0;
     for ($p = 0; $p < sizeof($projects); $p += 1)
     {
@@ -60,10 +92,13 @@
 
         // Print project name and skill requirements
         echo "<tr>";
-        echo "<td style='font-weight:bold; border-bottom: thin solid; text-align: left;'>$projectText[$p]</td>";
-        echo "<td style='font-weight:bold; border-bottom: thin solid; border-right: thin solid; text-align: left;'>&nbsp;</td>";
+        //echo "<td colspan='3' style='font-weight:bold; border-bottom: thin solid; border-right: thin solid; text-align: left;'>$projectText[$p] ($projectMinima[$p] - $projectMaxima[$p])</td>";
+        echo "<td colspan='3' style='font-weight:bold; border-bottom: thin solid; border-right: thin solid; text-align: left;'>$projectText[$p]</td>";
         for ($s = 0; $s < $numSkills; $s += 1)
         {
+            if (is_null($skillNames[$s]))
+                continue;
+            
             $importance = $projects[$p][$s]->importance;
             if ($importanceMax > 0.0)
                 $alpha = $importance / $importanceMax;
@@ -73,39 +108,25 @@
             $red = $notAlpha * $headerBackgroundColour['r'] + $alpha * $headerColour['r'];
             $green = $notAlpha * $headerBackgroundColour['g'] + $alpha * $headerColour['g'];
             $blue = $notAlpha * $headerBackgroundColour['b'] + $alpha * $headerColour['b'];
-            $hexColour = sprintf("#%20x%20x%20x", (int)floor($red * 255.9), (int)floor($green * 255.9), (int)floor($blue * 255.9));
-            echo "<td bgcolor='$hexColour' style='border-bottom: thin solid; border-right: thin solid #c0c0c0'>";
+            $hexColour = sprintf("#%02X%02X%02X", (int)floor($red * 255.9), (int)floor($green * 255.9), (int)floor($blue * 255.9));
+            echo "<td bgcolor='$hexColour' style='font-size: 0.75em; border-bottom: thin solid; border-right: thin solid #c0c0c0'>";
 
             if ($importance > 0)
             {
                 $bias = $projects[$p][$s]->bias;
                 if ($bias > 0.25)
-                    echo "High";
+                    echo "H";
                 else if ($bias > -0.25)
-                    echo "Medium";
+                    echo "";
                 else
-                    echo "Low";
+                    echo "L";
             }
             
             echo "</td>";
         }
         echo "</tr>";
-        // Print student names and skills
         echo "<tr>";
-        /*
-        $size = sizeof($projectStudents[$p]);
-        $means = array_fill(0, $numSkills, 1.0);
-        for ($s = 0; $s < $numSkills; $s += 1)
-        {
-            $demand = $projects[$p][$s];
-            $total = 0.0;
-            foreach ($projectStudents[$p] as $y)
-                $total += Solver::memberScore($demand, $students[$y][$s]);
-            $means[$s] = ($size == 0.0 || $total == 0.0) ? 1.0 : ($total / $size);
-        }
-        */
-        $num_students = 0; // Reset number of students to 0 for this project
-        $skill_total = [0,0,0,0,0,0,0,0,0,0,0]; // Reset skill totals (used in average calculation) to 0 for this project
+        // Print student names and skills
         foreach ($projectStudents[$p] as $i)
         {
             if (array_key_exists($i, $studentNames))
@@ -119,53 +140,55 @@
                 $name = "&nbsp;";
             }
             echo "<td style='text-align: right; border-bottom: thin solid #c0c0c0'>$name&nbsp;</td>";
-            echo "<td style='text-align: left; border-right: thin solid; border-bottom: thin solid #c0c0c0'>$text</td>";
-
+            echo "<td style='text-align: left; border-bottom: thin solid #c0c0c0'>$text</td>";
+            
+            $satisfaction = 0.0;
+            $skillTotal = 0.0;
+            $impTotal = 0.0;
+            for ($s = 0; $s < $numSkills; $s += 1)
+            {
+                if (is_null($skillNames[$s]))
+                    continue;
+                $value = $students[$i][$s];
+                $demand = $projects[$p][$s];
+                
+                $satisfaction += $demand->importance * $value;
+                $skillTotal += $value * $value;
+                $impTotal += $demand->importance * $demand->importance;
+            }
+            $divisor = sqrt($skillTotal * $impTotal);
+            if ($divisor > 0.0)
+                $satisfaction /= $divisor;
+            $satisfactionText = str_repeat("!", (int)floor(4.0 * (1.0 - $satisfaction)));
+            
+            echo "<td style='text-align: center; border-right: thin solid; border-bottom: thin solid #c0c0c0'>$satisfactionText</td>";
+            
             $skillMax = 4.0;
             
-            for ($s = 0; $s < $numSkills; $s += 1) {
+            for ($s = 0; $s < $numSkills; $s += 1)
+            {
+                if (is_null($skillNames[$s]))
+                    continue;
                 $value = $students[$i][$s];
                 $demand = $projects[$p][$s];
 
                 $alpha = ($importanceMax <= 0.0) ? 0.0 : ($demand->importance / $importanceMax);
                 $strength = $value / $skillMax;
-                //$strength = 0.5 * (1.0 + $strength);
                 $weakness = 1.0 - $strength;
                 $notAlpha = 1.0 - $alpha;
                 $red = $notAlpha * $backgroundColour['r'] + $alpha * ($strength * $strongColour['r'] + $weakness * $weakColour['r']);
                 $green = $notAlpha * $backgroundColour['g'] + $alpha * ($strength * $strongColour['g'] + $weakness * $weakColour['g']);
                 $blue = $notAlpha * $backgroundColour['b'] + $alpha * ($strength * $strongColour['b'] + $weakness * $weakColour['b']);
-                $hexColour = sprintf("#%20x%20x%20x", (int)floor($red * 255.9), (int)floor($green * 255.9), (int)floor($blue * 255.9));
+                $hexColour = sprintf("#%02X%02X%02X", (int)floor($red * 255.9), (int)floor($green * 255.9), (int)floor($blue * 255.9));
                 $style = ($projects[$p][$s]->importance == 0) ? "" : "font-weight: bold;";
-                echo "<td bgcolor='$hexColour' style='$style; border-bottom: thin solid #606060; border-right: thin solid #606060;'>";
+                echo "<td bgcolor='$hexColour' style='$style; color: white; border-bottom: thin solid #606060; border-right: thin solid #606060;'>";
                 for ($v = 0; $v < $value; $v += 1)
-                    echo "<img src='whiteStar.png' width='12px' height='12x'>";
-
+                    echo "<img src='whiteStar.png' width='10px' height='10px'>";
                 echo "</td>";
-                $skill_total[$s] += $students[$i][$s];
             }
-            $num_students += 1;
           echo "</tr>";
-          }
-          if ($num_students > 0)
-          {
-              echo "<tr>
-                <td style='text-align: left; font-weight: bold; border-top: thin solid;'>&nbsp;</td>
-                <td style='text-align: right; font-weight: bold; border-top: thin solid; border-right: thin solid;'>Team Average&nbsp;</td>
-                <td style='border-top: thin solid;'>".round($skill_total[0] / $num_students, 1)."</td>
-                <td style='border-top: thin solid;'>".round($skill_total[1] / $num_students, 1)."</td>
-                <td style='border-top: thin solid;'>".round($skill_total[2] / $num_students, 1)."</td>
-                <td style='border-top: thin solid;'>".round($skill_total[3] / $num_students, 1)."</td>
-                <td style='border-top: thin solid;'>".round($skill_total[4] / $num_students, 1)."</td>
-                <td style='border-top: thin solid;'>".round($skill_total[5] / $num_students, 1)."</td>
-                <td style='border-top: thin solid;'>".round($skill_total[6] / $num_students, 1)."</td>
-                <td style='border-top: thin solid;'>".round($skill_total[7] / $num_students, 1)."</td>
-                <td style='border-top: thin solid;'>".round($skill_total[8] / $num_students, 1)."</td>
-                <td style='border-top: thin solid;'>".round($skill_total[9] / $num_students, 1)."</td>
-                <td style='border-top: thin solid;'>".round($skill_total[10] / $num_students, 1)."</td>
-                </tr>";
-          }
-        echo "<tr><td colspan='13'>&nbsp;</td></tr>";
+        }
+        echo "<tr><td colspan='". $numTableColumns ."'>&nbsp;</td></tr>";
     }
     echo "</table></div>";
     require "../PAGES/FOOTER_STAFF.PHP";

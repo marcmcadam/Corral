@@ -1,30 +1,21 @@
 <?php
-    $PageTitle = "Begin Solving";
+    $PageTitle = "Sorting";
     require "../PAGES/HEADER_STAFF.PHP";
     
-    function execInBackground($cmd)
+    $isWindows = (substr(php_uname(), 0, 7) == "Windows");
+    if ($isWindows)
     {
-        if (substr(php_uname(), 0, 7) == "Windows"){
-            pclose(popen("start /B ". $cmd, "r"));
-        }else{
-            exec($cmd . " > /dev/null &");
-        }
+        // there is no good solution to backgrounding in windows
+        //exec("C:\\xampp\\php\\php.exe SORT.PHP > NUL"); // this hangs other php pages
+        header("location: SORT.PHP");
+        die;
     }
-    execInBackground("C:\\xampp\\php\\php.exe processing.php");
+    else
+        exec("C:\\xampp\\php\\php.exe SORT.PHP /dev/null");
 ?>
 <div style="text-align: center; width: 100%;">
-<p>The student allocations are being processed in the background. This will continue for the next 60 seconds.</p>
-<p>You may view the progress and results from the Survey > Groups > List Groups page</p>
-</div>
-<script>
-    function refresh()
-    {
-        sleep(1);
-        document.getElementById("updater").src = "progress.php";
-    }
-</script>
-<div style="text-align: center;">
-    <iframe id="updater" onload="refresh()" style="border: 0; width: 50%;"></iframe>
+    <p>The student allocations are being processed in the background.</p>
+    <p>You may view the progress from <a href="GROUPS.PHP">this page</a>.</p>
 </div>
 <?php
     require "../PAGES/FOOTER_STAFF.PHP";

@@ -1,69 +1,92 @@
 <?php
  	$PageTitle = "Project List";
-	require "../PAGES/HEADER_STAFF.PHP";
+    require "../PAGES/HEADER_STAFF.PHP";
+    require_once "../DATABASE/CONNECTDB.PHP";
+    
+    if ($_SERVER["REQUEST_METHOD"] == "POST")
+    {
+        $insert = "INSERT INTO project (pro_imp) VALUES (20)";
+        $query = mysqli_query($CON, $insert);
+        if ($query)
+        {
+            $pk = mysqli_insert_id($CON);
+            header("location: PROJECT.PHP?number=$pk");
+            die;
+        }
+        else
+        {
+            echo "Unable to create project ".mysqli_error($CON);
+            die;
+        }
+    }
 ?>
-<div id="contents">
-
 <h2>Project List</h2>
+
+<form action="../PROJECT/PROJECTLISTCSV" method="post">
+    <select name="View" class="inputList">
+		<option value="All">All</option>
+		<option value="Active">Active Projects</option>
+		<option value="Inactive">Inactive Projects</option>
+		<option value="Planning">Planning Projects</option>
+		<option value="Cancelled">Cancelled Projects</option>
+	</select>
+	<input type="submit" name="export_excel" value="Export As CSV" class="inputButton">
+</form>
+<form action="../PROJECT/PROJECTLISTPDF" method="post">
+	<select name="View" class="inputList">
+		<option value="All">All</option>
+		<option value="Active">Active Projects</option>
+		<option value="Inactive">Inactive Projects</option>
+		<option value="Planning">Planning Projects</option>
+		<option value="Cancelled">Cancelled Projects</option>
+	</select>
+	<input type="submit" name="export_PDF" value="Export As PDF" class="inputButton">
+</form>
+
+<form method="post">
+    <input type="submit" value="Create Project" class="inputButton">
+</form>
+
+<style>
+    tr:nth-child(odd) {
+        background-color: #f4f4f4;
+    }
+    tr:nth-child(even) {
+        background-color: #ececec;
+    }
+</style>
+
 <?php
+    require_once '../DATABASE/CONNECTDB.PHP';
 
-    require('../DATABASE/CONNECTDB.PHP');
+    $sql = "SELECT * FROM project ORDER BY FIELD(pro_status, 'Active', 'Planning', 'Inactive', 'Cancelled'), pro_title ASC";
+    $res = mysqli_query($CON, $sql);
 
+    echo "<table width='1250px' border='1px' cellpadding='8px' align='center'>
+        <tr>
+            <th>Project Title</th>
+            <th>Project Leader</th>
+            <th>Leader Email</th>
+            <th>Project Brief</th>
+            <th>Project Status</th>
+            <th>Update</th>
+        </tr>";
 
-
-
-    $sql="SELECT * FROM project ORDER BY pro_status ASC";
-    $res=mysqli_query($CON, $sql);
-
-    echo "<p><table width='1250px' height='150px' border='1px' cellpadding='10px' align='center'></p>";
-    echo "<tr><th>Project Num</th><th>Project Title</th><th>Project Leader</th><th>Leader Email</th><th>Project Brief</th><th>Project Status</th><th>Update Information</th></tr>";
-
-		while ($row=mysqli_fetch_assoc($res)){
-		    echo "<tr><td align='center' width='70px'>{$row['pro_num']}</td><td align='center' width='190px'>{$row['pro_title']}</td><td align='center' width='190px'>{$row['pro_leader']}</td><td align='center' width='180px'>{$row['pro_email']}</td><td align='center' width='500px'>{$row['pro_brief']}</td><td align='center'  width='180px'>{$row['pro_status']}</td><td align='center'><a href='PROJECTUPDATE.php?number={$row['pro_num']}&title={$row['pro_title']}&leader={$row['pro_leader']}&email={$row['pro_email']}&brief={$row['pro_brief']}&status={$row['pro_status']}'>Update</a></td></tr>";
-		}
-
-
+    while ($row=mysqli_fetch_assoc($res))
+    {
+        echo "<tr>
+                <td align='center' style='max-width: 190px;'>{$row['pro_title']}</td>
+                <td align='center' style='max-width: 190px;'>{$row['pro_leader']}</td>
+                <td align='center' style='max-width: 180px;'>{$row['pro_email']}</td>
+                <td align='center' style='max-width: 500px;'>{$row['pro_brief']}</td>
+                <td align='center' style='max-width: 180px;'>{$row['pro_status']}</td>
+                <td align='center' style='width: 80px;'><a href='PROJECT.PHP?number={$row['pro_num']}'>Update</a></td>
+            </tr>";
+    }
 
     echo "</table>";
     mysqli_free_result($res);
     mysqli_close($CON);
 
-
-
-
-
+    require "../PAGES/FOOTER_STAFF.PHP";
 ?>
-</div>
-
-
-<hr>
-<br>
-
-
-<form action="../PROJECT/PROJECTLISTCSV" method="post">
-<select name="View">
-		<option value="All">All</option>
-		<option value="Active">Active Projects</option>
-		<option value="Inactive">Inactive Projects</option>
-		<option value="Planning">Planning Projects</option>
-		<option value="Cancelled">Cancelled Projects</option>
-	</select>
-	<input type="submit" name="export_excel" value="Export As CSV">
-</form>
-
-<br>
-
-<form action="../PROJECT/PROJECTLISTPDF" method="post">
-	<select name="View">
-		<option value="All">All</option>
-		<option value="Active">Active Projects</option>
-		<option value="Inactive">Inactive Projects</option>
-		<option value="Planning">Planning Projects</option>
-		<option value="Cancelled">Cancelled Projects</option>
-	</select>
-	<input type="submit" name="export_PDF" value="Export As PDF">
-</form>
-
-<br>
-
-<?php require "../PAGES/FOOTER_STAFF.PHP"; ?>

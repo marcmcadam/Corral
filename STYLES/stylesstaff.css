@@ -1,6 +1,9 @@
+
 body {
-  padding-bottom: 40px;
-  background-color: #eee;
+    background: #eee;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .form-signin {
@@ -39,7 +42,7 @@ body {
 }
 
 .Header {
-	background-color: #007399;
+	background: #007399;
 	font-family: Arial, Helvetica, sans-serif;
 	color: white;
 	text-align: center;
@@ -48,37 +51,18 @@ body {
 
 .Footer {
 	padding: 20px;
-	background-color: #007399;
+	background: #007399;
 	color: white;
 	text-align: center;
 	font-family: Arial, Helvetica, sans-serif;
-}
-
-p {
-	margin-left: 40px;
-	margin-right: 50px;
-	font-family: Arial, Helvetica, sans-serif;
-}
-
-h2 {
-	margin-left: 40px;
-	font-family: Arial, Helvetica, sans-serif;
-}
-
-h3 {
-	margin-left: 40px;
-	font-family: Arial, Helvetica, sans-serif;
+    border-top: 2px solid black;
 }
 
 /* The navagation bar for the site, linked to the drop downs */
-	.navbar {
-    background-color: #007399;
+.navbar {
+    background: #007399;
     font-family: Arial, Helvetica, sans-serif;
-}
-
-a {
-	color: black;
-	text-decoration: none;
+    border-bottom: 2px solid black;
 }
 
 /* This is for the drop down in the navigation bar */
@@ -93,19 +77,19 @@ a {
     outline: none;
     color: white;
     padding: 14px 16px;
-    background-color: inherit;
+    background: inherit;
     font-family: inherit;
     margin: 0;
 }
 
 .navbar a:hover, .dropdown:hover .dropbtn {
-    background-color: #0086b3;
+    background: #0086b3;
 }
 
 .dropdown-content {
     display: none;
     position: absolute;
-    background-color: #f9f9f9;
+    background: #f9f9f9;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
@@ -121,34 +105,37 @@ a {
 }
 
 .dropdown-content a:hover {
-    background-color: #ddd;
+    background: #ddd;
 }
 
 .dropdown:hover .dropdown-content {
     display: block;
 }
-#ip2 {
-    border-radius: 25px;
-    border: 1px;
-    padding: 20px; 
-    width: 200px;
-    height: 1px;    
+
+.inputBox {
+    border-radius: 16px;
+    border: 0;
+    padding: 8px 16px;  
 }
 
-#ip3 {
-    border-radius: 25px;
-    border: 1px;
-    padding: 20px; 
-    width: 350px;
-    height: 150px;    
+.inputList {
+    border-radius: 16px 0 0 16px;
+    border: 0;
+    padding: 8px 16px; 
 }
 
-#ip4 {
-    border-radius: 25px;
-    border: 1px;
-    padding: 20px; 
-    width: 200px;
-    height: 10px;    
+.inputButton {
+    border: 2px solid #c0c0c0;
+    background: #f4f4f4;
+    border-radius: 16px;
+    padding: 8px 16px;  
+}
+.inputButton:hover {
+    border: 2px solid #a0c0e0;
+    background: #e0f0ff;
+    border-radius: 16px;
+    padding: 8px 16px;  
+    cursor: pointer;
 }
 
 ul {
@@ -162,13 +149,13 @@ ul {
 ul li {
 	display:inline-block;
 	position:relative;
-	padding:25px 40px;
+	padding: 0;
 	background:#007399;
 }
 
 ul li a{
+    color: black;
 	text-decoration:none;
-	padding:14px 40px;
 	color:white;
 }
 
@@ -180,16 +167,21 @@ ul li:hover {
 ul li ul {
 	padding:0;
 	position:absolute;
-	top:70px;
+	top:50px;
 	left:0;
 	width: 277px;
 	display:none;
 	visibility:hidden;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 }
 
 ul li ul li {
-	background:#007399;
+    background: #ffffff;
 	display:block;
+}
+
+ul li ul li a {
+    color: black;
 }
 
 ul li ul li:hover {
@@ -214,13 +206,11 @@ ul ul ul {
 	top:0;
 }
 
-table {
-	border-collapse: collapse;
+li p {
+    margin: 0;
+    padding: 16px 64px;
 }
 
-table, th, td {
-	font-family: Arial, Helvetica, sans-serif;
-	/*width: 900px;*/ 
-	/*border: 1px solid;*/
-	/*cellpadding: 10px;*/
+table {
+    border-collapse: collapse;
 }

@@ -6,14 +6,24 @@
 <h2>Results</h2>
 
 <?php
-require('../DATABASE/CONNECTDB.PHP');
+require_once "../DATABASE/CONNECTDB.PHP";
 
-	$sql="SELECT * FROM project WHERE pro_status ='".$View."'";
-	if ($View == "All") {
-		$sql="SELECT * FROM project";
-	}
+$view = ["Active","Inactive","Planning","Cancelled"];
 
-    $res=mysqli_query($CON, $sql);
+if (isset($_POST['View'])) {
+
+
+  if ($_POST['View'] == "All") {
+    $sql = "SELECT * FROM project";
+  } elseif (in_array($_POST['View'], $view)){
+	   $sql = 'SELECT * FROM project WHERE pro_status = "'.mysqli_real_escape_string($CON, $_POST["View"]).'"';
+  } else {
+    //invalid post, injection attempt?
+  }
+  if ($sql) {
+    if(!$res = mysqli_query($CON, $sql)) {
+      echo "Error: ".mysqli_error($CON);
+    }
     echo "<p><table width='900px'  border='1px' cellpadding='10px'></p>";
     echo "<tr><th>Project Number</th><th>Project Brief</th><th>Project Leader</th><th>Project Status</th></tr>";
     while ($row=mysqli_fetch_assoc($res)){
@@ -22,6 +32,11 @@ require('../DATABASE/CONNECTDB.PHP');
     echo "</table>";
     mysqli_free_result($res);
     mysqli_close($CON);
+  }
+} else {
+  // No post variable, redirect to search page
+  header('Location: PROJECTSEARCH.PHP');
+}
 ?>
 
 <br><hr>
