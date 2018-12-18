@@ -122,7 +122,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 // end database query for login
 ?>
 
-<form method="POST" class="main" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+<form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
   <h2>Please Log In</h2>
   <?php if($login_Error) echo "<p>$login_Error_Text</p>";?>
   <input type="text" name="STUDENT_ID" placeholder="Student ID" class="inputBox" required><br><br>
