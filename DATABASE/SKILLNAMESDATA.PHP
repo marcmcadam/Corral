@@ -18,18 +18,18 @@ $skillNames = [
   "C++",
   "Python",
   "Database",
-  "Network",
+  "Networking",
   null,
   "Unity",
-  "Security",
+  "Cyber Security",
   "Cloud",
-  "AI",
-  "UI",
-  "Maths",
+  "Artificial Intelligence",
+  "User Interface",
+  "Mathematics",
   "Media",
-  "Management",
-  "Written",
-  "Verbal"
+  "Project Management",
+  "Written Communication",
+  "Verbal Communication"
 ];
 
 $insert = "INSERT INTO skillnames (skill_ID";
