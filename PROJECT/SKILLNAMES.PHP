@@ -46,7 +46,7 @@
 <h2>Update Skill List</h2>
 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
 
-  <table>
+  <table align="center">
   <?php
     for ($i=0;$i<20;$i++) {
       $j = $i + 1;
@@ -60,7 +60,6 @@
   </table>
   <p><input type="submit" value="Update" class="inputButton">&nbsp;&nbsp;<input type="reset" value="Reset" class="inputButton"></p>
 </form>
-<hr>
 <?php } // End of form display ?>
 
 <?php require "../PAGES/FOOTER_STAFF.PHP"; ?>

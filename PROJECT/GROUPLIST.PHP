@@ -61,7 +61,4 @@
   mysqli_free_result($res);
   mysqli_close($CON);
 ?>
-
-<hr>
-
 <?php require "../PAGES/FOOTER_STAFF.PHP"; ?>

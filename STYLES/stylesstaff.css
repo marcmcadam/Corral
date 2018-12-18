@@ -1,4 +1,3 @@
-
 body {
     background: #eee;
     margin: 0;
@@ -222,28 +221,5 @@ li p {
 
 table {
     border-collapse: collapse;
-}
-.main{
-	 text-align: center;
-	 padding: 60px 20px;
-}
-.main a{
-	color:#007399;
-	text-decoration:none;
-}
-.main a:hover{
-	color:black;
-	text-decoration:underline;
-}
-.main{
-	 text-align: center;
-	 padding: 60px 20px;
-}
-.main a{
-	color:#007399;
-	text-decoration:none;
-}
-.main a:hover{
-	color:black;
-	text-decoration:underline;
+	align:center;
 }

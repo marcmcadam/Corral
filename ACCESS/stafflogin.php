@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   }
 ?>
 
-<form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+<form method="POST" class="main" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
   <h2>Please Log In</h2>
   <?php if($login_Error) echo "<p>Invalid Username or Password.</p>";?>
   <input type="text" name="STAFF_ID" placeholder="Staff ID" class="inputBox" required><br><br>

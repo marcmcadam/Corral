@@ -11,10 +11,13 @@ function validate(search) {
 }
 </script>'
 ?>
-
+<body>
+<style>
+</style>
+<div style="align:center;text-align:center">
 <h2>Search</h2>
 <form action="../PROJECT/SEARCHRESULTS" method="post" name="search" id="search" onSubmit="return validate(search)">
-    <table>
+    <table align=center>
         <tr>
             <td>What are you searching for:&nbsp;</td>
             <td><select name="View" class="inputList">
@@ -50,4 +53,6 @@ function validate(search) {
 	<input type="submit" name="Submit" value="Submit" class="inputButton">
 	<input type="reset" value="Clear Search" class="inputButton">
 </form>
+</div>
+</body>
 <?php require "../PAGES/FOOTER_STAFF.PHP"; ?>
