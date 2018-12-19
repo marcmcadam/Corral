@@ -17,7 +17,7 @@ function validate(search) {
     <table>
         <tr>
             <td>What are you searching for:&nbsp;</td>
-            <td><select name="View" class="inputList">
+            <td><select required name="View" class="inputList">
                     <option value="">--Select--</option>
                     <option value="student">Students</option>
                     <option value="staff">Staff</option>
