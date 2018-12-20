@@ -1,15 +1,8 @@
 <?PHP
-$CON = MYSQLI_CONNECT('LOCALHOST', 'ADMIN', 'PASSWORD1');
-IF (!$CON){
-    DIE("DATABASE CONNECTION FAILED" . MYSQLI_ERROR($CON));
-}
-$SELECT_DB = MYSQLI_SELECT_DB($CON, 'CORRAL_PROJECT');
-IF (!$SELECT_DB){
-    DIE("DATABASE SELECTION FAILED" . MYSQLI_ERROR($CON));
-}
+    require_once "condb.php";
 
-
-//set charset
-$CON->set_charset("utf8");
-
+    $select = mysqli_select_db($CON, 'CORRAL_PROJECT');
+    if (!$select)
+        die("Database selection failed: " . mysqli_error($CON));
+    unset($select);
 ?>

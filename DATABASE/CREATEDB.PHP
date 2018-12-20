@@ -1,14 +1,10 @@
-<?PHP
-require_once "../connectdb.php";
+<?php
+    require_once "../condb.php";
 
-//CREATE THE CORRAL DATABASE
-$CORRAL = "CREATE DATABASE CORRAL_PROJECT";
-
-//EXECUTE QUERY
-IF (MYSQLI_QUERY($CON,$CORRAL)) {
-  ECHO "<P>DATABASE CREATED SUCCESSFULLY</P>";
-} ELSE {
-  ECHO "ERROR CREATING DATBASE: " . MYSQLI_ERROR($CON);
-}
-
+    $corral = "CREATE DATABASE CORRAL_PROJECT";
+    if (mysqli_query($CON, $corral))
+        echo "<p>Database created</p>";
+    else
+        echo "Unable to create database: " . mysqli_error($CON);
+    unset($corral);
 ?>
