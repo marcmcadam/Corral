@@ -2,7 +2,7 @@
     $PageTitle = "Sort Results";
     require "header_staff.php";
     require_once "connectdb.php";
-    require "solverphp";
+    require "solver.php";
     require "getdata.php";
 
     $idStudents = [];

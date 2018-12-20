@@ -45,7 +45,7 @@ else
                 <li><a href ="skillnames.php"><p>Edit Skills</p></a></li>
 				<li><a href ="classlist.php"><p>Import Students</p></a></li>
 				<li><a href ="begin.php"><p>Begin Sort</p></a></li>
-				<li><a href ="groups.php"><p>Sort Results</p></a></li>
+				<li><a href ="sortedgroups.php"><p>Sort Results</p></a></li>
 			</ul>
 		</li><!--
 		--><li><a href ="logout.php"><p>Logout</p></a></li>
