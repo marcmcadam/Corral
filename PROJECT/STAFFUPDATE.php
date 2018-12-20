@@ -20,10 +20,6 @@ if(!isset($_POST['staffid'])){
 
 
     while ($row=mysqli_fetch_assoc($result)){
-      //$row['STAFF_ID']
-      print "<br><br>".$row['STAFF_FIRSTNAME']."<br><br>";
-
-
       print "<p><form action='../PROJECT/STAFFPROCESS' method='post'></p>";
       print "<p>Staff ID </p>
       <p><input type ='text' name ='STAFF_ID' value ='".$row["STAFF_ID"]."' class='inputBox'></p>

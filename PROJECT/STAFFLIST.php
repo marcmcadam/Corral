@@ -12,6 +12,15 @@
 <form action="../PROJECT/STAFFPDF" method="post">
 	<input type="submit" name="STAFF_PDF" value="Export Staff List to PDF" class="inputButton">
 </form>
+
+<style>
+    tr:nth-child(odd) {
+        background-color: #f4f4f4;
+    }
+    tr:nth-child(even) {
+        background-color: #ececec;
+    }
+</style>
 <?php
 
 require('../DATABASE/CONNECTDB.PHP');
@@ -21,8 +30,8 @@ $res=mysqli_query($CON, $sql);
 
 echo "
   <form  name ='staffListForm' action='STAFFUPDATE.php'  method='post'>
-    <table width='1250px' height='150px' border='1px' cellpadding='10px' align='center'>";
-echo "<tr><th>ID</th><th>FIRSTNAME</th><th>LASTNAME</th><th>LOCATION</th><th>EMAIL</th><th>Update Information</th></tr>";
+    <table width='1250px' border='1px' cellpadding='8px' align='center'>";
+echo "<tr><th>ID</th><th>FIRSTNAME</th><th>LASTNAME</th><th>LOCATION</th><th>EMAIL</th><th>Update</th></tr>";
 
 while ($row=mysqli_fetch_assoc($res)){
     print "<tr>
@@ -42,7 +51,7 @@ while ($row=mysqli_fetch_assoc($res)){
                 break;
             } print "</td>
             <td align='center' width='500px'>".$row['STAFF_EMAIL']."</td>
-            <td align='center'><button  action='STAFFUPDATE.php' value ='".$row['STAFF_ID']."' name='staffid' class='inputButton'>Update</a></td>
+            <td align='center'><button action='STAFFUPDATE.php' value ='".$row['STAFF_ID']."' name='staffid' class='inputButton'>Update</a></td>
           </tr>";
 }
 

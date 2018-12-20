@@ -22,8 +22,9 @@
         flush();
     }
 
+    echo "<p>Don't close this page unless sorting has been stopped.</p>";
+    echo "<p>To stop the sorting <a href='TERMINATE.PHP' target='_blank'>click here</a>.</p>";
     echo "<p>You may view the progress from <a href='GROUPS.PHP' target='_blank'>this page</a>.</p>";
-    echo "<p>To terminate the sorting <a href='TERMINATE.PHP' target='_blank'>click here</a>.</p>";
     echo "<p>Begin initialisation</p>";
     update();
     
@@ -131,7 +132,7 @@
     $queue = [];
     $projectsRequeue = $projectStudents;
     $batchSize = min(50, sizeof($students)); // 50 is about maximum to allow it to not time-out on most computers
-    $numBatches = (int)(32 * sizeof($students) / $batchSize);
+    $numBatches = (int)(4 * sizeof($students) / $batchSize);
     echo "<p>Total batches: $numBatches</p>";
     for ($batch = 0; $batch < $numBatches; $batch += 1)
     {

@@ -3,7 +3,7 @@
 	require "../PAGES/HEADER_STAFF.PHP";
 ?>
 <div id="contents">
-<h2>Update Student List</h2>
+<h2>Update Student</h2>
 <p><form action="../PROJECT/STUDENTPROCESS" method="post"></p>
 
 
@@ -25,9 +25,4 @@
 <p><input type="submit" value="Update" class="inputButton">&nbsp&nbsp<input type="reset" value="Reset" class="inputButton"></p>
 </form>
 </div>
-
-
-
-<hr>
-
 <?php require "../PAGES/FOOTER_STAFF.PHP"; ?>

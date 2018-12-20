@@ -6,7 +6,7 @@ require "../PAGES/HEADER_STAFF.PHP";
 
 ?>
 
-<h2 class="main">Class List</h2>
+<h2>Class List</h2>
 <form name="classlist" action="ClassList.php"  method="post" enctype="multipart/form-data">
 <!--	Unit Instance ID: <input type="text" name="Unit_ID" maxlength="14"id="ip2" required><br><br>
 -->
