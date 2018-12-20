@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($row[0] == 1){
       // Match Found
       //Configure PHPMailer
-      require "../PHPMailer/PHPMailerAutoload.php";
+      require "PHPMailer/PHPMailerAutoload.php";
       $mail = new PHPMailer;
       $mail->SMTPOptions = array(
         'ssl' => array(

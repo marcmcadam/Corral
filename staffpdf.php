@@ -11,7 +11,7 @@ if ( !isset($_SESSION['STAFF_ID'])) {
 }
 
 require_once "connectdb.php";
-require_once "../TCPDF/tcpdf.php";
+require_once "TCPDF/tcpdf.php";
 $obj_pdf = new TCPDF('P', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 $obj_pdf->SetCreator(PDF_CREATOR);
 $obj_pdf->SetTitle("Staff List");
