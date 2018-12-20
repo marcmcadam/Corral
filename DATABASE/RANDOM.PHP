@@ -1,5 +1,5 @@
 <?php
-    require_once("../SOLVER/HASH.PHP");
+    require_once "../hash.php";
 
     function randomSkill($s)
     {

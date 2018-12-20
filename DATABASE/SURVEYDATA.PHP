@@ -1,6 +1,6 @@
 <?PHP
 // Connect to Database
-require "CONNECTDB.PHP";
+require_once "connectdb.php";
 
 //empty existing surveydata table
 $surveyanswer = "TRUNCATE surveyanswer";

@@ -1,5 +1,5 @@
 <?php
-require "CONNECTDB.PHP";
+require_once "connectdb.php";
 
 //empty existing table
 $staff = "TRUNCATE skillnames";
