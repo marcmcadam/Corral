@@ -1,6 +1,6 @@
 <?PHP
 // Connect to Database
-require "connectdb.php";
+require "../connectdb.php";
 
 //empty existing project table
 $project = "TRUNCATE project";

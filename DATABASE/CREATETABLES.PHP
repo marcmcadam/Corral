@@ -1,5 +1,5 @@
 <?php
-require_once "connectdb.php";
+require_once "../connectdb.php";
 
 //drop surveyanswer table
 $surveyanswer = "DROP TABLE surveyanswer";

@@ -1,5 +1,5 @@
 <?php
-require_once "connectdb.php";
+require_once "../connectdb.php";
 
 //empty existing staff table
 $staff = "TRUNCATE staff";
