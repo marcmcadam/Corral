@@ -55,4 +55,4 @@ function validate(search) {
 </form>
 </div>
 </body>
-<?php require "footer_staff.php"; ?>
+<?php require "footer.php"; ?>

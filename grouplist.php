@@ -3,12 +3,6 @@
 	require "header_staff.php";
 ?>
 <h2>Student Group Listing</h2>
-<form action="groupcsv.php" method="post">
-	<input type="submit" value="Export Group List To CSV" class="inputButton">
-</form>
-<form action="grouppdf.php" method="post">
-	<input type="submit" value="Export Group List To PDF" class="inputButton">
-</form>
 <style>
     tr:nth-child(odd) {
         background-color: #f4f4f4;
@@ -61,4 +55,4 @@
   mysqli_free_result($res);
   mysqli_close($CON);
 ?>
-<?php require "footer_staff.php"; ?>
+<?php require "footer.php"; ?>

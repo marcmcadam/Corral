@@ -18,5 +18,5 @@
     <p>You may view the progress from <a href="sortedgroups.php">this page</a>.</p>
 </div>
 <?php
-    require "footer_staff.php";
+    require "footer.php";
 ?>

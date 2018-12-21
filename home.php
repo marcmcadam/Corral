@@ -2,7 +2,7 @@
   $PageTitle = "Welcome to Corral";
   require "header_public.php"
 ?>
-<div id="contents" class="main">
+<div class="main">
   <h2>Welcome to Corral</h2>
   <p>Corral is an application that provides staff with the ability to match students to projects with <br>
     no manual assigning required. Once a project and desired skills have been set, a student list <br>
@@ -14,4 +14,4 @@
 </div>
 <p>&nbsp;</p>
 
-<?php require "footer_public.php" ?>
+<?php require "footer.php" ?>

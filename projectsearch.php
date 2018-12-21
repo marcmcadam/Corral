@@ -17,4 +17,4 @@
 </form>
 <br><br>
 
-<?php require "footer_staff.php"; ?>
+<?php require "footer.php"; ?>

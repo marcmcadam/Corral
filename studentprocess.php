@@ -2,7 +2,6 @@
  	$PageTitle = "Template";
 	require "header_staff.php";
 ?>
-<div id="contents">
 
   <h2>Updated student information</h2>
 	<?php
@@ -51,4 +50,4 @@
 
 <hr>
 
-<?php require "footer_staff.php"; ?>
+<?php require "footer.php"; ?>

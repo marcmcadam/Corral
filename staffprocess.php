@@ -3,8 +3,6 @@
 	require "header_staff.php";
   require("connectdb.php");
 ?>
-<div id="contents">
-
   <h2>Updated staff information</h2>
 	<?php
 
@@ -69,4 +67,4 @@
 
 <hr>
 
-<?php require "footer_staff.php"; ?>
+<?php require "footer.php"; ?>

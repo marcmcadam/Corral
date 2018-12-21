@@ -31,5 +31,5 @@
     echo "<p>Sorting will terminate at the next batch.</p>";
     echo "<p><a href='sortedgroups.php'>Return to the results page.</a></p>";
 
-    require "footer_staff.php";
+    require "footer.php";
 ?>

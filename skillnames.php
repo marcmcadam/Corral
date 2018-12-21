@@ -62,4 +62,4 @@
 </form>
 <?php } // End of form display ?>
 
-<?php require "footer_staff.php"; ?>
+<?php require "footer.php"; ?>

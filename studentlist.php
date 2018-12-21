@@ -3,16 +3,6 @@
 	require "header_staff.php";
 ?>
 <h2>Student Information</h2>
-<form action="studentcsv.php" method="post">
-	<input type="submit" value="Export Student List To CSV" class="inputButton">
-</form>
-<form action="studentpdf.php" method="post">
-	<input type="submit" value="Export Student List To PDF" class="inputButton">
-</form>
-<form action="surveycsv.php" method="post">
-	<input type="submit" value="Export Student Survey To CSV" class="inputButton">
-</form>
-<br>
 <style>
     tr:nth-child(odd) {
         background-color: #f4f4f4;
@@ -126,5 +116,5 @@
     mysqli_free_result($res);
     mysqli_close($CON);
 
-    require "footer_staff.php";
+    require "footer.php";
 ?>

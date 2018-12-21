@@ -2,7 +2,6 @@
  	$PageTitle = "Template";
 	require "header_staff.php";
 ?>
-<div id="contents">
 <h2>Update Student List</h2>
 <p><form action="studentprocess.php" method="post"></p>
 
@@ -30,4 +29,4 @@
 
 <hr>
 
-<?php require "footer_staff.php"; ?>
+<?php require "footer.php"; ?>

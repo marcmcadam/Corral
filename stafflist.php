@@ -2,16 +2,8 @@
  	$PageTitle = "Staff List";
 	require "header_staff.php";
 ?>
-<div id="contents" >
 
 <h2>Staff Information</h2>
-<form action="staffcsv.php" method="post">
-	<input type="submit" name="STAFF_CSV" value="Export Staff List To CSV" class="inputButton">
-</form>
-
-<form action="staffpdf.php" method="post">
-	<input type="submit" name="STAFF_PDF" value="Export Staff List to PDF" class="inputButton">
-</form>
 <?php
 
 require_once "connectdb.php";
@@ -53,4 +45,4 @@ mysqli_close($CON);
 ?>
 </div>
 
-<?php require "footer_staff.php"; ?>
+<?php require "footer.php"; ?>

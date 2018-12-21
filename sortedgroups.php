@@ -231,5 +231,5 @@
         echo "<tr><td colspan='". $numTableColumns ."'>&nbsp;</td></tr>";
     }
     echo "</table></div></div>";
-    require "footer_staff.php";
+    require "footer.php";
 ?>

@@ -13,4 +13,4 @@
   <p><a href="projectlist.php">All Projects   </a></p>
   <p><a href="projectsearch.php">Search Projects</a></p>
 </div>
-<?php require "footer_staff.php"; ?>
+<?php require "footer.php"; ?>

@@ -82,7 +82,7 @@ padding: 60px 20px;
 }
 
 .dropdown .dropbtn {
-    font-size: 16px;    
+    font-size: 16px;
     border: none;
     outline: none;
     color: white;
@@ -126,30 +126,48 @@ padding: 60px 20px;
     font-family: Arial, Helvetica, sans-serif;
     border-radius: 16px;
     border: 0;
-    padding: 8px 16px;  
+    padding: 8px 16px;
 }
 
 .inputList {
     border-radius: 16px 0 0 16px;
     border: 0;
-    padding: 8px 16px; 
+    padding: 8px 16px;
 }
 
 .inputButton {
     border: 2px solid #c0c0c0;
     background: #f4f4f4;
     border-radius: 16px;
-    padding: 8px 16px;  
+    padding: 8px 16px;
 }
 .inputButton:hover {
     border: 2px solid #a0c0e0;
     background: #e0f0ff;
     border-radius: 16px;
-    padding: 8px 16px;  
+    padding: 8px 16px;
     cursor: pointer;
 }
 
-ul {
+.flexcontainer {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.flexitem {
+}
+
+.menu ul {
 	text-align:left;
 	display:inline;
 	margin:0;
@@ -157,7 +175,7 @@ ul {
 	list-style:none;
 }
 
-ul li {
+.menu ul li {
 	display:inline-block;
 	position:relative;
 	padding: 0;
@@ -166,17 +184,17 @@ ul li {
 	text-align:center;
 }
 
-ul li a{
+.menu ul li a{
 	text-decoration:none;
 	color:white;
 }
 
-ul li:hover {
+.menu ul li:hover {
 	background:#0086b3;
 	color:white;
 }
 
-ul li ul {
+.menu ul li ul {
 	padding:0;
 	position:absolute;
 	width: 500%;
@@ -184,38 +202,38 @@ ul li ul {
 	visibility:hidden;
 }
 
-ul li ul li {
+.menu ul li ul li {
     background: #ffffff;
 	display:block;
 }
 
-ul li ul li a {
+.menu ul li ul li a {
     color: black;
 }
 
-ul li ul li:hover {
+.menu ul li ul li:hover {
 	background:#0086b3;
 }
-ul li:hover ul {
+.menu ul li:hover ul {
 	display:block;
 	opacity:1;
 	visibility:visible;
 }
 
-ul ul ul li {
+.menu ul ul ul li {
 	display:none;
 }
 
-ul ul li:hover li{
+.menu ul ul li:hover li{
 	display:block;
 }
 
-ul ul ul {
+.menu ul ul ul {
 	left:100%;
 	top:0;
 }
 
-li p {
+.menu li p {
     margin: 0;
     padding: 16px 64px;
 }

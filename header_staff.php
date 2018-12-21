@@ -24,31 +24,31 @@ else
 </head>
 
 <body>
-<div class ="navbar">
-	<ul>
-		<li><a href="staffhome.php"><p>Corral</p></a></li><!--
-        --><li><a href ="#"><p>Users</p></a>
-           <ul>
-             <li><a href ="studentlist.php"><p>Students</p></a></li>
-             <li><a href ="stafflist.php"><p>Staff</p></a></li>
-             <li><a href ="membersearch.php"><p>Search</p></a></li>
+<div class="menu navbar">
+	<ul class="menu">
+		<li class="menu"><a href="staffhome.php"><p>Corral</p></a></li><!--
+        --><li class="menu"><a href ="#"><p>Users</p></a>
+           <ul class="menu">
+             <li class="menu"><a href ="studentlist.php"><p>Students</p></a></li>
+             <li class="menu"><a href ="stafflist.php"><p>Staff</p></a></li>
+             <li class="menu"><a href ="membersearch.php"><p>Search</p></a></li>
            </ul>
         </li><!--
-		--><li><a href ="#"><p>Projects</p></a>
-			<ul>
-				<li><a href ="projectlist.php"><p>View Projects</p></a></li>
-				<li><a href ="grouplist.php"><p>Project Groups</p></a></li>
+		--><li class="menu"><a href ="#"><p>Projects</p></a>
+			<ul class="menu">
+				<li class="menu"><a href ="projectlist.php"><p>View Projects</p></a></li>
+				<li class="menu"><a href ="grouplist.php"><p>Project Groups</p></a></li>
 			</ul>
 		</li><!--
-		--><li><a href ="#"><p>Admin</p></a>
-             <ul>
-                <li><a href ="skillnames.php"><p>Edit Skills</p></a></li>
-				<li><a href ="classlist.php"><p>Import Students</p></a></li>
-				<li><a href ="begin.php"><p>Begin Sort</p></a></li>
-				<li><a href ="sortedgroups.php"><p>Sort Results</p></a></li>
+		--><li class="menu"><a href ="#"><p>Admin</p></a>
+     <ul class="menu">
+        <li class="menu"><a href ="skillnames.php"><p>Edit Skills-</p></a></li>
+				<li class="menu"><a href ="datamgmt.php"><p>Manage Corral Data</p></a></li>
+				<li class="menu"><a href ="begin.php"><p>Begin Sort</p></a></li>
+				<li class="menu"><a href ="sortedgroups.php"><p>Sort Results</p></a></li>
 			</ul>
 		</li><!--
-		--><li><a href ="logout.php"><p>Logout</p></a></li>
+		--><li class="menu"><a href ="logout.php"><p>Logout</p></a></li>
 	</ul>
 </div>
 <div class="main">

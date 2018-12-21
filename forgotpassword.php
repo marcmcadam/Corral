@@ -108,4 +108,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <button type="submit" class="inputButton">Password Reset</button><br><br>
 </form>
 
-<?php require "footer_public.php"; ?>
+<?php require "footer.php"; ?>

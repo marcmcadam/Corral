@@ -6,8 +6,6 @@ require "header_staff.php";
 
 <h2 class="main">Class List</h2>
 <form name="classlist" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>"  method="post" enctype="multipart/form-data">
-<!--	Unit Instance ID: <input type="text" name="Unit_ID" maxlength="14"id="ip2" required><br><br>
--->
 	<table align="center">
 			<tr valign='top'>
 					<td> Student List:
@@ -193,4 +191,4 @@ if( isset( $_POST['Submit'] ) ) {
 
 
 ?>
-<?php require "footer_public.php"; ?>
+<?php require "footer.php"; ?>

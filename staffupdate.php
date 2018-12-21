@@ -3,7 +3,6 @@
 	require "header_staff.php";
   require("connectdb.php");
 ?>
-<div id="contents">
 <h2>Update Staff List</h2>
 <?php
 //DEBUG print "<br><br>".$_POST['staffid']."<br><br>"
@@ -52,4 +51,4 @@ if(!isset($_POST['staffid'])){
   }
 }
 
-require "footer_staff.php"; ?>
+require "footer.php"; ?>

@@ -69,4 +69,4 @@ Export Project PDF:
 <br>
 <a href="projectsearch.php">Back to Project Search</a><br>
 
-<?php require "footer_staff.php"; ?>
+<?php require "footer.php"; ?>

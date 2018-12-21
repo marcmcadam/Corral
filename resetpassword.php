@@ -78,4 +78,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   }
 }
 ?>
-<?php require "footer_public.php"; ?>
+<?php require "footer.php"; ?>

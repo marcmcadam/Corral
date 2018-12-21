@@ -157,4 +157,4 @@
     <input type="submit" value="Submit Responses" style="font-size: 1.5em" class="inputButton">
     </form>
 </div> <?php } ?>
-<?php require "footer_student.php"; ?>
+<?php require "footer.php"; ?>

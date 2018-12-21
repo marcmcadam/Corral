@@ -2,6 +2,7 @@
     $PageTitle = "Project Details";
     require "header_staff.php";
     require_once 'connectdb.php';
+    require 'getskillnames.php';
 
 //Sanitisation functions
 function SanitiseGeneric($CON, $input){
@@ -103,8 +104,8 @@ function SanitiseName($CON, $input){
 
 <?php
     $numSkills = 20;
-    $surveyID = 1;
-    require 'getskillnames.php';
+    $skillnames = [];
+    $skillNames = getSkillNames($CON, $numSkills);
 
     $pro_num = filter_input(INPUT_GET, 'number', FILTER_VALIDATE_INT);
     if($pro_num) {
@@ -218,5 +219,5 @@ function SanitiseName($CON, $input){
     } else {
         echo "<h2>Invalid Project</h2>";
     }
-    require "footer_staff.php";
+    require "footer.php";
 ?>

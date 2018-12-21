@@ -1,6 +1,7 @@
 <?php
     require_once "connectdb.php";
     require_once "hash.php";
+    require "getskillnames.php";
 
     $numSkills = 20;
 
@@ -20,8 +21,9 @@
         $sortPID = null;
 
 
-    $surveyID = 1;
-    require "getskillnames.php"; // skill names decide whether numbers are relevant or not, using null
+
+    $skillnames = [];
+    $skillNames = getSkillNames($CON, $numSkills); // skill names decide whether numbers are relevant or not, using null
 
 
     // Fetch student names and skill assessments from database

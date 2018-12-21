@@ -131,4 +131,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
   <button type="button" onclick="location.href='forgotpassword.php';" value="Forgot Password" class="inputButton">Forgot Password</button><br><br>
 </form>
 
-<?php require "footer_public.php"; ?>
+<?php require "footer.php"; ?>

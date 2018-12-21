@@ -10,5 +10,5 @@
     </form>
 </div>
 <?php
-    require "footer_staff.php";
+    require "footer.php";
 ?>

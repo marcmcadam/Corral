@@ -104,4 +104,4 @@ echo "<p><table width='900px'  border='1px' cellpadding='10px'></p>";
 <hr>
 <p><a href="membersearch.php">Back to Search</p></a><br>
 
-<?php require "footer_staff.php"; ?>
+<?php require "footer.php"; ?>

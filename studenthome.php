@@ -13,4 +13,4 @@
 </div>
 
 
-<?php require "footer_student.php"; ?>
+<?php require "footer.php"; ?>
