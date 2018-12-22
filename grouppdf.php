@@ -1,5 +1,6 @@
 <?php
 session_start();
+require "getcampus.php";
 
 if ( !isset($_SESSION['STAFF_ID'])) {
 	$_SESSION['message'] = "You must log in before viewing this page";
@@ -44,17 +45,7 @@ $content .= '
 $sql = "SELECT groups.stu_ID, student.stu_FirstName, student.stu_LastName, student.stu_Campus, student.stu_Email, groups.pro_num, project.pro_title FROM ((groups INNER JOIN student ON groups.stu_ID=student.stu_ID) INNER JOIN project ON groups.pro_num=project.pro_num) ORDER BY pro_num ASC";
 $result = mysqli_query($CON, $sql);
 while($row = mysqli_fetch_array($result)) {
-	switch ($row["stu_Campus"]) {
-		case 1:
-			$campus = "Burwood";
-			break;
-		case 2:
-			$campus = "Geelong";
-			break;
-		case 3:
-			$campus = "Cloud";
-			break;
-	}
+	$campus = getcampus($row["stu_Campus"]);
 $content .= '
   <tr>
     <td>'.$row["stu_ID"].'</td>

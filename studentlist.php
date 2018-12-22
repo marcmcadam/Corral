@@ -1,6 +1,7 @@
 <?php
  	$PageTitle = "Student List";
 	require "header_staff.php";
+  require "getcampus.php";
 ?>
 
 <h2>Student Information</h2>
@@ -94,23 +95,11 @@ while ($row = mysqli_fetch_assoc($res))
         <td align='center'>$stu_id</td>
         <td align='center'>{$row['stu_FirstName']}</td>
         <td align='center'>{$row['stu_LastName']}</td>
-        <td align='center'>";
-    switch ($row["stu_Campus"]) {
-      case 1:
-        echo "Burwood";
-        break;
-      case 2:
-        echo "Geelong";
-        break;
-      case 3:
-        echo "Cloud";
-        break;
-    }
-    echo "</td>
-            <td align='center'>{$row['stu_Email']}</td>
-            <td align='center'>$surveyDone</td>
-            <td align='center'>$projectText</td>
-            <td align='center'><button value ='".$stu_id."' name='studentid' class='inputButton'>Update</a></td>
+        <td align='center'>".getcampus($row["stu_Campus"])."</td>
+        <td align='center'>{$row['stu_Email']}</td>
+        <td align='center'>$surveyDone</td>
+        <td align='center'>$projectText</td>
+        <td align='center'><button value ='".$stu_id."' name='studentid' class='inputButton'>Update</a></td>
     </tr>";
 }
 

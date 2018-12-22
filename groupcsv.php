@@ -1,5 +1,6 @@
 <?php
 session_start();
+require "getcampus.php";
 
 if ( !isset($_SESSION['STAFF_ID'])) {
 	$_SESSION['message'] = "You must log in before viewing this page";
@@ -29,18 +30,7 @@ if ( !isset($_SESSION['STAFF_ID'])) {
 
     //data rows, converting campus from int to campus name
 		while ($row = mysqli_fetch_assoc($result)) {
-			switch ($row["stu_Campus"]) {
-				case 1:
-					$row["stu_Campus"] = "Burwood";
-					break;
-				case 2:
-					$row["stu_Campus"] = "Geelong";
-					break;
-				case 3:
-					$row["stu_Campus"] = "Cloud";
-					break;
-			}
-
+			$row["stu_Campus"] = getcampus($row["stu_Campus"]);
       fputcsv($output, $row);
     }
   }

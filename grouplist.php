@@ -1,6 +1,7 @@
 <?php
  	$PageTitle = "Project List";
 	require "header_staff.php";
+  require "getcampus.php";
 ?>
 <h2>Student Group Listing</h2>
 <style>
@@ -29,17 +30,7 @@
         </tr>";
 
   while ($row=mysqli_fetch_assoc($res)){
-    switch ($row["stu_Campus"]) {
-      case 1:
-        $row["stu_Campus"] = "Burwood";
-        break;
-      case 2:
-        $row["stu_Campus"] = "Geelong";
-        break;
-      case 3:
-        $row["stu_Campus"] = "Cloud";
-        break;
-    }
+    $row["stu_Campus"] = getcampus($row["stu_Campus"]);
   	echo "<tr>
             <td>{$row['stu_ID']}</td>
             <td>{$row['stu_FirstName']}</td>
