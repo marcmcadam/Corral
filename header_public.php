@@ -19,5 +19,4 @@
 		</div>
 	</div>
 </div>
-<div style="padding: 8px 32px;">
 <div class="main">

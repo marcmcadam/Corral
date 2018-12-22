@@ -102,7 +102,6 @@ echo "<p><table width='900px'  border='1px' cellpadding='10px'></p>";
     mysqli_free_result($res);
     mysqli_close($CON);
 ?>
-<hr>
 <p><a href="membersearch.php">Back to Search</p></a><br>
 
 <?php require "footer.php"; ?>

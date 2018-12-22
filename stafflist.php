@@ -19,13 +19,13 @@ require_once "connectdb.php";
 $sql="SELECT * FROM STAFF ORDER BY STAFF_ID ASC";
 $res=mysqli_query($CON, $sql);
 
-echo "<form name ='staffListForm' action='staffuser.php'  method='get'>
-    <table width='1250px' height='150px' border='1px' cellpadding='10px' align='center'>
+echo "<form name='staffListForm' action='staffuser.php' method='get'>
+    <table width='1250px' border='1px' cellpadding='8px' align='center'>
     <tr>
-      <th>FIRSTNAME</th>
-      <th>LASTNAME</th>
-      <th>LOCATION</th>
-      <th>EMAIL</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Location</th>
+      <th>Email</th>
       <th>Update</th>
     </tr>";
 
@@ -39,7 +39,7 @@ while ($row=mysqli_fetch_assoc($res)){
           </tr>";
 }
 
-echo "</table>";
+echo "</table></form>";
 mysqli_free_result($res);
 mysqli_close($CON);
 require "footer.php"; ?>
