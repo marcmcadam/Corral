@@ -3,33 +3,7 @@
     require "header_staff.php";
     require_once 'connectdb.php';
     require 'getskillnames.php';
-
-//Sanitisation functions
-function SanitiseGeneric($CON, $input){
-	$input = mysqli_real_escape_string($CON,$input);
-  $input = preg_replace("/[,]+/", "", $input);
-  $input = strip_tags($input);
-	$input = trim($input);
-  return $input;
-}
-function SanitiseString($CON, $input){
-	$input = mysqli_real_escape_string($CON,$input);
-  $input = preg_replace("/[,]+/", "", $input);
-  $input = strip_tags($input);
-	$input = trim($input);
-  $input = strtolower($input);
-  return $input;
-}
-
-function SanitiseName($CON, $input){
-  $input = mysqli_real_escape_string($CON,$input);
-  $input = preg_replace("/[,]+/", "", $input);
-  $input = strip_tags($input);
-	$input = trim($input);
-  $input = strtolower($input);
-  $input = ucfirst($input);
-  return $input;
-}
+    require 'sanitise.php';
 
 
     if ($_SERVER["REQUEST_METHOD"] == "POST")
