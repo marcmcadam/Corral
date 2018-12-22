@@ -1,6 +1,7 @@
 <?php
 	$PageTitle = "Search Results";
 	require "header_staff.php";
+	require "getcampus.php";
 
 $View = $_POST['View'];
 $FirstName = $_POST['FirstName'];
@@ -87,10 +88,10 @@ echo "<p><table width='900px'  border='1px' cellpadding='10px'></p>";
 		echo "<tr><th>ID</th><th>First Name</th><th>Email</th><th>Location</th></tr>";
 		while ($row=mysqli_fetch_assoc($res)){
 			if ($View == "student") {
-				echo "<tr><td align='center'>{$row['stu_ID']}</td><td align='center'>{$row['stu_FirstName']}</td><td align='center'>{$row['stu_Email']}</td><td align='center'>{$row['stu_Campus']}</td></tr>";
+				echo "<tr><td align='center'>{$row['stu_ID']}</td><td align='center'>{$row['stu_FirstName']}</td><td align='center'>{$row['stu_Email']}</td><td align='center'>".getcampus($row['stu_Campus'])."</td></tr>";
 			}
 			if ($View == "staff") {
-				echo "<tr><td align='center'>{$row['STAFF_ID']}</td><td align='center'>{$row['STAFF_FIRSTNAME']}</td><td align='center'>{$row['STAFF_EMAIL']}</td><td align='center'>{$row['STAFF_LOCATION']}</td></tr>";
+				echo "<tr><td align='center'>{$row['STAFF_ID']}</td><td align='center'>{$row['STAFF_FIRSTNAME']}</td><td align='center'>{$row['STAFF_EMAIL']}</td><td align='center'>".getcampus($row['STAFF_LOCATION'])."</td></tr>";
 			}
 		}
 	} else {
