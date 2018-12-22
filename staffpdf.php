@@ -1,5 +1,6 @@
 <?php
 session_start();
+require "getcampus.php";
 
 if ( !isset($_SESSION['STAFF_ID'])) {
 	$_SESSION['message'] = "You must log in before viewing this page";
@@ -42,17 +43,7 @@ $content .= '
 $sql = "SELECT STAFF_ID, STAFF_FIRSTNAME, STAFF_LASTNAME, STAFF_LOCATION, STAFF_EMAIL FROM STAFF";
 $result = mysqli_query($CON, $sql);
 while($row = mysqli_fetch_array($result)) {
-	switch ($row["STAFF_LOCATION"]) {
-		case 1:
-			$campus = "Burwood";
-			break;
-		case 2:
-			$campus = "Geelong";
-			break;
-		case 3:
-			$campus = "Cloud";
-			break;
-		}
+	$campus = getcampus($row["STAFF_LOCATION"]);
 	$content .= '
 		<tr>
 			<td>'.$row["STAFF_ID"].'</td>

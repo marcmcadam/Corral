@@ -1,6 +1,7 @@
 <?php
  	$PageTitle = "Staff List";
 	require "header_staff.php";
+  require "getcampus.php";
 ?>
 
 <h2>Staff Information</h2>
@@ -32,18 +33,7 @@ while ($row=mysqli_fetch_assoc($res)){
     echo "<tr>
             <td align='center' width='190px'>".$row['STAFF_FIRSTNAME']."</td>
             <td align='center' width='190px'>".$row['STAFF_LASTNAME']."</td>
-            <td align='center' width='180px'>";
-            switch ($row["STAFF_LOCATION"]) {
-              case 1:
-                echo "Burwood";
-                break;
-              case 2:
-                echo "Geelong";
-                break;
-              case 3:
-                echo "Cloud";
-                break;
-            } echo "</td>
+            <td align='center' width='180px'>".getcampus($row["STAFF_LOCATION"])."</td>
             <td align='center' width='500px'>".$row['STAFF_EMAIL']."</td>
             <td align='center'><button value ='".$row['STAFF_ID']."' name='staffid' class='inputButton'>Update</a></td>
           </tr>";
