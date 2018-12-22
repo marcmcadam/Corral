@@ -99,7 +99,7 @@ while ($row = mysqli_fetch_assoc($res))
         <td align='center'>{$row['stu_Email']}</td>
         <td align='center'>$surveyDone</td>
         <td align='center'>$projectText</td>
-        <td align='center'><button value ='".$stu_id."' name='studentid' class='inputButton'>Update</a></td>
+        <td align='center'><button value ='".$stu_id."' name='studentid' class='inputButton'>Update</button></td>
     </tr>";
 }
 

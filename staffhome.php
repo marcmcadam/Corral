@@ -9,8 +9,8 @@
     is imported before Corral automatically assigns the best candidates for the project.
 
   <p>To create or view projects in Corral, please select a link below:</p>
-  <p><a href="addproject.php">Create A Project</a></p>
-  <p><a href="projectlist.php">All Projects   </a></p>
-  <p><a href="projectsearch.php">Search Projects</a></p>
+  <form action="project"><button class="inputButton">Create A Project</button></form>
+  <form action="projectlist"><button class="inputButton">All Projects</button></form>
+  <form action="projectsearch"><button class="inputButton">Search Projects</button></form>
 </div>
 <?php require "footer.php"; ?>

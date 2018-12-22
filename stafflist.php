@@ -35,7 +35,7 @@ while ($row=mysqli_fetch_assoc($res)){
             <td align='center' width='190px'>".$row['STAFF_LASTNAME']."</td>
             <td align='center' width='180px'>".getcampus($row["STAFF_LOCATION"])."</td>
             <td align='center' width='500px'>".$row['STAFF_EMAIL']."</td>
-            <td align='center'><button value ='".$row['STAFF_ID']."' name='staffid' class='inputButton'>Update</a></td>
+            <td align='center'><button value ='".$row['STAFF_ID']."' name='staffid' class='inputButton'>Update</button></td>
           </tr>";
 }
 
