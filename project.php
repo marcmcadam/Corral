@@ -8,11 +8,23 @@
 
     if ($_SERVER["REQUEST_METHOD"] == "POST")
     {
-        $pro_num = (int)SanitiseGeneric($CON, $_POST['pro_num']);
+        $pro_num_text = SanitiseGeneric($_POST['pro_num'], $CON);
+        if ($pro_num_text == "")
+        {
+            $insert = "INSERT INTO project (pro_imp) VALUES (20)";
+            $query = mysqli_query($CON, $insert);
+            if ($query)
+                $pro_num = mysqli_insert_id($CON);
+            else
+                die(mysqli_error($CON));
+        }
+        else
+            $pro_num = (int)$pro_num_text;
+        
         $title = SanitiseName($CON, $_POST['PRO_TITLE']);
         $leader = SanitiseName($CON, $_POST['PRO_LEADER']);
         $email = SanitiseString($CON, $_POST['PRO_EMAIL']);
-        $brief = SanitiseGeneric($CON, $_POST['PRO_BRIEF']);
+        $brief = SanitiseGeneric($_POST['PRO_BRIEF'], $CON);
         $status = mysqli_real_escape_string($CON, $_POST['PRO_STATUS']);
         $minimum = mysqli_real_escape_string($CON, $_POST['min']);
         $maximum = $minimum; // mysqli_real_escape_string($CON, $_POST['max']);
@@ -53,7 +65,7 @@
             array_push($skillImp, postImportance($s));
             array_push($skillBias, postBias($s));
         }
-
+        
         $sql = "UPDATE project SET pro_title='$title',pro_leader='$leader',pro_email='$email',pro_brief='$brief',pro_status='$status', pro_min='$minimum', pro_max='$maximum', pro_imp='$importance'";
         for ($i = 0; $i < $numSkills; $i += 1)
         {
@@ -65,14 +77,12 @@
         $sql .= " WHERE pro_num = $pro_num";
         $query = mysqli_query($CON, $sql);
         if (!$query)
-            echo mysqli_error($CON);
+            die(mysqli_error($CON));
         else
-            header("location: projectlist.php");
-        die;
-    }
-    else
-    {
-
+        {
+            header("location: projectlist");
+            die;
+        }
     }
 ?>
 
@@ -82,14 +92,25 @@
     $skillNames = getSkillNames($CON, $numSkills);
 
     $pro_num = filter_input(INPUT_GET, 'number', FILTER_VALIDATE_INT);
-    if($pro_num) {
+    if (is_null($pro_num))
+    {
+        // updating nothing. create a new project
+        $pro_num = "";
+        $title = "";
+        $brief = "";
+        $leader = "";
+        $email = "";
+        $status = "";
+        $minimum = "0";
+        $maximum = "";
+        $importance = 20; // with limit as 100, is a number that can get 5 times larger, but also 5x smaller without losing too much fidelity (20/5 = 4)
+    }
+    else
+    {
       $sql="SELECT * FROM project WHERE pro_num = $pro_num";
       $query = mysqli_query($CON, $sql);
       if (!$query)
-      {
-          echo mysqli_error($CON);
-          die;
-      }
+          die(mysqli_error($CON));
       $project = mysqli_fetch_assoc($query);
       $title = $project['pro_title'];
       $brief = $project['pro_brief'];
@@ -99,9 +120,7 @@
       $minimum = $project['pro_min'];
       $maximum = $project['pro_max'];
       $importance = $project['pro_imp'];
-
-      $numSkills = 20;
-
+      
       $skillImp = [];
       $skillBias = [];
       for ($i = 0; $i < $numSkills; $i += 1)
@@ -111,6 +130,9 @@
           array_push($skillImp, $imp);
           array_push($skillBias, $bias);
       }
+    }
+    
+      $numSkills = 20;
 
       function skillOptions($n)
       {
@@ -190,8 +212,6 @@
             <input type="submit" value="Save Changes" style="font-size: 1.5em" class="inputButton">
         </form>
         </div>';
-    } else {
-        echo "<h2>Invalid Project</h2>";
-    }
+        
     require "footer.php";
 ?>

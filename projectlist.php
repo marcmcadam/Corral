@@ -5,19 +5,8 @@
 
     if ($_SERVER["REQUEST_METHOD"] == "POST")
     {
-        $insert = "INSERT INTO project (pro_imp) VALUES (20)";
-        $query = mysqli_query($CON, $insert);
-        if ($query)
-        {
-            $pk = mysqli_insert_id($CON);
-            header("location: project.php?number=$pk");
-            die;
-        }
-        else
-        {
-            echo "Unable to create project ".mysqli_error($CON);
-            die;
-        }
+        header("location: project");
+        die;
     }
 ?>
 <h2>Project List</h2>
