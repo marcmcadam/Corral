@@ -130,7 +130,7 @@
               <td><input type='range' min='-1' max='1' name='bias$key' value='$bias'><br><br></td>
           </tr>";
       }
-      echo ";
+      echo "
         <style>
           th, td {
               padding: 8px 16px;
