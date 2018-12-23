@@ -31,7 +31,8 @@
     $sql = "SELECT * FROM project ORDER BY FIELD(pro_status, 'Active', 'Planning', 'Inactive', 'Cancelled'), pro_title ASC";
     $res = mysqli_query($CON, $sql);
 
-    echo "<table width='1250px' border='1px' cellpadding='8px' align='center'>
+    echo "<form name ='projectListForm' action='project.php'  method='get'>
+    <table width='1250px' border='1px' cellpadding='8px' align='center'>
         <tr>
             <th>Project Title</th>
             <th>Project Leader</th>
@@ -49,7 +50,7 @@
                 <td align='center' style='max-width: 180px;'>{$row['pro_email']}</td>
                 <td align='center' style='max-width: 500px;'>{$row['pro_brief']}</td>
                 <td align='center' style='max-width: 180px;'>{$row['pro_status']}</td>
-                <td align='center' style='width: 80px;'><a href='project.php?number={$row['pro_num']}'>Update</a></td>
+                <td align='center' style='width: 80px;'><button value='".$row['pro_num']."' name='number' class='inputButton'>Update</button></td>
             </tr>";
     }
 
