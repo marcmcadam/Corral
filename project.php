@@ -92,6 +92,8 @@
     $skillNames = getSkillNames($CON, $numSkills);
 
     $pro_num = filter_input(INPUT_GET, 'number', FILTER_VALIDATE_INT);
+    $skillImp = [];
+    $skillBias = [];
     if (is_null($pro_num))
     {
         // updating nothing. create a new project
@@ -104,6 +106,12 @@
         $minimum = "0";
         $maximum = "";
         $importance = 20; // with limit as 100, is a number that can get 5 times larger, but also 5x smaller without losing too much fidelity (20/5 = 4)
+      
+        for ($i = 0; $i < $numSkills; $i += 1)
+        {
+          array_push($skillImp, 0);
+          array_push($skillBias, 0);
+        }
     }
     else
     {
@@ -121,8 +129,6 @@
       $maximum = $project['pro_max'];
       $importance = $project['pro_imp'];
       
-      $skillImp = [];
-      $skillBias = [];
       for ($i = 0; $i < $numSkills; $i += 1)
       {
           $imp = (int)$project["pro_skill_".sprintf("%02d", $i)];

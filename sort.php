@@ -24,7 +24,7 @@
     
     echo "<p>Avoid closing this page unless sorting has been stopped.</p>";
     echo "<p>To stop the sorting <a href='terminatesort' target='_blank'>click here</a>.</p>";
-    echo "<p>You may view the progress from <a href='sortedgroups' target='_blank'>this page</a>.</p>";
+    echo "<p>View the progress from <a href='sortedgroups' target='_blank'>this page</a>.</p>";
     echo "<p>Begin initialisation</p>";
     update();
 
@@ -58,16 +58,17 @@
     }
 
     $clevers = sizeof($students);
-
-    for ($i = $clevers; $i < $slots; $i += 1)
+    if ($clevers < $slots)
     {
-        $y = sizeof($students);
-        array_push($students, array_fill(0, $numSkills, 0));
+        for ($i = $clevers; $i < $slots; $i += 1)
+        {
+            $y = sizeof($students);
+            array_push($students, array_fill(0, $numSkills, 0));
+        }
+        
+        echo "<p>Dummy students created</p>";
+        update();
     }
-
-    echo "<p>Dummy students created</p>";
-    update();
-
 
     if ($slots != sizeof($students))
     {
@@ -128,14 +129,16 @@
     for ($s = 0; $s < $numSkills; $s += 1)
         array_push($usedSkills, !is_null($skillNames[$s]));
 
-    $maxInertia = 100;
+    $maxInertia = 20;
     $queue = [];
     $projectsRequeue = $projectStudents;
     $batchSize = min(50, sizeof($students)); // 50 is about maximum to allow it to not time-out on most computers
-    $numBatches = 10;
+    $numBatches = (int)(0.2 * sizeof($students));
     echo "<p>Total batches: $numBatches</p>";
     for ($batch = 0; $batch < $numBatches; $batch += 1)
     {
+        $progress = $batch / $numBatches;
+            
         $sql = "SELECT staff_id, sort_pid FROM staff WHERE staff_id = $id";
         $res = mysqli_query($CON, $sql);
         if (!$res)
@@ -198,7 +201,7 @@
             $solver->numSkills = $numSkills;
             $solver->usedSkills = $usedSkills;
 
-            $solver->inertia = (int)($maxInertia * $batch / $numBatches);
+            $solver->inertia = (int)($maxInertia * $progress * $progress); // progress squared so that inertia is mostly applied near the end of the processing
 
             $solver->students = [];
             $solver->projects = $projects;
@@ -289,8 +292,9 @@
 
         $cost = $solver->cost;
         $progress = -$cost;
+        $swaps = sizeof($toDatabase);
 
-        echo "<p>Gain: $progress</p>";
+        echo "<p>Gain: $progress, Swaps: $swaps</p>";
     }
     echo "<p>Finished</p>";
 

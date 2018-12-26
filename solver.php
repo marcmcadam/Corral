@@ -24,7 +24,7 @@
 
         // tiny randomisation bypasses an endless loop, caused by excessive identical values, in our acquired Hungarian algorithm code
         // the more randomisation there is, the faster it goes. could be because the values are more ordered instead of the same, and that reduces the number of possibilities
-        public $randomisation = 10;
+        public $randomisation = 9;
 
         // the cost of changing from the current situation. forces it to settle
         public $inertia = 0;
@@ -220,7 +220,8 @@
                             */
                         }
 
-                        $cost += sqrt($memberScoreA * $projectScoreA) - sqrt($memberScoreB * $projectScoreB);
+                        //$cost += sqrt($memberScoreA * $projectScoreA) - sqrt($memberScoreB * $projectScoreB);
+                        $cost += $memberScoreA * $projectScoreA - $memberScoreB * $projectScoreB;
                     }
                     $element = $discretisation * $cost;
                     if ($nextProject != $currentProject)
@@ -231,8 +232,8 @@
                         return false;
                     }
                     $discrete = (int)$element;
-                    if ($nextProject != $currentProject)
-                        $discrete += random_int(0, $randomisation);
+                    //if ($nextProject != $currentProject)
+                        $discrete += random_int(-$randomisation, $randomisation);
                     $row[$x] = $discrete;
                 }
                 $matrix[$y] = $row;
