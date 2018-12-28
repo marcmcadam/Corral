@@ -32,7 +32,6 @@ else
            <ul class="menu">
              <li class="menu"><a href ="studentlist.php"><p>Students</p></a></li>
              <li class="menu"><a href ="stafflist.php"><p>Staff</p></a></li>
-             <li class="menu"><a href ="membersearch.php"><p>Search</p></a></li>
            </ul>
         </li><!--
 		--><li class="menu"><a href ="#"><p>Projects</p></a>
