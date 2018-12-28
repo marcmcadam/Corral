@@ -42,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $email = $row['email'];
 
       // Check if user is a staff member, if so reset password
-      $query = "SELECT count(*) FROM staff WHERE STAFF_EMAIL = '".$email."'";
+      $query = "SELECT count(*) FROM staff WHERE sta_Email = '".$email."'";
       $result = mysqli_query($CON, $query) or die(mysqli_error($CON));
       $row = mysqli_fetch_assoc($result);
       if ($row['count(*)'] == 1) {
@@ -50,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $password = mysqli_real_escape_string($CON, $_POST['new_password']);
         $salt = 'juhladhfl465adfgadf564a3d5f4g6664645dfgvadf';
         $md5 = md5($salt . $password . $salt);
-        $query = "UPDATE staff SET STAFF_PASSWORD='".$md5."' WHERE STAFF_EMAIL = '".$email."'";
+        $query = "UPDATE staff SET sta_Password='".$md5."' WHERE sta_Email = '".$email."'";
         mysqli_query($CON, $query) or die(mysqli_error($CON));
         echo "<p>Your password has been reset, please <a href='stafflogin.php'>login here</a>.</p>";
       }
