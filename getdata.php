@@ -1,13 +1,13 @@
 <?php
     require_once "connectdb.php";
-    require_once "hash.php";
-    require "getskillnames.php";
+    require_once "solver.php";
+    require_once "getskillnames.php";
 
     $numSkills = 20;
 
 
     // get the process ID for the sorting
-    $sql = "SELECT staff_id, sort_pid FROM staff WHERE staff_id = $id";
+    $sql = "SELECT staff_id, sort_pid, sort_matrix, sort_random, sort_inertia, sort_iterations FROM staff WHERE staff_id = $id";
     $res = mysqli_query($CON, $sql);
     if (!$res)
     {
@@ -16,12 +16,22 @@
     }
 
     if ($row = mysqli_fetch_assoc($res))
+    {
         $sortPID = $row["sort_pid"];
+        $sortMatrix = $row["sort_matrix"];
+        $sortRandom = $row["sort_random"];
+        $sortInertia = $row["sort_inertia"];
+        $sortIterations = $row["sort_iterations"];
+    }
     else
+    {
         $sortPID = null;
-
-
-
+        $sortMatrix = null;
+        $sortRandom = null;
+        $sortInertia = null;
+        $sortIterations = null;
+    }
+    
     $skillnames = [];
     $skillNames = getSkillNames($CON, $numSkills); // skill names decide whether numbers are relevant or not, using null
 

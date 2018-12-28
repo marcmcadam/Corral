@@ -1,8 +1,8 @@
 <?php
     header('Cache-Control: no-cache');
     $id = 123456789;
-    require "solver.php";
-    require "getdata.php";
+    require_once "solver.php";
+    require_once "getdata.php";
 
     echo "<!DOCTYPE html>";
     echo "<html>";
@@ -129,11 +129,13 @@
     for ($s = 0; $s < $numSkills; $s += 1)
         array_push($usedSkills, !is_null($skillNames[$s]));
 
-    $maxInertia = 20;
+    $maxInertia = $sortInertia;
     $queue = [];
     $projectsRequeue = $projectStudents;
-    $batchSize = min(50, sizeof($students)); // 50 is about maximum to allow it to not time-out on most computers
-    $numBatches = (int)(0.2 * sizeof($students));
+    $batchSize = min($sortMatrix, sizeof($students)); // large batch sizes can breach the PHP memory limit
+    //$batchRatio = 2.0 * max(sizeof($students) / $batchSize, 1.0);
+    //$numBatches = (int)ceil($batchRatio * $batchRatio);
+    $numBatches = $sortIterations;
     echo "<p>Total batches: $numBatches</p>";
     for ($batch = 0; $batch < $numBatches; $batch += 1)
     {
@@ -201,6 +203,7 @@
             $solver->numSkills = $numSkills;
             $solver->usedSkills = $usedSkills;
 
+            $solver->randomisation = $sortRandom;
             $solver->inertia = (int)($maxInertia * $progress * $progress); // progress squared so that inertia is mostly applied near the end of the processing
 
             $solver->students = [];

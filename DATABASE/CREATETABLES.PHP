@@ -85,7 +85,11 @@ $staff = "CREATE TABLE STAFF (
   STAFF_LOCATION VARCHAR(35) NOT NULL,
   STAFF_EMAIL VARCHAR(35) NOT NULL,
   STAFF_PASSWORD VARCHAR(256) NOT NULL,
-  SORT_PID INT(11)
+  SORT_PID INT(11),
+  sort_matrix INT(11) NOT NULL,
+  sort_inertia INT(11) NOT NULL,
+  sort_random INT(11) NOT NULL,
+  sort_iterations INT(11) NOT NULL
 )";
 
 if (mysqli_query($CON,$staff)) {
