@@ -4,8 +4,7 @@ require "header_staff.php";
 require_once "connectdb.php";
 require_once "getcampus.php";
 
-if (!$_SERVER["REQUEST_METHOD"] == "GET") echo "<p>No search term entered.</p>";
-if ($_SERVER["REQUEST_METHOD"] == "GET") {
+if (isset($_GET['search'])) {
   // Filter with Regex, Search term should only include uppercase/lowercase/numbers/.@ (to allow email search)
   if(!filter_var($_GET['search'], FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>"/^[a-zA-Z0-9.@]+$/")))) echo "<p>Invalid search term entered.</p>";
   else { // Passed regex, execute search with supplied term
@@ -109,6 +108,14 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
       mysqli_free_result($res);
     }
   }
+}
+
+if (!isset($_GET['search'])) {
+  echo "
+  <form action='".htmlspecialchars($_SERVER['PHP_SELF'])."' method='get'>
+  <input type='text' placeholder='Search..' name='search' class='inputBox'>
+  <button type='submit'><i class='fa fa-search'></i></button>
+  </form>";
 }
 
 
