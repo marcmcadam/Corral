@@ -20,7 +20,7 @@
     else
         $pid = null;
     */
-    $sql = "UPDATE staff SET sort_pid = null WHERE sta_Email = $id";
+    $sql = "UPDATE staff SET sort_pid = null WHERE sta_Email = '$id'";
     $res = mysqli_query($CON, $sql);
     if (!$res)
     {

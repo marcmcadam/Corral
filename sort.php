@@ -1,6 +1,6 @@
 <?php
     header('Cache-Control: no-cache');
-    $id = 123456789;
+    $id = "staffuser@deakin.edu.au";
     require_once "solver.php";
     require_once "getdata.php";
 
@@ -30,7 +30,7 @@
 
     $sortPID = getmypid();
 
-    $sql = "UPDATE staff SET sort_pid = $sortPID WHERE sta_Email = $id";
+    $sql = "UPDATE staff SET sort_pid = $sortPID WHERE sta_Email = '$id'";
     $res = mysqli_query($CON, $sql);
     if (!$res)
     {
@@ -141,7 +141,7 @@
     {
         $progress = $batch / $numBatches;
             
-        $sql = "SELECT sta_Email, sort_pid FROM staff WHERE sta_Email = $id";
+        $sql = "SELECT sta_Email, sort_pid FROM staff WHERE sta_Email = '$id'";
         $res = mysqli_query($CON, $sql);
         if (!$res)
         {
@@ -301,7 +301,7 @@
     }
     echo "<p>Finished</p>";
 
-    $sql = "UPDATE staff SET sort_pid = null WHERE sta_Email = $id";
+    $sql = "UPDATE staff SET sort_pid = null WHERE sta_Email = '$id'";
     $res = mysqli_query($CON, $sql);
     if (!$res)
     {
