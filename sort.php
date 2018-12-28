@@ -21,7 +21,7 @@
         ob_flush();
         flush();
     }
-    
+
     echo "<p>Avoid closing this page unless sorting has been stopped.</p>";
     echo "<p>To stop the sorting <a href='terminatesort' target='_blank'>click here</a>.</p>";
     echo "<p>You may view the progress from <a href='sortedgroups' target='_blank'>this page</a>.</p>";
@@ -30,7 +30,7 @@
 
     $sortPID = getmypid();
 
-    $sql = "UPDATE staff SET sort_pid = $sortPID WHERE staff_id = $id";
+    $sql = "UPDATE staff SET sort_pid = $sortPID WHERE sta_Email = $id";
     $res = mysqli_query($CON, $sql);
     if (!$res)
     {
@@ -136,7 +136,7 @@
     echo "<p>Total batches: $numBatches</p>";
     for ($batch = 0; $batch < $numBatches; $batch += 1)
     {
-        $sql = "SELECT staff_id, sort_pid FROM staff WHERE staff_id = $id";
+        $sql = "SELECT sta_Email, sort_pid FROM staff WHERE sta_Email = $id";
         $res = mysqli_query($CON, $sql);
         if (!$res)
         {
@@ -294,7 +294,7 @@
     }
     echo "<p>Finished</p>";
 
-    $sql = "UPDATE staff SET sort_pid = null WHERE staff_id = $id";
+    $sql = "UPDATE staff SET sort_pid = null WHERE sta_Email = $id";
     $res = mysqli_query($CON, $sql);
     if (!$res)
     {

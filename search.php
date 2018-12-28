@@ -45,10 +45,10 @@ if (isset($_GET['search'])) {
       mysqli_free_result($res);
     }
     // Search staff table, print link to result
-    $query = "SELECT STAFF_ID, STAFF_FIRSTNAME, STAFF_LASTNAME, STAFF_LOCATION, STAFF_EMAIL FROM staff WHERE (
-                STAFF_FIRSTNAME LIKE '%".$search."%' OR
-                STAFF_LASTNAME  LIKE '%".$search."%' OR
-                STAFF_EMAIL     LIKE '%".$search."%')";
+    $query = "SELECT sta_ID, sta_FirstName, sta_LastName, sta_Campus, sta_Email FROM staff WHERE (
+                sta_FirstName LIKE '%".$search."%' OR
+                sta_LastName  LIKE '%".$search."%' OR
+                sta_Email     LIKE '%".$search."%')";
     $res = mysqli_query($CON, $query);
     if (mysqli_num_rows($res) > 0) {
       echo "<p>Staff results found: ".mysqli_num_rows($res)."</p>";
@@ -58,18 +58,18 @@ if (isset($_GET['search'])) {
           <tr>
             <th>First Name</th>
             <th>Last Name</th>
-            <th>Location</th>
+            <th>Campus</th>
             <th>Email</th>
             <th>Update</th>
           </tr>";
       while ($row=mysqli_fetch_assoc($res)){
         echo
         "<tr>
-          <td align='center' width='190px'>".$row['STAFF_FIRSTNAME']."</td>
-          <td align='center' width='190px'>".$row['STAFF_LASTNAME']."</td>
-          <td align='center' width='180px'>".getcampus($row["STAFF_LOCATION"])."</td>
-          <td align='center' width='500px'>".$row['STAFF_EMAIL']."</td>
-          <td align='center'><button value ='".$row['STAFF_ID']."' name='staffid' class='inputButton'>Update</button></td>
+          <td align='center' width='190px'>".$row['sta_FirstName']."</td>
+          <td align='center' width='190px'>".$row['sta_LastName']."</td>
+          <td align='center' width='180px'>".getcampus($row["sta_Campus"])."</td>
+          <td align='center' width='500px'>".$row['sta_Email']."</td>
+          <td align='center'><button value ='".$row['sta_ID']."' name='staffid' class='inputButton'>Update</button></td>
         </tr>";
       }
       echo "</table><br />";

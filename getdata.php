@@ -7,11 +7,12 @@
 
 
     // get the process ID for the sorting
-    $sql = "SELECT staff_id, sort_pid FROM staff WHERE staff_id = $id";
+    $sql = "SELECT sta_Email, sort_pid FROM staff WHERE sta_Email = '$id'";
     $res = mysqli_query($CON, $sql);
     if (!$res)
     {
         echo "Error: " . mysqli_error($CON);
+        echo $sql;
         die;
     }
 

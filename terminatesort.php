@@ -4,7 +4,7 @@
     require_once "connectdb.php";
 
     /* The process can be immediately stopped using posix. Requires php posix install.
-    $sql = "SELECT staff_id, sort_pid FROM staff WHERE staff_id = $id";
+    $sql = "SELECT sta_Email, sort_pid FROM staff WHERE sta_Email = $id";
     $res = mysqli_query($CON, $sql);
     if (!$res)
     {
@@ -20,7 +20,7 @@
     else
         $pid = null;
     */
-    $sql = "UPDATE staff SET sort_pid = null WHERE staff_id = $id";
+    $sql = "UPDATE staff SET sort_pid = null WHERE sta_Email = $id";
     $res = mysqli_query($CON, $sql);
     if (!$res)
     {
