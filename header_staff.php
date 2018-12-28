@@ -50,7 +50,7 @@ else
 				<li class="menu"><a href ="logout.php"><p>Logout</p></a></li>
 			</ul>
 		</li><!--
-		--><li><form action="/action_page.php">
+		--><li><form action="search.php" method="get">
       <input type="text" placeholder="Search.." name="search">
       <button type="submit"><i class="fa fa-search"></i></button>
     </form></li>
