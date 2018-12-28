@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Query looks at emails in both Staff and Student tables, and returns how many matches it found. (Expected 1 or 0)
     $query = "SELECT SUM(usercount) AS usercount
                 FROM (
-                  SELECT COUNT(*) AS usercount FROM staff WHERE STAFF_EMAIL = '".$email."'
+                  SELECT COUNT(*) AS usercount FROM staff WHERE sta_Email = '".$email."'
                   UNION ALL
                   SELECT count(*) AS usercount FROM student WHERE stu_Email = '".$email."'
                 ) as usercounts";

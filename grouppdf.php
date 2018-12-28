@@ -2,13 +2,13 @@
 session_start();
 require "getcampus.php";
 
-if ( !isset($_SESSION['STAFF_ID'])) {
+if ( !isset($_SESSION['sta_Email'])) {
 	$_SESSION['message'] = "You must log in before viewing this page";
 	header("location: stafflogin.php");
 }	else {
-	$id = $_SESSION['STAFF_ID'];
-	$staff_firstname = $_SESSION['STAFF_FIRSTNAME'];
-	$staff_lastname = $_SESSION['STAFF_LASTNAME'];
+    $id = $_SESSION['sta_Email'];
+    $sta_FirstName = $_SESSION['sta_FirstName'];
+    $sta_LastName = $_SESSION['sta_LastName'];
 }
 
 require_once "connectdb.php";

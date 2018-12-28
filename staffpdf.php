@@ -2,13 +2,13 @@
 session_start();
 require "getcampus.php";
 
-if ( !isset($_SESSION['STAFF_ID'])) {
+if ( !isset($_SESSION['sta_Email'])) {
 	$_SESSION['message'] = "You must log in before viewing this page";
 	header("location: stafflogin.php");
-} else {
-	$id = $_SESSION['STAFF_ID'];
-	$staff_firstname = $_SESSION['STAFF_FIRSTNAME'];
-	$staff_lastname = $_SESSION['STAFF_LASTNAME'];
+}	else {
+    $id = $_SESSION['sta_Email'];
+    $sta_FirstName = $_SESSION['sta_FirstName'];
+    $sta_LastName = $_SESSION['sta_LastName'];
 }
 
 require_once "connectdb.php";
@@ -32,26 +32,24 @@ $content .= '
 <h4>Staff List</h4>
 <table border="1" cellspacing="0" cellpadding="3">
 	<tr>
-		<th>Staff ID</th>
 		<th>Staff First Name</th>
 		<th>Staff Last Name</th>
-		<th>Staff Location</th>
+		<th>Staff Campus</th>
 		<th>Staff Email</th>
 	</tr>
 ';
 
-$sql = "SELECT STAFF_ID, STAFF_FIRSTNAME, STAFF_LASTNAME, STAFF_LOCATION, STAFF_EMAIL FROM STAFF";
+$sql = "SELECT sta_FirstName, sta_Lastname, sta_Campus, sta_Email FROM staff";
 $result = mysqli_query($CON, $sql);
 while($row = mysqli_fetch_array($result)) {
-	$campus = getcampus($row["STAFF_LOCATION"]);
+	$campus = getcampus($row["sta_Campus"]);
 	$content .= '
-		<tr>
-			<td>'.$row["STAFF_ID"].'</td>
-			<td>'.$row["STAFF_FIRSTNAME"].'</td>
-			<td>'.$row["STAFF_LASTNAME"].'</td>
-			<td>'.$campus.'</td>
-			<td>'.$row["STAFF_EMAIL"].'</td>
-		</tr>';
+	<tr>
+		<td>'.$row["sta_FirstName"].'</td>
+		<td>'.$row["sta_Lastname"].'</td>
+		<td>'.$campus.'</td>
+		<td>'.$row["sta_Email"].'</td>
+	</tr>';
 }
 $content .= '</table>';
 $obj_pdf->writeHTML($content);

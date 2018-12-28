@@ -62,7 +62,7 @@
       <p><input type='text' name='stu_FirstName' value='".$row['stu_FirstName']."' class='inputBox'/></p>
       <p>Lastname </p>
       <p><input type='text' name='stu_LastName' value='".$row['stu_LastName']."' class='inputBox'/></p>
-      <p>Location </p>
+      <p>Campus </p>
       <p><select name ='stu_Campus' class='inputList'>
           <option value='1'"; if ($row['stu_Campus'] == 1) echo "selected"; echo ">Burwood</option>
           <option value='2'"; if ($row['stu_Campus'] == 2) echo "selected"; echo ">Geelong</option>

@@ -1,17 +1,14 @@
 <?php
 session_start();
 
-if (!isset($_SESSION['STAFF_ID']))
-{
+if (!isset($_SESSION['sta_Email'])) {
 	$_SESSION['message'] = "You must log in before viewing this page";
 	header("location: stafflogin.php");
     die;
-}
-else
-{
-    $id = $_SESSION['STAFF_ID'];
-    $staff_firstname = $_SESSION['STAFF_FIRSTNAME'];
-    $staff_lastname = $_SESSION['STAFF_LASTNAME'];
+} else {
+    $id = $_SESSION['sta_Email'];
+    $sta_FirstName = $_SESSION['sta_FirstName'];
+    $sta_LastName = $_SESSION['sta_LastName'];
 }
 ?>
 <html>
@@ -19,6 +16,7 @@ else
 <meta charset="utf-8">
 <title><?php echo $PageTitle; ?></title>
 <link rel="stylesheet" type="text/css" href="stylesstaff.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> <!-- Icon Library CSS -->
 <link rel="icon" type="image/ico" href="favicon.ico">
 <?php echo isset($script) ? $script : "" ; // Echo header script if one exists (JavaScript Validation etc)?>
 </head>
@@ -31,7 +29,6 @@ else
            <ul class="menu">
              <li class="menu"><a href ="studentlist.php"><p>Students</p></a></li>
              <li class="menu"><a href ="stafflist.php"><p>Staff</p></a></li>
-             <li class="menu"><a href ="membersearch.php"><p>Search</p></a></li>
            </ul>
         </li><!--
 		--><li class="menu"><a href ="#"><p>Projects</p></a>
@@ -46,9 +43,13 @@ else
 				<li class="menu"><a href ="datamgmt.php"><p>Manage Corral Data</p></a></li>
 				<li class="menu"><a href ="begin.php" target="_blank"><p>Begin Sort</p></a></li>
 				<li class="menu"><a href ="sortedgroups.php"><p>Sort Results</p></a></li>
+				<li class="menu"><a href ="logout.php"><p>Logout</p></a></li>
 			</ul>
 		</li><!--
-		--><li class="menu"><a href ="logout.php"><p>Logout</p></a></li>
+		--><li><form action="search.php" method="get">
+      <input type="text" placeholder="Search.." name="search">
+      <button type="submit"><i class="fa fa-search"></i></button>
+    </form></li>
 	</ul>
 </div>
 <div class="main">
