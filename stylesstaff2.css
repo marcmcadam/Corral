@@ -1,0 +1,167 @@
+body {
+    background: #404040;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.main{
+    background: #f0f0f0;
+	text-align: center;
+    padding: 60px 20px;
+}
+.main a{
+	color:#007399;
+	text-decoration:none;
+}
+.main a:hover{
+	color:black;
+	text-decoration:underline;
+}
+
+.Footer {
+	padding: 20px;
+	background: #404040;
+	color: white;
+	text-align: center;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+.inputBox {
+    font-family: Arial, Helvetica, sans-serif;
+    border-radius: 16px;
+    border: 0;
+    padding: 8px 16px;
+}
+
+.inputList {
+    border-radius: 16px 0 0 16px;
+    border: 0;
+    padding: 8px 16px;
+}
+
+.inputButton {
+    border: 2px solid #c0c0c0;
+    background: #f4f4f4;
+    border-radius: 16px;
+    padding: 8px 16px;
+}
+.inputButton:hover {
+    border: 2px solid #a0c0e0;
+    background: #e0f0ff;
+    border-radius: 16px;
+    padding: 8px 16px;
+    cursor: pointer;
+}
+
+.flexcontainer {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+/*
+*                       *
+* CSS for NavBar follows*
+*                       *
+*/
+.navbar {
+  background-color: #007399;
+  font-family: Arial, Helvetica, sans-serif;
+  overflow: hidden;
+  border-bottom: 2px solid black;
+}
+.navbar a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 25px;
+  text-decoration: none;
+  font-size: 17px;
+}
+/* Hides javascript button to open/close menu on smaller screens */
+.navbar .icon {
+  display: none;
+}
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
+.dropdown .dropbtn {
+  font-size: 17px;
+  border: none;
+  outline: none;
+  color: white;
+  padding: 14px 25px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  border-top: 2px solid black;
+  background-color: #f9f9f9;
+  min-width: 200px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+.dropdown-content a {
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+.navbar a:hover, .dropdown:hover .dropbtn {
+  background-color: #0086b3;
+  color: white;
+}
+.dropdown-content a:hover {
+  background-color: #ddd;
+  color: black;
+}
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+/* When screen is <600px, hide links except for first, show link to expand menu */
+@media screen and (max-width: 600px) {
+  .navbar a:not(:first-child), .dropdown .dropbtn {
+    display: none;
+  }
+  .navbar a.icon {
+    float: right;
+    display: block;
+  }
+}
+/* .responsive class added by javascript when menu expanded. Displays menus vertically. */
+@media screen and (max-width: 600px) {
+  .navbar.responsive {position: relative;}
+  .navbar.responsive a.icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  .navbar.responsive a {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+  .navbar.responsive .dropdown {float: none;}
+  .navbar.responsive .dropdown-content {position: relative;}
+  .navbar.responsive .dropdown .dropbtn {
+    display: block;
+    width: 100%;
+    text-align: left;
+  }
+}
