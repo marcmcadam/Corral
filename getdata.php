@@ -102,9 +102,12 @@
 
         if ($proportionalOverride)
         {
-            $value = (int)round($min + $max);
+            $value = $min; //(int)round($min + $max);
             $projectOverride[$rowP] = $value;
             $overrideTotal += $value;
+
+            $projectMinima[$rowP] = $value;
+            $projectMaxima[$rowP] = $value;
         }
         else
         {
@@ -152,7 +155,43 @@
     }
     if ($overrideTotal != 0 || $remaining != 0)
     {
-        echo "Group size override failed";
+        echo "Proportional group size distribution failed";
         die;
+    }
+
+    $idStudents = [];
+    foreach ($studentNames as $y => $s)
+        $idStudents[$s] = $y;
+
+    $idProjects = [];
+    foreach ($projectNames as $x => $p)
+        $idProjects[$p] = $x;
+
+    $sql = "SELECT stu_id, pro_num, locked FROM groups";
+    $res = mysqli_query($CON, $sql);
+    $studentProjects = [];
+    $projectStudents = array_fill(0, sizeof($projects), []);
+    $studentLocks = array_fill(0, sizeof($students), false);
+    while ($row = mysqli_fetch_assoc($res))
+    {
+        $sid = (int)$row['stu_id'];
+        $pid = (int)$row['pro_num'];
+        $locked = (int)$row['locked'];
+
+        if (!array_key_exists($pid, $idProjects))
+            die("An assignment exists for a missing project.");
+        else if (!array_key_exists($sid, $idStudents))
+            die("An assignment exists for a missing student.");
+        else
+        {
+            $y = $idStudents[$sid];
+            $p = $idProjects[$pid];
+
+            $studentProjects[$y] = $p;
+            array_push($projectStudents[$p], $y);
+
+            if ($locked)
+                $studentLocks[$idStudents[$sid]] = true;
+        }
     }
 ?>
