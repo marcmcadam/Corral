@@ -1,14 +1,51 @@
 <?php
 require_once "../connectdb.php";
+require "random.php";
 
-//empty existing student table
-$student = "TRUNCATE student";
-IF (MYSQLI_QUERY($CON, $student)) {
-  ECHO "<P>Student data deleted</P>";
-} ELSE {
-  ECHO "Error deleting student data: " . MYSQLI_ERROR($CON);
+// NB: Now that foreign keys are in place, the order in which table data is
+// deleted (and created) is relevant.
+
+//empty existing surveydata table
+$surveyanswer = "DELETE from surveyanswer";
+if (mysqli_query($CON, $surveyanswer)) {
+  echo "<p>surveyanswer data deleted</p>";
+} else {
+  echo "<p>Error deleting surveyanswer data: " . mysqli_error($CON) . "</p>";
 }
 
+//empty existing project table
+$project = "DELETE from project";
+if (mysqli_query($CON, $project)) {
+  echo "<p>Project data deleted</p>";
+} else {
+  echo "<p>Error deleting project data: " . mysqli_error($CON) . "</p>";
+}
+
+//empty existing unit table
+$unit = "DELETE from unit";
+if (mysqli_query($CON, $unit)) {
+  echo "<p>Unit data deleted</p>";
+} else {
+  echo "<p>Error deleting unit data: " . mysqli_error($CON) . "</p>";
+}
+
+//empty existing staff table
+$staff = "DELETE from staff";
+if (mysqli_query($CON, $staff)) {
+  echo "<P>Staff data deleted</P>";
+} else {
+  echo "<p>Error deleting staff data: " . mysqli_error($CON) . "</p>";
+}
+
+//empty existing student table
+$student = "DELETE from student";
+if (mysqli_query($CON, $student)) {
+  echo "<P>Student data deleted</P>";
+} else {
+  echo "<p>Error deleting student data: " . mysqli_error($CON) . "</p>";
+}
+
+//insert student (1000) sample data
 $insert = 'INSERT INTO student (stu_ID, stu_FirstName, stu_LastName, stu_Campus, stu_Email, stu_Password) VALUES
 (216000000,"Timothy","Smith",3,"SmithT@deakin.edu.au","21e00641c260a79b8e5ad3eef52dd84c"),
 (216116590,"Larry","Jones",2,"JonesL@deakin.edu.au","21e00641c260a79b8e5ad3eef52dd84c"),
@@ -110,11 +147,211 @@ $insert = 'INSERT INTO student (stu_ID, stu_FirstName, stu_LastName, stu_Campus,
 (216776800,"George","Kennedy",2,"KenneG@deakin.edu.au","21e00641c260a79b8e5ad3eef52dd84c"),
 (216820558,"Stephen","Butler",2,"ButleS@deakin.edu.au","21e00641c260a79b8e5ad3eef52dd84c"),
 (216043880,"Debra","Saunders",2,"SaundD@deakin.edu.au","21e00641c260a79b8e5ad3eef52dd84c")';
-
-IF (MYSQLI_QUERY($CON,$insert)) {
-  ECHO "<P>Sample student data inserted</P>";
-} ELSE {
-  ECHO "Error inserting sample student data: " . MYSQLI_ERROR($CON);
+for ($i = 0; $i < 900; $i += 1)
+    $insert .= ',(217' . sprintf("%06d", $i) . ',"FirstName' . $i . '","LastName' . $i . '",' . rand(1, 3) . ',"student' . $i . '@deakin.edu.au","21e00641c260a79b8e5ad3eef52dd84c")';
+if (mysqli_query($CON, $insert)) {
+  echo "<p>Sample student data inserted</p>";
+} else {
+  echo "<p>Error inserting sample student data: " . mysqli_error($CON) . "</p>";
 }
 
-?>
+//insert sample staff data
+$insert = 'INSERT INTO staff (sta_ID, sta_FirstName, sta_LastName, sta_Campus, sta_Email, sta_Password, sort_matrix, sort_random, sort_inertia, sort_iterations) VALUES
+(1,"Staff","User",1,"staffuser@deakin.edu.au","21e00641c260a79b8e5ad3eef52dd84c",100,20,20,50)';
+if (mysqli_query($CON, $insert)) {
+  echo "<P>Sample staff data inserted</P>";
+} else {
+  echo "<p>Error inserting sample staff data: " . mysqli_error($CON) . "</p>";
+}
+
+//insert sample unit data
+$skillNames = [
+  "HTML/CSS",
+  "JavaScript",
+  "PHP",
+  "Java",
+  "C#",
+  "C++",
+  "Python",
+  "Database",
+  "Networking",
+  "Unity",
+  "Cyber Security",
+  "Cloud",
+  "Artificial Intelligence",
+  "User Interface",
+  "Mathematics",
+  "Media",
+  "Project Management",
+  "Written Communication",
+  "Verbal Communication",
+  "Presentation"
+];
+$insert = "INSERT INTO unit (unit_ID, unit_Name, sta_ID";
+for ($i = 0; $i < 20; $i += 1)
+    $insert .= ", skill_" . sprintf("%02d", $i);
+$insert .= ") VALUES ('SIT302T318', 'SIT302 T3 2018', 1";
+for ($i = 0; $i < 20; $i += 1)
+{
+    $name = $skillNames[$i];
+    if (is_null($name))
+        $insert .= ", null";
+    else
+        $insert .= ", '$name'";
+}
+$insert .= ")";
+if (mysqli_query($CON, $insert)) {
+  echo "<P>Sample unit data inserted</P>";
+} else {
+  echo "<p>Error inserting sample unit data: " . mysqli_error($CON) . "</p>";
+}
+
+//insert project(1000) data
+$numSkills = 20;
+$rarity = 200;
+$PROJECT = "INSERT INTO project (unit_ID, pro_title, pro_brief, pro_leader, pro_email, pro_status, pro_min, pro_max, pro_imp";
+for ($i = 0; $i < 20; $i += 1)
+    $PROJECT .= ", pro_skill_" . sprintf("%02d", $i);
+for ($i = 0; $i < 20; $i += 1)
+    $PROJECT .= ", pro_bias_" . sprintf("%02d", $i);
+$PROJECT .= ") VALUES ";
+for ($i = 0; $i < 20; $i += 1)
+{
+    if ($i > 0)
+        $PROJECT .= ', ';
+    $min = rand(3, 10); // rand(0, 5);
+    $max = $min; // + rand(0, 10);
+    $skills = randomProject($i, $imp, $biases);
+    $status = randomProjectStatus();
+    $PROJECT .= '("SIT302T318", "Project ' . $i . '"' . ",'Lorem Ipsum','Project Leader','projectleader@deakin.edu.au','".$status."',$min,$max,$imp," . join(", ", $skills) . ", " . join(", ", $biases) . ')';
+}
+if (mysqli_query($CON,$PROJECT)) {
+  echo "<p>Sample projects inserted</p>";
+} else {
+  echo "Error inserting project data: " . mysqli_error($CON);
+}
+
+// Insert sample surveyanswer(1000) data
+$numSkills = 20;
+$rarity = 2.0;
+$surveydata = "INSERT INTO surveyanswer (unit_ID, stu_ID";
+for ($i = 0; $i < 20; $i += 1)
+    $surveydata .= ", stu_skill_" . sprintf("%02d", $i);
+$surveydata .= ") VALUES ";
+
+$studentIDs = [
+216000000,
+216116590,
+216600366,
+216030213,
+216252283,
+216822724,
+216420635,
+216830213,
+216988272,
+216986348,
+216147717,
+216901983,
+216469334,
+216152608,
+216207865,
+216746852,
+216337658,
+216232216,
+216429653,
+216909984,
+216463558,
+216592291,
+216786574,
+216983844,
+216528480,
+216314056,
+216965849,
+216275552,
+216779566,
+216412040,
+216762187,
+216498622,
+216567433,
+216249111,
+216168384,
+216883858,
+216427960,
+216391202,
+216360811,
+216902992,
+216292829,
+216720992,
+216765045,
+216440236,
+216249197,
+216828121,
+216671593,
+216587493,
+216782631,
+216949905,
+216656298,
+216685859,
+216543826,
+216454582,
+216242484,
+216636419,
+216275634,
+216184964,
+216440367,
+216402248,
+216674327,
+216734638,
+216380225,
+216800271,
+216585007,
+216021355,
+216049775,
+216836356,
+216510372,
+216254575,
+216375217,
+216498790,
+216708060,
+216425301,
+216848062,
+216435225,
+216510246,
+216935793,
+216181579,
+216040637,
+216926394,
+216817132,
+216390639,
+216072283,
+216270368,
+216120029,
+216333608,
+216608767,
+216725302,
+216843094,
+216553948,
+216801834,
+216338930,
+216542434,
+216899114,
+216446129,
+216026988,
+216776800,
+216820558,
+216043880
+];
+for ($i = 0; $i < 100; $i += 1)
+{
+    if ($i > 0)
+        $surveydata .= ",";
+    $surveydata .= "('SIT302T318', $studentIDs[$i], " . join(", ", randomSkills($i)) . ")";
+}
+for ($i = 0; $i < 900; $i += 1)
+    $surveydata .= ', ("SIT302T318",217' . sprintf("%06d", $i) . ", " . join(", ", randomSkills($i)) . ')';
+
+if (mysqli_query($CON,$surveydata)) {
+  echo "<P>Sample surveyanswer data inserted</P>";
+} else {
+  echo "Error inserting sample surveyanswer data: " . mysqli_error($CON);
+}
