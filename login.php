@@ -107,7 +107,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
             {
                 $query = "UPDATE student SET stu_LoginAttempts=5 WHERE stu_ID = $id";
                 mysqli_query($CON, $query) or die(mysqli_error($CON));
-                header("location: studentsurvey.php");
+                header("location: studenthome.php");
             }
 
         }

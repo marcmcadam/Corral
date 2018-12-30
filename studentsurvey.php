@@ -2,6 +2,7 @@
  	$PageTitle = "Student Survey";
 	require "header_student.php";
   require_once "connectdb.php";
+  require "getactivesurveys.php";
 
   function skillOptions($title, $key) {
     echo "<tr>
@@ -30,16 +31,14 @@
         </tr>";
   }
 
-  function getActiveSurveys($stu_ID, $CON) {
-    $query = "SELECT s.unit_ID FROM surveyanswer s INNER JOIN unit u ON s.unit_ID=u.unit_ID WHERE s.stu_ID = $stu_ID AND u.survey_open = 1";
-    $res = mysqli_query($CON, $query);
-    $units = [];
-    while ($row = mysqli_fetch_assoc($res))
-      array_push($units, $row['unit_ID']);
-    return $units;
-  }
   // check active surveys for student
-  $units = getActiveSurveys($id, $CON);
+  $surveys = getActiveSurveys($id, $CON);
+  $units = [];
+  $i=0;
+  while (isset($surveys[$i][0])) {
+    array_push($units, $surveys[$i][0]);
+    $i++;
+  }
   $error = FALSE;
   // If form has been submitted, sanitise and process inputs
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -70,41 +69,18 @@
         }
     }
     if ($valid) {
+      // Students will already be in survey table. No insert required, only update
       $count = sizeof($survey_results);
       $keys = array_keys($survey_results);
       $values = array_values($survey_results);
-      // Check to see if a survey exists already for this student
-      $query = "SELECT * FROM surveyanswer WHERE stu_ID='$id'";
-      $result = mysqli_query($CON, $query) or die(mysqli_error($CON));
-      $survey_count = mysqli_num_rows($result);
-      // If student has not already submitted a survey, insert a record
-      if ($survey_count == 0){
-        // Build query
-        $fields = "(stu_ID, unit_ID, ";
-        $results = "(".$id.", '".$unit_ID."', ";
-        for ($j=0; $j<$count; $j++) {
-          $fields .= $keys[$j].",";
-          $results .= $values[$j].",";
-        }
-        // Remove last comma and close bracket
-        $fields = substr($fields, 0, -1).")";
-        $results = substr($results, 0, -1).")";
-
-        $sql = "INSERT INTO surveyanswer $fields VALUES $results";
-        if (!mysqli_query($CON,$sql)) {
-          $error = TRUE;
-        }
-      } elseif ($survey_count==1) {
-        // If student has already submitted a survey, update existing record
-        $sql = "UPDATE surveyanswer SET ";
-        for ($j=0; $j<$count; $j++) {
-          $sql .= $keys[$j] . " = " . $values[$j] . ",";
-        }
-        $sql = substr($sql, 0, -1); // Remove last comma
-        $sql .= " WHERE stu_ID='$id' AND unit_ID='$unit_ID'";
-        if (!mysqli_query($CON,$sql)) {
-          $error = TRUE;
-        }
+      $sql = "UPDATE surveyanswer SET submitted = 1, ";
+      for ($j=0; $j<$count; $j++) {
+        $sql .= $keys[$j] . " = " . $values[$j] . ",";
+      }
+      $sql = substr($sql, 0, -1); // Remove last comma
+      $sql .= " WHERE stu_ID='$id' AND unit_ID='$unit_ID'";
+      if (!mysqli_query($CON,$sql)) {
+        $error = TRUE;
       }
     } else {
       // Invalid data, injection attempt?

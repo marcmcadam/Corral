@@ -25,7 +25,7 @@ else
 
 <body>
 <div class="navbar">
-	<a href="studentsurvey.php">Survey</a>
+	<a href="studenthome.php">Home</a>
 	<a href="logout.php">Logout</a>
 </div>
 <div class="main">
