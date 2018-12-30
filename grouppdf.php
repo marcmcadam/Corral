@@ -42,7 +42,7 @@ $content .= '
   </tr>
 ';
 
-$sql = "SELECT groups.stu_ID, student.stu_FirstName, student.stu_LastName, student.stu_Campus, student.stu_Email, groups.pro_num, project.pro_title FROM ((groups INNER JOIN student ON groups.stu_ID=student.stu_ID) INNER JOIN project ON groups.pro_num=project.pro_num) ORDER BY pro_num ASC";
+$sql = "SELECT groups.stu_ID, student.stu_FirstName, student.stu_LastName, student.stu_Campus, student.stu_Email, groups.pro_ID, project.pro_title FROM ((groups INNER JOIN student ON groups.stu_ID=student.stu_ID) INNER JOIN project ON groups.pro_ID=project.pro_ID) ORDER BY pro_ID ASC";
 $result = mysqli_query($CON, $sql);
 while($row = mysqli_fetch_array($result)) {
 	$campus = getcampus($row["stu_Campus"]);
@@ -53,7 +53,7 @@ $content .= '
     <td>'.$row["stu_LastName"].'</td>
     <td>'.$campus.'</td>
     <td>'.$row["stu_Email"].'</td>
-    <td>'.$row["pro_num"].'</td>
+    <td>'.$row["pro_ID"].'</td>
     <td>'.$row["pro_title"].'</td>
   </tr>
   ';

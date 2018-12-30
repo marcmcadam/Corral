@@ -13,13 +13,13 @@
     foreach ($projectNames as $y => $p)
         $idProjects[$p] = $y;
 
-    $sql = "SELECT stu_id, pro_num FROM groups";
+    $sql = "SELECT stu_id, pro_ID FROM groups";
     $res = mysqli_query($CON, $sql);
     $projectStudents = array_fill(0, sizeof($projects), []);
     while ($row = mysqli_fetch_assoc($res))
     {
         $sid = (int)$row['stu_id'];
-        $pid = (int)$row['pro_num'];
+        $pid = (int)$row['pro_ID'];
 
         if (array_key_exists($pid, $idProjects) && array_key_exists($sid, $idStudents))
             array_push($projectStudents[$idProjects[$pid]], $idStudents[$sid]);

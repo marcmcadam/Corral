@@ -32,7 +32,7 @@
         $sortInertia = null;
         $sortIterations = null;
     }
-    
+
     $skillnames = [];
     $skillNames = getSkillNames($CON, $numSkills); // skill names decide whether numbers are relevant or not, using null
 
@@ -89,7 +89,7 @@
     $p = 0;
     while ($row = mysqli_fetch_assoc($res))
     {
-        $pid = (int)$row['pro_num'];
+        $pid = (int)$row['pro_ID'];
 
         $rowP = $p++;
 

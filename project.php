@@ -8,18 +8,18 @@
 
     if ($_SERVER["REQUEST_METHOD"] == "POST")
     {
-        $pro_num_text = SanitiseGeneric($_POST['pro_num'], $CON);
-        if ($pro_num_text == "")
+        $pro_ID_text = SanitiseGeneric($_POST['pro_ID'], $CON);
+        if ($pro_ID_text == "")
         {
             $insert = "INSERT INTO project (pro_imp) VALUES (20)";
             $query = mysqli_query($CON, $insert);
             if ($query)
-                $pro_num = mysqli_insert_id($CON);
+                $pro_ID = mysqli_insert_id($CON);
             else
                 die(mysqli_error($CON));
         }
         else
-            $pro_num = (int)$pro_num_text;
+            $pro_ID = (int)$pro_ID_text;
         
         $title = SanitiseName($CON, $_POST['PRO_TITLE']);
         $leader = SanitiseName($CON, $_POST['PRO_LEADER']);
@@ -74,7 +74,7 @@
             $sql .= ", pro_skill_".sprintf("%02d", $i)."=$imp";
             $sql .= ", pro_bias_".sprintf("%02d", $i)."=$bias";
         }
-        $sql .= " WHERE pro_num = $pro_num";
+        $sql .= " WHERE pro_ID = $pro_ID";
         $query = mysqli_query($CON, $sql);
         if (!$query)
             die(mysqli_error($CON));
@@ -91,13 +91,13 @@
     $skillnames = [];
     $skillNames = getSkillNames($CON, $numSkills);
 
-    $pro_num = filter_input(INPUT_GET, 'number', FILTER_VALIDATE_INT);
+    $pro_ID = filter_input(INPUT_GET, 'number', FILTER_VALIDATE_INT);
     $skillImp = [];
     $skillBias = [];
-    if (is_null($pro_num))
+    if (is_null($pro_ID))
     {
         // updating nothing. create a new project
-        $pro_num = "";
+        $pro_ID = "";
         $title = "";
         $brief = "";
         $leader = "";
@@ -115,7 +115,7 @@
     }
     else
     {
-      $sql="SELECT * FROM project WHERE pro_num = $pro_num";
+      $sql="SELECT * FROM project WHERE pro_ID = $pro_ID";
       $query = mysqli_query($CON, $sql);
       if (!$query)
           die(mysqli_error($CON));
@@ -167,7 +167,7 @@
         <div style='text-align: center;'>
         <h2>Project Details</h2><br>
         <form method='post'>
-            <input hidden type='text' name='pro_num' value='$pro_num'>
+            <input hidden type='text' name='pro_ID' value='$pro_ID'>
                 Project Title<br>
                 <input type='text' name='PRO_TITLE' class='inputBox' value='$title'><br><br>
                 Project Leader<br>

@@ -50,7 +50,7 @@
                 <td align='center' style='max-width: 180px;'>{$row['pro_email']}</td>
                 <td align='center' style='max-width: 500px;'>{$row['pro_brief']}</td>
                 <td align='center' style='max-width: 180px;'>{$row['pro_status']}</td>
-                <td align='center' style='width: 80px;'><button value='".$row['pro_num']."' name='number' class='inputButton'>Update</button></td>
+                <td align='center' style='width: 80px;'><button value='".$row['pro_ID']."' name='number' class='inputButton'>Update</button></td>
             </tr>";
     }
 

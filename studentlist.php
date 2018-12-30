@@ -65,12 +65,12 @@ while ($row = mysqli_fetch_assoc($res))
         $projectTitles = [];
         while ($groupRow = mysqli_fetch_assoc($groups))
         {
-            $pro_num = $groupRow["pro_num"];
+            $pro_ID = $groupRow["pro_ID"];
 
             $found = false;
-            if (!is_null($pro_num))
+            if (!is_null($pro_ID))
             {
-                $projectSQL = "SELECT * FROM project WHERE pro_num = $pro_num";
+                $projectSQL = "SELECT * FROM project WHERE pro_ID = $pro_ID";
                 $projects = mysqli_query($CON, $projectSQL);
 
                 if ($projects)

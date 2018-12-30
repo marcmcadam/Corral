@@ -335,7 +335,7 @@
             }
 
             // create new assignment
-            $sql = "INSERT INTO groups (pro_num, stu_id) VALUES ($pid, $sid)";
+            $sql = "INSERT INTO groups (pro_ID, stu_id) VALUES ($pid, $sid)";
             if (!mysqli_query($CON, $sql))
                 echo "Error assigning project member: " . mysqli_error($CON) . "<br>";
         }
