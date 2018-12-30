@@ -29,11 +29,28 @@
             </div></label></td>
         </tr>";
   }
+
+  function getActiveSurveys($stu_ID, $CON) {
+    $query = "SELECT s.unit_ID FROM surveyanswer s INNER JOIN unit u ON s.unit_ID=u.unit_ID WHERE s.stu_ID = $stu_ID AND u.survey_open = 1";
+    $res = mysqli_query($CON, $query);
+    $units = [];
+    while ($row = mysqli_fetch_assoc($res))
+      array_push($units, $row['unit_ID']);
+    return $units;
+  }
+  // check active surveys for student
+  $units = getActiveSurveys($id, $CON);
   $error = FALSE;
   // If form has been submitted, sanitise and process inputs
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Validate inputs
     $valid = TRUE;
+    // Check if unit is a valid unit for this student, with survey open for submission
+    if(!in_array($_POST['unit_ID'], $units)) {
+      $valid = FALSE;
+    } else {
+      $unit_ID = $_POST['unit_ID'];
+    }
 
     $i = 0;
     $survey_results = [];
@@ -63,8 +80,8 @@
       // If student has not already submitted a survey, insert a record
       if ($survey_count == 0){
         // Build query
-        $fields = "(stu_ID,";
-        $results = "(".$id.",";
+        $fields = "(stu_ID, unit_ID, ";
+        $results = "(".$id.", '".$unit_ID."', ";
         for ($j=0; $j<$count; $j++) {
           $fields .= $keys[$j].",";
           $results .= $values[$j].",";
@@ -84,7 +101,7 @@
           $sql .= $keys[$j] . " = " . $values[$j] . ",";
         }
         $sql = substr($sql, 0, -1); // Remove last comma
-        $sql .= " WHERE stu_ID='$id'";
+        $sql .= " WHERE stu_ID='$id' AND unit_ID='$unit_ID'";
         if (!mysqli_query($CON,$sql)) {
           $error = TRUE;
         }
@@ -98,7 +115,10 @@
       echo "<h2>Survey Complete</h2>";
       echo "<p>Thank you for completing the skills survey.</p>";
     }
-  } else { // If not submitted, print form:
+  } elseif ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['u'])) {
+    // If not submitted, print form for GET unit_ID assuming unit_ID has an open survey for this student
+    if (in_array($_GET['u'], $units)) {
+    $unit_ID = $_GET['u'];
 ?>
 
 <style>
@@ -140,7 +160,7 @@
 
 <?php
   // Get Skill Names from Database
-  $sql = "SELECT * FROM skillnames";
+  $sql = "SELECT * FROM unit WHERE unit_ID = '" . $unit_ID . "'";
   $res = mysqli_query($CON, $sql);
   $row = mysqli_fetch_assoc($res);
 
@@ -154,7 +174,9 @@
 ?>
     </table>
     <br>
+    <input type="hidden" name="unit_ID" id="unit_ID" value="<?php echo $unit_ID;?>" />
     <input type="submit" value="Submit Responses" style="font-size: 1.5em" class="inputButton">
     </form>
-</div> <?php } ?>
+</div> <?php } else echo "Invalid Unit Selected";
+} else echo "Invalid Unit Selected";?>
 <?php require "footer.php"; ?>
