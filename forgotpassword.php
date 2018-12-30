@@ -51,7 +51,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $selector = bin2hex(openssl_random_pseudo_bytes(8));
       $token = openssl_random_pseudo_bytes(32);
       $resetvar = http_build_query(['selector'=>$selector, 'validator'=>bin2hex($token)]);
-      $reseturl = "http://localhost:8080/corral/resetpassword.php?".$resetvar;
+      $thisuri = $_SERVER['HTTP_HOST'].pathinfo($_SERVER['REQUEST_URI'])['dirname'];
+      $reseturl = "http://".$thisuri."/resetpassword.php?".$resetvar;
       $expires = strtotime("+1 hour");
 
 
