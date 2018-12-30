@@ -80,24 +80,13 @@
 
 
     // assign students randomly first
+    /*
     $studentIndices = range(0, $clevers - 1);
     shuffle($studentIndices);
     //assign dummies last
     for ($i = $clevers; $i < sizeof($students); $i += 1)
         array_push($studentIndices, $i);
-
-
-    if (sizeof($students) == 0)
-        die("There are no unlocked students to sort.");
-
-    $projectStudents = array_fill(0, sizeof($projects), []);
-    for ($y = 0; $y < sizeof($students); $y += 1)
-    {
-        if (!$studentLocks[$y])
-            $studentProjects[$y] = -1;
-    }
-
-    // remove students who are locked to eliminate them from sorting
+    */
     $lockedStudents = [];
     $numStudents = sizeof($students);
     $projectsLockedSize = array_fill(0, sizeof($projects), 0);
@@ -107,18 +96,84 @@
         {
             array_push($lockedStudents, $y);
             $p = $studentProjects[$y];
-            unset($students[$y]);
-            unset($studentProjects[$y]);
+            $numStudents -= 1;
             if ($p >= 0)
-            {
                 $projectsLockedSize[$p] += 1;
-                $numStudents -= 1;
-            }
         }
     }
 
-    echo "<p>Sorting $numStudents students</p>";
+    /*
+    // free up all unlocked students
+    $projectStudents = array_fill(0, sizeof($projects), []);
+    for ($y = 0; $y < sizeof($students); $y += 1)
+    {
+        if (!$studentLocks[$y])
+            $studentProjects[$y] = -1;
+    }
+    */
 
+    // collect unassigned students
+    $freeStudents = [];
+    for ($y = 0; $y < sizeof($students); $y += 1)
+    {
+        if (!$studentLocks[$y] && (!array_key_exists($y, $studentProjects) || $studentProjects[$y] < 0))
+            array_push($freeStudents, $y);
+    }
+    // free up excess students in groups
+    for ($p = 0; $p < sizeof($projects); $p += 1)
+    {
+        $members = sizeof($projectStudents[$p]);
+        $capacity = $projectMaxima[$p];
+        $n = $members - $capacity; // number of excess students
+        // free up some unlocked excess students to reduce this project
+        $freed = 0;
+        foreach ($projectStudents[$p] as $i => $y)
+        {
+            if ($freed >= $n)
+                break;
+            if (!$studentLocks[$y])
+            {
+                $studentProjects[$y] = -1;
+                array_push($freeStudents, $y);
+                unset($projectStudents[$p][$i]);
+                $freed += 1;
+            }
+        }
+        if ($freed < $n)
+            die("A project is locked over capacity. Please increase capacity or unlock.");
+        // remove the null values
+        $nextProjectStudents = [];
+        foreach ($projectStudents[$p] as $y)
+            array_push($nextProjectStudents, $y);
+        $projectStudents[$p] = $nextProjectStudents;
+    }
+
+    $databaseChanges = [];
+    $index = 0;
+    $numFreeStudents = sizeof($freeStudents);
+    // fill minimum requirements
+    for ($p = 0; $p < sizeof($projects); $p += 1)
+    {
+        $members = sizeof($projectStudents[$p]);
+        $capacity = $projectMinima[$p];
+        $n = $capacity - $members; // number of extra students needed
+        for ($t = 0; $t < $n; $t += 1)
+        {
+            if ($index >= $numFreeStudents)
+                die("No students left. Needed $n more for project $p with $members members out of $capacity. 
+                        Of $numFreeStudents free students, already used $index.");
+            $y = $freeStudents[$index++];
+
+            $studentProjects[$y] = $p;
+            array_push($projectStudents[$p], $y);
+
+            $databaseChanges[$y] = $p;
+        }
+    }
+    if ($index != $numFreeStudents)
+        die("Not all students able to be assigned.");
+
+    /* -- changed this to leave all students where they are at the start, so it resumes from last in all ways
     // assign unlocked students to random tasks to begin with
     $index = 0;
     // fill minimum requirements first
@@ -134,32 +189,45 @@
             array_push($projectStudents[$p], $y);
         }
     }
-    /* -- should not be any variation with proportionally set numbers
-        // assign the rest to projects with space
-        $projectsMaxSize = 0;
-        for ($p = 0; $p < sizeof($projects); $p += 1)
-        {
-            $projectsMaxSize = max($projectsMaxSize, $projectMaxima[$p]);
-
-            $n = $projectMaxima[$p] - $projectMinima[$p];
-            for ($t = 0; $t < $n; $t += 1)
-            {
-                do $y = $studentIndices[$index++]; while ($studentLocks[$y]);
-                $studentProjects[$y] = $p;
-                array_push($projectStudents[$p], $y);
-            }
-        }
     */
+    /* -- should not be any variation with proportionally set numbers
+    // assign the rest to projects with space
+    $projectsMaxSize = 0;
+    for ($p = 0; $p < sizeof($projects); $p += 1)
+    {
+        $projectsMaxSize = max($projectsMaxSize, $projectMaxima[$p]);
+
+        $n = $projectMaxima[$p] - $projectMinima[$p];
+        for ($t = 0; $t < $n; $t += 1)
+        {
+            do $y = $studentIndices[$index++]; while ($studentLocks[$y]);
+            $studentProjects[$y] = $p;
+            array_push($projectStudents[$p], $y);
+        }
+    }
+    */
+    /*
     if ($index != $slots)
     {
         echo "<p>Did not place the right number of students into projects</p>";
         die;
     }
-
-    echo "<p>Random assignments created</p>";
+    */
+    $numChanges = sizeof($databaseChanges);
+    echo "<p>Updating group for $numChanges students</p>";
     update();
 
-    assignDatabase($studentProjects, true);
+    assignDatabase($databaseChanges, true);
+
+    // remove students who are locked to eliminate them from sorting
+    foreach ($lockedStudents as $y)
+    {
+        unset($students[$y]);
+        unset($studentProjects[$y]);
+    }
+    if (sizeof($students) == 0)
+        die("There are no unlocked students to sort.");
+    echo "<p>Sorting $numStudents students</p>";
 
     $usedSkills = [];
     for ($s = 0; $s < $numSkills; $s += 1)

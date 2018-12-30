@@ -233,7 +233,7 @@
                     }
                     $discrete = (int)$element;
                     //if ($nextProject != $currentProject)
-                        $discrete += random_int(0, $randomisation);
+                        $discrete += random_int(-$randomisation, 0);
                     $row[$x] = $discrete;
                 }
                 $matrix[$y] = $row;

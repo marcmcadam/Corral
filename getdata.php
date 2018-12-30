@@ -105,9 +105,6 @@
             $value = $min; //(int)round($min + $max);
             $projectOverride[$rowP] = $value;
             $overrideTotal += $value;
-
-            $projectMinima[$rowP] = $value;
-            $projectMaxima[$rowP] = $value;
         }
         else
         {
