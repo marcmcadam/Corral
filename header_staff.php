@@ -17,7 +17,6 @@ if (!isset($_SESSION['sta_Email'])) {
 <meta charset="utf-8">
 <title><?php echo $PageTitle; ?></title>
 <link rel="stylesheet" type="text/css" href="styles.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> <!-- Icon Library CSS -->
 <link rel="icon" type="image/ico" href="favicon.ico">
 <?php echo isset($script) ? $script : "" ; // Echo header script if one exists (JavaScript Validation etc)?>
 </head>
@@ -37,11 +36,11 @@ if (!isset($_SESSION['sta_Email'])) {
             <li><a href="grouplist"><p>Project Groups</p></a></li>
         </ul>
     </div><div class="menu" style="width: 15%;"><a href ="#"><p>Admin</p></a>
-        <ul class="subback">
-            <li class="submenu"><a href="skillnames"><p>Edit Skills</p></a></li>
-            <li class="submenu"><a href="datamgmt"><p>Manage Corral Data</p></a></li>
-            <li class="submenu"><a href="begin" target="_blank"><p>Begin Sort</p></a></li>
-            <li class="submenu"><a href="sortedgroups"><p>Sort Results</p></a></li>
+        <ul>
+            <li><a href="skillnames"><p>Edit Skills</p></a></li>
+            <li><a href="datamgmt"><p>Manage Corral Data</p></a></li>
+            <li><a href="begin" target="_blank"><p>Begin Sort</p></a></li>
+            <li><a href="sortedgroups"><p>Sort Results</p></a></li>
         </ul>
     </div><div class="menuGap" style="width: 20%;">
         <form action="search" method="get">
