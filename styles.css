@@ -175,22 +175,22 @@ td {
 }
 
 .listTable {
-    border: 1px solid #a0a0a0;
+    border: 1px solid #c0c0c0;
 }
 
 .listTable th {
     padding: 4px 8px;
     min-height: 32px;
-    border-right: thin solid #a0a0a0;
-    border-bottom: thin solid #a0a0a0;
+    border-right: thin solid #c0c0c0;
+    border-bottom: thin solid #c0c0c0;
     background: #e0e0e0;
 }
 
 .listTable td {
     padding: 4px 8px;
     min-height: 32px;
-    border-right: thin solid #a0a0a0;
-    border-bottom: thin solid #a0a0a0;
+    border-right: thin solid #c0c0c0;
+    border-bottom: thin solid #c0c0c0;
 }
 
 .listTable tr:nth-child(odd) {
@@ -200,6 +200,8 @@ td {
     background: #ececec;
 }
 
+
+/* survey */
 
 .surveyTable td {
     text-align: center;
@@ -229,6 +231,8 @@ td {
     background: #80a0e0;
 }
 
+
+/* data management */
 
 .flexcontainer {
     padding: 0;

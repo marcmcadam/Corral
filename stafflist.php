@@ -22,11 +22,11 @@ echo "<h2>Staff Information</h2>
 while ($row=mysqli_fetch_assoc($res)){
     echo "
   <tr>
-    <td align='center' width='190px'>".$row['sta_FirstName']."</td>
-    <td align='center' width='190px'>".$row['sta_LastName']."</td>
-    <td align='center' width='180px'>".getcampus($row["sta_Campus"])."</td>
-    <td align='center' width='500px'>".$row['sta_Email']."</td>
-    <td align='center'><button value ='".$row['sta_ID']."' name='staffid' class='updateButton'>Update</button></td>
+    <td>".$row['sta_FirstName']."</td>
+    <td>".$row['sta_LastName']."</td>
+    <td>".getcampus($row["sta_Campus"])."</td>
+    <td>".$row['sta_Email']."</td>
+    <td><button value ='".$row['sta_ID']."' name='staffid' class='updateButton'>Update</button></td>
   </tr>";
 }
 
