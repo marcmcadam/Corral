@@ -2,15 +2,7 @@
 session_start();
 require_once "connectdb.php";
 require_once "getcampus.php";
-
-if ( !isset($_SESSION['sta_Email'])) {
-	$_SESSION['message'] = "You must log in before viewing this page";
-	header("location: stafflogin.php");
-}	else {
-  $id = $_SESSION['sta_Email'];
-  $sta_FirstName = $_SESSION['sta_FirstName'];
-  $sta_LastName = $_SESSION['sta_LastName'];
-}
+require "staffauth.php";
 
 $query = "SELECT sta_FirstName, sta_LastName, sta_Campus, sta_Email FROM staff";
 if (!$result = mysqli_query($CON, $query)) {
