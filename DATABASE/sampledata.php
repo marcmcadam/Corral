@@ -157,50 +157,49 @@ if (mysqli_query($CON, $insert)) {
 
 //insert sample staff data
 $insert = 'INSERT INTO staff (sta_ID, sta_FirstName, sta_LastName, sta_Campus, sta_Email, sta_Password, sort_matrix, sort_random, sort_inertia, sort_iterations) VALUES
-(1,"Staff","User",1,"staffuser@deakin.edu.au","21e00641c260a79b8e5ad3eef52dd84c",100,20,20,50)';
+(1,"Staff","User",1,"staffuser@deakin.edu.au","21e00641c260a79b8e5ad3eef52dd84c",100,20,20,50),
+(2,"Blair","Bowes",1,"bbowes@deakin.edu.au","21e00641c260a79b8e5ad3eef52dd84c",100,20,20,50),
+(3,"Onur","Ritter",2,"oritter@deakin.edu.au","21e00641c260a79b8e5ad3eef52dd84c",100,20,20,50),
+(4,"Elsie-Rose","Garcia",1,"ergarcia@deakin.edu.au","21e00641c260a79b8e5ad3eef52dd84c",100,20,20,50),
+(5,"Etta","Gough",1,"egough@deakin.edu.au","21e00641c260a79b8e5ad3eef52dd84c",100,20,20,50),
+(6,"Kayleigh","Bradford",2,"kbradford@deakin.edu.au","21e00641c260a79b8e5ad3eef52dd84c",100,20,20,50),
+(7,"Emma","Bassett",1,"ebassett@deakin.edu.au","21e00641c260a79b8e5ad3eef52dd84c",100,20,20,50),
+(8,"Layla","Battle",2,"lbattle@deakin.edu.au","21e00641c260a79b8e5ad3eef52dd84c",100,20,20,50),
+(9,"Fletcher","Lynch",2,"flynch@deakin.edu.au","21e00641c260a79b8e5ad3eef52dd84c",100,20,20,50),
+(10,"Kaiden","Figueroa",3,"kfigueroa@deakin.edu.au","21e00641c260a79b8e5ad3eef52dd84c",100,20,20,50)';
 if (mysqli_query($CON, $insert)) {
   echo "<P>Sample staff data inserted</P>";
 } else {
   echo "<p>Error inserting sample staff data: " . mysqli_error($CON) . "</p>";
 }
 
-//insert sample unit data
-$skillNames = [
-  "HTML/CSS",
-  "JavaScript",
-  "PHP",
-  "Java",
-  "C#",
-  "C++",
-  "Python",
-  "Database",
-  "Networking",
-  "Unity",
-  "Cyber Security",
-  "Cloud",
-  "Artificial Intelligence",
-  "User Interface",
-  "Mathematics",
-  "Media",
-  "Project Management",
-  "Written Communication",
-  "Verbal Communication",
-  "Presentation"
-];
-$insert = "INSERT INTO unit (unit_ID, unit_Name, sta_ID, survey_open";
-for ($i = 0; $i < 20; $i += 1)
-    $insert .= ", skill_" . sprintf("%02d", $i);
-$insert .= ") VALUES ('SIT302T318', 'SIT302 T3 2018', 1, 1";
-for ($i = 0; $i < 20; $i += 1)
-{
-    $name = $skillNames[$i];
-    if (is_null($name))
-        $insert .= ", null";
-    else
-        $insert .= ", '$name'";
+function unitskills() {
+  $skills = "";
+  for ($i = 0; $i < 20; $i++)
+    $skills .= ", skill_" . sprintf("%02d", $i);
+  return $skills;
 }
-$insert .= ")";
-if (mysqli_query($CON, $insert)) {
+function unitnames($skillNames) {
+  $names = "";
+  for ($i = 0; $i < 20; $i++)
+    $names .= ", '$skillNames[$i]'";
+  return $names;
+}
+
+//insert sample unit data
+$skillNames = ["HTML/CSS", "JavaScript", "PHP", "Java", "C#", "C++", "Python", "Database", "Networking", "Unity", "Cyber Security", "Cloud", "Artificial Intelligence", "User Interface", "Mathematics", "Media", "Project Management", "Written Communication", "Verbal Communication", "Presentation"];
+$units = "INSERT INTO unit (unit_ID, unit_Name, sta_ID, survey_open".unitskills().") VALUES ";
+
+$units .= "('SIT302T318', 'Project Delivery', '2', '1'".unitnames($skillNames)."),";
+$units .= "('SIT702T318', 'Project Delivery Postgrad', '3', '1'".unitnames($skillNames)."),";
+$units .= "('SIT374T318', 'Project Design', '4', '1'".unitnames($skillNames)."),";
+$units .= "('SIT774T318', 'Project Design Postgrad', '5', '1'".unitnames($skillNames)."),";
+$units .= "('SIT302T218', 'Project Delivery', '6', '0'".unitnames($skillNames)."),";
+$units .= "('SIT702T218', 'Project Delivery Postgrad', '7', '0'".unitnames($skillNames)."),";
+$units .= "('SIT374T218', 'Project Design', '8', '0'".unitnames($skillNames)."),";
+$units .= "('SIT774T218', 'Project Design Postgrad', '9', '0'".unitnames($skillNames).")";
+
+if (mysqli_query($CON, $units)) {
   echo "<P>Sample unit data inserted</P>";
 } else {
   echo "<p>Error inserting sample unit data: " . mysqli_error($CON) . "</p>";
