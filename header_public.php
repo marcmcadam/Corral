@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
@@ -10,14 +10,12 @@
 
 <body>
 <div class="navbar">
-	<ul>
-		<li><a href="home"><p>Corral</p></a>
-		</li><li><a href="#"><p>Login</p></a>
-			<ul>
-				<li><a href="login"><p>Students</p></a></li>
-				<li><a href="stafflogin"><p>Staff</p></a></li>
-			</ul>
-		</li>
-	</ul>
+	<div class="menu" style="width: 20%;"><a href="home"><p>Corral</p></a>
+	</div><div class="menu" style="width: 20%;"><a href="#"><p>Login</p></a>
+		<ul>
+			<li><a href="login"><p>Students</p></a></li>
+			<li><a href="stafflogin"><p>Staff</p></a></li>
+		</ul>
+	</div>
 </div>
 <div class="main">

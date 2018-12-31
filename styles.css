@@ -15,83 +15,71 @@ body {
     border-bottom: 2px solid #000000;
     text-align: center;
     height: 48px;
+	margin: 0;
+	padding: 0;
 }
 
 .navbar a {
     text-decoration: none;
 }
 
-.navbar > ul > li > a {
+.menuGap {
+	display: inline-block;
+	position: relative;
+	padding: 0;
+}
+
+.menu {
+	display: inline-block;
+	position: relative;
+	padding: 0;
+}
+
+.menu > a {
     color: #f8f8f8;
     font-weight: bold;
 }
 
-.navbar ul {
-	display:inline;
-	margin:0;
-	padding:0;
-	list-style:none;
-}
-
-.navbar ul > li {
-	display: inline-block;
-	position: relative;
-	padding: 0;
-    width: 20%;
-}
-
-.navbar ul > div {
-	display: inline-block;
-	position: relative;
-	padding: 0;
-    width: 20%;
-	text-align: center;
-}
-
-.navbar ul li:hover {
+.menu:hover {
 	background:#207090;
 }
 
-.navbar ul > li:hover > a {
+.menu:hover > a {
 	color: #ffffff;
 }
 
-.navbar ul > li > ul {
+.menu > ul {
+    margin: 0;
 	padding: 0;
+    list-style: none;
+    display: block;
     position: absolute;
     top: 48px;
-	width: 500%;
-	display: none;
     visibility: hidden;
+    background: #ffffff;
     text-align: left;
 }
 
-.navbar ul > li > ul > li {
-    background: #ffffff;
-    display: block;
+.menu:hover > ul {
+	width: 384px;
+	visibility: visible;
 }
 
-.navbar ul > li > ul > li:hover {
-	background: #f0f8ff;
+.menu > ul > li:hover {
+	background: #f0f4ff;
 }
 
-.navbar ul > li:hover ul {
-	display:block;
-	opacity:1;
-	visibility:visible;
-}
-
-.navbar ul > li > ul > li > a {
+.menu > ul > li > a {
 	color: #404040;
 }
 
-.navbar ul > li > ul > li > a:hover {
+.menu > ul > li > a:hover {
 	color: #404040;
 }
 
-.navbar p {
+.menu p {
     margin: 0;
-    padding: 16px 64px;
+    padding: 16px 48px;
 }
 
 
@@ -151,6 +139,13 @@ body {
     border-radius: 16px;
     padding: 8px 16px;
     cursor: pointer;
+}
+
+.updateBox {
+    font-family: Arial, Helvetica, sans-serif;
+    border-radius: 16px;
+    border: thin solid #e0e0e0;
+    padding: 1px 16px;
 }
 
 .updateButton {
@@ -247,4 +242,7 @@ td {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-around;
+}
+
+.flexitem {
 }

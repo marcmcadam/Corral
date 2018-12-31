@@ -14,6 +14,7 @@ else
 	$student_lastname = $_SESSION['STUDENT_LASTNAME'];
 }
 ?>
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
@@ -25,10 +26,8 @@ else
 
 <body>
 <div class="navbar">
-	<ul>
-		<li><a href="studentsurvey"><p>Survey</p></a>
-        </li><li><a href="logout"><p>Logout</p></a>
-		</li>
-	</ul>
+	<div class="menu" style="width: 20%;"><a href="studentsurvey"><p>Survey</p></a>
+	</div><div class="menu" style="width: 20%;"> <a href="logout"><p>Logout</p></a>
+	</div>
 </div>
 <div class="main">

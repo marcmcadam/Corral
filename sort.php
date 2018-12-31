@@ -4,9 +4,15 @@
     require_once "solver.php";
     require_once "getdata.php";
 
-    echo "<!DOCTYPE html>";
-    echo "<html>";
-    echo "<body>";
+    echo "<!DOCTYPE html>
+    <html>
+        <head>
+            <meta charset='utf-8'>
+            <title>Sorting</title>
+            <link rel='stylesheet' type='text/css' href='styles.css'>
+            <link rel='icon' type='image/ico' href='favicon.ico'>
+        </head>
+    <body><div class='main' style='text-align: left; min-height: 1024px;'>";
 
     if (isset($sortPID))
     {
@@ -22,7 +28,7 @@
         flush();
     }
 
-    echo "<p>Avoid closing this page unless sorting has been stopped.</p>";
+    echo "<strong>Avoid closing this page unless sorting has been stopped.</strong>";
     echo "<p>To stop the sorting <a href='terminatesort' target='_blank'>click here</a>.</p>";
     echo "<p>View the progress from <a href='sortedgroups' target='_blank'>this page</a>.</p>";
     echo "<p>Begin initialisation</p>";
