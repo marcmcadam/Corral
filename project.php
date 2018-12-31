@@ -8,7 +8,7 @@
 
     if ($_SERVER["REQUEST_METHOD"] == "POST")
     {
-        $pro_num_text = SanitiseGeneric($_POST['pro_num'], $CON);
+        $pro_num_text = SanitiseGeneric($_GET['number'], $CON);
         if ($pro_num_text == "")
         {
             $insert = "INSERT INTO project (pro_imp) VALUES (20)";
@@ -92,9 +92,10 @@
     $skillNames = getSkillNames($CON, $numSkills);
 
     $pro_num = filter_input(INPUT_GET, 'number', FILTER_VALIDATE_INT);
+
     $skillImp = [];
     $skillBias = [];
-    if (is_null($pro_num))
+    if (is_null($pro_num) || $pro_num == "")
     {
         // updating nothing. create a new project
         $pro_num = "";
@@ -115,27 +116,27 @@
     }
     else
     {
-      $sql="SELECT * FROM project WHERE pro_num = $pro_num";
-      $query = mysqli_query($CON, $sql);
-      if (!$query)
-          die(mysqli_error($CON));
-      $project = mysqli_fetch_assoc($query);
-      $title = $project['pro_title'];
-      $brief = $project['pro_brief'];
-      $leader = $project['pro_leader'];
-      $email = $project['pro_email'];
-      $status = $project['pro_status'];
-      $minimum = $project['pro_min'];
-      $maximum = $project['pro_max'];
-      $importance = $project['pro_imp'];
-      
-      for ($i = 0; $i < $numSkills; $i += 1)
-      {
-          $imp = (int)$project["pro_skill_".sprintf("%02d", $i)];
-          $bias = (int)$project["pro_bias_".sprintf("%02d", $i)];
-          array_push($skillImp, $imp);
-          array_push($skillBias, $bias);
-      }
+        $sql="SELECT * FROM project WHERE pro_num=$pro_num";
+        $query = mysqli_query($CON, $sql);
+        if (!$query)
+            die("Unable to fetch projects: " . mysqli_error($CON));
+        $project = mysqli_fetch_assoc($query);
+        $title = $project['pro_title'];
+        $brief = $project['pro_brief'];
+        $leader = $project['pro_leader'];
+        $email = $project['pro_email'];
+        $status = $project['pro_status'];
+        $minimum = $project['pro_min'];
+        $maximum = $project['pro_max'];
+        $importance = $project['pro_imp'];
+        
+        for ($i = 0; $i < $numSkills; $i += 1)
+        {
+            $imp = (int)$project["pro_skill_".sprintf("%02d", $i)];
+            $bias = (int)$project["pro_bias_".sprintf("%02d", $i)];
+            array_push($skillImp, $imp);
+            array_push($skillBias, $bias);
+        }
     }
     
       $numSkills = 20;

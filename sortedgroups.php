@@ -45,7 +45,7 @@
         echo "<p><a href='terminatesort.php'>Stop</a></p>";
     }
 
-    echo "<table border='0' align='center' cellpadding='0' cellspacing='0' style='text-align: left;'>";
+    echo "<table align='center' cellpadding='0' cellspacing='0' style='text-align: left;'>";
 
     $skillLetters = [];
     $usedSkills = [];
@@ -77,7 +77,7 @@
     }
     echo "</table>";
     echo "<div align='center' style='margin: 16px 0; padding: 16px; background: #404040; border: solid black;'>";
-    echo "<table border='0' align='center' cellpadding='0' cellspacing='0' style='text-align: center; color: #f0f0f0;'>";
+    echo "<table align='center' cellpadding='0' cellspacing='0' style='text-align: center; color: #f0f0f0;'>";
 
     // count used columns
     $numTableColumns = 3;

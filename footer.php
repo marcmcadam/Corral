@@ -1,5 +1,5 @@
 </div>
-<div class="Footer">
+<div class="footer">
 	© Copyright Deakin University 2018
 </div>
 </body>

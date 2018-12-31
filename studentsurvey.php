@@ -101,42 +101,18 @@
   } else { // If not submitted, print form:
 ?>
 
-<style>
-    table {
-        border-collapse: collapse;
-    }
-    td, th {
-        text-align: center;
-        width: 96px;
-        border: 0;
-        padding: 0;
-    }
-    td div {
-        width: 100%;
-        height: 100%;
-    }
-    .radioCell {
-        background: #e0e0e0;
-        cursor: pointer;
-    }
-    .radioCell:hover {
-        background: #e0f0ff;
-    }
-</style>
+<?php if($error) echo "There was an error saving your survey. Please try again."; ?>
+<h1>Skills Survey</h1>
+<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
 
-<div style="text-align: center;">
-    <?php if($error) echo "There was an error saving your survey. Please try again."; ?>
-    <h1>Skills Survey</h1>
-    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-
-    <table align="center"><tr>
-    <th>&nbsp;</th>
-    <th>Expert</th>
-    <th>High</th>
-    <th>Intermediate</th>
-    <th>Novice</th>
-    <th>None</th>
-    </tr>
+<table class="surveyTable" align="center"><tr>
+<th>&nbsp;</th>
+<th>Expert</th>
+<th>High</th>
+<th>Intermediate</th>
+<th>Novice</th>
+<th>None</th>
+</tr>
 
 <?php
   // Get Skill Names from Database
@@ -152,9 +128,11 @@
     }
   }
 ?>
-    </table>
-    <br>
-    <input type="submit" value="Submit Responses" style="font-size: 1.5em" class="inputButton">
-    </form>
-</div> <?php } ?>
-<?php require "footer.php"; ?>
+
+</table>
+<br>
+<input type="submit" value="Submit Responses" style="font-size: 1.5em" class="inputButton">
+</form>
+
+<?php }
+    require "footer.php"; ?>

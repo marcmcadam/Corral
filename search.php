@@ -21,7 +21,7 @@ if (isset($_GET['search'])) {
     if (mysqli_num_rows($res) > 0) {
       echo "<p>Student results found: ".mysqli_num_rows($res)."</p>";
       echo "<form name action='studentuser.php' method='get'>
-        <table width='1250px' border='1px' cellpadding='8px' align='center'>
+        <table class='listTable' align='center'>
           <tr>
               <th>ID</th>
               <th>FirstName</th>
@@ -38,7 +38,7 @@ if (isset($_GET['search'])) {
             <td align='center'>".$row['stu_LastName']."</td>
             <td align='center'>".getcampus($row["stu_Campus"])."</td>
             <td align='center'>".$row['stu_Email']."</td>
-            <td align='center'><button value ='".$row['stu_ID']."' name='studentid' class='inputButton'>Update</button></td>
+            <td align='center'><button value ='".$row['stu_ID']."' name='studentid' class='updateButton'>Update</button></td>
         </tr>";
       }
       echo "</table><br />";
@@ -54,7 +54,7 @@ if (isset($_GET['search'])) {
       echo "<p>Staff results found: ".mysqli_num_rows($res)."</p>";
       echo
       "<form name='staffListForm' action='staffuser.php' method='get'>
-        <table width='1250px' border='1px' cellpadding='8px' align='center'>
+        <table class='listTable' align='center'>
           <tr>
             <th>First Name</th>
             <th>Last Name</th>
@@ -65,11 +65,11 @@ if (isset($_GET['search'])) {
       while ($row=mysqli_fetch_assoc($res)){
         echo
         "<tr>
-          <td align='center' width='190px'>".$row['sta_FirstName']."</td>
-          <td align='center' width='190px'>".$row['sta_LastName']."</td>
-          <td align='center' width='180px'>".getcampus($row["sta_Campus"])."</td>
-          <td align='center' width='500px'>".$row['sta_Email']."</td>
-          <td align='center'><button value ='".$row['sta_ID']."' name='staffid' class='inputButton'>Update</button></td>
+          <td align='center'>".$row['sta_FirstName']."</td>
+          <td align='center'>".$row['sta_LastName']."</td>
+          <td align='center'>".getcampus($row["sta_Campus"])."</td>
+          <td align='center'>".$row['sta_Email']."</td>
+          <td align='center'><button value ='".$row['sta_ID']."' name='staffid' class='updateButton'>Update</button></td>
         </tr>";
       }
       echo "</table><br />";
@@ -86,7 +86,7 @@ if (isset($_GET['search'])) {
       echo "<p>Project results found: ".mysqli_num_rows($res)."</p>";
       echo
       "<form name='projectListForm' action='project.php' method='get'>
-        <table width='1250px' border='1px' cellpadding='8px' align='center'>
+        <table class='listTable' align='center'>
           <tr>
               <th>Project Title</th>
               <th>Project Leader</th>
@@ -97,11 +97,11 @@ if (isset($_GET['search'])) {
       while ($row=mysqli_fetch_assoc($res)){
         echo
         "<tr>
-          <td align='center' style='max-width: 190px;'>".$row['pro_title']."</td>
-          <td align='center' style='max-width: 190px;'>".$row['pro_leader']."</td>
-          <td align='center' style='max-width: 180px;'>".$row['pro_email']."</td>
-          <td align='center' style='max-width: 180px;'>".$row['pro_status']."</td>
-          <td align='center' style='width: 80px;'><button value='".$row['pro_num']."' name='number' class='inputButton'>Update</button></td>
+          <td align='center'>".$row['pro_title']."</td>
+          <td align='center'>".$row['pro_leader']."</td>
+          <td align='center'>".$row['pro_email']."</td>
+          <td align='center'>".$row['pro_status']."</td>
+          <td align='center'><button value='".$row['pro_num']."' name='number' class='updateButton'>Update</button></td>
         </tr>";
       }
       echo "</table><br />";

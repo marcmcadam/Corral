@@ -1,36 +1,26 @@
 <?php
  	$PageTitle = "Student List";
 	require "header_staff.php";
-  require "getcampus.php";
-?>
+    require "getcampus.php";
+  
+    require_once 'connectdb.php';
 
-<h2>Student Information</h2>
-<style>
-    tr:nth-child(odd) {
-        background-color: #f4f4f4;
-    }
-    tr:nth-child(even) {
-        background-color: #ececec;
-    }
-</style>
-<?php
-require_once 'connectdb.php';
+    $sql = "SELECT * FROM student ORDER BY stu_ID ASC";
+    $res = mysqli_query($CON, $sql);
 
-$sql = "SELECT * FROM student ORDER BY stu_ID ASC";
-$res = mysqli_query($CON, $sql);
-
-echo "<form name ='studentListForm' action='studentuser.php'  method='get'>
-  <table width='1250px' border='1px' cellpadding='8px' align='center'>
-    <tr>
-        <th>ID</th>
-        <th>FirstName</th>
-        <th>LastName</th>
-        <th>Campus</th>
-        <th>Email</th>
-        <th>Survey</th>
-        <th>Project</th>
-        <th>Update</th>
-    </tr>";
+    echo "<h2>Student Information</h2>
+    <form name ='studentListForm' action='studentuser.php'  method='get'>
+    <table class='listTable' align='center'>
+        <tr>
+            <th>ID</th>
+            <th>FirstName</th>
+            <th>LastName</th>
+            <th>Campus</th>
+            <th>Email</th>
+            <th>Survey</th>
+            <th>Project</th>
+            <th>Update</th>
+        </tr>";
 
 while ($row = mysqli_fetch_assoc($res))
 {
@@ -99,7 +89,7 @@ while ($row = mysqli_fetch_assoc($res))
         <td align='center'>{$row['stu_Email']}</td>
         <td align='center'>$surveyDone</td>
         <td align='center'>$projectText</td>
-        <td align='center'><button value ='".$stu_id."' name='studentid' class='inputButton'>Update</button></td>
+        <td align='center'><button value ='".$stu_id."' name='studentid' class='updateButton'>Update</button></td>
     </tr>";
 }
 
