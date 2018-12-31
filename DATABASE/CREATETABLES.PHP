@@ -193,7 +193,9 @@ if (mysqli_query($CON,$surveyanswer)) {
 //create groups mysql_list_tables
 $groups = "CREATE TABLE groups (
   stu_ID int(9) NOT NULL PRIMARY KEY,
-  pro_num int(11) NOT NULL)";
+  pro_num int(11) NOT NULL,
+  locked tinyint(1) NOT NULL DEFAULT 0
+)";
 
 if (mysqli_query($CON,$groups)) {
   echo "<p>groups table created successfully</p>";

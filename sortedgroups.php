@@ -2,32 +2,9 @@
     $PageTitle = "Sort Results";
     require "header_staff.php";
     require_once "connectdb.php";
-    require "solver.php";
+    require_once "sanitise.php";
+    require_once "solver.php";
     require "getdata.php";
-
-    $idStudents = [];
-    foreach ($studentNames as $x => $s)
-        $idStudents[$s] = $x;
-
-    $idProjects = [];
-    foreach ($projectNames as $y => $p)
-        $idProjects[$p] = $y;
-
-    $sql = "SELECT stu_id, pro_num FROM groups";
-    $res = mysqli_query($CON, $sql);
-    $projectStudents = array_fill(0, sizeof($projects), []);
-    while ($row = mysqli_fetch_assoc($res))
-    {
-        $sid = (int)$row['stu_id'];
-        $pid = (int)$row['pro_num'];
-
-        if (array_key_exists($pid, $idProjects) && array_key_exists($sid, $idStudents))
-            array_push($projectStudents[$idProjects[$pid]], $idStudents[$sid]);
-        else
-        {
-            // TODO: error
-        }
-    }
 ?>
 <style>
     td, th {
@@ -35,17 +12,62 @@
     }
 </style>
 <?php
-    echo "<div style='text-align: center; font-family: sans-serif;'>";
-
     echo "<h2>Sort Results</h2>";
 
-    if (isset($sortPID))
+    $posted = ($_SERVER["REQUEST_METHOD"] == "POST");
+    $isSorting = isset($sortPID);
+    if ($isSorting)
     {
+        if ($posted)
+            echo "<p><strong>Unable to set locks while the sorter is running.</strong></p>"; 
         echo "<p>The sorter is running in the background.</p>";
         echo "<p><a href='terminatesort.php'>Stop</a></p>";
     }
+    else
+    {
+        if ($posted)
+        {
+            // change the assignement locks using the posted submission
+            $postedLocks = [];
+            $unrecognised = 0;
+            foreach ($_POST as $key => $value)
+            {
+                $keyType = substr($key, 0, 5);
+                if ($keyType == "sLock")
+                {
+                    $sid = (int)SanitiseGeneric(substr($key, 5), $CON);
+                    $postedLocks[$sid] = null;
+                }
+            }
+            if ($unrecognised == 0)
+                echo "<p><strong>Student locks updated.</strong></p>";
+            else
+                echo "<p><strong>$unrecognised unrecognised commands!</strong></p>";
 
-    echo "<table align='center' cellpadding='0' cellspacing='0' style='text-align: left;'>";
+            foreach ($studentNames as $sid)
+            {
+                if (array_key_exists($sid, $postedLocks))
+                    $locked = true;
+                else
+                    $locked = false;
+
+                $y = $idStudents[$sid];
+                if ($studentLocks[$y] != $locked)
+                {
+                    $studentLocks[$y] = $locked;
+                    
+                    $lockSQL = ($locked ? "1" : "0");
+                    $sql = "UPDATE groups SET locked=$lockSQL WHERE stu_id=$sid"; // TODO: and survey id
+                    $query = mysqli_query($CON, $sql);
+                    if (!$query)
+                        $unrecognised += 1; // TODO: also check if query updated exactly 1 row
+                }
+            }
+        }
+    }
+
+    echo "<form method='post'>";
+    echo "<table align='center' style='text-align: left;'>";
 
     $skillLetters = [];
     $usedSkills = [];
@@ -90,7 +112,8 @@
     // empty page-top column headers
     echo "<tr><td colspan='". $numTableColumns ."'>&nbsp;</td></tr>
             <tr>
-            <th width='96px'>&nbsp;</th>
+            <th width='32px'><input type='checkbox' disabled></th>
+            <th width='96px'><input type='submit' class='inputButton' value='Save Locks'></th>
             <th width='256px'>&nbsp;</th>
             <th width='16px'>&nbsp;</th>
         ";
@@ -132,6 +155,9 @@
 
         // Print project name and skill requirements
         echo "<tr>";
+        echo "<td style='border-bottom: thin solid black; border-right: thin solid $innerBorderColour;'>
+                <input type='checkbox' disabled>
+            </td>";
         //echo "<td colspan='3' style='font-weight:bold; border-bottom: thin solid; border-right: thin solid; text-align: left;'>$projectText[$p] ($projectMinima[$p] - $projectMaxima[$p])</td>";
         echo "<td colspan='3' style='font-weight:bold; border-bottom: thin solid black; border-right: thin solid $innerBorderColour; text-align: left;'>$projectText[$p]</td>";
         for ($s = 0; $s < $numSkills; $s += 1)
@@ -175,12 +201,17 @@
                 $name = $studentNames[$i];
             }
             else
-            {
-                $text = "&nbsp;";
-                $name = "&nbsp;";
-            }
+                die("Student identification missing from array");
+
+            $lockName = ($isSorting ? "" : "name='sLock$name'"); // TODO: need to include survey info in name if splitting the surveys
+            $lockDisable = ($isSorting ? "disabled" : "");
+            $lockValue = ((array_key_exists($i, $studentLocks) && $studentLocks[$i]) ? "checked" : ""); // group entry doesn't exist if record is being changed
+            echo "<td style='border-bottom: thin solid $innerBorderColour;'>
+                    <input type='checkbox' $lockName $lockDisable $lockValue>
+                </td>";
+
             echo "<td style='text-align: right; border-bottom: thin solid $innerBorderColour; font-family: monospace;'>$name&nbsp;</td>";
-            echo "<td style='text-align: left; border-bottom: thin solid $innerBorderColour;'>$text</td>";
+            echo "<td style='text-align: left; border-bottom: thin solid $innerBorderColour;'>$text&nbsp;</td>";
 
             $satisfaction = 0.0;
             $skillTotal = 0.0;
@@ -230,6 +261,8 @@
         }
         echo "<tr><td colspan='". $numTableColumns ."'>&nbsp;</td></tr>";
     }
-    echo "</table></div></div>";
+    echo "</table>";
+    echo "</form>";
+    echo "</div>";
     require "footer.php";
 ?>
