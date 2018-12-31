@@ -57,16 +57,17 @@ body {
     top: 48px;
     visibility: hidden;
     background: #ffffff;
-    text-align: left;
+    text-align: center;
 }
 
 .menu:hover > ul {
-	width: 384px;
+    min-width: 192px;
+	width: 100%;
 	visibility: visible;
 }
 
 .menu > ul > li:hover {
-	background: #f0f4ff;
+	background: #f0f1ff;
 }
 
 .menu > ul > li > a {
@@ -79,7 +80,7 @@ body {
 
 .menu p {
     margin: 0;
-    padding: 16px 48px;
+    padding: 16px 0;
 }
 
 
@@ -135,7 +136,7 @@ body {
 }
 .inputButton:hover {
     border: 2px solid #a0c0e0;
-    background: #e0f0ff;
+    background: #e0e4ff;
     border-radius: 16px;
     padding: 8px 16px;
     cursor: pointer;
@@ -156,7 +157,7 @@ body {
 }
 .updateButton:hover {
     border: 2px solid #a0c0e0;
-    background: #e0f0ff;
+    background: #e0e4ff;
     border-radius: 16px;
     padding: 1px 16px;
     cursor: pointer;
