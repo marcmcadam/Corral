@@ -205,14 +205,14 @@ td {
 
 .surveyTable td {
     text-align: center;
-    width: 96px;
+    min-width: 96px;
     border: 0;
     padding: 0;
 }
 
 .surveyTable th {
     text-align: center;
-    width: 96px;
+    min-width: 96px;
     border: 0;
     padding: 0;
 }

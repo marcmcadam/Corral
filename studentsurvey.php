@@ -102,7 +102,7 @@
 ?>
 
 <?php if($error) echo "There was an error saving your survey. Please try again."; ?>
-<h1>Skills Survey</h1>
+<h2>Skills Survey</h2>
 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
 
 <table class="surveyTable" align="center"><tr>
