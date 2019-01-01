@@ -269,9 +269,6 @@
             break;
         }
 
-        echo "<p>Batch: $batch</p>";
-        update();
-
         // split the students into separate batches randomly
         $projectStudentIndices = [];
         for ($p = 0; $p < sizeof($projects); $p += 1)
@@ -376,19 +373,22 @@
                 update();
             }
 
-            set_time_limit(30);
-            $solver->iterate();
-            if ($solver->iteration < 0)
+            if ($nextSolverY >= 2) // empty students array causes an error
             {
-                echo "<p>Solver encountered an error.</p>";
-                die;
-            }
+                set_time_limit(30);
+                $solver->iterate();
+                if ($solver->iteration < 0)
+                {
+                    echo "<p>Solver encountered an error.</p>";
+                    die;
+                }
 
-            foreach ($solver->studentProjects as $solverY => $p)
-            {
-                $y = $solverStudents[$solverY];
-                if ($studentProjects[$y] != $p)
-                    $toDatabase[$y] = $p;
+                foreach ($solver->studentProjects as $solverY => $p)
+                {
+                    $y = $solverStudents[$solverY];
+                    if ($studentProjects[$y] != $p)
+                        $toDatabase[$y] = $p;
+                }
             }
         }
 
@@ -405,7 +405,7 @@
         $progress = -$cost;
         $swaps = sizeof($toDatabase);
 
-        echo "<p>Gain: $progress, Swaps: $swaps</p>";
+        echo "<p>Completed batch: $batch, skill gain: $progress, students swapped: $swaps</p>";
     }
     echo "<p>Finished</p>";
 

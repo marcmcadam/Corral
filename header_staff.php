@@ -39,7 +39,7 @@ if (!isset($_SESSION['sta_Email'])) {
         <ul>
             <li><a href="skillnames"><p>Edit Skills</p></a></li>
             <li><a href="datamgmt"><p>Manage Corral Data</p></a></li>
-            <li><a href="begin" target="_blank"><p>Begin Sort</p></a></li>
+            <li><a href="begin"><p>Begin Sort</p></a></li>
             <li><a href="sortedgroups"><p>Sort Results</p></a></li>
         </ul>
     </div><div class="menuGap" style="width: 20%;">
