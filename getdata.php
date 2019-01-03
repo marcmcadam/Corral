@@ -32,9 +32,9 @@
         $sortInertia = null;
         $sortIterations = null;
     }
-
+    $unit_ID = 'SIT302T218'; // TODO: Implement dynamic unit selection
     $skillnames = [];
-    $skillNames = getSkillNames($CON, $numSkills); // skill names decide whether numbers are relevant or not, using null
+    $skillNames = getSkillNames($CON, $numSkills, $unit_ID); // skill names decide whether numbers are relevant or not, using null
 
 
     // Fetch student names and skill assessments from database

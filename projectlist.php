@@ -28,12 +28,13 @@
 
 <?php
 
-    $sql = "SELECT * FROM project ORDER BY FIELD(pro_status, 'Active', 'Planning', 'Inactive', 'Cancelled'), pro_title ASC";
+    $sql = "SELECT * FROM project ORDER BY unit_ID, FIELD(pro_status, 'Active', 'Planning', 'Inactive', 'Cancelled'), pro_title ASC";
     $res = mysqli_query($CON, $sql);
 
     echo "<form name ='projectListForm' action='project.php'  method='get'>
     <table width='1250px' border='1px' cellpadding='8px' align='center'>
         <tr>
+            <th>Project Unit</th>
             <th>Project Title</th>
             <th>Project Leader</th>
             <th>Leader Email</th>
@@ -45,6 +46,7 @@
     while ($row=mysqli_fetch_assoc($res))
     {
         echo "<tr>
+                <td align='center' style='max-width: 190px;'>{$row['unit_ID']}</td>
                 <td align='center' style='max-width: 190px;'>{$row['pro_title']}</td>
                 <td align='center' style='max-width: 190px;'>{$row['pro_leader']}</td>
                 <td align='center' style='max-width: 180px;'>{$row['pro_email']}</td>
