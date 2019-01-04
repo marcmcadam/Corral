@@ -1,6 +1,6 @@
 </div>
-<div class="Footer">
-	© Copyright Deakin University 2018
+<div class="footer">
+	© Copyright Deakin University 2019
 </div>
 </body>
 </html>

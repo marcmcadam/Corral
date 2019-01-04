@@ -2,53 +2,20 @@
  	$PageTitle = "Project List";
     require "header_staff.php";
     require_once "connectdb.php";
-    require "getfunctions.php";
-    $units = getUnits($CON);
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST")
- {
-     header("location: project");
-     die;
- }
-?>
-<h2>Project List</h2>
-
-
-
-
-<form method="post">
-    <input type="submit" value="Create Project" class="inputButton">
-</form>
-
-<style>
-    tr:nth-child(odd) {
-        background-color: #f4f4f4;
-    }
-    tr:nth-child(even) {
-        background-color: #ececec;
-    }
-</style>
-
-<?php
-    $unit = "";
-    $_POST['unit_ID'] = "SIT374T318";
-    if(isset($_POST['unit_ID'])) {
-      if(in_array($_POST['unit_ID'], $units)) {
-        $unit = "WHERE unit_ID = '".$_POST['unit_ID']."' ";
-      }
-    }
-    $sql = "SELECT * FROM project ".$unit."ORDER BY unit_ID, FIELD(pro_status, 'Active', 'Planning', 'Inactive', 'Cancelled'), pro_title ASC";
+    $sql = "SELECT * FROM project ORDER BY unit_ID, FIELD(pro_status, 'Active', 'Planning', 'Inactive', 'Cancelled'), pro_title ASC";
     $res = mysqli_query($CON, $sql);
 
-    echo "<form name ='projectListForm' action='project.php'  method='get'>
-    <table width='1250px' border='1px' cellpadding='8px' align='center'>
+    echo "<h2>Project List</h2>
+    <form action='project' method='get'>
+    <table class='listTable' align='center'>
         <tr>
             <th>Project Unit</th>
             <th>Project Title</th>
             <th>Project Leader</th>
             <th>Leader Email</th>
-            <th>Project Brief</th>
-            <th>Project Status</th>
+            <th>Brief</th>
+            <th>Status</th>
             <th>Update</th>
         </tr>";
 
@@ -65,7 +32,7 @@
             </tr>";
     }
 
-    echo "</table>";
+    echo "</table></form>";
     mysqli_free_result($res);
     mysqli_close($CON);
 

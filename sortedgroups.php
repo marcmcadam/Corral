@@ -2,50 +2,103 @@
     $PageTitle = "Sort Results";
     require "header_staff.php";
     require_once "connectdb.php";
-    require "solver.php";
+    require_once "sanitise.php";
+    require_once "solver.php";
     require "getdata.php";
-
-    $idStudents = [];
-    foreach ($studentNames as $x => $s)
-        $idStudents[$s] = $x;
-
-    $idProjects = [];
-    foreach ($projectNames as $y => $p)
-        $idProjects[$p] = $y;
-
-    $sql = "SELECT stu_id, pro_ID FROM groups";
-    $res = mysqli_query($CON, $sql);
-    $projectStudents = array_fill(0, sizeof($projects), []);
-    while ($row = mysqli_fetch_assoc($res))
-    {
-        $sid = (int)$row['stu_id'];
-        $pid = (int)$row['pro_ID'];
-
-        if (array_key_exists($pid, $idProjects) && array_key_exists($sid, $idStudents))
-            array_push($projectStudents[$idProjects[$pid]], $idStudents[$sid]);
-        else
-        {
-            // TODO: error
-        }
-    }
 ?>
-<style>
-    td, th {
-        white-space: nowrap;
-    }
-</style>
+
 <?php
-    echo "<div style='text-align: center; font-family: sans-serif;'>";
+    $headerBackgroundColour = ['r' => 0.25, 'g' => 0.25, 'b' => 0.25];
+    $headerColour = ['r' => 0.5, 'g' => 0.5, 'b' => 0.5];
+    $backgroundColour = ['r' => 0.25, 'g' => 0.25, 'b' => 0.25];
+    $strongColour = ['r' => 0.25, 'g' => 0.75, 'b' => 0.25];
+    $weakColour = ['r' => 0.75, 'g' => 0.25, 'b' => 0.25];
+
+    $innerBorderColour = "#606060";
+
+    echo "<style>
+            td, th {
+                white-space: nowrap;
+            }
+            .sortInputTop {
+                border-bottom: thin solid black; border-right: thin solid $innerBorderColour;
+            }
+            .sortProjectTop {
+                font-weight:bold; border-bottom: thin solid black; border-right: thin solid $innerBorderColour; text-align: left;
+            }
+            .sortSkillTop {
+                color: #f0f0f0; font-size: 0.75em; border-bottom: thin solid black; border-top: thin solid $innerBorderColour; border-right: thin solid $innerBorderColour;
+            }
+            .sortSkillCell {
+                color: white; border-bottom: thin solid $innerBorderColour; border-right: thin solid $innerBorderColour;
+            }
+            .sortID {
+                text-align: right; border-bottom: thin solid $innerBorderColour; font-family: monospace;
+            }
+            .sortName {
+                text-align: left; border-bottom: thin solid $innerBorderColour;
+            }
+            .sortExclamation {
+                text-align: center; color: #e04000; border-right: thin solid $innerBorderColour; border-bottom: thin solid $innerBorderColour;
+            }
+        </style>";
 
     echo "<h2>Sort Results</h2>";
 
-    if (isset($sortPID))
+    $posted = ($_SERVER["REQUEST_METHOD"] == "POST");
+    $isSorting = isset($sortPID);
+    if ($isSorting)
     {
+        if ($posted)
+            echo "<p><strong>Unable to set locks while the sorter is running.</strong></p>";
         echo "<p>The sorter is running in the background.</p>";
         echo "<p><a href='terminatesort.php'>Stop</a></p>";
     }
+    else
+    {
+        if ($posted)
+        {
+            // change the assignement locks using the posted submission
+            $postedLocks = [];
+            $unrecognised = 0;
+            foreach ($_POST as $key => $value)
+            {
+                $keyType = substr($key, 0, 5);
+                if ($keyType == "sLock")
+                {
+                    $sid = (int)SanitiseGeneric(substr($key, 5), $CON);
+                    $postedLocks[$sid] = null;
+                }
+            }
+            if ($unrecognised == 0)
+                echo "<p><strong>Student locks updated.</strong></p>";
+            else
+                echo "<p><strong>$unrecognised unrecognised commands!</strong></p>";
 
-    echo "<table border='0' align='center' cellpadding='0' cellspacing='0' style='text-align: left;'>";
+            foreach ($studentNames as $sid)
+            {
+                if (array_key_exists($sid, $postedLocks))
+                    $locked = true;
+                else
+                    $locked = false;
+
+                $y = $idStudents[$sid];
+                if ($studentLocks[$y] != $locked)
+                {
+                    $studentLocks[$y] = $locked;
+
+                    $lockSQL = ($locked ? "1" : "0");
+                    $sql = "UPDATE groups SET locked=$lockSQL WHERE stu_id=$sid"; // TODO: and survey id
+                    $query = mysqli_query($CON, $sql);
+                    if (!$query)
+                        $unrecognised += 1; // TODO: also check if query updated exactly 1 row
+                }
+            }
+        }
+    }
+
+    echo "<form method='post'>";
+    echo "<table class='listTable' align='center' style='text-align: left;'>";
 
     $skillLetters = [];
     $usedSkills = [];
@@ -69,15 +122,15 @@
                 $i = $usedSkills[$z];
                 $name = $skillNames[$i];
                 $letter = $skillLetters[$i];
-                echo "<td style='width: 32px'>$letter</td>
-                      <td style='width: 256px'>$name</td>";
+                echo "<th>$letter</td>
+                      <td style='width: 192px'>$name</td>";
             }
         }
         echo "</tr>";
     }
     echo "</table>";
-    echo "<div align='center' style='margin: 16px 0; padding: 16px; background: #404040; border: solid black;'>";
-    echo "<table border='0' align='center' cellpadding='0' cellspacing='0' style='text-align: center; color: #f0f0f0;'>";
+
+    echo "<table align='center' style='text-align: center;'>";
 
     // count used columns
     $numTableColumns = 3;
@@ -90,8 +143,8 @@
     // empty page-top column headers
     echo "<tr><td colspan='". $numTableColumns ."'>&nbsp;</td></tr>
             <tr>
-            <th width='96px'>&nbsp;</th>
-            <th width='256px'>&nbsp;</th>
+            <th width='32px'><input type='checkbox' disabled></th>
+            <th colspan='2' style='text-align: left;'><input type='submit' class='updateButton' value='Save All Locks'></th>
             <th width='16px'>&nbsp;</th>
         ";
     // page-top column name headers
@@ -101,7 +154,6 @@
         if (is_null($name))
             continue;
         $letter = $skillLetters[$i];
-        //echo "<th>$name</th>";
         echo "<th style='width: 48px'>$letter</th>";
     }
 
@@ -119,21 +171,13 @@
     {
         sort($projectStudents[$p]);
 
-        $headerBackgroundColour = ['r' => 0.25, 'g' => 0.25, 'b' => 0.25];
-        $headerColour = ['r' => 0.5, 'g' => 0.5, 'b' => 0.5];
-        // $headerBackgroundColour = ['r' => 0.9275, 'g' => 0.9275, 'b' => 0.9275];
-        //$headerColour = ['r' => 1.0, 'g' => 1.0, 'b' => 0.5];
-
-        $backgroundColour = ['r' => 0.25, 'g' => 0.25, 'b' => 0.25];
-        $strongColour = ['r' => 0.25, 'g' => 0.75, 'b' => 0.25];
-        $weakColour = ['r' => 0.75, 'g' => 0.25, 'b' => 0.25];
-
-        $innerBorderColour = "#606060";
-
         // Print project name and skill requirements
         echo "<tr>";
-        //echo "<td colspan='3' style='font-weight:bold; border-bottom: thin solid; border-right: thin solid; text-align: left;'>$projectText[$p] ($projectMinima[$p] - $projectMaxima[$p])</td>";
-        echo "<td colspan='3' style='font-weight:bold; border-bottom: thin solid black; border-right: thin solid $innerBorderColour; text-align: left;'>$projectText[$p]</td>";
+        echo "<td class='sortInputTop'>
+                <input type='checkbox' disabled>
+            </td>";
+        //echo "<td colspan='3' class='sortProjectTop'>$projectText[$p] ($projectMinima[$p] - $projectMaxima[$p])</td>";
+        echo "<td colspan='3' class='sortProjectTop'>$projectText[$p] <span style='font-size: 0.75em; font-weight: normal;'>($projectMinima[$p])</span></td>";
         for ($s = 0; $s < $numSkills; $s += 1)
         {
             if (is_null($skillNames[$s]))
@@ -149,7 +193,7 @@
             $green = $notAlpha * $headerBackgroundColour['g'] + $alpha * $headerColour['g'];
             $blue = $notAlpha * $headerBackgroundColour['b'] + $alpha * $headerColour['b'];
             $hexColour = sprintf("#%02X%02X%02X", (int)floor($red * 255.9), (int)floor($green * 255.9), (int)floor($blue * 255.9));
-            echo "<td bgcolor='$hexColour' style='font-size: 0.75em; border-bottom: thin solid black; border-right: thin solid $innerBorderColour'>";
+            echo "<td bgcolor='$hexColour' class='sortSkillTop'>";
 
             if ($importance > 0)
             {
@@ -175,12 +219,17 @@
                 $name = $studentNames[$i];
             }
             else
-            {
-                $text = "&nbsp;";
-                $name = "&nbsp;";
-            }
-            echo "<td style='text-align: right; border-bottom: thin solid $innerBorderColour; font-family: monospace;'>$name&nbsp;</td>";
-            echo "<td style='text-align: left; border-bottom: thin solid $innerBorderColour;'>$text</td>";
+                die("Student identification missing from array");
+
+            $lockName = ($isSorting ? "" : "name='sLock$name'"); // TODO: need to include survey info in name if splitting the surveys
+            $lockDisable = ($isSorting ? "disabled" : "");
+            $lockValue = ((array_key_exists($i, $studentLocks) && $studentLocks[$i]) ? "checked" : ""); // group entry doesn't exist if record is being changed
+            echo "<td style='border-bottom: thin solid $innerBorderColour;'>
+                    <input type='checkbox' $lockName $lockDisable $lockValue>
+                </td>";
+
+            echo "<td class='sortID'>$name&nbsp;</td>";
+            echo "<td class='sortName'>$text&nbsp;</td>";
 
             $satisfaction = 0.0;
             $skillTotal = 0.0;
@@ -201,7 +250,7 @@
                 $satisfaction /= $divisor;
             $satisfactionText = str_repeat("!", (int)floor(4.0 * (1.0 - $satisfaction)));
 
-            echo "<td style='text-align: center; color: #e04000; border-right: thin solid $innerBorderColour; border-bottom: thin solid $innerBorderColour'>$satisfactionText</td>";
+            echo "<td class='sortExclamation'>$satisfactionText</td>";
 
             $skillMax = 4.0;
 
@@ -220,8 +269,7 @@
                 $green = $notAlpha * $backgroundColour['g'] + $alpha * ($strength * $strongColour['g'] + $weakness * $weakColour['g']);
                 $blue = $notAlpha * $backgroundColour['b'] + $alpha * ($strength * $strongColour['b'] + $weakness * $weakColour['b']);
                 $hexColour = sprintf("#%02X%02X%02X", (int)floor($red * 255.9), (int)floor($green * 255.9), (int)floor($blue * 255.9));
-                $style = ($projects[$p][$s]->importance == 0) ? "" : "font-weight: bold;";
-                echo "<td bgcolor='$hexColour' style='$style; color: white; border-bottom: thin solid $innerBorderColour; border-right: thin solid $innerBorderColour;'>";
+                echo "<td bgcolor='$hexColour' class='sortSkillCell'>";
                 for ($v = 0; $v < $value; $v += 1)
                     echo "<img src='images/whitestar.png' width='10px' height='10px'>";
                 echo "</td>";
@@ -230,6 +278,7 @@
         }
         echo "<tr><td colspan='". $numTableColumns ."'>&nbsp;</td></tr>";
     }
-    echo "</table></div></div>";
+    echo "</table>";
+    echo "</form>";
     require "footer.php";
 ?>

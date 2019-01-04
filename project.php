@@ -88,10 +88,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <?php
     $numSkills = 20;
     $skillnames = [];
-    $pro_ID = filter_input(INPUT_GET, 'number', FILTER_VALIDATE_INT);
+    $skillNames = getSkillNames($CON, $numSkills);
+
+    $pro_num = filter_input(INPUT_GET, 'number', FILTER_VALIDATE_INT);
+
     $skillImp = [];
     $skillBias = [];
-    if (is_null($pro_ID))
+    if (is_null($pro_num) || $pro_num == "")
     {
         // updating nothing. create a new project
         $pro_ID = "";

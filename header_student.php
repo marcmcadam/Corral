@@ -14,18 +14,20 @@ else
 	$student_lastname = $_SESSION['STUDENT_LASTNAME'];
 }
 ?>
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
 <title><?php echo $PageTitle; ?></title>
-<link rel="stylesheet" type="text/css" href="stylesheet.css">
+<link rel="stylesheet" type="text/css" href="styles.css">
 <link rel="icon" type="image/ico" href="favicon.ico">
 <?php echo isset($script) ? $script : "" ; // Echo header script if one exists (JavaScript Validation etc)?>
 </head>
 
 <body>
 <div class="navbar">
-	<a href="studenthome.php">Home</a>
-	<a href="logout.php">Logout</a>
+	<div class="menu" style="width: 20%;"><a href="studentsurvey"><p>Survey</p></a>
+	</div><div class="menu" style="width: 20%;"> <a href="logout"><p>Logout</p></a>
+	</div>
 </div>
 <div class="main">
