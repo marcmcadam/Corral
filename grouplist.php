@@ -8,7 +8,7 @@
   /* -- needs to be redesigned using similar structure to sortedgroups.php
   echo "<h2>Student Group Listing</h2>";
   require_once "connectdb.php";
-  $sql="SELECT groups.*, student.stu_FirstName, student.stu_LastName, student.stu_Campus, student.stu_Email, project.pro_title FROM ((groups INNER JOIN student ON groups.stu_ID=student.stu_ID) INNER JOIN project ON groups.pro_num=project.pro_num) ORDER BY pro_num ASC";
+  $sql="SELECT groups.*, student.stu_FirstName, student.stu_LastName, student.stu_Campus, student.stu_Email, project.pro_title FROM ((groups INNER JOIN student ON groups.stu_ID=student.stu_ID) INNER JOIN project ON groups.pro_ID=project.pro_ID) ORDER BY pro_ID ASC";
   $res=mysqli_query($CON, $sql);
 
   echo "<table width='1250px' border='1px' cellpadding='8px' align='center'>";

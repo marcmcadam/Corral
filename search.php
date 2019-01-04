@@ -101,7 +101,7 @@ if (isset($_GET['search'])) {
           <td align='center'>".$row['pro_leader']."</td>
           <td align='center'>".$row['pro_email']."</td>
           <td align='center'>".$row['pro_status']."</td>
-          <td align='center'><button value='".$row['pro_num']."' name='number' class='updateButton'>Update</button></td>
+          <td align='center'><button value='".$row['pro_ID']."' name='number' class='updateButton'>Update</button></td>
         </tr>";
       }
       echo "</table><br />";

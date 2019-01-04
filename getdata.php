@@ -164,7 +164,7 @@
     foreach ($projectNames as $x => $p)
         $idProjects[$p] = $x;
 
-    $sql = "SELECT stu_id, pro_num, locked FROM groups";
+    $sql = "SELECT stu_id, pro_ID, locked FROM groups";
     $res = mysqli_query($CON, $sql);
     $studentProjects = [];
     $projectStudents = array_fill(0, sizeof($projects), []);
@@ -172,7 +172,7 @@
     while ($row = mysqli_fetch_assoc($res))
     {
         $sid = (int)$row['stu_id'];
-        $pid = (int)$row['pro_num'];
+        $pid = (int)$row['pro_ID'];
         $locked = (int)$row['locked'];
 
         if (!array_key_exists($pid, $idProjects))

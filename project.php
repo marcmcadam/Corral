@@ -88,13 +88,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <?php
     $numSkills = 20;
     $skillnames = [];
-    $skillNames = getSkillNames($CON, $numSkills);
 
-    $pro_num = filter_input(INPUT_GET, 'number', FILTER_VALIDATE_INT);
+    $pro_ID = filter_input(INPUT_GET, 'number', FILTER_VALIDATE_INT);
 
     $skillImp = [];
     $skillBias = [];
-    if (is_null($pro_num) || $pro_num == "")
+    if (is_null($pro_ID) || $pro_ID == "")
     {
         // updating nothing. create a new project
         $pro_ID = "";
@@ -130,6 +129,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $maximum = $project['pro_max'];
       $importance = $project['pro_imp'];
       $skillNames = getSkillNames($CON, $numSkills, $unit_ID);
+
 
       for ($i = 0; $i < $numSkills; $i += 1)
       {
