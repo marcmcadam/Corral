@@ -2,9 +2,8 @@
 $PageTitle = "Project Details";
 require "header_staff.php";
 require_once "connectdb.php";
-require "getskillnames.php";
+require "getfunctions.php";
 require "sanitise.php";
-require "getunits.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $pro_ID_text = SanitiseGeneric($_POST['pro_ID'], $CON);

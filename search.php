@@ -2,7 +2,7 @@
 $PageTitle = "Search";
 require "header_staff.php";
 require_once "connectdb.php";
-require_once "getcampus.php";
+require_once "getfunctions.php";
 
 if (isset($_GET['search'])) {
   // Filter with Regex, Search term should only include uppercase/lowercase/numbers/.@ (to allow email search)

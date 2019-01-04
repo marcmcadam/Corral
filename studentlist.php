@@ -1,7 +1,7 @@
 <?php
  	$PageTitle = "Student List";
 	require "header_staff.php";
-  require "getcampus.php";
+  require "getfunctions.php";
 ?>
 
 <h2>Student Information</h2>

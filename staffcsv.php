@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once "connectdb.php";
-require_once "getcampus.php";
+require_once "getfunctions.php";
 require "staffauth.php";
 
 $query = "SELECT sta_FirstName, sta_LastName, sta_Campus, sta_Email FROM staff";

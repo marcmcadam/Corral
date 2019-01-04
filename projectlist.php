@@ -2,14 +2,17 @@
  	$PageTitle = "Project List";
     require "header_staff.php";
     require_once "connectdb.php";
+    require "getfunctions.php";
+    $units = getUnits($CON);
 
     if ($_SERVER["REQUEST_METHOD"] == "POST")
-    {
-        header("location: project");
-        die;
-    }
+ {
+     header("location: project");
+     die;
+ }
 ?>
 <h2>Project List</h2>
+
 
 
 
@@ -27,8 +30,14 @@
 </style>
 
 <?php
-
-    $sql = "SELECT * FROM project ORDER BY unit_ID, FIELD(pro_status, 'Active', 'Planning', 'Inactive', 'Cancelled'), pro_title ASC";
+    $unit = "";
+    $_POST['unit_ID'] = "SIT374T318";
+    if(isset($_POST['unit_ID'])) {
+      if(in_array($_POST['unit_ID'], $units)) {
+        $unit = "WHERE unit_ID = '".$_POST['unit_ID']."' ";
+      }
+    }
+    $sql = "SELECT * FROM project ".$unit."ORDER BY unit_ID, FIELD(pro_status, 'Active', 'Planning', 'Inactive', 'Cancelled'), pro_title ASC";
     $res = mysqli_query($CON, $sql);
 
     echo "<form name ='projectListForm' action='project.php'  method='get'>

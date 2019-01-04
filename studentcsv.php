@@ -1,6 +1,6 @@
 <?php
 session_start();
-require "getcampus.php";
+require "getfunctions.php";
 require "staffauth.php";
 
 

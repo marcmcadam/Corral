@@ -1,7 +1,7 @@
 <?php
     require_once "connectdb.php";
     require_once "solver.php";
-    require_once "getskillnames.php";
+    require_once "getfunctions.php";
 
     $numSkills = 20;
 

@@ -3,7 +3,7 @@
 	require "header_staff.php";
   require "sanitise.php";
   require_once "connectdb.php";
-  require "getcampus.php";
+  require "getfunctions.php";
 
   // Check for $_POST:
   // If form has been submitted to update details, validate input, insert to DB
