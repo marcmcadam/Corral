@@ -30,7 +30,6 @@ require "staffauth.php";
 		</li><!--
 		--><li class="menu"><a href ="#"><p>Admin</p></a>
      <ul class="menu">
-        <li class="menu"><a href ="skillnames.php"><p>Edit Skills</p></a></li>
 				<li class="menu"><a href ="datamgmt.php"><p>Manage Corral Data</p></a></li>
 				<li class="menu"><a href ="begin.php" target="_blank"><p>Begin Sort</p></a></li>
 				<li class="menu"><a href ="sortedgroups.php"><p>Sort Results</p></a></li>
