@@ -14,11 +14,16 @@ require "staffauth.php";
 
 <body>
 <div class="navbar">
-    <div class="menu" style="width: 15%;"><a href="staffhome"><p>Corral</p></a>
+    <div class="menu" style="width: 10%;"><a href="staffhome"><p>Corral</p></a>
     </div><div class="menu" style="width: 15%;"><a href="#"><p>Users</p></a>
         <ul>
             <li><a href="studentlist"><p>Students</p></a></li>
             <li><a href="stafflist"><p>Staff</p></a></li>
+        </ul>
+    </div><div class="menu" style="width: 15%;"><a href="#"><p>Units</p></a>
+        <ul>
+            <li><a href="unit"><p>Add Unit</p></a></li>
+            <li><a href="unitlist"><p>View Units</p></a></li>
         </ul>
     </div><div class="menu" style="width: 15%;"><a href="#"><p>Projects</p></a>
         <ul>
