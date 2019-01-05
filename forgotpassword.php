@@ -68,9 +68,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Error inserting new reset record: " . mysqli_error($CON);
       }
 
-      echo "URL is: <a href='".$reseturl."'>Here</a>";
-
-
       // Set email content
       $bodyContent = '<h2>Password Reset Request</h2>
         <p>Hello, you are receiving this email because somebody attempted to reset your password.</p>
