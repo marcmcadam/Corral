@@ -34,7 +34,7 @@ require "staffauth.php";
     </div><div class="menu" style="width: 15%;"><a href ="#"><p>Admin</p></a>
         <ul>
             <li><a href="datamgmt"><p>Manage Corral Data</p></a></li>
-            <li><a href="begin" target="_blank"><p>Begin Sort</p></a></li>
+            <li><a href="begin"><p>Begin Sort</p></a></li>
             <li><a href="sortedgroups"><p>Sort Results</p></a></li>
         </ul>
     </div><div class="menuGap" style="width: 20%;">
