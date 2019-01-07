@@ -70,10 +70,6 @@
                     $postedLocks[$sid] = null;
                 }
             }
-            if ($unrecognised == 0)
-                echo "<p><strong>Student locks updated.</strong></p>";
-            else
-                echo "<p><strong>$unrecognised unrecognised commands!</strong></p>";
 
             foreach ($studentNames as $sid)
             {
@@ -88,12 +84,17 @@
                     $studentLocks[$y] = $locked;
 
                     $lockSQL = ($locked ? "1" : "0");
-                    $sql = "UPDATE groups SET locked=$lockSQL WHERE stu_id=$sid"; // TODO: and survey id
+                    $sql = "UPDATE surveyanswer SET pro_locked=$lockSQL WHERE stu_id=$sid"; // TODO: and survey id
                     $query = mysqli_query($CON, $sql);
                     if (!$query)
                         $unrecognised += 1; // TODO: also check if query updated exactly 1 row
                 }
             }
+
+            if ($unrecognised == 0)
+                echo "<p><strong>Student locks updated.</strong></p>";
+            else
+                echo "<p><strong>$unrecognised unrecognised commands!</strong></p>";
         }
     }
 

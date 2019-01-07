@@ -237,6 +237,12 @@
         die("There are no unlocked students to sort.");
     echo "<p>Sorting $numStudents students</p>";
 
+    $projectStudents = []; // remake this getdata array for these changes
+    for ($p = 0; $p < sizeof($projects); $p += 1)
+        $projectStudents[$p] = [];
+    foreach ($studentProjects as $y => $p)
+        array_push($projectStudents[$p], $y);
+
     $usedSkills = [];
     for ($s = 0; $s < $numSkills; $s += 1)
         array_push($usedSkills, !is_null($skillNames[$s]));
