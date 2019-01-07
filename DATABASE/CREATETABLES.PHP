@@ -80,12 +80,7 @@ $staff = "CREATE TABLE STAFF (
   sta_Password varchar(64) NOT NULL,
   sta_Timestamp datetime DEFAULT NULL,
   sta_LockedOut tinyint(1) DEFAULT NULL,
-  sta_LoginAttempts int(11) DEFAULT NULL,
-  SORT_PID int(11) DEFAULT NULL,
-  sort_matrix INT(11) NOT NULL,
-  sort_inertia INT(11) NOT NULL,
-  sort_random INT(11) NOT NULL,
-  sort_iterations INT(11) NOT NULL
+  sta_LoginAttempts int(11) DEFAULT NULL
 )";
 if (mysqli_query($CON,$staff)) {
   echo "<p>staff table created successfully</p>";
@@ -119,6 +114,12 @@ $unit = "CREATE TABLE unit (
   skill_17 VARCHAR(30) DEFAULT NULL,
   skill_18 VARCHAR(30) DEFAULT NULL,
   skill_19 VARCHAR(30) DEFAULT NULL,
+  sort_matrix INT(11) NOT NULL DEFAULT 100,
+  sort_inertia INT(11) NOT NULL DEFAULT 0,
+  sort_random INT(11) NOT NULL DEFAULT 10,
+  sort_iterations INT(11) NOT NULL DEFAULT 50,
+  sort_pid INT(11) DEFAULT NULL,
+  sort_stop TINYINT(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (unit_ID),
   FOREIGN KEY (sta_ID) REFERENCES staff(sta_ID)
 )";
@@ -194,6 +195,7 @@ $surveyanswer = "CREATE TABLE surveyanswer (
   stu_ID int(9) NOT NULL,
   unit_ID varchar(10) NOT NULL,
   pro_ID int(11) DEFAULT NULL,
+  pro_locked tinyint(1) DEFAULT 0,
   submitted tinyint(1) DEFAULT 0,
   stu_skill_00 int(11) DEFAULT NULL,
   stu_skill_01 int(11) DEFAULT NULL,

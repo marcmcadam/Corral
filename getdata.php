@@ -3,11 +3,15 @@
     require_once "solver.php";
     require_once "getfunctions.php";
 
+    // TODO: Implement dynamic unit selection
+    $unit_ID = 'SIT302T218';
+
     $numSkills = 20;
 
+    // TODO: reorganise into functions and group similar SQL calls when it's working
 
     // get the process ID for the sorting
-    $sql = "SELECT sta_Email, sort_pid, sort_matrix, sort_random, sort_inertia, sort_iterations FROM staff WHERE sta_Email = '$id'";
+    $sql = "SELECT sort_matrix, sort_random, sort_inertia, sort_iterations, sort_pid, sort_stop FROM unit WHERE unit_ID='$unit_ID'";
     $res = mysqli_query($CON, $sql);
     if (!$res)
     {
@@ -18,27 +22,27 @@
 
     if ($row = mysqli_fetch_assoc($res))
     {
-        $sortPID = $row["sort_pid"];
         $sortMatrix = $row["sort_matrix"];
         $sortRandom = $row["sort_random"];
         $sortInertia = $row["sort_inertia"];
         $sortIterations = $row["sort_iterations"];
+        $sortPID = $row["sort_pid"];
+        $sortStop = $row["sort_stop"];
     }
     else
     {
-        $sortPID = null;
         $sortMatrix = null;
         $sortRandom = null;
         $sortInertia = null;
         $sortIterations = null;
+        $sortPID = null;
+        $sortStop = null;
     }
-    $unit_ID = 'SIT302T218'; // TODO: Implement dynamic unit selection
-    $skillnames = [];
+
     $skillNames = getSkillNames($CON, $numSkills, $unit_ID); // skill names decide whether numbers are relevant or not, using null
 
-
     // Fetch student names and skill assessments from database
-    $sql = "SELECT a.*, s.stu_FirstName, s.stu_LastName FROM surveyanswer a, student s WHERE a.stu_Id = s.stu_Id";
+    $sql = "SELECT a.*, s.stu_FirstName, s.stu_LastName FROM surveyanswer a, student s WHERE a.stu_Id=s.stu_Id AND a.unit_ID='$unit_ID'";
     $res = mysqli_query($CON, $sql);
     if (!$res)
     {
@@ -72,7 +76,7 @@
     }
 
     // Fetch project names and skill requirements from database
-    $sql = "SELECT * FROM project";
+    $sql = "SELECT * FROM project WHERE unit_ID='$unit_ID'";
     $res = mysqli_query($CON, $sql);
 
     $proportionalOverride = true;
@@ -135,7 +139,7 @@
         array_push($projects, $project);
     }
 
-    // proportionally distribute students based on middles of projects min/max
+    // proportionally distribute students (TODO: make function, also for sampledata)
     $remaining = sizeof($students);
     foreach ($projectOverride as $p => $value)
     {
@@ -164,18 +168,29 @@
     foreach ($projectNames as $x => $p)
         $idProjects[$p] = $x;
 
-    $sql = "SELECT stu_id, pro_ID, locked FROM groups";
+    $sql = "SELECT stu_ID, pro_ID, pro_locked FROM surveyanswer WHERE unit_ID='$unit_ID'";
     $res = mysqli_query($CON, $sql);
     $studentProjects = [];
     $projectStudents = array_fill(0, sizeof($projects), []);
     $studentLocks = array_fill(0, sizeof($students), false);
     while ($row = mysqli_fetch_assoc($res))
     {
-        $sid = (int)$row['stu_id'];
-        $pid = (int)$row['pro_ID'];
-        $locked = (int)$row['locked'];
+        $sid = $row['stu_ID'];
+        $pid = $row['pro_ID'];
 
-        if (!array_key_exists($pid, $idProjects))
+        if (is_null($pid))
+            continue;
+
+        $sid = (int)$sid;
+        $pid = (int)$pid;
+        $locked = (int)$row['pro_locked'];
+
+        if ($locked)
+            $studentLocks[$idStudents[$sid]] = true;
+
+        if (is_null($pid))
+            continue;
+        else if (!array_key_exists($pid, $idProjects))
             die("An assignment exists for a missing project.");
         else if (!array_key_exists($sid, $idStudents))
             die("An assignment exists for a missing student.");
@@ -186,9 +201,6 @@
 
             $studentProjects[$y] = $p;
             array_push($projectStudents[$p], $y);
-
-            if ($locked)
-                $studentLocks[$idStudents[$sid]] = true;
         }
     }
 ?>

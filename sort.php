@@ -1,8 +1,10 @@
 <?php
     header('Cache-Control: no-cache');
-    $id = "staffuser@deakin.edu.au";
+
     require_once "solver.php";
     require_once "getdata.php";
+
+    $unit_ID = 'SIT302T218';
 
     echo "<!DOCTYPE html>
     <html>
@@ -35,7 +37,7 @@
 
     $sortPID = getmypid();
 
-    $sql = "UPDATE staff SET sort_pid = $sortPID WHERE sta_Email = '$id'";
+    $sql = "UPDATE unit SET sort_pid=$sortPID, sort_stop=0 WHERE unit_ID='$unit_ID'";
     $res = mysqli_query($CON, $sql);
     if (!$res)
     {
@@ -220,10 +222,10 @@
     }
     */
     $numChanges = sizeof($databaseChanges);
-    echo "<p>Updating group for $numChanges students</p>";
+    echo "<p>Setting starting group for $numChanges students</p>";
     update();
 
-    assignDatabase($databaseChanges, true);
+    assignDatabase($databaseChanges);
 
     // remove students who are locked to eliminate them from sorting
     foreach ($lockedStudents as $y)
@@ -245,12 +247,15 @@
     //$batchRatio = 2.0 * max(sizeof($students) / $batchSize, 1.0);
     //$numBatches = (int)ceil($batchRatio * $batchRatio);
     $numBatches = $sortIterations;
+
     echo "<p>Total batches: $numBatches</p>";
+    update();
+
     for ($batch = 0; $batch < $numBatches; $batch += 1)
     {
         $progress = $batch / $numBatches;
 
-        $sql = "SELECT sta_Email, sort_pid FROM staff WHERE sta_Email = '$id'";
+        $sql = "SELECT sort_pid FROM unit WHERE unit_ID='$unit_ID'";
         $res = mysqli_query($CON, $sql);
         if (!$res)
         {
@@ -406,10 +411,11 @@
         $swaps = sizeof($toDatabase);
 
         echo "<p>Completed batch: $batch, skill gain: $progress, students swapped: $swaps</p>";
+        update();
     }
     echo "<p>Finished</p>";
 
-    $sql = "UPDATE staff SET sort_pid = null WHERE sta_Email = '$id'";
+    $sql = "UPDATE unit SET sort_pid=null WHERE unit_ID='$unit_ID'";
     $res = mysqli_query($CON, $sql);
     if (!$res)
     {
@@ -417,8 +423,9 @@
         die;
     }
 
-    function assignDatabase($studentProjects, $delete = true)
+    function assignDatabase($studentProjects)
     {
+        global $unit_ID;
         global $CON;
         global $solver;
         global $studentNames;
@@ -433,22 +440,14 @@
 
             $sid = $studentNames[$x];
 
-            if ($delete)
-            {
-                // delete student project assignments
-                $sql = "DELETE FROM groups WHERE stu_id = $sid";
-                if (!mysqli_query($CON, $sql))
-                    echo "Error deleting project member: " . mysqli_error($CON) . "<br>";
-            }
-
-            if (!is_null($p))
-            {
-                // create new assignment
+            if (is_null($p))
+                $pid = "null";
+            else
                 $pid = $projectNames[$p];
-                $sql = "INSERT INTO groups (pro_ID, stu_id) VALUES ($pid, $sid)";
-                if (!mysqli_query($CON, $sql))
-                    echo "Error assigning project member: " . mysqli_error($CON) . "<br>";
-            }
+
+            $sql = "UPDATE surveyanswer SET pro_ID=$pid WHERE stu_id=$sid AND unit_ID='$unit_ID'";
+            if (!mysqli_query($CON, $sql))
+                echo "Error assigning project member: " . mysqli_error($CON) . "<br>";
         }
     }
 ?>

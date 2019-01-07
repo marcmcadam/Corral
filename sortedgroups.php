@@ -21,7 +21,7 @@
                 white-space: nowrap;
             }
             .sortInputTop {
-                border-bottom: thin solid black; border-right: thin solid $innerBorderColour;
+                border-bottom: thin solid black;
             }
             .sortProjectTop {
                 font-weight:bold; border-bottom: thin solid black; border-right: thin solid $innerBorderColour; text-align: left;
@@ -58,7 +58,7 @@
     {
         if ($posted)
         {
-            // change the assignement locks using the posted submission
+            // change the assignment locks using the posted submission
             $postedLocks = [];
             $unrecognised = 0;
             foreach ($_POST as $key => $value)

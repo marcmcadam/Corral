@@ -45,7 +45,32 @@ if (mysqli_query($CON, $student)) {
   echo "<p>Error deleting student data: " . mysqli_error($CON) . "</p>";
 }
 
-//insert student (1000) sample data
+if (isset($_GET["sr"])) // students who are random
+    $studentsRandom = min(max((int)$_GET["sr"], 0), 10000); // number of students who fill in their surveys randomly
+else if (isset($_GET["sv"]))
+    $studentsRandom = 0;
+else
+    $studentsRandom = 1000;
+
+if (isset($_GET["sv"])) // students for validation
+    $studentsValidation = min(max((int)$_GET["sv"], 0), 10000); // number of students with ideal survey responses for a project
+else
+    $studentsValidation = 0;
+
+if (isset($_GET["pr"])) // projects that are random
+    $projectsRandom = min(max((int)$_GET["pr"], 0), 10000); // number of random projects
+else
+    $projectsRandom = (int)($studentsRandom / 5);
+
+if ($studentsRandom + $studentsValidation < 100)
+    $studentsRandom = 100 - $studentsValidation;
+
+$totalStudents = $studentsRandom + $studentsValidation; // the number of students
+$extraStudents = max($totalStudents - 100, 0); // number of students who do not have their details hard coded
+
+$totalProjects = $projectsRandom;
+
+//insert student data
 $insert = 'INSERT INTO student (stu_ID, stu_FirstName, stu_LastName, stu_Campus, stu_Email, stu_Password) VALUES
 (216000000,"Timothy","Smith",3,"SmithT@deakin.edu.au","21e00641c260a79b8e5ad3eef52dd84c"),
 (216116590,"Larry","Jones",2,"JonesL@deakin.edu.au","21e00641c260a79b8e5ad3eef52dd84c"),
@@ -147,7 +172,7 @@ $insert = 'INSERT INTO student (stu_ID, stu_FirstName, stu_LastName, stu_Campus,
 (216776800,"George","Kennedy",2,"KenneG@deakin.edu.au","21e00641c260a79b8e5ad3eef52dd84c"),
 (216820558,"Stephen","Butler",2,"ButleS@deakin.edu.au","21e00641c260a79b8e5ad3eef52dd84c"),
 (216043880,"Debra","Saunders",2,"SaundD@deakin.edu.au","21e00641c260a79b8e5ad3eef52dd84c")';
-for ($i = 0; $i < 900; $i += 1)
+for ($i = 0; $i < $extraStudents; $i += 1)
     $insert .= ',(217' . sprintf("%06d", $i) . ',"FirstName' . $i . '","LastName' . $i . '",' . rand(1, 3) . ',"student' . $i . '@deakin.edu.au","21e00641c260a79b8e5ad3eef52dd84c")';
 if (mysqli_query($CON, $insert)) {
   echo "<p>Sample student data inserted</p>";
@@ -156,17 +181,17 @@ if (mysqli_query($CON, $insert)) {
 }
 
 //insert sample staff data
-$insert = 'INSERT INTO staff (sta_ID, sta_FirstName, sta_LastName, sta_Campus, sta_Email, sta_Password, sort_matrix, sort_random, sort_inertia, sort_iterations) VALUES
-(1,"Staff","User",1,"staffuser@deakin.edu.au","21e00641c260a79b8e5ad3eef52dd84c",100,20,20,50),
-(2,"Blair","Bowes",1,"bbowes@deakin.edu.au","21e00641c260a79b8e5ad3eef52dd84c",100,20,20,50),
-(3,"Onur","Ritter",2,"oritter@deakin.edu.au","21e00641c260a79b8e5ad3eef52dd84c",100,20,20,50),
-(4,"Elsie-Rose","Garcia",1,"ergarcia@deakin.edu.au","21e00641c260a79b8e5ad3eef52dd84c",100,20,20,50),
-(5,"Etta","Gough",1,"egough@deakin.edu.au","21e00641c260a79b8e5ad3eef52dd84c",100,20,20,50),
-(6,"Kayleigh","Bradford",2,"kbradford@deakin.edu.au","21e00641c260a79b8e5ad3eef52dd84c",100,20,20,50),
-(7,"Emma","Bassett",1,"ebassett@deakin.edu.au","21e00641c260a79b8e5ad3eef52dd84c",100,20,20,50),
-(8,"Layla","Battle",2,"lbattle@deakin.edu.au","21e00641c260a79b8e5ad3eef52dd84c",100,20,20,50),
-(9,"Fletcher","Lynch",2,"flynch@deakin.edu.au","21e00641c260a79b8e5ad3eef52dd84c",100,20,20,50),
-(10,"Kaiden","Figueroa",3,"kfigueroa@deakin.edu.au","21e00641c260a79b8e5ad3eef52dd84c",100,20,20,50)';
+$insert = 'INSERT INTO staff (sta_ID, sta_FirstName, sta_LastName, sta_Campus, sta_Email, sta_Password) VALUES
+(1,"Staff","User",1,"staffuser@deakin.edu.au","21e00641c260a79b8e5ad3eef52dd84c"),
+(2,"Blair","Bowes",1,"bbowes@deakin.edu.au","21e00641c260a79b8e5ad3eef52dd84c"),
+(3,"Onur","Ritter",2,"oritter@deakin.edu.au","21e00641c260a79b8e5ad3eef52dd84c"),
+(4,"Elsie-Rose","Garcia",1,"ergarcia@deakin.edu.au","21e00641c260a79b8e5ad3eef52dd84c"),
+(5,"Etta","Gough",1,"egough@deakin.edu.au","21e00641c260a79b8e5ad3eef52dd84c"),
+(6,"Kayleigh","Bradford",2,"kbradford@deakin.edu.au","21e00641c260a79b8e5ad3eef52dd84c"),
+(7,"Emma","Bassett",1,"ebassett@deakin.edu.au","21e00641c260a79b8e5ad3eef52dd84c"),
+(8,"Layla","Battle",2,"lbattle@deakin.edu.au","21e00641c260a79b8e5ad3eef52dd84c"),
+(9,"Fletcher","Lynch",2,"flynch@deakin.edu.au","21e00641c260a79b8e5ad3eef52dd84c"),
+(10,"Kaiden","Figueroa",3,"kfigueroa@deakin.edu.au","21e00641c260a79b8e5ad3eef52dd84c")';
 if (mysqli_query($CON, $insert)) {
   echo "<P>Sample staff data inserted</P>";
 } else {
@@ -205,76 +230,113 @@ if (mysqli_query($CON, $units)) {
   echo "<p>Error inserting sample unit data: " . mysqli_error($CON) . "</p>";
 }
 
-//insert project(1000) data for SIT302T318
+//insert project data and sample surveyanswer data for SIT302T318
 $numSkills = 20;
-$rarity = 200;
+
+$studentIDs = [216000000, 216116590, 216600366, 216030213, 216252283, 216822724, 216420635, 216830213, 216988272, 216986348, 216147717, 216901983, 216469334, 216152608, 216207865, 216746852, 216337658, 216232216, 216429653, 216909984, 216463558, 216592291, 216786574, 216983844, 216528480, 216314056, 216965849, 216275552, 216779566, 216412040, 216762187, 216498622, 216567433, 216249111, 216168384, 216883858, 216427960, 216391202, 216360811, 216902992, 216292829, 216720992, 216765045, 216440236, 216249197, 216828121, 216671593, 216587493, 216782631, 216949905, 216656298, 216685859, 216543826, 216454582, 216242484, 216636419, 216275634, 216184964, 216440367, 216402248, 216674327, 216734638, 216380225, 216800271, 216585007, 216021355, 216049775, 216836356, 216510372, 216254575, 216375217, 216498790, 216708060, 216425301, 216848062, 216435225, 216510246, 216935793, 216181579, 216040637, 216926394, 216817132, 216390639, 216072283, 216270368, 216120029, 216333608, 216608767, 216725302, 216843094, 216553948, 216801834, 216338930, 216542434, 216899114, 216446129, 216026988, 216776800, 216820558, 216043880];
+for ($i = 0; $i < $extraStudents; $i += 1)
+    array_push($studentIDs, 217000000 + $i);
+
 $PROJECT = "INSERT INTO project (unit_ID, pro_title, pro_brief, pro_leader, pro_email, pro_status, pro_min, pro_max, pro_imp";
-for ($i = 0; $i < 20; $i += 1)
+for ($i = 0; $i < $numSkills; $i += 1)
     $PROJECT .= ", pro_skill_" . sprintf("%02d", $i);
-for ($i = 0; $i < 20; $i += 1)
+for ($i = 0; $i < $numSkills; $i += 1)
     $PROJECT .= ", pro_bias_" . sprintf("%02d", $i);
 $PROJECT .= ") VALUES ";
-for ($i = 0; $i < 20; $i += 1)
-{
-    if ($i > 0)
-        $PROJECT .= ', ';
-    $min = rand(3, 10); // rand(0, 5);
-    $max = $min; // + rand(0, 10);
-    $skills = randomProject($i, $imp, $biases);
-    $status = randomProjectStatus();
-    $PROJECT .= '("SIT302T318", "Project ' . $i . '"' . ",'Lorem Ipsum','Project Leader','projectleader@deakin.edu.au','".$status."',$min,$max,$imp," . join(", ", $skills) . ", " . join(", ", $biases) . ')';
-}
-if (mysqli_query($CON,$PROJECT)) {
-  echo "<p>Sample projects inserted</p>";
-} else {
-  echo "Error inserting project data: " . mysqli_error($CON);
-}
 
-//insert project(1000) data for SIT374T318
-$numSkills = 20;
-$rarity = 200;
-$PROJECT = "INSERT INTO project (unit_ID, pro_title, pro_brief, pro_leader, pro_email, pro_status, pro_min, pro_max, pro_imp";
-for ($i = 0; $i < 20; $i += 1)
-    $PROJECT .= ", pro_skill_" . sprintf("%02d", $i);
-for ($i = 0; $i < 20; $i += 1)
-    $PROJECT .= ", pro_bias_" . sprintf("%02d", $i);
-$PROJECT .= ") VALUES ";
-for ($i = 0; $i < 20; $i += 1)
-{
-    if ($i > 0)
-        $PROJECT .= ', ';
-    $min = rand(3, 10); // rand(0, 5);
-    $max = $min; // + rand(0, 10);
-    $skills = randomProject($i, $imp, $biases);
-    $status = randomProjectStatus();
-    $PROJECT .= '("SIT374T318", "Project ' . $i . '"' . ",'Lorem Ipsum','Project Leader','projectleader@deakin.edu.au','".$status."',$min,$max,$imp," . join(", ", $skills) . ", " . join(", ", $biases) . ')';
-}
-if (mysqli_query($CON,$PROJECT)) {
-  echo "<p>Sample projects inserted</p>";
-} else {
-  echo "Error inserting project data: " . mysqli_error($CON);
-}
-
-// Insert sample surveyanswer(1000) data
-$numSkills = 20;
-$rarity = 2.0;
 $surveydata = "INSERT INTO surveyanswer (unit_ID, submitted, stu_ID";
-for ($i = 0; $i < 20; $i += 1)
+for ($i = 0; $i < $numSkills; $i += 1)
     $surveydata .= ", stu_skill_" . sprintf("%02d", $i);
 $surveydata .= ") VALUES ";
 
-$studentIDs = [216000000, 216116590, 216600366, 216030213, 216252283, 216822724, 216420635, 216830213, 216988272, 216986348, 216147717, 216901983, 216469334, 216152608, 216207865, 216746852, 216337658, 216232216, 216429653, 216909984, 216463558, 216592291, 216786574, 216983844, 216528480, 216314056, 216965849, 216275552, 216779566, 216412040, 216762187, 216498622, 216567433, 216249111, 216168384, 216883858, 216427960, 216391202, 216360811, 216902992, 216292829, 216720992, 216765045, 216440236, 216249197, 216828121, 216671593, 216587493, 216782631, 216949905, 216656298, 216685859, 216543826, 216454582, 216242484, 216636419, 216275634, 216184964, 216440367, 216402248, 216674327, 216734638, 216380225, 216800271, 216585007, 216021355, 216049775, 216836356, 216510372, 216254575, 216375217, 216498790, 216708060, 216425301, 216848062, 216435225, 216510246, 216935793, 216181579, 216040637, 216926394, 216817132, 216390639, 216072283, 216270368, 216120029, 216333608, 216608767, 216725302, 216843094, 216553948, 216801834, 216338930, 216542434, 216899114, 216446129, 216026988, 216776800, 216820558, 216043880];
-for ($i = 0; $i < 100; $i += 1)
+$shuffledStudentIDs = $studentIDs;
+shuffle($shuffledStudentIDs);
+
+$projectSizes = [];
+$projectSkills = [];
+for ($i = 0; $i < $totalProjects; $i += 1)
+{
+    if ($i > 0)
+        $PROJECT .= ', ';
+    $min = random_int(1, 9);
+    array_push($projectSizes, $min);
+    $max = 0;
+    $rarity = 200;
+    $skills = randomProject($i, $imp, $biases);
+    array_push($projectSkills, $skills);
+    $status = randomProjectStatus();
+    $PROJECT .= "('SIT302T218', 'Project $i', 'Lorem Ipsum','Project Leader','projectleader@deakin.edu.au','$status', $min, $max, $imp, " . join(", ", $skills) . ", " . join(", ", $biases) . ')';
+}
+
+$projectTotal = array_sum($projectSizes);
+
+// proportionally distribute students
+$remaining = $studentsValidation;
+$projectStudents = [];
+foreach ($projectSizes as $p => $value)
+{
+    // TODO: functionalise this section for this and getdata.php
+
+    if ($projectTotal == 0)
+        $proportion = 0.0;
+    else
+        $proportion = $value / $projectTotal;
+    $take = (int)round($remaining * $proportion);
+    $remaining -= $take;
+    $projectTotal -= $value;
+    $projectStudents[$p] = $take;
+}
+if ($projectTotal != 0 || $remaining != 0)
+{
+    echo "Project group size failed";
+    die;
+}
+
+$i = 0;
+foreach ($projectStudents as $p => $size)
+{
+    // convert project skills (0...100) to survey skills (0...4)
+    $skills = [];
+    foreach ($projectSkills[$p] as $s => $z)
+        $skills[$s] = min(max((int)floor($z * 4.9 / 100), 0), 4);
+
+    for ($j = 0; $j < $size; $j += 1)
+    {
+        if ($i > 0)
+            $surveydata .= ",";
+        $studentID = $shuffledStudentIDs[$i];
+        $surveydata .= "('SIT302T218', 1, $studentID, " . join(", ", $skills) . ")";
+        $i += 1;
+    }
+}
+if ($i != $studentsValidation)
+    die("Incorrect number of validation responses created.");
+
+for ($j = 0; $j < $studentsRandom; $j += 1)
 {
     if ($i > 0)
         $surveydata .= ",";
-    $surveydata .= "('SIT302T318', 1, $studentIDs[$i], " . join(", ", randomSkills($i)) . ")";
+    $rarity = 2.0;
+    $skills = randomSkills($i);
+    $studentID = $shuffledStudentIDs[$i];
+    $surveydata .= "('SIT302T218', 1, $studentID, " . join(", ", $skills) . ")";
+    $i += 1;
 }
-for ($i = 0; $i < 900; $i += 1)
-    $surveydata .= ', ("SIT302T318", 1, 217' . sprintf("%06d", $i) . ", " . join(", ", randomSkills($i)) . ')';
+
+if ($i != $totalStudents)
+    echo("Not all students had a survey created.");
+
+// Insert sample data into table
+if (mysqli_query($CON,$PROJECT)) {
+  echo "<p>Sample projects inserted</p>";
+} else {
+  echo "Error inserting project data: " . mysqli_error($CON);
+}
 
 if (mysqli_query($CON,$surveydata)) {
   echo "<P>Sample surveyanswer data inserted</P>";
 } else {
   echo "Error inserting sample surveyanswer data: " . mysqli_error($CON);
 }
+
+?>

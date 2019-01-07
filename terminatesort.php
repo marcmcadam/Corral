@@ -3,6 +3,8 @@
     require "header_staff.php";
     require_once "connectdb.php";
 
+    $unit_ID = 'SIT302T218';
+    
     /* The process can be immediately stopped using posix. Requires php posix install.
     $sql = "SELECT sta_Email, sort_pid FROM staff WHERE sta_Email = $id";
     $res = mysqli_query($CON, $sql);
@@ -20,7 +22,7 @@
     else
         $pid = null;
     */
-    $sql = "UPDATE staff SET sort_pid = null WHERE sta_Email = '$id'";
+    $sql = "UPDATE unit SET sort_pid=null WHERE unit_ID='$unit_ID'";
     $res = mysqli_query($CON, $sql);
     if (!$res)
     {

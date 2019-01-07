@@ -4,15 +4,18 @@
     require "connectdb.php";
     require_once "sanitise.php";
 
+    $unit_ID = "SIT302T218";
+
     if ($_SERVER["REQUEST_METHOD"] == "POST")
     {
         $sortMatrix = min(max((int)SanitiseGeneric($_POST['matrix'], $CON), 2), 10000);
-        $sortRandom = 10; //min(max((int)SanitiseGeneric($_POST['random'], $CON), 1), 10000);
-        $sortInertia = 0; //min(max((int)SanitiseGeneric($_POST['inertia'], $CON), 0), 10000);
+        // $sortRandom = min(max((int)SanitiseGeneric($_POST['random'], $CON), 1), 10000);
+        // $sortInertia = min(max((int)SanitiseGeneric($_POST['inertia'], $CON), 0), 10000);
         $sortIterations = min(max((int)SanitiseGeneric($_POST['iterations'], $CON), 2), 10000);
 
-        $sql = "UPDATE staff SET sort_matrix=$sortMatrix, sort_random=$sortRandom, sort_inertia=$sortInertia, sort_iterations=$sortIterations";
-        $sql .= " WHERE sta_Email='staffuser@deakin.edu.au'"; // TODO: set hard coded ID!
+        // $sql = "UPDATE unit SET sort_matrix=$sortMatrix, sort_random=$sortRandom, sort_inertia=$sortInertia, sort_iterations=$sortIterations";
+        $sql = "UPDATE unit SET sort_matrix=$sortMatrix, sort_iterations=$sortIterations";
+        $sql .= " WHERE unit_ID='$unit_ID'"; // TODO: set hard coded ID!
         if (!mysqli_query($CON,$sql))
             die(mysqli_error($CON));
 
