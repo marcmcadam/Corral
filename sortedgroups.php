@@ -51,8 +51,7 @@
     {
         if ($posted)
             echo "<p><strong>Unable to set locks while the sorter is running.</strong></p>";
-        echo "<p>The sorter is running in the background.</p>";
-        echo "<p><a href='terminatesort.php'>Stop</a></p>";
+        echo "<p>The sorter is running in the background. <a href='terminatesort.php?method=stop'>Stop</a></p>";
     }
     else
     {

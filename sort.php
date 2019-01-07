@@ -31,12 +31,12 @@
     }
 
     echo "<strong>Avoid closing this page unless sorting has been stopped.</strong>";
-    echo "<p>To stop the sorting <a href='terminatesort' target='_blank'>click here</a>.</p>";
-    echo "<p>View the progress from <a href='sortedgroups' target='_blank'>this page</a>.</p>";
+    echo "<p>To stop the sorting <a href='terminatesort?method=stop' target='_blank'>click here</a>.</p>";
+    echo "<p>View the group changes from <a href='sortedgroups' target='_blank'>this page</a>.</p>";
     update();
 
+    // store the process id and set that the sorter is not signalled to stop
     $sortPID = getmypid();
-
     $sql = "UPDATE unit SET sort_pid=$sortPID, sort_stop=0 WHERE unit_ID='$unit_ID'";
     $res = mysqli_query($CON, $sql);
     if (!$res)
@@ -261,7 +261,7 @@
     {
         $progress = $batch / $numBatches;
 
-        $sql = "SELECT sort_pid FROM unit WHERE unit_ID='$unit_ID'";
+        $sql = "SELECT sort_pid, sort_stop FROM unit WHERE unit_ID='$unit_ID'";
         $res = mysqli_query($CON, $sql);
         if (!$res)
         {
@@ -270,11 +270,14 @@
         }
 
         if ($row = mysqli_fetch_assoc($res))
+        {
             $pid = $row["sort_pid"];
+            $stop = $row["sort_stop"];
+        }
         else
-            $pid = null;
+            die("Unit missing.");
 
-        if ($pid != $sortPID)
+        if ($pid != $sortPID || $stop)
         {
             echo "<p>Sorting terminated</p>";
             break;
