@@ -1,6 +1,8 @@
 <?php
     session_start();
     require "staffauth.php";
+    require_once "getfunctions.php";
+    require_once "connectdb.php";
 
     if (isset($_GET["unit"]))
     {
@@ -57,15 +59,18 @@
 </div>
 <?php
     $no_unit_select = ['corral/stafflist', '/corral/unit', '/corral/unitlist', '/corral/project', '/corral/datamgmt'];
+    $units = getUnits($CON);
     if(!in_array(parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH), $no_unit_select)) {
       $page = $_SERVER["REQUEST_URI"];
       echo "<div class='unitMenu'><form action='header_staff.php'>
-              <select class='inputList' name='unit'>
-                  <option value='SIT374T218'>SIT374T218</option>
-                  <option value='SIT374T318'>SIT374T318</option>
-                  <option value='SIT302T218'>SIT302T218</option>
-                  <option value='SIT302T318'>SIT302T318</option>
-              </select>
+              <select class='inputList' name='unit'>";
+              $i=0;
+              while (isset($units[$i])) {
+                echo "<option value='".$units[$i]."'";
+                echo ">".$units[$i]."</option>";
+                $i++;
+              }
+              echo "</select>
               <input hidden type='text' class='updateButton' name='return' value='$page'>
               <input type='submit' class='inputButton' value='Go'>
           </form></div>";

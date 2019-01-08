@@ -2,7 +2,7 @@
 $PageTitle = "Student Survey";
 require "header_student.php";
 require_once "connectdb.php";
-require "getfunctions.php";
+require_once "getfunctions.php";
 
 function skillOptions($title, $key, $survey) {
   if($survey['submitted']==1) {

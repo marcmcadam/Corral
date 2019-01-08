@@ -2,7 +2,7 @@
 $PageTitle = "Project Details";
 require "header_staff.php";
 require_once "connectdb.php";
-require "getfunctions.php";
+require_once "getfunctions.php";
 require "sanitise.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

@@ -1,7 +1,7 @@
 <?php
  	$PageTitle = "Staff List";
 	require "header_staff.php";
-  require "getfunctions.php";
+  require_once "getfunctions.php";
   require_once "connectdb.php";
 
 

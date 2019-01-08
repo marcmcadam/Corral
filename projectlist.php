@@ -2,7 +2,7 @@
  	$PageTitle = "Project List";
     require "header_staff.php";
     require_once "connectdb.php";
-    require "getfunctions.php";
+    require_once "getfunctions.php";
 
     $units = getUnits($CON);
     $unit_ID = NULL;

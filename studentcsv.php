@@ -1,6 +1,6 @@
 <?php
 session_start();
-require "getfunctions.php";
+require_once "getfunctions.php";
 require "staffauth.php";
 
 

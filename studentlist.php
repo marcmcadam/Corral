@@ -1,7 +1,7 @@
 <?php
  	$PageTitle = "Student List";
 	require "header_staff.php";
-  require "getfunctions.php";
+  require_once "getfunctions.php";
   require_once "connectdb.php";
 
     $sql = "SELECT * FROM student ORDER BY stu_ID ASC";

@@ -3,7 +3,7 @@
 	require "header_staff.php";
   require "sanitise.php";
   require_once "connectdb.php";
-  require "getfunctions.php";
+  require_once "getfunctions.php";
 
   $staff = getStaff($CON, TRUE);
   $staff_IDs = getStaff($CON);

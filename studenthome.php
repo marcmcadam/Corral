@@ -2,7 +2,7 @@
  	$PageTitle = "Home";
 	require "header_student.php";
   require_once "connectdb.php";
-  require "getfunctions.php";
+  require_once "getfunctions.php";
   $surveys = getActiveSurveys($id, $CON);
 
 echo "
