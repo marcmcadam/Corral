@@ -3,6 +3,8 @@
     require "header_staff.php";
 
     require "getdata.php";
+    $unitID = "SIT302T218";
+    sortingData($unitID, $skillNames, $sort, $students, $projects);
 ?>
 <script>
     var helps = [];
@@ -36,7 +38,7 @@
             <td><div id="start" style='text-align: left; font-size: 0.75em;'></div></td>
         </tr><tr>
             <td>
-                Running Time<br><input class="inputBox" type="text" name="iterations" value="<?php echo $sortIterations; ?>"><br>
+                Running Time<br><input class="inputBox" type="text" name="iterations" value="<?php echo $sort->iterations; ?>"><br>
                 <br>
             </td><td>
                 <input type="button" id="iterations?" value="?" onclick="showHelp('iterations');" class="updateButton"><br>
@@ -45,7 +47,7 @@
             <td><div id="iterations" style='text-align: left; font-size: 0.75em;'></div></td>
         </tr><tr> 
             <td>
-                Quality<br><input class="inputBox" type="text" name="matrix" value="<?php echo $sortMatrix; ?>"><br>
+                Quality<br><input class="inputBox" type="text" name="matrix" value="<?php echo $sort->matrix; ?>"><br>
                 <br>
             </td><td>
                 <input type="button" id="matrix?" value="?" onclick="showHelp('matrix');" class="updateButton"><br>

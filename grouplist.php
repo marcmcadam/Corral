@@ -1,9 +1,23 @@
 <?php
- 	$PageTitle = "Project List";
-	require "header_staff.php";
-  require "getfunctions.php";
+ 	  $PageTitle = "Student Groups";
+	  require "header_staff.php";
+    require_once "connectdb.php";
+    require_once "getdata.php";
+    require_once "getfunctions.php";
 
-  echo "<h2>Groups page placeholder</h2>";
+    $unit_ID = 'SIT302T218';
+    sortingData($unit_ID, $skillNames, $sort, $students, $projects);
+
+    $numSkills = 20;
+
+    echo "<h2>$PageTitle</h2>
+        <table>
+            <tr><td>";
+
+    
+
+    echo "  </td></tr>
+        </table>";
 
   /* -- needs to be redesigned using similar structure to sortedgroups.php
   echo "<h2>Student Group Listing</h2>";
@@ -39,5 +53,6 @@
   mysqli_free_result($res);
   mysqli_close($CON);
   */
+
+    require "footer.php";
 ?>
-<?php require "footer.php"; ?>
