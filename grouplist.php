@@ -5,7 +5,6 @@
     require_once "getdata.php";
     require_once "getfunctions.php";
 
-    $unitID = 'SIT302T218';
     sortingData($unitID, $skillNames, $sort, $students, $projects);
 
     echo "<h2>$PageTitle</h2>

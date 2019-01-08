@@ -9,5 +9,16 @@ if ( !isset($_SESSION['sta_Email'])) {
     $sta_LastName = $_SESSION['sta_LastName'];
     if (isset($_SESSION['unit']))
         $unitID = (string)$_SESSION['unit']; // TODO: check it belongs to this staff
+    else
+    {
+        require_once "connectdb.php";
+        require_once "getfunctions.php";
+        $units = getUnits($CON);
+        if (sizeof($units) == 0)
+            $unitID = "dummy"; // TODO: hackish
+        else
+            $unitID = $units[0];
+        $_SESSION['unit'] = $unitID;
+    }
 }
 ?>

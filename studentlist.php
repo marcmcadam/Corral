@@ -1,14 +1,14 @@
 <?php
  	$PageTitle = "Student List";
 	require "header_staff.php";
-  require_once "getfunctions.php";
-  require_once "connectdb.php";
+    require_once "getfunctions.php";
+    require_once "connectdb.php";
 
     $sql = "SELECT * FROM student ORDER BY stu_ID ASC";
     $res = mysqli_query($CON, $sql);
 
     echo "<h2>Student Information</h2>
-    <form name ='studentListForm' action='studentuser.php'  method='get'>
+    <form name ='studentListForm' action='studentuser'  method='get'>
     <table class='listTable' align='center'>
         <tr>
             <th>ID</th>

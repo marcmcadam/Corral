@@ -1,8 +1,8 @@
 <?php
-    header('Cache-Control: no-cache');
-
     session_start();
     require_once "staffauth.php";
+    
+    header('Cache-Control: no-cache');
 
     require_once "solver.php";
     require_once "getdata.php";
@@ -36,7 +36,7 @@
     }
 
     echo "<strong>Avoid closing this page unless sorting has been stopped.</strong>";
-    echo "<p>To stop the sorting <a href='terminatesort?method=stop' target='_blank'>click here</a>.</p>";
+    echo "<p>To stop the sorting <a href='terminatesort?unit=$unitID&method=stop' target='_blank'>click here</a>.</p>";
     echo "<p>View the group changes from <a href='sortedgroups' target='_blank'>this page</a>.</p>";
     update();
 

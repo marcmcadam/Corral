@@ -3,7 +3,6 @@
     require "header_staff.php";
 
     require "getdata.php";
-    $unitID = "SIT302T218";
     sortingData($unitID, $skillNames, $sort, $students, $projects);
 ?>
 <script>
