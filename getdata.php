@@ -2,193 +2,195 @@
     require_once "connectdb.php";
     require_once "solver.php";
     require_once "getfunctions.php";
+    require_once "functions.php";
 
-    $numSkills = 20;
-
-
-    // get the process ID for the sorting
-    $sql = "SELECT sta_Email, sort_pid, sort_matrix, sort_random, sort_inertia, sort_iterations FROM staff WHERE sta_Email = '$id'";
-    $res = mysqli_query($CON, $sql);
-    if (!$res)
+    class SortingState
     {
-        echo "Error: " . mysqli_error($CON);
-        echo $sql;
-        die;
+        public $matrix;
+        public $random;
+        public $inertia;
+        public $iterations;
+        public $pid;
+        public $stop;
     }
 
-    if ($row = mysqli_fetch_assoc($res))
+    class Student
     {
-        $sortPID = $row["sort_pid"];
-        $sortMatrix = $row["sort_matrix"];
-        $sortRandom = $row["sort_random"];
-        $sortInertia = $row["sort_inertia"];
-        $sortIterations = $row["sort_iterations"];
-    }
-    else
-    {
-        $sortPID = null;
-        $sortMatrix = null;
-        $sortRandom = null;
-        $sortInertia = null;
-        $sortIterations = null;
-    }
-    $unit_ID = 'SIT302T218'; // TODO: Implement dynamic unit selection
-    $skillnames = [];
-    $skillNames = getSkillNames($CON, $numSkills, $unit_ID); // skill names decide whether numbers are relevant or not, using null
-
-
-    // Fetch student names and skill assessments from database
-    $sql = "SELECT a.*, s.stu_FirstName, s.stu_LastName FROM surveyanswer a, student s WHERE a.stu_Id = s.stu_Id";
-    $res = mysqli_query($CON, $sql);
-    if (!$res)
-    {
-        echo "Error: " . mysqli_error($CON);
-        die;
+        public $id;
+        public $text;
+        public $campus;
+        public $email;
+        public $skills;
+        public $projectIndex; // index of project for this unit in local arrays
+        public $projectLocked;
     }
 
-    $studentNames = [];
-    $studentText = [];
-    $students = [];
-    $y = 0;
-    while ($row = mysqli_fetch_assoc($res))
+    class Project
     {
-        $rowY = $y++;
+        public $title;
+        public $brief;
+        public $leader;
+        public $email;
+        public $minimum;
+        public $maximum;
+        public $allocation; // from proportional distrubtion
+        public $skills;
+        public $studentIndices; // indices of students for this unit in local arrays
+    }
 
-        $studentNames[$rowY] = $row['stu_ID'];
-        $studentText[$rowY] = $row['stu_FirstName'] . " " . $row['stu_LastName'];
+    function sortingData($unitID, &$skillNames, &$sort, &$students, &$projects)
+    {
+        global $CON;
 
-        $student = [];
+        $numSkills = 20;
 
-        // Populate student skills array with stu_skill_##
-        for ($i = 0; $i < $numSkills; $i += 1)
+        $skillNames = getSkillNames($CON, $numSkills, $unitID); // skill names decide whether numbers are relevant or not, using null
+
+
+        // get the process ID for the sorting
+        $sql = "SELECT sort_matrix, sort_random, sort_inertia, sort_iterations, sort_pid, sort_stop FROM unit WHERE unit_ID='$unitID'";
+        $res = mysqli_query($CON, $sql);
+        if (!$res)
         {
-            if (is_null($skillNames[$i]))
-                $skill = 0;
-            else
-                $skill = (int)$row['stu_skill_'.sprintf('%02d', $i)];
-            array_push($student, $skill);
+            echo "Error: " . mysqli_error($CON);
+            echo $sql;
+            die;
         }
-        array_push($students, $student);
-    }
 
-    // Fetch project names and skill requirements from database
-    $sql = "SELECT * FROM project";
-    $res = mysqli_query($CON, $sql);
-
-    $proportionalOverride = true;
-    $projectOverride = [];
-    $overrideTotal = 0;
-
-    $projectNames = [];
-    $projectText = [];
-    $projectMinima = [];
-    $projectMaxima = [];
-    $projectImportance = [];
-    $projects = [];
-    $projectBiases = [];
-    $p = 0;
-    while ($row = mysqli_fetch_assoc($res))
-    {
-        $pid = (int)$row['pro_ID'];
-
-        $rowP = $p++;
-
-        $projectText[$rowP] = $row['pro_title'] ;
-
-        $projectNames[$rowP] = $pid;
-
-        $min = (int)$row['pro_min'];
-        $max = (int)$row['pro_max'];
-
-        if ($proportionalOverride)
+        $sort = new SortingState();
+        if ($row = mysqli_fetch_assoc($res))
         {
-            $value = $min; //(int)round($min + $max);
-            $projectOverride[$rowP] = $value;
-            $overrideTotal += $value;
+            $sort->matrix = $row["sort_matrix"];
+            $sort->random = $row["sort_random"];
+            $sort->inertia = $row["sort_inertia"];
+            $sort->iterations = $row["sort_iterations"];
+            $sort->pid = $row["sort_pid"];
+            $sort->stop = $row["sort_stop"];
         }
         else
+            die("Unit doesn't exist: " . mysqli_error($CON));
+
+
+        // Fetch student names and skill assessments from database
+        $sql = "SELECT a.*, s.* FROM surveyanswer a, student s WHERE a.stu_Id=s.stu_Id AND a.unit_ID='$unitID'";
+        $res = mysqli_query($CON, $sql);
+        if (!$res)
         {
-            $projectMinima[$rowP] = $min;
-            $projectMaxima[$rowP] = $max;
+            echo "Error: " . mysqli_error($CON);
+            die;
         }
 
-        $importance = (int)$row['pro_imp'];
-        $projectImportance[$rowP] = $importance;
-
-        // Create project skills
-        $project = [];
-        for ($i = 0; $i < $numSkills; $i += 1)
+        $students = [];
+        $idStudents = [];
+        while ($row = mysqli_fetch_assoc($res))
         {
-            if (is_null($skillNames[$i]))
+            $student = new Student();
+
+            $student->id = (int)$row['stu_ID'];
+            $first = $row['stu_FirstName'];
+            $last = $row['stu_LastName'];
+            $student->campus = $row['stu_Campus'];
+            $student->email = $row['stu_Email'];
+
+            $student->text = "$first $last";
+
+            // Populate student skills array with stu_skill_##
+            $skills = [];
+            for ($i = 0; $i < $numSkills; $i += 1)
             {
-                $imp = 0;
-                $bias = 0;
+                if (is_null($skillNames[$i]))
+                    $skill = null; // make unable to use
+                else
+                    $skill = (int)$row['stu_skill_'.sprintf('%02d', $i)];
+                array_push($skills, $skill);
             }
-            else
-            {
-                $imp = (int)$row['pro_skill_'.sprintf('%02d', $i)];
-                $bias = (int)$row['pro_bias_'.sprintf('%02d', $i)];
-            }
-            $demand = new SkillDemand($imp * $importance, $bias);
-            array_push($project, $demand);
+            $student->skills = $skills;
+
+            $idStudents[$student->id] = sizeof($students);
+            array_push($students, $student);
         }
-        array_push($projects, $project);
-    }
 
-    // proportionally distribute students based on middles of projects min/max
-    $remaining = sizeof($students);
-    foreach ($projectOverride as $p => $value)
-    {
-        if ($overrideTotal == 0)
-            $proportion = 0.0;
-        else
-            $proportion = $value / $overrideTotal;
+        // Fetch project names and skill requirements from database
+        $sql = "SELECT * FROM project WHERE unit_ID='$unitID'";
+        $res = mysqli_query($CON, $sql);
 
-        $take = (int)round($remaining * $proportion);
-        $remaining -= $take;
-        $overrideTotal -= $value;
-        $projectMinima[$p] = $take;
-        $projectMaxima[$p] = $take;
-    }
-    if ($overrideTotal != 0 || $remaining != 0)
-    {
-        echo "Proportional group size distribution failed";
-        die;
-    }
+        $proportionalOverride = true;
+        $projectOverride = [];
 
-    $idStudents = [];
-    foreach ($studentNames as $y => $s)
-        $idStudents[$s] = $y;
-
-    $idProjects = [];
-    foreach ($projectNames as $x => $p)
-        $idProjects[$p] = $x;
-
-    $sql = "SELECT stu_id, pro_ID, locked FROM groups";
-    $res = mysqli_query($CON, $sql);
-    $studentProjects = [];
-    $projectStudents = array_fill(0, sizeof($projects), []);
-    $studentLocks = array_fill(0, sizeof($students), false);
-    while ($row = mysqli_fetch_assoc($res))
-    {
-        $sid = (int)$row['stu_id'];
-        $pid = (int)$row['pro_ID'];
-        $locked = (int)$row['locked'];
-
-        if (!array_key_exists($pid, $idProjects))
-            die("An assignment exists for a missing project.");
-        else if (!array_key_exists($sid, $idStudents))
-            die("An assignment exists for a missing student.");
-        else
+        $projects = [];
+        $idProjects = [];
+        while ($row = mysqli_fetch_assoc($res))
         {
+            $project = new Project();
+
+            $project->id = (int)$row['pro_ID'];
+            $project->title = $row['pro_title'];
+            $project->brief = $row['pro_brief'];
+            $project->leader = $row['pro_leader'];
+            $project->email = $row['pro_email'];
+            $project->minimum = (int)$row['pro_min'];
+            $project->maximum = (int)$row['pro_max'];
+            $importance = (int)$row['pro_imp'];
+
+            $projectOverride[sizeof($projects)] = $project->minimum;
+
+            // Create project skills
+            $project->skills = [];
+            for ($i = 0; $i < $numSkills; $i += 1)
+            {
+                if (is_null($skillNames[$i]))
+                {
+                    $imp = 0;
+                    $bias = 0;
+                }
+                else
+                {
+                    $imp = (int)$row['pro_skill_'.sprintf('%02d', $i)];
+                    $bias = (int)$row['pro_bias_'.sprintf('%02d', $i)];
+                }
+                $demand = new SkillDemand($imp * $importance, $bias);
+                array_push($project->skills, $demand);
+            }
+
+            $project->studentIndices = [];
+
+            $idProjects[$project->id] = sizeof($projects);
+            array_push($projects, $project);
+        }
+    
+        // proportionally distribute students
+        $allocations = distribute($projectOverride, sizeof($students));
+        foreach ($allocations as $p => $size)
+            $projects[$p]->allocation = $size;
+
+
+        // student sorting properties
+        $sql = "SELECT stu_ID, pro_ID, pro_locked FROM surveyanswer WHERE unit_ID='$unitID'";
+        $res = mysqli_query($CON, $sql);
+        while ($row = mysqli_fetch_assoc($res))
+        {
+            $sid = $row['stu_ID'];
+            $pid = $row['pro_ID'];
+            $locked = (bool)$row['pro_locked'];
+
+            $sid = (int)$sid;
             $y = $idStudents[$sid];
+
+            $students[$y]->projectLocked = $locked;
+
+            if (is_null($pid))
+                continue;
+            $pid = (int)$pid;
+
+            if (!array_key_exists($pid, $idProjects))
+                die("An assignment exists for a missing project.");
+            if (!array_key_exists($sid, $idStudents))
+                die("An assignment exists for a missing student.");
+            
             $p = $idProjects[$pid];
+            $students[$y]->projectIndex = $p;
 
-            $studentProjects[$y] = $p;
-            array_push($projectStudents[$p], $y);
-
-            if ($locked)
-                $studentLocks[$idStudents[$sid]] = true;
+            array_push($projects[$p]->studentIndices, $y);
         }
     }
 ?>

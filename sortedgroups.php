@@ -4,10 +4,12 @@
     require_once "connectdb.php";
     require_once "sanitise.php";
     require_once "solver.php";
-    require "getdata.php";
-?>
+    require_once "getdata.php";
 
-<?php
+    sortingData($unitID, $skillNames, $sort, $students, $projects);
+
+    $numSkills = 20;
+
     $headerBackgroundColour = ['r' => 0.25, 'g' => 0.25, 'b' => 0.25];
     $headerColour = ['r' => 0.5, 'g' => 0.5, 'b' => 0.5];
     $backgroundColour = ['r' => 0.25, 'g' => 0.25, 'b' => 0.25];
@@ -21,7 +23,7 @@
                 white-space: nowrap;
             }
             .sortInputTop {
-                border-bottom: thin solid black; border-right: thin solid $innerBorderColour;
+                border-bottom: thin solid black;
             }
             .sortProjectTop {
                 font-weight:bold; border-bottom: thin solid black; border-right: thin solid $innerBorderColour; text-align: left;
@@ -46,19 +48,18 @@
     echo "<h2>Sort Results</h2>";
 
     $posted = ($_SERVER["REQUEST_METHOD"] == "POST");
-    $isSorting = isset($sortPID);
+    $isSorting = !is_null($sort->pid);
     if ($isSorting)
     {
         if ($posted)
             echo "<p><strong>Unable to set locks while the sorter is running.</strong></p>";
-        echo "<p>The sorter is running in the background.</p>";
-        echo "<p><a href='terminatesort.php'>Stop</a></p>";
+        echo "<p>The sorter is running in the background. <a href='terminatesort.php?method=stop'>Stop</a></p>";
     }
     else
     {
         if ($posted)
         {
-            // change the assignement locks using the posted submission
+            // change the assignment locks using the posted submission
             $postedLocks = [];
             $unrecognised = 0;
             foreach ($_POST as $key => $value)
@@ -70,30 +71,30 @@
                     $postedLocks[$sid] = null;
                 }
             }
-            if ($unrecognised == 0)
-                echo "<p><strong>Student locks updated.</strong></p>";
-            else
-                echo "<p><strong>$unrecognised unrecognised commands!</strong></p>";
 
-            foreach ($studentNames as $sid)
+            foreach ($students as $y => $student)
             {
-                if (array_key_exists($sid, $postedLocks))
+                if (array_key_exists($student->id, $postedLocks))
                     $locked = true;
                 else
                     $locked = false;
 
-                $y = $idStudents[$sid];
-                if ($studentLocks[$y] != $locked)
+                if ($student->projectLocked != $locked)
                 {
-                    $studentLocks[$y] = $locked;
+                    $student->projectLocked = $locked;
 
                     $lockSQL = ($locked ? "1" : "0");
-                    $sql = "UPDATE groups SET locked=$lockSQL WHERE stu_id=$sid"; // TODO: and survey id
+                    $sql = "UPDATE surveyanswer SET pro_locked=$lockSQL WHERE stu_id=$student->id"; // TODO: and survey id
                     $query = mysqli_query($CON, $sql);
                     if (!$query)
                         $unrecognised += 1; // TODO: also check if query updated exactly 1 row
                 }
             }
+
+            if ($unrecognised == 0)
+                echo "<p><strong>Student locks updated.</strong></p>";
+            else
+                echo "<p><strong>$unrecognised unrecognised commands!</strong></p>";
         }
     }
 
@@ -162,14 +163,16 @@
 
     // find the max importance entry of everything, as the brightest value
     $importanceMax = 0.0;
-    for ($p = 0; $p < sizeof($projects); $p += 1)
+    foreach ($projects as $p => $project)
     {
         for ($s = 0; $s < $numSkills; $s += 1)
-            $importanceMax = max($importanceMax, $projects[$p][$s]->importance);
+            $importanceMax = max($importanceMax, $project->skills[$s]->importance);
     }
-    for ($p = 0; $p < sizeof($projects); $p += 1)
+    for ($p = 0; $p < sizeof($projects); $p += 1) // ensure iterate in consistent order for display
     {
-        sort($projectStudents[$p]);
+        $project = $projects[$p];
+
+        sort($project->studentIndices); // not reliables. index orders of students might not be consistent
 
         // Print project name and skill requirements
         echo "<tr>";
@@ -177,13 +180,13 @@
                 <input type='checkbox' disabled>
             </td>";
         //echo "<td colspan='3' class='sortProjectTop'>$projectText[$p] ($projectMinima[$p] - $projectMaxima[$p])</td>";
-        echo "<td colspan='3' class='sortProjectTop'>$projectText[$p] <span style='font-size: 0.75em; font-weight: normal;'>($projectMinima[$p])</span></td>";
+        echo "<td colspan='3' class='sortProjectTop'>$project->title <span style='font-size: 0.75em; font-weight: normal;'>($project->minimum)</span></td>";
         for ($s = 0; $s < $numSkills; $s += 1)
         {
             if (is_null($skillNames[$s]))
                 continue;
 
-            $importance = $projects[$p][$s]->importance;
+            $importance = $project->skills[$s]->importance;
             if ($importanceMax > 0.0)
                 $alpha = $importance / $importanceMax;
             else
@@ -197,7 +200,7 @@
 
             if ($importance > 0)
             {
-                $bias = $projects[$p][$s]->bias;
+                $bias = $project->skills[$s]->bias;
                 if ($bias > 0.25)
                     echo "H";
                 else if ($bias > -0.25)
@@ -211,24 +214,21 @@
         echo "</tr>";
         echo "<tr>";
         // Print student names and skills
-        foreach ($projectStudents[$p] as $i)
+        foreach ($project->studentIndices as $i)
         {
-            if (array_key_exists($i, $studentNames))
-            {
-                $text = $studentText[$i];
-                $name = $studentNames[$i];
-            }
-            else
-                die("Student identification missing from array");
+            $student = $students[$i];
 
-            $lockName = ($isSorting ? "" : "name='sLock$name'"); // TODO: need to include survey info in name if splitting the surveys
+            $sid = $student->id;
+            $text = $student->text;
+            
+            $lockName = ($isSorting ? "" : "name='sLock$sid'"); // TODO: need to include survey info in name if splitting the surveys
             $lockDisable = ($isSorting ? "disabled" : "");
-            $lockValue = ((array_key_exists($i, $studentLocks) && $studentLocks[$i]) ? "checked" : ""); // group entry doesn't exist if record is being changed
+            $lockValue = ($student->projectLocked ? "checked" : "");
             echo "<td style='border-bottom: thin solid $innerBorderColour;'>
                     <input type='checkbox' $lockName $lockDisable $lockValue>
                 </td>";
 
-            echo "<td class='sortID'>$name&nbsp;</td>";
+            echo "<td class='sortID'>$sid&nbsp;</td>";
             echo "<td class='sortName'>$text&nbsp;</td>";
 
             $satisfaction = 0.0;
@@ -238,8 +238,8 @@
             {
                 if (is_null($skillNames[$s]))
                     continue;
-                $value = $students[$i][$s];
-                $demand = $projects[$p][$s];
+                $value = $student->skills[$s];
+                $demand = $project->skills[$s];
 
                 $satisfaction += $demand->importance * $value;
                 $skillTotal += $value * $value;
@@ -258,8 +258,8 @@
             {
                 if (is_null($skillNames[$s]))
                     continue;
-                $value = $students[$i][$s];
-                $demand = $projects[$p][$s];
+                $value = $student->skills[$s];
+                $demand = $project->skills[$s];
 
                 $alpha = ($importanceMax <= 0.0) ? 0.0 : ($demand->importance / $importanceMax);
                 $strength = $value / $skillMax;
