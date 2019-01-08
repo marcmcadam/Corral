@@ -1,58 +1,57 @@
 <?php
- 	  $PageTitle = "Student Groups";
+ 	  $PageTitle = "Project Groups";
 	  require "header_staff.php";
     require_once "connectdb.php";
     require_once "getdata.php";
     require_once "getfunctions.php";
 
-    $unit_ID = 'SIT302T218';
-    sortingData($unit_ID, $skillNames, $sort, $students, $projects);
-
-    $numSkills = 20;
+    $unitID = 'SIT302T218';
+    sortingData($unitID, $skillNames, $sort, $students, $projects);
 
     echo "<h2>$PageTitle</h2>
-        <table>
-            <tr><td>";
-
-    
-
-    echo "  </td></tr>
-        </table>";
-
-  /* -- needs to be redesigned using similar structure to sortedgroups.php
-  echo "<h2>Student Group Listing</h2>";
-  require_once "connectdb.php";
-  $sql="SELECT groups.*, student.stu_FirstName, student.stu_LastName, student.stu_Campus, student.stu_Email, project.pro_title FROM ((groups INNER JOIN student ON groups.stu_ID=student.stu_ID) INNER JOIN project ON groups.pro_ID=project.pro_ID) ORDER BY pro_ID ASC";
-  $res=mysqli_query($CON, $sql);
-
-  echo "<table width='1250px' border='1px' cellpadding='8px' align='center'>";
-  echo "<tr>
-          <th>Student ID</th>
-          <th>Student FirstName</th>
-          <th>Student LastName</th>
-          <th>Student Campus</th>
-          <th>Student Email</th>
-          <th>Project ID</th>
-          <th>Project Name</th>
-        </tr>";
-
-  while ($row=mysqli_fetch_assoc($res)){
-    $row["stu_Campus"] = getcampus($row["stu_Campus"]);
-  	echo "<tr>
-            <td>{$row['stu_ID']}</td>
-            <td>{$row['stu_FirstName']}</td>
-            <td>{$row['stu_LastName']}</td>
-            <td>{$row['stu_Campus']}</td>
-            <td>{$row['stu_Email']}</td>
-            <td>{$row['pro_ID']}</td>
-            <td>{$row['pro_title']}</td>
-          </tr>";
-  }
-
-  echo "</table>";
-  mysqli_free_result($res);
-  mysqli_close($CON);
-  */
+        <table align='center' cellpadding='8px' style='width: 100%;'>";
+    foreach ($projects as $p => $project)
+    {
+        echo "  <tr>
+                    <td valign='top'><table align='right' class='listTable'>
+                        <tr>
+                            <th>Title:</th>
+                            <td style='text-align: left;'>$project->title</td>
+                        </tr><tr>
+                            <th>Brief:</th>
+                            <td style='text-align: left;'>$project->brief</td>
+                        </tr><tr>
+                            <th>Leader:</th>
+                            <td style='text-align: left;'>$project->leader</td>
+                        </tr><tr>
+                            <th>Email:</th>
+                            <td style='text-align: left;'>$project->email</td>
+                        </tr><tr>
+                            <th>Members:</th>
+                            <td style='text-align: left;'>$project->allocation</td>
+                        </tr>
+                    </table></td><td valign='top'><table align='left' class='listTable'>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Campus</th>
+                        </tr>";
+        foreach ($project->studentIndices as $y)
+        {
+            $student = $students[$y];
+            $campus = getCampus($student->campus);
+            echo "      <tr>
+                            <td style='text-align: right; font-family: monospace;'>$student->id</td>
+                            <td style='text-align: left;'>$student->text</td>
+                            <td style='text-align: left;'>$student->email</td>
+                            <td style='text-align: left;'>$campus</td>
+                        </tr>";
+        }
+        echo "      </table></td>
+                <tr>";
+    }
+    echo "  </tr></table>";
 
     require "footer.php";
 ?>

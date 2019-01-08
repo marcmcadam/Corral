@@ -18,6 +18,8 @@
     {
         public $id;
         public $text;
+        public $campus;
+        public $email;
         public $skills;
         public $projectIndex; // index of project for this unit in local arrays
         public $projectLocked;
@@ -26,6 +28,9 @@
     class Project
     {
         public $title;
+        public $brief;
+        public $leader;
+        public $email;
         public $minimum;
         public $maximum;
         public $allocation; // from proportional distrubtion
@@ -67,7 +72,7 @@
 
 
         // Fetch student names and skill assessments from database
-        $sql = "SELECT a.*, s.stu_FirstName, s.stu_LastName FROM surveyanswer a, student s WHERE a.stu_Id=s.stu_Id AND a.unit_ID='$unitID'";
+        $sql = "SELECT a.*, s.* FROM surveyanswer a, student s WHERE a.stu_Id=s.stu_Id AND a.unit_ID='$unitID'";
         $res = mysqli_query($CON, $sql);
         if (!$res)
         {
@@ -84,6 +89,9 @@
             $student->id = (int)$row['stu_ID'];
             $first = $row['stu_FirstName'];
             $last = $row['stu_LastName'];
+            $student->campus = $row['stu_Campus'];
+            $student->email = $row['stu_Email'];
+
             $student->text = "$first $last";
 
             // Populate student skills array with stu_skill_##
@@ -116,7 +124,10 @@
             $project = new Project();
 
             $project->id = (int)$row['pro_ID'];
-            $project->title = $row['pro_title'] ;
+            $project->title = $row['pro_title'];
+            $project->brief = $row['pro_brief'];
+            $project->leader = $row['pro_leader'];
+            $project->email = $row['pro_email'];
             $project->minimum = (int)$row['pro_min'];
             $project->maximum = (int)$row['pro_max'];
             $importance = (int)$row['pro_imp'];
