@@ -7,5 +7,7 @@ if ( !isset($_SESSION['sta_Email'])) {
     $id = $_SESSION['sta_Email'];
     $sta_FirstName = $_SESSION['sta_FirstName'];
     $sta_LastName = $_SESSION['sta_LastName'];
+    if (isset($_SESSION['unit']))
+        $unitID = (string)$_SESSION['unit']; // TODO: check it belongs to this staff
 }
 ?>

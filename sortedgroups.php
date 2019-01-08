@@ -6,8 +6,7 @@
     require_once "solver.php";
     require_once "getdata.php";
 
-    $unit_ID = "SIT302T218";
-    sortingData($unit_ID, $skillNames, $sort, $students, $projects);
+    sortingData($unitID, $skillNames, $sort, $students, $projects);
 
     $numSkills = 20;
 

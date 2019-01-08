@@ -1,6 +1,14 @@
 <?php
-session_start();
-require "staffauth.php";
+    session_start();
+    require "staffauth.php";
+
+    if (isset($_GET["unit"]))
+    {
+        $_SESSION["unit"] = (string)$_GET["unit"]; // TODO: needs validation?
+        $return = $_GET["return"]; // TODO: needs validation?
+        header("location: $return");
+        die;
+    }
 ?>
 <!DOCTYPE html>
 <html>
@@ -47,4 +55,17 @@ require "staffauth.php";
         </form>
     </div>
 </div>
+<?php
+    $page = $_SERVER["REQUEST_URI"];
+    echo "<div class='unitMenu'><form action='header_staff.php'>
+            <select class='inputList' name='unit'>
+                <option value='SIT374T218'>SIT374T218</option>
+                <option value='SIT374T318'>SIT374T318</option>
+                <option value='SIT302T218'>SIT302T218</option>
+                <option value='SIT302T318'>SIT302T318</option>
+            </select>
+            <input hidden type='text' class='updateButton' name='return' value='$page'>
+            <input type='submit' class='inputButton' value='Go'>
+        </form></div>";
+?>
 <div class="main">

@@ -1,11 +1,13 @@
 <?php
     header('Cache-Control: no-cache');
 
+    session_start();
+    require_once "staffauth.php";
+
     require_once "solver.php";
     require_once "getdata.php";
 
-    $unit_ID = 'SIT302T218';
-    sortingData($unit_ID, $skillNames, $sort, $students, $projects);
+    sortingData($unitID, $skillNames, $sort, $students, $projects);
 
     $numSkills = 20;
 
@@ -40,7 +42,7 @@
 
     // store the process id and set that the sorter is not signalled to stop
     $sortPID = getmypid();
-    $sql = "UPDATE unit SET sort_pid=$sortPID, sort_stop=0 WHERE unit_ID='$unit_ID'";
+    $sql = "UPDATE unit SET sort_pid=$sortPID, sort_stop=0 WHERE unit_ID='$unitID'";
     $res = mysqli_query($CON, $sql);
     if (!$res)
     {
@@ -273,7 +275,7 @@
     {
         $progress = $batch / $numBatches;
 
-        $sql = "SELECT sort_pid, sort_stop FROM unit WHERE unit_ID='$unit_ID'";
+        $sql = "SELECT sort_pid, sort_stop FROM unit WHERE unit_ID='$unitID'";
         $res = mysqli_query($CON, $sql);
         if (!$res)
         {
@@ -419,7 +421,7 @@
     }
     echo "<p>Finished</p>";
 
-    $sql = "UPDATE unit SET sort_pid=null WHERE unit_ID='$unit_ID'";
+    $sql = "UPDATE unit SET sort_pid=null WHERE unit_ID='$unitID'";
     $res = mysqli_query($CON, $sql);
     if (!$res)
     {
@@ -429,7 +431,7 @@
 
     function assignDatabase($studentProjects)
     {
-        global $unit_ID;
+        global $unitID;
         global $CON;
         global $students;
         global $projects;
@@ -449,7 +451,7 @@
                 $pid = $project->id;
             }
 
-            $sql = "UPDATE surveyanswer SET pro_ID=$pid WHERE stu_id=$sid AND unit_ID='$unit_ID'";
+            $sql = "UPDATE surveyanswer SET pro_ID=$pid WHERE stu_id=$sid AND unit_ID='$unitID'";
             if (!mysqli_query($CON, $sql))
                 echo "Error assigning project member: " . mysqli_error($CON) . "<br>";
         }
