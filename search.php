@@ -9,7 +9,7 @@ if (isset($_GET['search'])) {
   if(!filter_var($_GET['search'], FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>"/^[a-zA-Z0-9.@]+$/")))) echo "<p>Invalid search term entered.</p>";
   else { // Passed regex, execute search with supplied term
     $search = $_GET['search'];
-
+    $results = 0;
     // Search student table, print link to result
     $query = "SELECT stu_ID, stu_FirstName, stu_LastName, stu_Campus, stu_Email FROM student WHERE (
                 stu_ID        LIKE '%".$search."%' OR
@@ -17,7 +17,6 @@ if (isset($_GET['search'])) {
                 stu_LastName  LIKE '%".$search."%' OR
                 stu_Email     LIKE '%".$search."%')";
     $res = mysqli_query($CON, $query);
-
     if (mysqli_num_rows($res) > 0) {
       echo "<p>Student results found: ".mysqli_num_rows($res)."</p>";
       echo "<form name action='studentuser.php' method='get'>
@@ -42,6 +41,7 @@ if (isset($_GET['search'])) {
         </tr>";
       }
       echo "</table><br />";
+      $results += mysqli_num_rows($res);
       mysqli_free_result($res);
     }
     // Search staff table, print link to result
@@ -73,6 +73,7 @@ if (isset($_GET['search'])) {
         </tr>";
       }
       echo "</table><br />";
+      $results += mysqli_num_rows($res);
       mysqli_free_result($res);
     }
     // Search project table, prink link to result
@@ -105,7 +106,12 @@ if (isset($_GET['search'])) {
         </tr>";
       }
       echo "</table><br />";
+      $results += mysqli_num_rows($res);
       mysqli_free_result($res);
+    }
+
+    if ($results == 0) {
+      echo '<h2>No results found for "'.$search.'"</h2>';
     }
   }
 }
