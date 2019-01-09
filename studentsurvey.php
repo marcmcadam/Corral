@@ -9,7 +9,7 @@ function skillOptions($title, $key, $survey) {
     $surveykey = "stu_skill_".sprintf('%02d', $key);
   } else {
     $surveykey = 'newsurvey';
-    $survey[$surveykey] = 0;
+    $survey[$surveykey] = NULL;
   }
   echo "<tr>
           <td>&nbsp;</td>
@@ -20,19 +20,19 @@ function skillOptions($title, $key, $survey) {
         </tr><tr>
           <th>$title</th>
           <td><label for='4$key'><div class='radioCell'>
-              <input type='radio' id='4$key' name='$key' value='4' class='radioCell' ".($survey[$surveykey] == 4 ? 'checked' : '').">&nbsp;
+              <input type='radio' id='4$key' name='$key' value='4' class='radioCell' ".($survey['submitted']==1 && $survey[$surveykey] == 4 ? 'checked' : '')." required>&nbsp;
           </div></label></td>
           <td><label for='3$key'><div class='radioCell'>
-              <input type='radio' id='3$key' name='$key' value='3' class='radioCell' ".($survey[$surveykey] == 3 ? 'checked' : '').">&nbsp;
+              <input type='radio' id='3$key' name='$key' value='3' class='radioCell' ".($survey['submitted']==1 && $survey[$surveykey] == 3 ? 'checked' : '')." required>&nbsp;
           </div></label></td>
           <td><label for='2$key'><div class='radioCell'>
-              <input type='radio' id='2$key' name='$key' value='2' class='radioCell' ".($survey[$surveykey] == 2 ? 'checked' : '').">&nbsp;
+              <input type='radio' id='2$key' name='$key' value='2' class='radioCell' ".($survey['submitted']==1 && $survey[$surveykey] == 2 ? 'checked' : '')." required>&nbsp;
           </div></label></td>
           <td><label for='1$key'><div class='radioCell'>
-              <input type='radio' id='1$key' name='$key' value='1' class='radioCell' ".($survey[$surveykey] == 1 ? 'checked' : '').">&nbsp;
+              <input type='radio' id='1$key' name='$key' value='1' class='radioCell' ".($survey['submitted']==1 && $survey[$surveykey] == 1 ? 'checked' : '')." required>&nbsp;
           </div></label></td>
           <td><label for='0$key'><div class='radioCell'>
-              <input type='radio' id='0$key' name='$key' value='0' class='radioCell' ".($survey[$surveykey] == 0 ? 'checked' : '').">&nbsp;
+              <input type='radio' id='0$key' name='$key' value='0' class='radioCell' ".($survey['submitted']==1 && $survey[$surveykey] == 0 ? 'checked' : '')." required>&nbsp;
           </div></label></td>
       </tr>";
 }
