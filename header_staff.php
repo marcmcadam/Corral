@@ -11,6 +11,8 @@
     if ($pageNoGet == "header_staff" && isset($_GET["unit"]))
     {
         $_SESSION["unit"] = (string)$_GET["unit"]; // TODO: needs validation?
+        if (!isset($_GET["return"]))
+            die("No return address.");
         $return = $_GET["return"]; // TODO: needs validation?
         header("location: $return");
         die;

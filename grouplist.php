@@ -36,7 +36,7 @@
         foreach ($unassigned as $student)
         {
             $campus = getCampus($student->campus);
-            $survey = $student->submitted ? "Y" : "-";
+            $survey = is_null($student->skills) ? "-" : "Y";
             echo "      <tr>
                             <td style='text-align: right; font-family: monospace;'>$student->id</td>
                             <td style='text-align: left;'>$student->text</td>
