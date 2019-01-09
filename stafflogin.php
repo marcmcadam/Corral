@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['sta_FirstName'] = $user['sta_FirstName'];
         $_SESSION['sta_LastName'] = $user['sta_LastName'];
         // Successful login.
-        header("location: staffhome.php");
+        header("location: staffhome");
       } else {
         // Invalid login.
         $login_Error = TRUE;

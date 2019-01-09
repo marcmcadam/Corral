@@ -157,6 +157,12 @@ body {
     padding: 1px 16px;
 }
 
+.updateList {
+    border-radius: 16px 0 0 16px;
+    border: thin solid #e0e0e0;
+    padding: 1px 16px;
+}
+
 .updateButton {
     border: 2px solid #c0c0c0;
     background: #f4f4f4;
@@ -194,9 +200,11 @@ td {
 .listTable th {
     padding: 4px 8px;
     min-height: 32px;
-    border-right: thin solid #c0c0c0;
-    border-bottom: thin solid #c0c0c0;
-    background: #e0e0e0;
+    border-right: thin solid #306080;
+    border-bottom: thin solid #306080;
+    background: #005070;
+    color: #f8f8f8;
+    font-weight: normal;
 }
 
 .listTable td {

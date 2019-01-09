@@ -28,6 +28,7 @@
         {
             echo "      <th>ID</th>
                         <th>Name</th>
+                        <th>Survey</th>
                         <th>Email</th>
                         <th>Campus</th>";
         }
@@ -35,9 +36,11 @@
         foreach ($unassigned as $student)
         {
             $campus = getCampus($student->campus);
+            $survey = $student->submitted ? "Y" : "-";
             echo "      <tr>
                             <td style='text-align: right; font-family: monospace;'>$student->id</td>
                             <td style='text-align: left;'>$student->text</td>
+                            <td style='text-align: center;'>$survey</td>
                             <td style='text-align: left;'>$student->email</td>
                             <td style='text-align: left;'>$campus</td>
                         </tr>";
@@ -70,6 +73,7 @@
                         <tr>
                             <th>ID</th>
                             <th>Name</th>
+                            <th>Survey</th>
                             <th>Email</th>
                             <th>Campus</th>
                         </tr>";
@@ -77,9 +81,11 @@
         {
             $student = $students[$y];
             $campus = getCampus($student->campus);
+            $survey = is_null($student->skills) ? "-" : "Y";
             echo "      <tr>
                             <td style='text-align: right; font-family: monospace;'>$student->id</td>
                             <td style='text-align: left;'>$student->text</td>
+                            <td style='text-align: center;'>$survey</td>
                             <td style='text-align: left;'>$student->email</td>
                             <td style='text-align: left;'>$campus</td>
                         </tr>";
