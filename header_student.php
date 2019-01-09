@@ -26,7 +26,7 @@ else
 
 <body>
 <div class="navbar">
-	<div class="menu" style="width: 20%;"><a href="studentsurvey"><p>Survey</p></a>
+	<div class="menu" style="width: 20%;"><a href="studenthome"><p>Home</p></a>
 	</div><div class="menu" style="width: 20%;"> <a href="logout"><p>Logout</p></a>
 	</div>
 </div>

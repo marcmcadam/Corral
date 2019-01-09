@@ -1,6 +1,9 @@
 <?php
 require_once "../connectdb.php";
 require "random.php";
+require_once "../functions.php";
+
+$unitID = "SIT302T318";
 
 // NB: Now that foreign keys are in place, the order in which table data is
 // deleted (and created) is relevant.
@@ -265,32 +268,11 @@ for ($i = 0; $i < $totalProjects; $i += 1)
     $skills = randomProject($i, $imp, $biases);
     array_push($projectSkills, $skills);
     $status = randomProjectStatus();
-    $PROJECT .= "('SIT302T218', 'Project $i', 'Lorem Ipsum','Project Leader','projectleader@deakin.edu.au','$status', $min, $max, $imp, " . join(", ", $skills) . ", " . join(", ", $biases) . ')';
+    $PROJECT .= "('$unitID', 'Project $i', 'Lorem Ipsum','Project Leader','projectleader@deakin.edu.au','$status', $min, $max, $imp, " . join(", ", $skills) . ", " . join(", ", $biases) . ')';
 }
-
-$projectTotal = array_sum($projectSizes);
 
 // proportionally distribute students
-$remaining = $studentsValidation;
-$projectStudents = [];
-foreach ($projectSizes as $p => $value)
-{
-    // TODO: functionalise this section for this and getdata.php
-
-    if ($projectTotal == 0)
-        $proportion = 0.0;
-    else
-        $proportion = $value / $projectTotal;
-    $take = (int)round($remaining * $proportion);
-    $remaining -= $take;
-    $projectTotal -= $value;
-    $projectStudents[$p] = $take;
-}
-if ($projectTotal != 0 || $remaining != 0)
-{
-    echo "Project group size failed";
-    die;
-}
+$projectStudents = distribute($projectSizes, $studentsValidation);
 
 $i = 0;
 foreach ($projectStudents as $p => $size)
@@ -305,7 +287,7 @@ foreach ($projectStudents as $p => $size)
         if ($i > 0)
             $surveydata .= ",";
         $studentID = $shuffledStudentIDs[$i];
-        $surveydata .= "('SIT302T218', 1, $studentID, " . join(", ", $skills) . ")";
+        $surveydata .= "('$unitID', 1, $studentID, " . join(", ", $skills) . ")";
         $i += 1;
     }
 }
@@ -319,7 +301,7 @@ for ($j = 0; $j < $studentsRandom; $j += 1)
     $rarity = 2.0;
     $skills = randomSkills($i);
     $studentID = $shuffledStudentIDs[$i];
-    $surveydata .= "('SIT302T218', 1, $studentID, " . join(", ", $skills) . ")";
+    $surveydata .= "('$unitID', 1, $studentID, " . join(", ", $skills) . ")";
     $i += 1;
 }
 

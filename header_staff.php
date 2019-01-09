@@ -1,6 +1,20 @@
 <?php
-session_start();
-require "staffauth.php";
+    session_start();
+    require "staffauth.php";
+    require_once "getfunctions.php";
+    require_once "connectdb.php";
+
+    $parsedURL = parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);
+    $parsedParts = explode("/", $parsedURL);
+    $pagePart = $parsedParts[sizeof($parsedParts) - 1];
+    $pageNoGet = explode("?", $pagePart)[0];
+    if ($pageNoGet == "header_staff" && isset($_GET["unit"]))
+    {
+        $_SESSION["unit"] = (string)$_GET["unit"]; // TODO: needs validation?
+        $return = $_GET["return"]; // TODO: needs validation?
+        header("location: $return");
+        die;
+    }
 ?>
 <!DOCTYPE html>
 <html>
@@ -47,4 +61,25 @@ require "staffauth.php";
         </form>
     </div>
 </div>
+<?php
+    $no_unit_select = ['staffhome', 'stafflist', 'staffuser', 'studentlist', 'studentuser', 'unit', 'unitlist', 'project', 'datamgmt', 'search', 'terminatesort'];
+    if (!in_array($pageNoGet, $no_unit_select)) {
+      $units = getUnits($CON);
+      $page = $_SERVER["REQUEST_URI"];
+      echo "<div class='unitMenu'><form action='header_staff'>
+              <select class='inputList' name='unit'>";
+              $i=0;
+              while (isset($units[$i])) {
+                echo "<option value='".$units[$i]."'";
+                if ($units[$i] === $unitID)
+                    echo " selected";
+                echo ">".$units[$i]."</option>";
+                $i++;
+              }
+              echo "</select>
+              <input hidden type='text' class='updateButton' name='return' value='$page'>
+              <input type='submit' class='inputButton' value='Go'>
+          </form></div>";
+    }
+?>
 <div class="main">

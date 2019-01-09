@@ -89,11 +89,8 @@
             $projectFills = [];
             for ($p = 0; $p < sizeof($projects); $p += 1)
             {
-                for ($s = 0; $s < $numSkills; $s += 1)
+                foreach ($usedSkills as $s)
                 {
-                    if (!$usedSkills[$s])
-                        continue;
-
                     $demand = $projects[$p][$s];
                     $total = 0.0;
                     foreach ($projectStudents[$p] as $y)
@@ -131,11 +128,8 @@
                             // current project
                             $satisfaction = 0.0;
                             $impTotal = 0.0;
-                            for ($s = 0; $s < $numSkills; $s += 1)
+                            foreach ($usedSkills as $s)
                             {
-                                if (!$usedSkills[$s])
-                                    continue;
-
                                 $demand = $projects[$currentProject][$s];
                                 $satisfaction += $demand->importance * $students[$y][$s];
                                 $impTotal += $demand->importance;
@@ -148,11 +142,8 @@
                             // changed project
                             $satisfaction = 0.0;
                             $impTotal = 0.0;
-                            for ($s = 0; $s < $numSkills; $s += 1)
+                            foreach ($usedSkills as $s)
                             {
-                                if (!$usedSkills[$s])
-                                    continue;
-
                                 $demand = $projects[$nextProject][$s];
                                 $satisfaction += $demand->importance * $students[$y][$s];
                                 $impTotal += $demand->importance;
@@ -163,11 +154,8 @@
 
                         $projectScoreA = 0.0;
                         $projectScoreB = 0.0;
-                        for ($s = 0; $s < $numSkills; $s += 1)
+                        foreach ($usedSkills as $s)
                         {
-                            if (!$usedSkills[$s])
-                                continue;
-
                             // measure how significant the member is to satisfying the project's needs
                             // i*a1^n/(a1^n + a2^n)
                             if ($currentProject >= 0)

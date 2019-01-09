@@ -2,14 +2,14 @@
 $PageTitle = "Project Details";
 require "header_staff.php";
 require_once "connectdb.php";
-require "getfunctions.php";
+require_once "getfunctions.php";
 require "sanitise.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $pro_ID_text = SanitiseGeneric($_POST['pro_ID'], $CON);
   if ($pro_ID_text == "")
   {
-      $insert = "INSERT INTO project (pro_imp) VALUES (20)";
+      $insert = "INSERT INTO project (unit_ID, pro_imp) VALUES ('$unitID', 20)";
       $query = mysqli_query($CON, $insert);
       if ($query)
           $pro_ID = mysqli_insert_id($CON);
@@ -19,41 +19,47 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   else
       $pro_ID = (int)$pro_ID_text;
 
-  $unit_ID = mysqli_real_escape_string($CON, $_POST['unit_ID']);
-  $title = SanitiseName($CON, $_POST['PRO_TITLE']);
-  $leader = SanitiseName($CON, $_POST['PRO_LEADER']);
-  $email = SanitiseString($CON, $_POST['PRO_EMAIL']);
-  $brief = SanitiseGeneric($_POST['PRO_BRIEF'], $CON);
-  $status = mysqli_real_escape_string($CON, $_POST['PRO_STATUS']);
-  $minimum = mysqli_real_escape_string($CON, $_POST['min']);
-  $maximum = $minimum; // mysqli_real_escape_string($CON, $_POST['max']);
-  $importance = mysqli_real_escape_string($CON, $_POST['impAll']);
+    //$unit_ID = mysqli_real_escape_string($CON, $_POST['unit_ID']);
+    $title = SanitiseName($CON, $_POST['PRO_TITLE']);
+    $leader = SanitiseName($CON, $_POST['PRO_LEADER']);
+    $email = SanitiseString($CON, $_POST['PRO_EMAIL']);
+    $brief = SanitiseGeneric($_POST['PRO_BRIEF'], $CON);
+    $status = mysqli_real_escape_string($CON, $_POST['PRO_STATUS']);
+    if (ctype_digit($_POST['min']))
+        $minimum = min(max((int)mysqli_real_escape_string($CON, $_POST['min']), 0), 1000000);
+    else
+        $minimum = 0;
+    $maximum = $minimum;
+    if (ctype_digit($_POST['impAll']))
+        $importance = min(max((int)mysqli_real_escape_string($CON, $_POST['impAll']), 0), 1000000);
+    else
+        $importance = 0;
 
-  if($status != "Active" && $status != "Inactive" && $status != "Planning" && $status != "Cancelled" ){
-    $status = "Planning";
-  }
+    if($status != "Active" && $status != "Inactive" && $status != "Planning" && $status != "Cancelled" ){
+        $status = "Planning";
+    }
 
-  function postImportance($key)
-  {
-      global $CON;
-      $text = "imp$key";
-      if (array_key_exists($text, $_POST))
-          $value = mysqli_real_escape_string($CON, $_POST[$text]);
-      else
-          $value = 0;
-      return min(max((int)$value, 0), 100);
-  }
+    function postImportance($key)
+    {
+        global $CON;
+        $text = "imp$key";
+        if (array_key_exists($text, $_POST))
+            $value = (int)mysqli_real_escape_string($CON, $_POST[$text]);
+        else
+            $value = 0;
+        return min(max($value, 0), 100);
+    }
 
-  function postBias($key)
-  {
-      global $CON;
-      $text = "bias$key";
-      if (array_key_exists($text, $_POST))
-          $value = mysqli_real_escape_string($CON, $_POST[$text]);
-      else
-          $value = 0;
-      return min(max((int)$value, -1), 1);
-  }
+    function postBias($key)
+    {
+        global $CON;
+        $text = "bias$key";
+        if (array_key_exists($text, $_POST))
+            $value = (int)mysqli_real_escape_string($CON, $_POST[$text]);
+        else
+            $value = 0;
+        return min(max($value, -1), 1);
+    }
 
   $numSkills = 20;
 
@@ -65,7 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       array_push($skillBias, postBias($s));
   }
 
-  $sql = "UPDATE project SET unit_ID='$unit_ID',pro_title='$title',pro_leader='$leader',pro_email='$email',pro_brief='$brief',pro_status='$status', pro_min='$minimum', pro_max='$maximum', pro_imp='$importance'";
+  $sql = "UPDATE project SET unit_ID='$unitID',pro_title='$title',pro_leader='$leader',pro_email='$email',pro_brief='$brief',pro_status='$status', pro_min='$minimum', pro_max='$maximum', pro_imp='$importance'";
   for ($i = 0; $i < $numSkills; $i += 1)
   {
       $imp = $skillImp[$i];
@@ -91,6 +97,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $pro_ID = filter_input(INPUT_GET, 'number', FILTER_VALIDATE_INT);
 
+    $skillNames = getSkillNames($CON, $numSkills, $unitID);
+
     $skillImp = [];
     $skillBias = [];
     if (is_null($pro_ID) || $pro_ID == "")
@@ -102,8 +110,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $leader = "";
         $email = "";
         $status = "";
-        $minimum = "0";
-        $maximum = "";
+        $minimum = 0;
+        $maximum = 0;
         $importance = 20; // with limit as 100, is a number that can get 5 times larger, but also 5x smaller without losing too much fidelity (20/5 = 4)
 
         for ($i = 0; $i < $numSkills; $i += 1)
@@ -114,12 +122,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     else
     {
-      $sql="SELECT * FROM project WHERE pro_ID = $pro_ID";
+      $sql="SELECT * FROM project WHERE pro_ID=$pro_ID AND unit_ID='$unitID'";
       $query = mysqli_query($CON, $sql);
       if (!$query)
           die(mysqli_error($CON));
       $project = mysqli_fetch_assoc($query);
-      $unit_ID = $project['unit_ID'];
+      //$unit_ID = $project['unit_ID'];
       $title = $project['pro_title'];
       $brief = $project['pro_brief'];
       $leader = $project['pro_leader'];
@@ -128,9 +136,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $minimum = $project['pro_min'];
       $maximum = $project['pro_max'];
       $importance = $project['pro_imp'];
-      $skillNames = getSkillNames($CON, $numSkills, $unit_ID);
-
-
+      
       for ($i = 0; $i < $numSkills; $i += 1)
       {
           $imp = (int)$project["pro_skill_".sprintf("%02d", $i)];
@@ -170,16 +176,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <h2>Project Details</h2><br>
         <form method='post'>
             <input hidden type='text' name='pro_ID' value='$pro_ID'>
-                Project Unit
-                <select name='unit_ID' class='inputList'>";
-                $i=0;
-                while (isset($units[$i])) {
-                  echo "<option value='".$units[$i]."'";
-                  if ($units[$i] == $unit_ID) echo " selected";
-                  echo ">".$units[$i]."</option>";
-                  $i++;
-                }
-                echo "</select><br /><br />
                 Project Title<br>
                 <input type='text' name='PRO_TITLE' class='inputBox' value='$title'><br><br>
                 Project Leader<br>
