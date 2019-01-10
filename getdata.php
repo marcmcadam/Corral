@@ -29,6 +29,7 @@
 
     class Project
     {
+        public $unitID;
         public $title;
         public $brief;
         public $leader;
@@ -133,6 +134,7 @@
         {
             $project = new Project();
 
+            $project->unitID = $row['unit_ID'];
             $project->id = (int)$row['pro_ID'];
             $project->title = $row['pro_title'];
             $project->brief = $row['pro_brief'];
