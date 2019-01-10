@@ -23,13 +23,13 @@
     while ($row=mysqli_fetch_assoc($res))
     {
         echo "<tr>
-                <td align='center' style='max-width: 190px;'>{$row['unit_ID']}</td>
-                <td align='center' style='max-width: 190px;'>{$row['pro_title']}</td>
-                <td align='center' style='max-width: 190px;'>{$row['pro_leader']}</td>
-                <td align='center' style='max-width: 180px;'>{$row['pro_email']}</td>
-                <td align='center' style='max-width: 500px;'>{$row['pro_brief']}</td>
-                <td align='center' style='max-width: 180px;'>{$row['pro_status']}</td>
-                <td align='center' style='width: 80px;'><button value='".$row['pro_ID']."' name='number' class='inputButton'>Update</button></td>
+                <td align='center'>{$row['unit_ID']}</td>
+                <td align='center'>{$row['pro_title']}</td>
+                <td align='center'>{$row['pro_leader']}</td>
+                <td align='center'>{$row['pro_email']}</td>
+                <td align='center'>{$row['pro_brief']}</td>
+                <td align='center'>{$row['pro_status']}</td>
+                <td align='center'><button value='".$row['pro_ID']."' name='number' class='updateButton'>Update</button></td>
             </tr>";
     }
 
