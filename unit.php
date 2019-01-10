@@ -76,6 +76,9 @@
           for($i=0;$i<sizeof($skills);$i++) {
             $sql .= ", ".$skillkeys[$i]."='".$skills[$i]."'";
           }
+          for($i=sizeof($skills);$i<20; $i++) {
+            $sql .= ", skill_".sprintf('%02d', $i)."= NULL";
+          }
           $sql .= " WHERE unit_ID='".$unit_ID."'";
         }
         if($unit_new == TRUE) {
@@ -84,10 +87,16 @@
           for($i=0; $i<sizeof($skills);$i++) {
             $sql .= $skillkeys[$i].", ";
           }
+          for($i=sizeof($skills);$i<20; $i++) {
+            $sql .= "skill_".sprintf('%02d', $i).", ";
+          }
           $sql .= "survey_open)";
           $sql .= " VALUES ('".$unit_ID."', '".$unit_Name."', '".$_POST['sta_ID']."',";
           for($i=0; $i<sizeof($skills);$i++) {
             $sql .= "'".$skills[$i]."', ";
+          }
+          for($i=sizeof($skills);$i<20; $i++) {
+            $sql .= "NULL, ";
           }
           $sql .= "0)";
         }
