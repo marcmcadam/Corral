@@ -400,16 +400,18 @@
         $swaps = sizeof($toDatabase);
 
         echo "<p>Completed batch: $batch, skill gain: $progress, students swapped: $swaps</p>";
-        if ($swaps == 0)
+        if ($matrixSize < $endMatrixSize)
         {
-            if ($matrixSize < $endMatrixSize)
+            if ($swaps * $matrixSize < $numStudents)
             {
                 $matrixSize = (int)ceil($matrixSize * $matrixMultiplier);
                 $matrixSize = min($matrixSize, $endMatrixSize);
-                $noSwapsCount = 0;
                 echo "<p>Matrix size: $matrixSize</p>";
             }
-            else
+        }
+        else
+        {
+            if ($swaps == 0)
             {
                 $noSwapsCount += 1;
                 if ($noSwapsCount >= 10)
@@ -418,9 +420,9 @@
                     break;
                 }
             }
+            else
+                $noSwapsCount = 0;
         }
-        else
-            $noSwapsCount = 0;
         
         update();
     }
