@@ -17,7 +17,7 @@
     <br>
     Please select the unit that you want to make changes to below.<br>
     <?php
-        $units = getUnits($CON);
+        $units = getStaffUnits($CON, $id);
         echo "<form>
                 <select class='updateList' name='unit' onchange='this.form.submit()'>";
                 $i=0;

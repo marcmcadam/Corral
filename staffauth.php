@@ -7,15 +7,20 @@ if ( !isset($_SESSION['sta_Email'])) {
     $id = $_SESSION['sta_Email'];
     $sta_FirstName = $_SESSION['sta_FirstName'];
     $sta_LastName = $_SESSION['sta_LastName'];
+
+    require_once "connectdb.php";
+    require_once "getfunctions.php";
+    $units = getStaffUnits($CON, $id);
     if (isset($_SESSION['unit']))
-        $unitID = (string)$_SESSION['unit']; // TODO: check it belongs to this staff
-    else
     {
-        require_once "connectdb.php";
-        require_once "getfunctions.php";
-        $units = getUnits($CON);
+        $unitID = (string)$_SESSION['unit'];
+        if (!in_array($unitID, $units))
+            unset($unitID);
+    }
+    if (!isset($unitID))
+    {
         if (sizeof($units) == 0)
-            $unitID = "dummy"; // TODO: hackish
+            $unitID = ""; // TODO: hackish
         else
             $unitID = $units[0];
         $_SESSION['unit'] = $unitID;

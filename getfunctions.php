@@ -27,6 +27,15 @@ function getUnits($CON) {
   return $unitcodes;
 }
 
+function getStaffUnits($CON, $staff) {
+  $query = "SELECT unit_ID FROM unit u, staff s WHERE u.sta_ID=s.sta_ID AND sta_Email='$staff'";
+  $res = mysqli_query($CON, $query);
+  $unitcodes = [];
+  while($row = mysqli_fetch_assoc($res))
+    array_push($unitcodes, $row['unit_ID']);
+  return $unitcodes;
+}
+
 function getStaff($CON, $names = FALSE) {
   if($names)
     $query = "SELECT sta_ID, sta_FirstName, sta_LastName FROM staff";
