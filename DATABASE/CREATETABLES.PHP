@@ -120,6 +120,8 @@ $unit = "CREATE TABLE unit (
   sort_iterations INT(11) NOT NULL DEFAULT 100,
   sort_pid INT(11) DEFAULT NULL,
   sort_stop TINYINT(1) NOT NULL DEFAULT 0,
+  sort_i INT(11) NOT NULL DEFAULT 0,
+  sort_m INT(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (unit_ID),
   FOREIGN KEY (sta_ID) REFERENCES staff(sta_ID)
 )";

@@ -54,6 +54,33 @@
         if ($posted)
             echo "<p><strong>Unable to set locks while the sorter is running.</strong></p>";
         echo "<p>The sorter is running in the background. <a href='terminatesort.php?method=stop'>Stop</a></p>";
+
+        function progressBar($progress)
+        {
+            $parts = 100;
+            $partsDone = (int)floor($progress * $parts);
+            echo "  <table align='center' cellpadding='0px' style='width: 50%; border: 1px solid #808080;'>
+                        <tr>";
+            for ($i = 0; $i < $parts; $i += 1)
+            {
+                $styles = ($i < $partsDone) ? "background: #80ff80; " : "";
+                $text = "&nbsp;";
+                echo "      <td style='border-right: #808080; $styles'>$text</td>";
+            }
+            echo "      </tr>
+                    </table>";
+        }
+        
+        $progressI = $sort->i / $sort->iterations;
+
+        $rangeM = $sort->matrix / 10;
+        $progressM = log($sort->m / 10) / log($rangeM);
+
+        echo "Iterations: " . (int)($progressI * 100) . "%<br>";
+        progressBar($progressI);
+        echo "<br>Matrix size: " . (int)($progressM * 100) . "%<br>";
+        progressBar($progressM);
+        echo "<br><br>";
     }
     else
     {

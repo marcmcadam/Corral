@@ -12,6 +12,8 @@
         public $iterations;
         public $pid;
         public $stop;
+        public $i;
+        public $m;
     }
 
     class Student
@@ -49,7 +51,7 @@
 
 
         // get the process ID for the sorting
-        $sql = "SELECT sort_matrix, sort_random, sort_inertia, sort_iterations, sort_pid, sort_stop FROM unit WHERE unit_ID='$unitID'";
+        $sql = "SELECT sort_matrix, sort_random, sort_inertia, sort_iterations, sort_pid, sort_stop, sort_i, sort_m FROM unit WHERE unit_ID='$unitID'";
         $res = mysqli_query($CON, $sql);
         if (!$res)
         {
@@ -67,6 +69,8 @@
             $sort->iterations = $row["sort_iterations"];
             $sort->pid = $row["sort_pid"];
             $sort->stop = $row["sort_stop"];
+            $sort->i = $row["sort_i"];
+            $sort->m = $row["sort_m"];
         }
         else
             die("Unit doesn't exist: " . mysqli_error($CON));

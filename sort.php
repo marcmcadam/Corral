@@ -3,6 +3,7 @@
     
     session_start();
     require_once "staffauth.php";
+    session_write_close(); // allows other pages to load this session
 
     require_once "solver.php";
     require_once "getdata.php";
@@ -42,7 +43,7 @@
 
     // store the process id and set that the sorter is not signalled to stop
     $sortPID = getmypid();
-    $sql = "UPDATE unit SET sort_pid=$sortPID, sort_stop=0 WHERE unit_ID='$unitID'";
+    $sql = "UPDATE unit SET sort_pid=$sortPID, sort_stop=0, sort_i=0, sort_m=0 WHERE unit_ID='$unitID'";
     $res = mysqli_query($CON, $sql);
     if (!$res)
     {
@@ -257,6 +258,11 @@
     for ($batch = 0; $batch < $sort->iterations; $batch += 1)
     {
         // $progress = $batch / $sort->iterations;
+
+        $sql = "UPDATE unit SET sort_i=$batch, sort_m=$matrixSize WHERE unit_ID='$unitID'";
+        $res = mysqli_query($CON, $sql);
+        if (!$res)
+            die("Unable to set progress: " . mysqli_error($CON));
 
         $sql = "SELECT sort_pid, sort_stop FROM unit WHERE unit_ID='$unitID'";
         $res = mysqli_query($CON, $sql);
