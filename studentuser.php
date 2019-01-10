@@ -31,6 +31,14 @@
     }
 
     $studentid = SanitiseGeneric($_POST['stu_ID'], $CON); // Needs to be set outside if($valid) so that form display presents correctly
+
+    // Confirm that student ID is already present in database
+    $sql = "SELECT stu_ID FROM student WHERE stu_ID = '".$studentid."'";
+    if (!($res = mysqli_query($CON,$sql)) || mysqli_num_rows($res) != 1){
+      echo "<h3>Invalid Student ID Selected2</h3>";
+      $valid = FALSE;
+    }
+    
     if ($valid) {
       $firstname = SanitiseGeneric($_POST['stu_FirstName'], $CON);
   		$lastname = SanitiseGeneric($_POST['stu_LastName'], $CON);
