@@ -84,10 +84,12 @@
                     $student->projectLocked = $locked;
 
                     $lockSQL = ($locked ? "1" : "0");
-                    $sql = "UPDATE surveyanswer SET pro_locked=$lockSQL WHERE stu_id=$student->id"; // TODO: and survey id
+                    $sql = "UPDATE surveyanswer SET pro_locked=$lockSQL WHERE unit_ID='$unitID' AND stu_id=$student->id";
                     $query = mysqli_query($CON, $sql);
                     if (!$query)
-                        $unrecognised += 1; // TODO: also check if query updated exactly 1 row
+                        $unrecognised += 1;
+                    if (mysqli_affected_rows($CON) != 1)
+                        die("Project lock: not exactly 1 row affected.");
                 }
             }
 

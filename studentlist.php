@@ -15,16 +15,18 @@
             <th>FirstName</th>
             <th>LastName</th>
             <th>Campus</th>
-            <th>Email</th>
+            <th>Email</th>";
+            /*
             <th>Survey</th>
             <th>Project</th>
-            <th>Update</th>
+            */
+    echo "  <th>Update</th>
         </tr>";
 
 while ($row = mysqli_fetch_assoc($res))
 {
     $stu_id = $row["stu_ID"];
-
+    /*
     $surveySQL = "SELECT a.stu_Id as 'stu_Id' FROM surveyanswer a WHERE a.stu_Id = $stu_id";
     $surveys = mysqli_query($CON, $surveySQL);
 
@@ -44,11 +46,13 @@ while ($row = mysqli_fetch_assoc($res))
             $surveyDone = "$count!";
     }
 
-    $groupsSQL = "SELECT * FROM groups WHERE stu_Id = $stu_id";
+    $groupsSQL = "SELECT * FROM surveyanswer WHERE stu_Id=$stu_id AND unit_ID='$unitID'";
     $groups = mysqli_query($CON, $groupsSQL);
-
     if (!$groups)
-        $projectText = "?";
+    {
+        $error = mysqli_error($CON);
+        $projectText = "$error";
+    }
     else
     {
         $projectTitles = [];
@@ -79,16 +83,18 @@ while ($row = mysqli_fetch_assoc($res))
         else
             $projectText = join(", ", $projectTitles);
     }
-
+    */
     echo "<tr>
         <td align='center'>$stu_id</td>
         <td align='center'>{$row['stu_FirstName']}</td>
         <td align='center'>{$row['stu_LastName']}</td>
         <td align='center'>".getcampus($row["stu_Campus"])."</td>
-        <td align='center'>{$row['stu_Email']}</td>
+        <td align='center'>{$row['stu_Email']}</td>";
+        /*
         <td align='center'>$surveyDone</td>
         <td align='center'>$projectText</td>
-        <td align='center'><button value ='".$stu_id."' name='studentid' class='updateButton'>Update</button></td>
+        */
+    echo "<td align='center'><button value ='".$stu_id."' name='studentid' class='updateButton'>Update</button></td>
     </tr>";
 }
 

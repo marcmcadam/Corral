@@ -95,16 +95,21 @@
             $student->text = "$first $last";
 
             // Populate student skills array with stu_skill_##
-            $skills = [];
-            for ($i = 0; $i < $numSkills; $i += 1)
+            if ($row['submitted'])
             {
-                if (is_null($skillNames[$i]))
-                    $skill = null; // make unable to use
-                else
-                    $skill = (int)$row['stu_skill_'.sprintf('%02d', $i)];
-                array_push($skills, $skill);
+                $skills = [];
+                for ($i = 0; $i < $numSkills; $i += 1)
+                {
+                    if (is_null($skillNames[$i]))
+                        $skill = null; // make unable to use
+                    else
+                        $skill = (int)$row['stu_skill_'.sprintf('%02d', $i)];
+                    array_push($skills, $skill);
+                }
+                $student->skills = $skills;
             }
-            $student->skills = $skills;
+            else
+                $student->skills = null;
 
             $idStudents[$student->id] = sizeof($students);
             array_push($students, $student);
