@@ -18,11 +18,23 @@
                 array_push($unassigned, $student);
         }
         
+        $totalCount = sizeof($students);
         $unassignedCount = sizeof($unassigned);
         echo "  <tr>
-                    <td valign='top' style='text-align: right;'>
-                    $unassignedCount Unassigned Students
-                    </td><td valign='top'><table align='left' class='listTable'>
+                    <td valign='top'><table align='right' class='listTable'>
+                        <tr>
+                            <th>Total Students</th>
+                            <td>$totalCount</td>
+                        </tr>
+                    </table></td>
+                    <td></td>
+                </tr><tr>
+                    <td valign='top'><table align='right' class='listTable'>
+                        <tr>
+                            <th style='text-align: left;'>Unassigned Students</th>
+                            <td style='text-align: left;'>$unassignedCount</td>
+                        </tr>
+                    </table></td><td valign='top'><table align='left' class='listTable'>
                         <tr>";
         if ($unassignedCount > 0)
         {
