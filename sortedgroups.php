@@ -35,7 +35,7 @@
                 color: white; border-bottom: thin solid $innerBorderColour; border-right: thin solid $innerBorderColour;
             }
             .sortID {
-                text-align: right; border-bottom: thin solid $innerBorderColour; font-family: monospace;
+                text-align: right; border-bottom: thin solid $innerBorderColour;
             }
             .sortName {
                 text-align: left; border-bottom: thin solid $innerBorderColour;
