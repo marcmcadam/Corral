@@ -272,3 +272,22 @@ td {
 
 .flexitem {
 }
+
+/* Tooltip text on studentuser.php */
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+.tooltip .tooltiptext {
+    visibility: hidden;
+    background-color: gray;
+    color: white;
+    width: 200px;
+    font-size: small;
+    position: absolute;
+    z-index: 1;
+}
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
