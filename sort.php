@@ -50,28 +50,17 @@
         die;
     }
 
-    /* -- don't delete all. need to keep assignments that are locked
-        // delete all student project assignments
-        $sql = "TRUNCATE groups";
-        if (!mysqli_query($CON, $sql))
-            echo "<p>Error deleting project member: " . mysqli_error($CON) . "</p>";
-
-        echo "<p>Assignments erased</p>";
-        update();
-    */
-
-
     // generate dummy students to allow empty slots in groups for variable group sizes
     // the number of dummies needed depends on the difference between the total max size for projects and the number of students
     $slots = 0;
     foreach ($projects as $p => $project)
-        $slots += $project->allocation;
+        $slots += $project->slots;
     if ($slots < sizeof($students))
     {
         echo "<p>Too few tasks for the number of students</p>";
         die;
     }
-
+    
     $clevers = sizeof($students);
     if ($clevers < $slots)
     {
@@ -94,15 +83,6 @@
         die;
     }
 
-
-    // assign students randomly first
-    /*
-    $studentIndices = range(0, $clevers - 1);
-    shuffle($studentIndices);
-    //assign dummies last
-    for ($i = $clevers; $i < sizeof($students); $i += 1)
-        array_push($studentIndices, $i);
-    */
     $lockedStudents = [];
     $numStudents = sizeof($students);
     $projectsLockedSize = array_fill(0, sizeof($projects), 0);
@@ -118,16 +98,6 @@
         }
     }
 
-    /*
-    // free up all unlocked students
-    $projectStudents = array_fill(0, sizeof($projects), []);
-    for ($y = 0; $y < sizeof($students); $y += 1)
-    {
-        if (!$studentLocks[$y])
-            $studentProjects[$y] = -1;
-    }
-    */
-
     // collect unassigned students
     $freeStudents = [];
     foreach ($students as $y => $student)
@@ -139,7 +109,7 @@
     foreach ($projects as $p => $project)
     {
         $members = sizeof($project->studentIndices);
-        $capacity = $project->allocation;
+        $capacity = $project->slots; // or ->slots variable, shouldn't matter for this
         $n = $members - $capacity; // number of excess students
         // free up some unlocked excess students to reduce this project
         $freed = 0;
@@ -156,8 +126,6 @@
                 $freed += 1;
             }
         }
-        if ($freed < $n)
-            die("A project is locked over capacity. Please increase capacity or unlock.");
         // remove the null values
         $nextProjectStudents = [];
         foreach ($project->studentIndices as $y)
@@ -172,7 +140,7 @@
     foreach ($projects as $p => $project)
     {
         $members = sizeof($project->studentIndices);
-        $capacity = $project->allocation;
+        $capacity = $project->slots;
         $n = $capacity - $members; // number of extra students needed
         for ($t = 0; $t < $n; $t += 1)
         {
@@ -188,8 +156,12 @@
             $databaseChanges[$y] = $p;
         }
     }
+
+    // the number of slots being the same as the number of students depends on
+    // whether the 2-stages of getdata.php->distribute() work correctly
+
     if ($index != $numFreeStudents)
-        die("Not all students able to be assigned.");
+        die("Distribution failed: not all students were able to be assigned.");
 
     /* -- changed this to leave all students where they are at the start, so it resumes from last in all ways
     // assign unlocked students to random tasks to begin with

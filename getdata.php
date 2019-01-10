@@ -34,6 +34,7 @@
         public $minimum;
         public $maximum;
         public $allocation; // from proportional distrubtion
+        public $slots;
         public $skills;
         public $studentIndices; // indices of students for this unit in local arrays
     }
@@ -163,12 +164,6 @@
             array_push($projects, $project);
         }
     
-        // proportionally distribute students
-        $allocations = distribute($projectOverride, sizeof($students));
-        foreach ($allocations as $p => $size)
-            $projects[$p]->allocation = $size;
-
-
         // student sorting properties
         $sql = "SELECT stu_ID, pro_ID, pro_locked FROM surveyanswer WHERE unit_ID='$unitID'";
         $res = mysqli_query($CON, $sql);
@@ -196,6 +191,60 @@
             $students[$y]->projectIndex = $p;
 
             array_push($projects[$p]->studentIndices, $y);
+        }
+
+        // proportionally distribute students
+        $allocations = distribute($projectOverride, sizeof($students));
+        foreach ($allocations as $p => $size)
+        {
+            $projects[$p]->allocation = $size;
+            $projects[$p]->slots = $size;
+        }
+        
+        while (true)
+        {
+            $excess = 0;
+            $freeProjects = [];
+            foreach ($projects as $p => $project)
+            {
+                $lockedCount = 0;
+                foreach ($project->studentIndices as $s)
+                {
+                    if ($students[$s]->projectLocked)
+                        $lockedCount += 1;
+                }
+                $projectExcess = $lockedCount - $project->slots;
+                if ($projectExcess > 0)
+                {
+                    $excess += $projectExcess;
+                    $project->slots = $lockedCount;
+                }
+                else if ($projectExcess < 0 && $projectOverride[$p] > 0)
+                    array_push($freeProjects, $p);
+            }
+
+            if ($excess == 0)
+                break; // nothing to change
+            if (sizeof($freeProjects) == 0)
+                break; // no way to change it
+
+            // the total slots must be the same as the total number of students
+            // if projects have more students locked-in than than they have been allocated, it throws off the number
+            // re-allocate for projects that have more students locked-in than they have been allocated
+            // distribute the negative change needed, to projects that have room to move
+            $subtractDistribution = [];
+            foreach ($freeProjects as $p)
+                $subtractDistribution[$p] = $projectOverride[$p];
+            $subtractions = distribute($subtractDistribution, $excess);
+            foreach ($freeProjects as $p)
+            {
+                if ($subtractions[$p] > 0)
+                {
+                    $project = $projects[$p];
+                    $reduced = $project->slots - $subtractions[$p];
+                    $project->slots = $reduced;
+                }
+            }
         }
     }
 ?>
