@@ -8,7 +8,7 @@ $sql = "SELECT u.unit_ID, u.sta_ID, u.survey_open, s.sta_FirstName, s.sta_LastNa
 $res = mysqli_query($CON, $sql);
 
 echo "
-<table width='1250px' border='1px' cellpadding='8px' align='center'>
+<table align='center' class='listTable'>
   <tr>
     <th>Unit Code</th>
     <th>Trimester</th>

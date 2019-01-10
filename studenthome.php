@@ -7,9 +7,9 @@
 
 echo "
 <div>
-  <h2>Welcome,".$student_firstname."</h2>
+  <h2>Welcome, ".$student_firstname."</h2>
   <h3>Your Available Surveys</h3>
-  <table width='1250px' border='1px' cellpadding='8px' align='center'>
+  <table align='center' class='listTable'>
     <tr>
       <th>Unit Code</th>
       <th>Trimester</th>
