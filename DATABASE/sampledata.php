@@ -266,7 +266,7 @@ for ($i = 0; $i < $totalProjects; $i += 1)
     array_push($projectSizes, $min);
     $max = 0;
     $rarity = 200;
-    $skills = randomProject($i, $imp, $biases);
+    randomProject($skills, $imp, $biases);
     array_push($projectSkills, $skills);
     $status = randomProjectStatus();
     $PROJECT .= "('$unitID', 'Project $i', 'Lorem Ipsum','Project Leader','projectleader@deakin.edu.au','$status', $min, $max, $imp, " . join(", ", $skills) . ", " . join(", ", $biases) . ')';
@@ -300,7 +300,7 @@ for ($j = 0; $j < $studentsRandom; $j += 1)
     if ($i > 0)
         $surveydata .= ",";
     $rarity = 2.0;
-    $skills = randomSkills($i);
+    $skills = randomSkills();
     $studentID = $shuffledStudentIDs[$i];
     $surveydata .= "('$unitID', 1, $studentID, " . join(", ", $skills) . ")";
     $i += 1;
