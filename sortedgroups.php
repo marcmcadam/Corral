@@ -44,7 +44,8 @@
                 text-align: center; color: #e04000; border-right: thin solid $innerBorderColour; border-bottom: thin solid $innerBorderColour;
             }
         </style>";
-
+    
+    echo "<div style='margin-left: 300px;'>";
     echo "<h2>Sort Results</h2>";
 
     $posted = ($_SERVER["REQUEST_METHOD"] == "POST");
@@ -127,8 +128,9 @@
         }
     }
 
+    // skills labels table
     echo "<form method='post'>";
-    echo "<table class='listTable' align='center' style='text-align: left;'>";
+    echo "<table class='listTable' align='center' style='width: 256px; text-align: left; position: fixed; top: 64px; left: 0;'>";
 
     $skillLetters = [];
     $usedSkills = [];
@@ -141,6 +143,17 @@
         array_push($usedSkills, $i);
     }
 
+    for ($z = 0; $z < $numSkills; $z += 1)
+    {
+        echo "  <tr>";
+        $i = $usedSkills[$z];
+        $name = $skillNames[$i];
+        $letter = $skillLetters[$i];
+        echo "      <th>$letter</td>
+                    <td style='width: 192px'>$name</td>";
+        echo "  </tr>";
+    }
+    /*
     for ($j = 0; $j < 10; $j += 1)
     {
         echo "<tr>";
@@ -158,12 +171,13 @@
         }
         echo "</tr>";
     }
+    */
     echo "</table>";
-
     echo "<table align='center' style='text-align: center;'>";
 
     // count used columns
-    $numTableColumns = 3;
+    $numLeftColumns = 4;
+    $numTableColumns = $numLeftColumns;
     for ($i = 0; $i < $numSkills; $i += 1)
     {
         if (is_null($skillNames[$i]))
@@ -176,16 +190,8 @@
             <th width='32px'><input type='checkbox' disabled></th>
             <th colspan='2' style='text-align: left;'><input type='submit' class='updateButton' value='Save All Locks'></th>
             <th width='16px'>&nbsp;</th>
+            <th colspan='$numSkills'>&nbsp;</th>
         ";
-    // page-top column name headers
-    for ($i = 0; $i < $numSkills; $i += 1)
-    {
-        $name = $skillNames[$i];
-        if (is_null($name))
-            continue;
-        $letter = $skillLetters[$i];
-        echo "<th style='width: 48px'>$letter</th>";
-    }
 
     // spacing row
     echo "</tr><tr><td colspan='". $numTableColumns ."'>&nbsp;</td></tr>";
@@ -201,7 +207,19 @@
     {
         $project = $projects[$p];
 
-        sort($project->studentIndices); // not reliables. index orders of students might not be consistent
+        sort($project->studentIndices); // not reliable. index orders of students might not be consistent
+
+        echo "<tr><td colspan='$numLeftColumns'>&nbsp;</td>";
+        // column letter headers
+        for ($i = 0; $i < $numSkills; $i += 1)
+        {
+            $name = $skillNames[$i];
+            if (is_null($name))
+                continue;
+            $letter = $skillLetters[$i];
+            echo "<th style='width: 48px; font-weight: normal;'>$letter</th>";
+        }
+        echo "</tr>";
 
         // Print project name and skill requirements
         echo "<tr>";
@@ -309,5 +327,6 @@
     }
     echo "</table>";
     echo "</form>";
+    echo "</div>";
     require "footer.php";
 ?>
