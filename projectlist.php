@@ -29,7 +29,7 @@
                 <td align='center'>$project->leader</td>
                 <td align='center'>$project->email</td>
                 <td align='center'>$project->brief</td>
-                <td align='center'>$members</td>
+                <td align='center'>$members of $project->allocation</td>
                 <td align='center'><button value='".$project->id."' name='number' class='updateButton'>Update</button></td>
             </tr>";
     }

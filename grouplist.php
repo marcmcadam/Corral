@@ -63,6 +63,7 @@
     // display projects
     foreach ($projects as $p => $project)
     {
+        $members = sizeof($project->studentIndices);
         echo "  <tr>
                     <td valign='top'><table align='right' class='listTable'>
                         <tr>
@@ -79,7 +80,7 @@
                             <td style='text-align: left;'>$project->email</td>
                         </tr><tr>
                             <th>Members</th>
-                            <td style='text-align: left;'>$project->allocation</td>
+                            <td style='text-align: left;'>$members of $project->allocation</td>
                         </tr>
                     </table></td><td valign='top'><table align='left' class='listTable'>
                         <tr>
