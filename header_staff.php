@@ -15,6 +15,7 @@
 </head>
 
 <body>
+<div id="wrapper">
 <div class="navbar">
     <div class="menu" style="width: 12%;"><a href="staffhome"><p>Corral</p></a>
     </div>
