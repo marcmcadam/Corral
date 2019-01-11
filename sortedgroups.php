@@ -187,7 +187,7 @@
         array_push($usedSkills, $i);
     }
 
-    for ($z = 0; $z < $numSkills; $z += 1)
+    for ($z = 0; $z < sizeof($usedSkills); $z += 1)
     {
         echo "  <tr>";
         $i = $usedSkills[$z];
