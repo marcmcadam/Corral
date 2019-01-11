@@ -130,7 +130,7 @@
 
     // skills labels table
     echo "<form method='post'>";
-    echo "<table class='listTable' align='center' style='width: 256px; text-align: left; position: fixed; bottom: 0px; left: 0;'>";
+    echo "<table class='listTable' align='center' style='width: 256px; text-align: center; position: fixed; bottom: 8px; left: 28px; z-index: 1;'>";
 
     $skillLetters = [];
     $usedSkills = [];
@@ -149,8 +149,8 @@
         $i = $usedSkills[$z];
         $name = $skillNames[$i];
         $letter = $skillLetters[$i];
-        echo "      <th>$letter</td>
-                    <td style='width: 192px'>$name</td>";
+        echo "      <th>$letter</th>
+                    <td style='width: 192px;'>$name</td>";
         echo "  </tr>";
     }
     /*
@@ -165,7 +165,7 @@
                 $i = $usedSkills[$z];
                 $name = $skillNames[$i];
                 $letter = $skillLetters[$i];
-                echo "<th>$letter</td>
+                echo "<th>$letter</th>
                       <td style='width: 192px'>$name</td>";
             }
         }
@@ -185,16 +185,12 @@
         $numTableColumns += 1;
     }
     // empty page-top column headers
-    echo "<tr><td colspan='". $numTableColumns ."'>&nbsp;</td></tr>
-            <tr>
+    echo "<tr>
             <th width='32px'><input type='checkbox' disabled></th>
             <th colspan='2' style='text-align: left;'><input type='submit' class='updateButton' value='Save All Locks'></th>
             <th width='16px'>&nbsp;</th>
             <th colspan='$numSkills'>&nbsp;</th>
         ";
-
-    // spacing row
-    echo "</tr><tr><td colspan='". $numTableColumns ."'>&nbsp;</td></tr>";
 
     // find the max importance entry of everything, as the brightest value
     $importanceMax = 0.0;
