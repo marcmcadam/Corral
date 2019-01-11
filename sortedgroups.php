@@ -130,7 +130,7 @@
 
     // skills labels table
     echo "<form method='post'>";
-    echo "<table class='listTable' align='center' style='width: 256px; text-align: left; position: fixed; top: 64px; left: 0;'>";
+    echo "<table class='listTable' align='center' style='width: 256px; text-align: left; position: fixed; bottom: 0px; left: 0;'>";
 
     $skillLetters = [];
     $usedSkills = [];
