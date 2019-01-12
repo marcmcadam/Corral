@@ -145,41 +145,45 @@
       $update = FALSE;
     }
     echo "<form action=".htmlspecialchars($_SERVER['PHP_SELF'])." method='post'><table align='center'>";
+    echo "
+    <tr>
+      <td colspan='2' align='right'><label for='unit_Name'>Unit Name</label></td>
+      <td colspan='2' align='left'><input type='text' name='unit_Name' id='unit_Name'";
+      echo (isset($unit_Name) ? " value='".$unit_Name."'" : "");
+    echo "
+      class='inputBox' required></td>
+    </tr>";
     if(isset($unit_ID) && $unit_new==FALSE) {
       echo "
       <tr>
-        <td><label for='unit_ID'>Unit ID</label></td>
-        <td><input type='text' name='unit_IDd' id='unit_IDd' value='".$unit_ID."' class='inputBox' disabled><input type='hidden' name='unit_ID' id='unit_ID' value='".$unit_ID."'</td>
+        <td colspan='2' align='right'><label for='unit_ID'>Unit ID</label></td>
+        <td colspan='2' align='left'><input type='text' name='unit_IDd' id='unit_IDd' value='".$unit_ID."' class='inputBox' disabled><input type='hidden' name='unit_ID' id='unit_ID' value='".$unit_ID."'</td>
       </tr>";
     } else {
       echo "
       <tr>
-        <td><label for='unit_Code'>Unit Code</label></td>
-        <td><input type='text' name='unit_Code' id='unit_Code' class='inputBox' required>
-          <select name='unit_Trim' class='inputList'>
-            <option value='T1'>T1</option>
-            <option value='T2'>T2</option>
-            <option value='T3'>T3</option>
-          </select>
-          <select name='unit_Year' class='inputList'>
-            <option value='19'>2019</option>
-            <option value='20'>2020</option>
-            <option value='21'>2021</option>
-          </select>
-        </td>
+        <td colspan='2' align='right'><label for='unit_Code'>Unit Code</label></td>
+        <td colspan='2' align='left'><input type='text' name='unit_Code' id='unit_Code' class='inputBox' required></td>
+      </tr>
+      <tr>
+        <td colspan='2' align='right'><label for='unit_Trim'>Study Period</label></td>
+        <td colspan='2' align='left'><select name='unit_Trim' class='inputList'>
+          <option value='T1'>T1</option>
+          <option value='T2'>T2</option>
+          <option value='T3'>T3</option>
+        </select>
+        <select name='unit_Year' class='inputList'>
+          <option value='19'>2019</option>
+          <option value='20'>2020</option>
+          <option value='21'>2021</option>
+        </select></td>
       </tr>";
     }
+
     echo "
     <tr>
-      <td><label for='unit_Name'>Unit Name</label></td>
-      <td><input type='text' name='unit_Name' id='unit_Name'";
-      echo (isset($unit_Name) ? " value='".$unit_Name."'" : "");
-    echo "
-      class='inputBox' required></td>
-    </tr>
-    <tr>
-      <td><label for='sta_ID'>Unit Chair</label></td>
-      <td><select name ='sta_ID' class='inputList'>";
+      <td colspan='2' align='right'><label for='sta_ID'>Unit Chair</label></td>
+      <td colspan='2' align='left'><select name ='sta_ID' class='inputList'>";
     foreach($staff as $member) {
       echo "<option value='".$member[0]."'";
       if (isset($row['sta_ID'])) {
@@ -189,11 +193,18 @@
     }
     echo "</select></td>
     </tr>";
+	$j=1;
     for ($i=0;$i<20;$i++) {
-      $j = $i + 1;
       echo "
        <tr>
-        <td>Skill ".$j."</td>
+        <td>Skill ".$j++."</td>
+        <td><input type='text' name='".sprintf('skill_%02d', $i)."'";
+        echo (isset($row[sprintf('skill_%02d',$i)]) ? " value='".$row[sprintf('skill_%02d',$i)]."'" : "" );
+        echo "
+        class='inputBox '".($i==0 ? 'required' : '')."></td>";
+		$i += 1;
+		echo "
+		<td>Skill ".$j++."</td>
         <td><input type='text' name='".sprintf('skill_%02d', $i)."'";
         echo (isset($row[sprintf('skill_%02d',$i)]) ? " value='".$row[sprintf('skill_%02d',$i)]."'" : "" );
         echo "
@@ -202,8 +213,8 @@
     }
     echo "
       <tr>
-        <td><input type='submit' value='Update' class='inputButton'></td>
-        <td><input type='reset' value='Reset' class='inputButton'></td>
+        <td colspan='2'><input type='submit' value='".($update == FALSE ? 'Submit' : 'Update')."' class='inputButton'></td>
+        <td colspan='2'><input type='reset' value='Reset' class='inputButton'></td>
       </tr>
     </table></form>";
 
