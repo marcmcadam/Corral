@@ -70,29 +70,31 @@
       echo "<input type='hidden' name='unit_ID' value='".$unit_ID."' />
       <tr>
         <td><label for='unit_Name'>Unit Name</label></td>
-        <td><input type='text' name='unit_Name' id='unit_Name' value='". $row['unit_Name']."' class='inputBox'></td>
+        <td colspan='3'><input type='text' name='unit_Name' id='unit_Name' value='". $row['unit_Name']."' class='inputBox'></td>
       </tr>
       <tr>
         <td><label for='sta_ID'>Unit Chair</label></td>
-        <td><select name ='sta_ID' class='inputList'>";
+        <td colspan='3'><select name ='sta_ID' class='inputList'>";
       foreach($staff as $member) {
         echo "<option value='".$member[0]."'"; if ($row['sta_ID'] == $member[0]) echo "selected";
         echo ">".$member[1]." ".$member[2]."</option>";
       }
       echo "</select></td>
       </tr>";
+      $j=1;
       for ($i=0;$i<20;$i++) {
-        $j = $i + 1;
         echo '
          <tr>
-          <td>Skill '.$j.'</td>
+          <td>Skill '.$j++.'</td>
+          <td><input type="text" name="'.sprintf('skill_%02d', $i).'" value="'.$row[sprintf('skill_%02d',$i++)].'" class="inputBox"></td>
+          <td>Skill '.$j++.'</td>
           <td><input type="text" name="'.sprintf('skill_%02d', $i).'" value="'.$row[sprintf('skill_%02d',$i)].'" class="inputBox"></td>
          </tr>';
       }
       echo "
         <tr>
-          <td><input type='submit' value='Update' class='inputButton'></td>
-          <td><input type='reset' value='Reset' class='inputButton'></td>
+          <td colspan='2'><input type='submit' value='Update' class='inputButton'></td>
+          <td colspan='2'><input type='reset' value='Reset' class='inputButton'></td>
         </tr>
       </table></form>";
     } else {
