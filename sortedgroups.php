@@ -20,6 +20,9 @@
 
     $isSorting = !is_null($sort->pid);
 
+    echo "<div style='margin-left: 300px;'>";
+    echo "<h2>Sort Results</h2>";
+
     $posted = ($_SERVER["REQUEST_METHOD"] == "POST");
     if ($isSorting)
     {
@@ -48,9 +51,9 @@
         $rangeM = $sort->matrix / 10;
         $progressM = log($sort->m / 10) / log($rangeM);
 
-        echo "Iterations: " . (int)($progressI * 100) . "%<br>";
+        echo "Running Time: " . (int)($progressI * 100) . "%<br>";
         progressBar($progressI);
-        echo "<br>Matrix size: " . (int)($progressM * 100) . "%<br>";
+        echo "<br>Quality: " . (int)($progressM * 100) . "%<br>";
         progressBar($progressM);
         echo "<br><br>";
     }
@@ -171,8 +174,6 @@
             }
         </style>";
 
-    echo "<div style='margin-left: 300px;'>";
-    echo "<h2>Sort Results</h2>";
     echo "<form method='post'>";
     echo "<table class='listTable' align='center' style='width: 256px; text-align: center; position: fixed; bottom: 28px; left: 28px; z-index: 1;'>";
 
@@ -229,16 +230,15 @@
         $numTableColumns += 1;
     }
     // empty page-top column headers
-    echo "<tr><td colspan='". $numTableColumns ."'>&nbsp;</td></tr>
-            <tr>
-            <th width='32px'>
-                <input type='checkbox' id='aLock' onchange='aLockChange();' $lockDisable>
-            </th>
-            <th colspan='2' style='text-align: left;'>
-                <input type='submit' class='updateButton' value='Save All Locks'>
-            </th>
-            <th width='16px'>&nbsp;</th>
-            <th colspan='$numSkills'>&nbsp;</th>
+    echo "  <tr>
+                <th width='32px'>
+                    <input type='checkbox' id='aLock' onchange='aLockChange();' $lockDisable>
+                </th>
+                <th colspan='2' style='text-align: left;'>
+                    <input type='submit' class='updateButton' value='Save All Locks'>
+                </th>
+                <th width='16px'>&nbsp;</th>
+                <th colspan='$numSkills'>&nbsp;</th>
         ";
 
     // find the max importance entry of everything, as the brightest value
