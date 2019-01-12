@@ -1,10 +1,20 @@
 
+html {
+    height: 100%;
+}
+
 body {
+    height: 100%;
     color: #202020;
-    background: #404040;
+    background: #f8f8f8;
     margin: 0;
     padding: 0;
     font-family: Arial, Helvetica, sans-serif;
+}
+
+#wrapper {
+    min-height: 100%;
+    position: relative;
 }
 
 
@@ -97,7 +107,10 @@ body {
 .main {
     background: #f8f8f8;
 	text-align: center;
-    padding: 60px 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 60px;
+    padding-bottom: 120px;
 }
 
 .main a {
@@ -118,6 +131,9 @@ body {
 	text-align: center;
     font-family: Arial, Helvetica, sans-serif;
     border-top: thin solid #808080;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }
 
 
@@ -153,6 +169,12 @@ body {
 .updateBox {
     font-family: Arial, Helvetica, sans-serif;
     border-radius: 16px;
+    border: thin solid #e0e0e0;
+    padding: 1px 16px;
+}
+
+.updateList {
+    border-radius: 16px 0 0 16px;
     border: thin solid #e0e0e0;
     padding: 1px 16px;
 }
@@ -194,9 +216,11 @@ td {
 .listTable th {
     padding: 4px 8px;
     min-height: 32px;
-    border-right: thin solid #c0c0c0;
-    border-bottom: thin solid #c0c0c0;
-    background: #e0e0e0;
+    border-right: thin solid #306080;
+    border-bottom: thin solid #306080;
+    background: #005070;
+    color: #f8f8f8;
+    font-weight: normal;
 }
 
 .listTable td {

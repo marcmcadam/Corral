@@ -7,14 +7,16 @@
 ?>
 <script>
     var helps = [];
-    helps["start"] = "Begins the sorting process.<br>Once a large number of batches are processed without any swaps happening, the process is complete.<br>Only increasing the quality parameter will gain further improvement.<br><br><br>";
-    helps["iterations"] = "This is how many times the sorting will be repeated to try to improve the result.<br>Use the minimum that you think would finish sorting.<br>If it does not complete, the sorting can be continued by running this again.<br><br><br>";
-    helps["matrix"] = "This is how many students are compared at once. Increasing this:<br>- Allows more complex swaps, and will have a better result.<br>- Risks the server calculations timing-out or using too much memory.<br>Use the maximum available for server limits.<br>To save time, start with a low quality, and increase when the sorting has no more benefit.<br><br><br>";
+    helps["start"] = "";
+    helps["iterations"] = "Sorting will automatically stop if this number of iterations are reached.<br><br><br>";
+    helps["matrix"] = "The sorting will start at low quality and increase until it reaches this number.<br><br>This is how many students are compared at once. Increasing this:<br>- Allows more complex swaps, and will have a better result.<br>- Risks the server calculations timing-out or using too much memory.<br>Use the maximum available for server limits.<br><br><br>";
 
     function showHelp(helpName)
     {
-        document.getElementById(helpName).innerHTML = helps[helpName];
-        document.getElementById(helpName + "?").style.display = 'none';
+        if (document.getElementById(helpName).innerHTML == "")
+            document.getElementById(helpName).innerHTML = helps[helpName];
+        else
+            document.getElementById(helpName).innerHTML = "";
     }
 </script>
 <style>
@@ -29,27 +31,25 @@
             <td>
                 <input type="submit" value="Start Sorting" class="inputButton"><br>
                 <br>
-            </td><td style="min-width: 64px;">
+            </td><!--<td style="min-width: 64px; text-align: left;">
                 <input type="button" id="start?" value="?" onclick="showHelp('start');" class="updateButton"><br>
                 <br>
-            </td>
+            </td>-->
         </tr><tr>
             <td><div id="start" style='text-align: left; font-size: 0.75em;'></div></td>
         </tr><tr>
-            <td>
-                Running Time<br><input class="inputBox" type="text" name="iterations" value="<?php echo $sort->iterations; ?>"><br>
-                <br>
-            </td><td>
+            <td colspan="2">
+                Maximum Running Time<br><input class="inputBox" type="text" name="iterations" value="<?php echo $sort->iterations; ?>">
                 <input type="button" id="iterations?" value="?" onclick="showHelp('iterations');" class="updateButton"><br>
+                <br>
             </td>
         </tr><tr>
             <td><div id="iterations" style='text-align: left; font-size: 0.75em;'></div></td>
         </tr><tr> 
-            <td>
-                Quality<br><input class="inputBox" type="text" name="matrix" value="<?php echo $sort->matrix; ?>"><br>
-                <br>
-            </td><td>
+            <td colspan="2">
+                Maximum Quality<br><input class="inputBox" type="text" name="matrix" value="<?php echo $sort->matrix; ?>">
                 <input type="button" id="matrix?" value="?" onclick="showHelp('matrix');" class="updateButton"><br>
+                <br>
             </td>
         </tr><tr>
             <td><div id="matrix" style='text-align: left; font-size: 0.75em;'></div></td>

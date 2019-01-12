@@ -18,16 +18,29 @@
                 array_push($unassigned, $student);
         }
         
+        $totalCount = sizeof($students);
         $unassignedCount = sizeof($unassigned);
         echo "  <tr>
-                    <td valign='top' style='text-align: right;'>
-                    $unassignedCount Unassigned Students
-                    </td><td valign='top'><table align='left' class='listTable'>
+                    <td valign='top'><table align='right' class='listTable'>
+                        <tr>
+                            <th>Total Students</th>
+                            <td>$totalCount</td>
+                        </tr>
+                    </table></td>
+                    <td></td>
+                </tr><tr>
+                    <td valign='top'><table align='right' class='listTable'>
+                        <tr>
+                            <th style='text-align: left;'>Unassigned Students</th>
+                            <td style='text-align: left;'>$unassignedCount</td>
+                        </tr>
+                    </table></td><td valign='top'><table align='left' class='listTable'>
                         <tr>";
         if ($unassignedCount > 0)
         {
             echo "      <th>ID</th>
                         <th>Name</th>
+                        <th>Survey</th>
                         <th>Email</th>
                         <th>Campus</th>";
         }
@@ -35,9 +48,11 @@
         foreach ($unassigned as $student)
         {
             $campus = getCampus($student->campus);
+            $survey = is_null($student->skills) ? "-" : "Y";
             echo "      <tr>
-                            <td style='text-align: right; font-family: monospace;'>$student->id</td>
+                            <td style='text-align: right;'>$student->id</td>
                             <td style='text-align: left;'>$student->text</td>
+                            <td style='text-align: center;'>$survey</td>
                             <td style='text-align: left;'>$student->email</td>
                             <td style='text-align: left;'>$campus</td>
                         </tr>";
@@ -48,6 +63,7 @@
     // display projects
     foreach ($projects as $p => $project)
     {
+        $members = sizeof($project->studentIndices);
         echo "  <tr>
                     <td valign='top'><table align='right' class='listTable'>
                         <tr>
@@ -64,12 +80,13 @@
                             <td style='text-align: left;'>$project->email</td>
                         </tr><tr>
                             <th>Members</th>
-                            <td style='text-align: left;'>$project->allocation</td>
+                            <td style='text-align: left;'>$members of $project->allocation</td>
                         </tr>
                     </table></td><td valign='top'><table align='left' class='listTable'>
                         <tr>
                             <th>ID</th>
                             <th>Name</th>
+                            <th>Survey</th>
                             <th>Email</th>
                             <th>Campus</th>
                         </tr>";
@@ -77,9 +94,11 @@
         {
             $student = $students[$y];
             $campus = getCampus($student->campus);
+            $survey = is_null($student->skills) ? "-" : "Y";
             echo "      <tr>
-                            <td style='text-align: right; font-family: monospace;'>$student->id</td>
+                            <td style='text-align: right;'>$student->id</td>
                             <td style='text-align: left;'>$student->text</td>
+                            <td style='text-align: center;'>$survey</td>
                             <td style='text-align: left;'>$student->email</td>
                             <td style='text-align: left;'>$campus</td>
                         </tr>";

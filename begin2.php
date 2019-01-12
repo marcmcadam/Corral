@@ -22,7 +22,7 @@
         {
             // there is no good solution to backgrounding in windows
             //exec("C:\\xampp\\php\\php.exe SORT.PHP > NUL"); // this hangs other php pages
-            header("location: sort.php");
+            header("location: sort");
             die;
         }
         else
@@ -33,7 +33,7 @@
 ?>
 <div style="text-align: center; width: 100%;">
     <p>The student allocations are being processed in the background.</p>
-    <p>You may view the progress from <a href="sortedgroups.php">this page</a>.</p>
+    <p>You may view the group changes from <a href="sortedgroup">this page</a>.</p>
 </div>
 <?php
     require "footer.php";

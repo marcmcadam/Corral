@@ -60,15 +60,16 @@ if (isset($_GET["sv"])) // students for validation
 else
     $studentsValidation = 0;
 
+$totalStudents = $studentsRandom + $studentsValidation; // the number of students
+
 if (isset($_GET["pr"])) // projects that are random
     $projectsRandom = min(max((int)$_GET["pr"], 0), 10000); // number of random projects
 else
-    $projectsRandom = (int)($studentsRandom / 5);
+    $projectsRandom = (int)($totalStudents / 5);
 
 if ($studentsRandom + $studentsValidation < 100)
     $studentsRandom = 100 - $studentsValidation;
 
-$totalStudents = $studentsRandom + $studentsValidation; // the number of students
 $extraStudents = max($totalStudents - 100, 0); // number of students who do not have their details hard coded
 
 $totalProjects = $projectsRandom;

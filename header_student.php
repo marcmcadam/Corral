@@ -18,13 +18,14 @@ else
 <html>
 <head>
 <meta charset="utf-8">
-<title><?php echo $PageTitle; ?></title>
+<title><?php echo $PageTitle." - Corral"; ?></title>
 <link rel="stylesheet" type="text/css" href="styles.css">
 <link rel="icon" type="image/ico" href="favicon.ico">
 <?php echo isset($script) ? $script : "" ; // Echo header script if one exists (JavaScript Validation etc)?>
 </head>
 
 <body>
+<div id="wrapper">
 <div class="navbar">
 	<div class="menu" style="width: 20%;"><a href="studenthome"><p>Home</p></a>
 	</div><div class="menu" style="width: 20%;"> <a href="logout"><p>Logout</p></a>

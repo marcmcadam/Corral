@@ -1,8 +1,9 @@
 <?php
+    header('Cache-Control: no-cache');
+    
     session_start();
     require_once "staffauth.php";
-    
-    header('Cache-Control: no-cache');
+    session_write_close(); // allows other pages to load this session
 
     require_once "solver.php";
     require_once "getdata.php";
@@ -42,7 +43,7 @@
 
     // store the process id and set that the sorter is not signalled to stop
     $sortPID = getmypid();
-    $sql = "UPDATE unit SET sort_pid=$sortPID, sort_stop=0 WHERE unit_ID='$unitID'";
+    $sql = "UPDATE unit SET sort_pid=$sortPID, sort_stop=0, sort_i=0, sort_m=0 WHERE unit_ID='$unitID'";
     $res = mysqli_query($CON, $sql);
     if (!$res)
     {
@@ -50,28 +51,17 @@
         die;
     }
 
-    /* -- don't delete all. need to keep assignments that are locked
-        // delete all student project assignments
-        $sql = "TRUNCATE groups";
-        if (!mysqli_query($CON, $sql))
-            echo "<p>Error deleting project member: " . mysqli_error($CON) . "</p>";
-
-        echo "<p>Assignments erased</p>";
-        update();
-    */
-
-
     // generate dummy students to allow empty slots in groups for variable group sizes
     // the number of dummies needed depends on the difference between the total max size for projects and the number of students
     $slots = 0;
     foreach ($projects as $p => $project)
-        $slots += $project->allocation;
+        $slots += $project->slots;
     if ($slots < sizeof($students))
     {
         echo "<p>Too few tasks for the number of students</p>";
         die;
     }
-
+    
     $clevers = sizeof($students);
     if ($clevers < $slots)
     {
@@ -94,17 +84,7 @@
         die;
     }
 
-
-    // assign students randomly first
-    /*
-    $studentIndices = range(0, $clevers - 1);
-    shuffle($studentIndices);
-    //assign dummies last
-    for ($i = $clevers; $i < sizeof($students); $i += 1)
-        array_push($studentIndices, $i);
-    */
     $lockedStudents = [];
-    $numStudents = sizeof($students);
     $projectsLockedSize = array_fill(0, sizeof($projects), 0);
     foreach ($students as $y => $student)
     {
@@ -112,21 +92,10 @@
         {
             array_push($lockedStudents, $y);
             $p = $student->projectIndex;
-            $numStudents -= 1;
             if (!is_null($p))
                 $projectsLockedSize[$p] += 1;
         }
     }
-
-    /*
-    // free up all unlocked students
-    $projectStudents = array_fill(0, sizeof($projects), []);
-    for ($y = 0; $y < sizeof($students); $y += 1)
-    {
-        if (!$studentLocks[$y])
-            $studentProjects[$y] = -1;
-    }
-    */
 
     // collect unassigned students
     $freeStudents = [];
@@ -139,7 +108,7 @@
     foreach ($projects as $p => $project)
     {
         $members = sizeof($project->studentIndices);
-        $capacity = $project->allocation;
+        $capacity = $project->slots; // or ->slots variable, shouldn't matter for this
         $n = $members - $capacity; // number of excess students
         // free up some unlocked excess students to reduce this project
         $freed = 0;
@@ -156,8 +125,6 @@
                 $freed += 1;
             }
         }
-        if ($freed < $n)
-            die("A project is locked over capacity. Please increase capacity or unlock.");
         // remove the null values
         $nextProjectStudents = [];
         foreach ($project->studentIndices as $y)
@@ -172,7 +139,7 @@
     foreach ($projects as $p => $project)
     {
         $members = sizeof($project->studentIndices);
-        $capacity = $project->allocation;
+        $capacity = $project->slots;
         $n = $capacity - $members; // number of extra students needed
         for ($t = 0; $t < $n; $t += 1)
         {
@@ -188,8 +155,12 @@
             $databaseChanges[$y] = $p;
         }
     }
+
+    // the number of slots being the same as the number of students depends on
+    // whether the 2-stages of getdata.php->distribute() work correctly
+
     if ($index != $numFreeStudents)
-        die("Not all students able to be assigned.");
+        die("Distribution failed: not all students were able to be assigned.");
 
     /* -- changed this to leave all students where they are at the start, so it resumes from last in all ways
     // assign unlocked students to random tasks to begin with
@@ -244,11 +215,18 @@
         unset($students[$y]);
         $student->projectIndex = null;
     }
-    if (sizeof($students) == 0)
+    // clean out unset entries
+    $nextStudents = [];
+    foreach ($students as $y => $student)
+        $nextStudents[$y] = $student;
+    $students = $nextStudents;
+
+    $numStudents = sizeof($students);
+    if ($numStudents == 0)
         die("There are no unlocked students to sort.");
     echo "<p>Sorting $numStudents students</p>";
 
-    // remake getdata arrays for these changes
+    // remake getdata project->students arrays for these changes
     foreach ($projects as $p => $project)
         $project->studentIndices = [];
     foreach ($students as $y => $student)
@@ -262,26 +240,34 @@
     }
 
 
-    $maxInertia = $sort->inertia;
-    $batchSize = min($sort->matrix, $numStudents); // large batch sizes can breach the PHP memory limit
-    //$batchRatio = 2.0 * max(sizeof($students) / $batchSize, 1.0);
-    //$numBatches = (int)ceil($batchRatio * $batchRatio);
-    $numBatches = $sort->iterations;
+    // $maxInertia = $sort->inertia;
 
-    echo "<p>Total batches: $numBatches</p>";
+    // set starting maxtix size to a number where the amount of improvement done is worthwhile compared to the overhead of the SQL updates
+    // cannot have more size than students, because each row is a student
+    // better to have less size than projects, otherwise changing multiple students in/out of a group can lead to looping changes
+    $matrixLimit = min(sizeof($students), sizeof($projects));
+    $endMatrixSize = min($sort->matrix, $matrixLimit);
+    $matrixSize = min(min(10, $sort->matrix), $matrixLimit);
+    echo "<p>Iterations limit: $sort->iterations, Matrix size limit: $endMatrixSize</p>";
+    echo "<p>Matrix size: $matrixSize</p>";
     update();
 
-    for ($batch = 0; $batch < $numBatches; $batch += 1)
+    $matrixMultiplier = 1.25; // how much to multiply the size of the matrix when there are no swaps
+
+    $noSwapsCount = 0;
+    for ($batch = 0; $batch < $sort->iterations; $batch += 1)
     {
-        $progress = $batch / $numBatches;
+        // $progress = $batch / $sort->iterations;
+
+        $sql = "UPDATE unit SET sort_i=$batch, sort_m=$matrixSize WHERE unit_ID='$unitID'";
+        $res = mysqli_query($CON, $sql);
+        if (!$res)
+            die("Unable to set progress: " . mysqli_error($CON));
 
         $sql = "SELECT sort_pid, sort_stop FROM unit WHERE unit_ID='$unitID'";
         $res = mysqli_query($CON, $sql);
         if (!$res)
-        {
-            echo "Error: " . mysqli_error($CON);
-            die;
-        }
+            die("Error: " . mysqli_error($CON));
 
         if ($row = mysqli_fetch_assoc($res))
         {
@@ -302,7 +288,7 @@
         foreach ($projects as $p => $project)
             $projectStudentIndices[$p] = shuffleIndices(sizeof($project->studentIndices));
 
-        $numGroups = (int)ceil($numStudents / $batchSize);
+        $numGroups = (int)ceil($numStudents / $matrixSize);
         $projectStudentIndex = array_fill(0, sizeof($projects), 0);
 
         $projectSkills = [];
@@ -317,7 +303,7 @@
             $solver->usedSkills = $usedSkills;
 
             $solver->randomisation = $sort->random;
-            $solver->inertia = (int)($maxInertia * $progress * $progress); // progress squared so that inertia is mostly applied near the end of the processing
+            $solver->inertia = 0; // (int)($maxInertia * $progress * $progress); // progress squared so that inertia is mostly applied near the end of the processing
 
             $solver->students = [];
             $solver->projects = $projectSkills;
@@ -386,10 +372,7 @@
                 set_time_limit(30);
                 $solver->iterate();
                 if ($solver->iteration < 0)
-                {
-                    echo "<p>Solver encountered an error.</p>";
-                    die;
-                }
+                    die("Solver encountered an error.");
 
                 foreach ($solver->studentProjects as $solverY => $p)
                 {
@@ -417,17 +400,38 @@
         $swaps = sizeof($toDatabase);
 
         echo "<p>Completed batch: $batch, skill gain: $progress, students swapped: $swaps</p>";
+        if ($matrixSize < $endMatrixSize)
+        {
+            if ($swaps * $matrixSize < $numStudents)
+            {
+                $matrixSize = (int)ceil($matrixSize * $matrixMultiplier);
+                $matrixSize = min($matrixSize, $endMatrixSize);
+                echo "<p>Matrix size: $matrixSize</p>";
+            }
+        }
+        else
+        {
+            if ($swaps == 0)
+            {
+                $noSwapsCount += 1;
+                if ($noSwapsCount >= 10)
+                {
+                    echo "Sorting completed";
+                    break;
+                }
+            }
+            else
+                $noSwapsCount = 0;
+        }
+        
         update();
     }
-    echo "<p>Finished</p>";
+    echo "<p>Stopped</p>";
 
     $sql = "UPDATE unit SET sort_pid=null WHERE unit_ID='$unitID'";
     $res = mysqli_query($CON, $sql);
     if (!$res)
-    {
-        echo "Error: " . mysqli_error($CON);
-        die;
-    }
+        die("Unable to unset flags: " . mysqli_error($CON));
 
     function assignDatabase($studentProjects)
     {
