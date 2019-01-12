@@ -3,9 +3,14 @@
     require "header_staff.php";
     require_once "connectdb.php";
     require_once "getfunctions.php";
-    require_once "getdata.php";
+    require_once "unitdata.php";
 
-    sortingData($unitID, $skillNames, $sort, $students, $projects);
+    $unitData = unitData($unitID);
+    $skillNames = $unitData->skillNames;
+    $sort = $unitData->sort;
+    $students = $unitData->students;
+    $projects = $unitData->projects;
+    $unassigned = $unitData->unassigned;
 
     echo "<h2>Project List</h2>
     <form action='project' method='get'>

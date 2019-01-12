@@ -6,9 +6,14 @@
     session_write_close(); // allows other pages to load this session
 
     require_once "solver.php";
-    require_once "getdata.php";
+    require_once "unitdata.php";
 
-    sortingData($unitID, $skillNames, $sort, $students, $projects);
+    $unitData = unitData($unitID);
+    $skillNames = $unitData->skillNames;
+    $sort = $unitData->sort;
+    $students = $unitData->students;
+    $projects = $unitData->projects;
+    $unassigned = $unitData->unassigned;
 
     $numSkills = 20;
 

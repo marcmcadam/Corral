@@ -4,9 +4,14 @@
     require_once "connectdb.php";
     require_once "sanitise.php";
     require_once "solver.php";
-    require_once "getdata.php";
+    require_once "unitdata.php";
 
-    sortingData($unitID, $skillNames, $sort, $students, $projects);
+    $unitData = unitData($unitID);
+    $skillNames = $unitData->skillNames;
+    $sort = $unitData->sort;
+    $students = $unitData->students;
+    $projects = $unitData->projects;
+    $unassigned = $unitData->unassigned;
 
     $numSkills = 20;
 
