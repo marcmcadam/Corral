@@ -1,23 +1,21 @@
 <?php
-    $PageTitle = "Project Groups";
+    $PageTitle = "Group List";
     require "header_staff.php";
     require_once "connectdb.php";
-    require_once "getdata.php";
+    require_once "unitdata.php";
     require_once "getfunctions.php";
 
-    sortingData($unitID, $skillNames, $sort, $students, $projects);
+    $unitData = unitData($unitID);
+    $skillNames = $unitData->skillNames;
+    $sort = $unitData->sort;
+    $students = $unitData->students;
+    $projects = $unitData->projects;
+    $unassigned = $unitData->unassigned;
 
     echo "<h2>$PageTitle</h2>
         <table align='center' cellpadding='8px' style='width: 100%;'>";
     // display unassigned students
     {
-        $unassigned = [];
-        foreach ($students as $y => $student)
-        {
-            if (is_null($student->projectIndex))
-                array_push($unassigned, $student);
-        }
-        
         $totalCount = sizeof($students);
         $unassignedCount = sizeof($unassigned);
         echo "  <tr>
@@ -34,30 +32,9 @@
                             <th style='text-align: left;'>Unassigned Students</th>
                             <td style='text-align: left;'>$unassignedCount</td>
                         </tr>
-                    </table></td><td valign='top'><table align='left' class='listTable'>
-                        <tr>";
-        if ($unassignedCount > 0)
-        {
-            echo "      <th>ID</th>
-                        <th>Name</th>
-                        <th>Survey</th>
-                        <th>Email</th>
-                        <th>Campus</th>";
-        }
-        echo "      </tr>";
-        foreach ($unassigned as $student)
-        {
-            $campus = getCampus($student->campus);
-            $survey = is_null($student->skills) ? "-" : "Y";
-            echo "      <tr>
-                            <td style='text-align: right;'>$student->id</td>
-                            <td style='text-align: left;'>$student->text</td>
-                            <td style='text-align: center;'>$survey</td>
-                            <td style='text-align: left;'>$student->email</td>
-                            <td style='text-align: left;'>$campus</td>
-                        </tr>";
-        }
-        echo "      </table></td>
+                    </table></td><td valign='top'>";
+        groupStudentTable($students, $unassigned);
+        echo "      </td>
                 </tr>";
     }
     // display projects
@@ -82,28 +59,10 @@
                             <th>Members</th>
                             <td style='text-align: left;'>$members of $project->allocation</td>
                         </tr>
-                    </table></td><td valign='top'><table align='left' class='listTable'>
-                        <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Survey</th>
-                            <th>Email</th>
-                            <th>Campus</th>
-                        </tr>";
-        foreach ($project->studentIndices as $y)
-        {
-            $student = $students[$y];
-            $campus = getCampus($student->campus);
-            $survey = is_null($student->skills) ? "-" : "Y";
-            echo "      <tr>
-                            <td style='text-align: right;'>$student->id</td>
-                            <td style='text-align: left;'>$student->text</td>
-                            <td style='text-align: center;'>$survey</td>
-                            <td style='text-align: left;'>$student->email</td>
-                            <td style='text-align: left;'>$campus</td>
-                        </tr>";
-        }
-        echo "      </table></td>
+                    </table></td>
+                    <td valign='top'>";
+        groupStudentTable($students, $project->studentIndices);
+        echo "      </td>
                 </tr>";
     }
     echo "  </table>";
