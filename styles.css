@@ -204,6 +204,7 @@ table {
 /* default max-width to prevent excessive sized cells for long content */
 td {
     max-width: 384px;
+    overflow: hidden;
 }
 
 
