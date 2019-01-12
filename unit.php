@@ -213,7 +213,7 @@
     }
     echo "
       <tr>
-        <td colspan='2'><input type='submit' value='Update' class='inputButton'></td>
+        <td colspan='2'><input type='submit' value='".($update == FALSE ? 'Submit' : 'Update')."' class='inputButton'></td>
         <td colspan='2'><input type='reset' value='Reset' class='inputButton'></td>
       </tr>
     </table></form>";
