@@ -69,12 +69,12 @@
       echo "<form action=".htmlspecialchars($_SERVER['PHP_SELF'])." method='post'><table align='center'>";
       echo "<input type='hidden' name='unit_ID' value='".$unit_ID."' />
       <tr>
-        <td><label for='unit_Name'>Unit Name</label></td>
-        <td colspan='3'><input type='text' name='unit_Name' id='unit_Name' value='". $row['unit_Name']."' class='inputBox'></td>
+        <td colspan='2' align='right'><label for='unit_Name'>Unit Name</label></td>
+        <td colspan='2' align='left'><input type='text' name='unit_Name' id='unit_Name' value='". $row['unit_Name']."' class='inputBox'></td>
       </tr>
       <tr>
-        <td><label for='sta_ID'>Unit Chair</label></td>
-        <td colspan='3'><select name ='sta_ID' class='inputList'>";
+        <td colspan='2' align='right'><label for='sta_ID'>Unit Chair</label></td>
+        <td colspan='2' align='left'><select name ='sta_ID' class='inputList'>";
       foreach($staff as $member) {
         echo "<option value='".$member[0]."'"; if ($row['sta_ID'] == $member[0]) echo "selected";
         echo ">".$member[1]." ".$member[2]."</option>";
