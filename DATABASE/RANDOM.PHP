@@ -19,7 +19,7 @@
     function randomImportance()
     {
         global $rarity;
-        $r = random_int(0, (int)floor(4 + $rarity) - 1);
+        $r = random_int(0, (int)floor(4 + $rarity));
         //return (int)floor(min(max($r - $rarity, 0.0), 100.9));
         return (int)floor(min(max($r - $rarity, 0.0), 4.9));
     }
