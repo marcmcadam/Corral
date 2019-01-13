@@ -5,6 +5,8 @@ require_once "connectdb.php";
 require_once "getfunctions.php";
 require "sanitise.php";
 
+$maxSkillImportance = 4;
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $pro_ID_text = SanitiseGeneric($_POST['pro_ID'], $CON);
   if ($pro_ID_text == "")
@@ -41,13 +43,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     function postImportance($key)
     {
+        global $maxSkillImportance;
         global $CON;
         $text = "imp$key";
         if (array_key_exists($text, $_POST))
             $value = (int)mysqli_real_escape_string($CON, $_POST[$text]);
         else
             $value = 0;
-        return min(max($value, 0), 100);
+        return min(max($value, 0), $maxSkillImportance);
     }
 
     function postBias($key)
@@ -89,9 +92,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       die;
   }
 }
-?>
 
-<?php
+
+
+    echo "
+    <script>
+        function getImportanceText(number)
+        {
+            switch (number)
+            {
+                case 0:
+                    return 'None';
+                case 1:
+                    return 'Low';
+                case 2:
+                    return 'Moderate';
+                case 3:
+                    return 'High';
+                case 4:
+                    return 'Essential';
+                default:
+                    return '! out of range !';
+            }
+        }
+    </script>
+    ";
+
     $numSkills = 20;
     $skillnames = [];
 
@@ -150,6 +176,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $units = getUnits($CON);
       function skillOptions($n)
       {
+          global $maxSkillImportance;
           global $skillNames;
           global $skillImp;
           global $skillBias;
@@ -159,12 +186,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           $imp = $skillImp[$n];
           $bias = $skillBias[$n];
 
-          echo "<tr>
-              <td>$name</td>
-              <td><input type='range' min='0' max='100' id='imp$key' name='imp$key' value='$imp' oninput='outImp$key.value=imp$key.value'><br><br></td>
-              <td style='width: 32px'><output name='outImp$key' id='outImp$key' for='imp$key'>$imp</output><br><br></td>
-              <td><input type='range' min='-1' max='1' name='bias$key' value='$bias'><br><br></td>
-          </tr>";
+          $descriptionJS = "document.getElementById(\"outImp$key\").innerHTML=getImportanceText(parseInt(document.getElementById(\"imp$key\").value));";
+          echo "    <tr>
+                        <td>$name</td>
+                        <td><input type='range' min='0' max='$maxSkillImportance' id='imp$key' name='imp$key' value='$imp' oninput='$descriptionJS'></td>
+                        <td style='width: 32px' id='outImp$key'></td>
+                        <td><input type='range' min='-1' max='1' name='bias$key' value='$bias'></td>
+                        <script>$descriptionJS</script>
+                    </tr>
+                    "; // description script is inside the <tr> to keep n-th child styling correct
       }
       echo "
         <style>
@@ -173,18 +203,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           }
         </style>
         <div style='text-align: center;'>
-        <h2>Project Details</h2><br>
-        <form method='post'>
-            <input hidden type='text' name='pro_ID' value='$pro_ID'>
-                Project Title<br>
+            <h2>Project Details</h2><br>
+            <form method='post'>
+                <input hidden type='text' name='pro_ID' value='$pro_ID'>
+                Title<br>
                 <input type='text' name='PRO_TITLE' class='inputBox' value='$title'><br><br>
-                Project Leader<br>
+                Supervisor<br>
                 <input type='text' name='PRO_LEADER' class='inputBox' value='$leader'><br><br>
-                Leader Email<br>
+                Supervisor Email<br>
                 <input type='email' name='PRO_EMAIL' class='inputBox' value='$email'><br><br>
-                Project Brief<br>
+                Brief<br>
                 <textarea name='PRO_BRIEF' rows='5' cols='40' class='inputBox'>$brief</textarea><br><br>
-                Project Status
+                Status<br>
                 <select name='PRO_STATUS' class='inputList' size='1'>
                     <option value='Active'". ($status=='Active' ? 'Selected' : '') .">Active</option>
                     <option value='Inactive'". ($status=='Inactive' ? 'Selected' : '') .">Inactive</option>
@@ -192,25 +222,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <option value='Cancelled'". ($status=='Cancelled' ? 'Selected' : '') .">Cancelled</option>
                 </select><br>
                 <br>
-                Number of members:<br>";
+                Relative Number of Members<br>";
                 /*<br>";
                 Minimum <input type='text' name='min' value='$minimum'><br>
                 <br>
                 Maximum <input type='text' name='max' value='$maximum'><br>*/
         echo "  <input type='text' name='min' class='inputBox' value='$minimum'><br>
+                <sub>scaled up or down for the number of students</sub><br>
                 <input hidden type='text' name='max' value='0'><br>
-                <h2>Skills</h2>
-                <table align='center'>
+                <br>
+                <table align='center' class='listTable'>
                     <tr>
-                        <th>Skill</th>
-                        <th>Importance</th>
-                        <th>&nbsp;</th>
-                        <th>Bias</th>
+                        <th>Skill<br>&nbsp;</th>
+                        <th>Skill Demand<br><sub>irrelevant...essential</sub></th>
+                        <th style='width: 96px'>&nbsp;<br>&nbsp;</th>
+                        <th>Skill Level Preference<br><sub>many low skill...any...few high skill</sub></th>
                     </tr>
                     <tr>
-                        <td>All</td>
-                        <td><input type='range' min='0' max='100' id='impAll' name='impAll' value='$importance' oninput='outImpAll.value=impAll.value'><br><br></td>
-                        <td style='width: 32px'><output name='outImpAll' id='outImpAll' for='impAll'>$importance</output><br><br></td>
+                        <td>Amplify All</td>
+                        <td><input type='range' min='0' max='100' id='impAll' name='impAll' value='$importance' oninput='outImpAll.value=impAll.value'></td>
+                        <td style='width: 32px'><output name='outImpAll' id='outImpAll' for='impAll'>$importance</output></td>
+                        <td></td>
                     </tr>
         ";
 
@@ -223,8 +255,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         echo '  </table>
-            <input type="submit" value="Save Changes" style="font-size: 1.5em" class="inputButton">
-        </form>
+                <br>
+                <input type="submit" value="Save Changes" class="inputButton">
+            </form>
         </div>';
 
     require "footer.php";

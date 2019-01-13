@@ -126,7 +126,7 @@
                 $student->skills = $skills;
             }
             else
-                $student->skills = null;
+                $student->skills = array_fill(0, $numSkills, 0); // sorting with 0 skill if no survey complete
 
             $idStudents[$student->id] = sizeof($students);
             array_push($students, $student);
@@ -218,6 +218,7 @@
             $projects[$p]->slots = $size;
         }
         
+        // TODO: this risks subtracting from the same projects each time it loops. should eventually find a way to distribute the number correctly first time
         while (true)
         {
             $excess = 0;

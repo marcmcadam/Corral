@@ -192,7 +192,7 @@ for ($i = 0; $i < $totalProjects; $i += 1)
     $min = random_int(2, 8);
     array_push($projectSizes, $min);
     $max = 0;
-    $rarity = 200;
+    $rarity = 8; // 200;
     randomProject($skills, $imp, $biases);
     array_push($projectSkills, $skills);
     $status = randomProjectStatus();
@@ -205,10 +205,10 @@ $projectStudents = distribute($projectSizes, $studentsValidation);
 $i = 0;
 foreach ($projectStudents as $p => $size)
 {
-    // convert project skills (0...100) to survey skills (0...4)
+    // convert project skills (0...4) to survey skills (0...4)
     $skills = [];
     foreach ($projectSkills[$p] as $s => $z)
-        $skills[$s] = min(max((int)floor($z * 4.9 / 100), 0), 4);
+        $skills[$s] = $z; // with projects limited to 0...4 this 1:1, otherwise it needs scaling // min(max((int)floor($z * 4.9 / 100), 0), 4);
 
     for ($j = 0; $j < $size; $j += 1)
     {
