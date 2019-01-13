@@ -41,6 +41,7 @@
     class Project
     {
         public $unitID;
+        public $id;
         public $title;
         public $brief;
         public $leader;

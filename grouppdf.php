@@ -57,5 +57,5 @@
         ob_clean();
     }
 
-    $obj_pdf->Output("$unitID.pdf", "I");
+    $obj_pdf->Output("$unitID-groups.pdf", "I");
 ?>
