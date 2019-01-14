@@ -138,7 +138,7 @@
                             }
                             if ($impTotal > 0.0)
                                 $memberScoreA = $satisfaction / $impTotal;
-                        }
+                        }*/
                         $memberScoreB = 0.0;
                         {
                             // changed project
@@ -150,10 +150,10 @@
                                 $satisfaction += $demand->importance * $students[$y][$s];
                                 $impTotal += $demand->importance;
                             }
-                            if ($impTotal > 0.0)
-                                $memberScoreB = $satisfaction / $impTotal;
+                            //if ($impTotal > 0.0)
+                                $memberScoreB = $satisfaction; // / $impTotal;
                         }
-                        {
+                        /*{
                             // changed project
                             $satisfaction = 0.0;
                             $impTotal = 0.0;
@@ -226,7 +226,7 @@
                         }
 
                         //$cost += $memberScoreA * $projectScoreA - $memberScoreB * $projectScoreB;
-                        $cost = -$projectScoreB;
+                        $cost = -$projectScoreB * sizeof($projectStudents[$nextProject]) * $memberScoreB;
                     }
                     $element = $discretisation * $cost;
                     if ($element > PHP_INT_MAX)
