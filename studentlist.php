@@ -28,8 +28,8 @@
 
 foreach ($students as $y => $student)
 {
-    $surveyDone = ($student->skills == null) ? "-" : "Y";
-    $projectTitle = ($student->projectIndex != null) ? $projects[$student->projectIndex]->title : "-";
+    $surveyDone = is_null($student->skills) ? "-" : "Y";
+    $projectTitle = is_null($student->projectIndex) ? "-" : $projects[$student->projectIndex]->title;
     $campus = getCampus($student->campus);
 
     echo "<tr>
