@@ -52,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $md5 = md5($salt . $password . $salt);
         $query = "UPDATE staff SET sta_Password='".$md5."' WHERE sta_Email = '".$email."'";
         mysqli_query($CON, $query) or die(mysqli_error($CON));
-        echo "<p>Your password has been reset, please <a href='stafflogin.php'>login here</a>.</p>";
+        echo "<p>Your password has been reset, please <a href='stafflogin.php'>log in here</a>.</p>";
       }
 
       // Check if user is a student, if so reset password
