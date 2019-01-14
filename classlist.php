@@ -24,6 +24,7 @@ require "header_staff.php";
 			</tr>
 	</table>
 </form>
+<br>
 
 
 <?php
@@ -60,8 +61,6 @@ function SanitiseName($input, $CON){
   return $input;
 }
 
-
-		//move_uploaded_file($_FILES["csvFile"]["tmp_name"], $target_file);
 //If the form has been submitted explodes based upon \r giving each student's
 //		info as a single piece in an array
 		//variable name hierarchy
@@ -73,19 +72,22 @@ function SanitiseName($input, $CON){
 if( isset( $_POST['Submit'] ) ) {
 	if(isset($_POST['Student_List']) && $_POST['Student_List'] != NULL){
 		$Student_List = $_POST['Student_List'];
-	} else /*if (isset($_POST['csvFile'])) */{
+	} else /*if (isset($_POST['csvFile']))*/ {
 		$target_dir = "../uploads/";
 		$target_file = $target_dir . basename($_FILES["csvFile"]["name"]);
 		$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 		if($imageFileType == "csv"){
 			$Student_List = file_get_contents( $_FILES['csvFile']['tmp_name'] );
-		} else {
+		} else if ($imageFileType != "csv" && $imageFileType != NULL){
 			print "Only CSV files can be uploaded, please check your file extension.<br>";
+			$Student_List ="";
+		} else {
+			print "Blank fields detected";
 			$Student_List ="";
 		}
 	}
 //DEBUG
-//	print "Raw Data: ". $Student_List."<br><br> Other Stuff: <br>";
+	print "Raw Data: ". $Student_List."<br><br> Other Stuff: <br>";
 
 //NB explode could be replaced by fgetcsv()
 	$StudentArr = explode("\r", $Student_List);
@@ -111,6 +113,9 @@ if( isset( $_POST['Submit'] ) ) {
 			$stu_Campus = SanitiseGeneric($stu_info[3], $CON);
 			//[4] = email
 			$stu_Email = SanitiseEmail($stu_info[4], $CON);
+
+			$stu_Unit = SanitiseGeneric($stu_info[5], $CON);
+
 			//password
 				//NB this is not meant to be encrypted at all.
 					//it is meant to be impossible for the encryption produced in
@@ -142,7 +147,7 @@ if( isset( $_POST['Submit'] ) ) {
 				//SQL check if Student exists
 				$query = "SELECT stu_ID FROM student WHERE stu_ID = '".$stu_info[0]."'";
 				$result = mysqli_query($CON, $query) or die(mysqli_error($CON));
-				//if they do, break
+				//if they do, update
 				if(mysqli_num_rows($result) > 0){
 					//update
 					$insert_query =
@@ -159,14 +164,12 @@ if( isset( $_POST['Submit'] ) ) {
 
 
 					$insert_SQL = mysqli_query($CON, $insert_query) or die(mysqli_error($CON));
-
 					//DEBUG
-				//	echo $insert_query."<br>";
+					//	echo $insert_query."<br>";
 					//report line
-					print "<b>Duplicate</b> found for ID: ".$stu_ID." <b>".$stu_FirstName." "."$stu_LastName"."</b>, updateding the DB with the new information<br><br>";
+					print "<b>Duplicate</b> found for ID: ".$stu_ID." <b>".$stu_FirstName." "."$stu_LastName"."</b>, updating the DB with the new information<br><br>";
 				} else {
-					//if not then
-					//add to
+					//if not then INSERT
 					$insert_query =
 						"INSERT INTO student
 								(stu_ID, stu_FirstName, stu_LastName, stu_Campus,
@@ -182,26 +185,44 @@ if( isset( $_POST['Submit'] ) ) {
 				//	echo $insert_query."<br>";
 				//	print"<b>".$stu_FirstName." "."$stu_LastName"."</b> was added to the DB<br><br>";
 				}
+				print "Students added to db";
+				/*---------------------
+				//
+				//		Add students to survey with unit field
+				//	$stu_ID, $stu_Unit
+
+				INSERT INTO `surveyanswer` (`stu_ID`, `unit_ID`,  `submitted`, `)
+				VALUES ('$stu_ID', '$stu_Unit', '0', )
+				//----------------------*/
+				$UnitDupCheck_QUERY = "SELECT stu_ID FROM surveyanswer WHERE stu_ID = '".$stu_info[0]."' and unit_ID = '".$stu_Unit."'";
+				$UnitDupCheck_SQL = mysqli_query($CON, $UnitDupCheck_QUERY) or die(mysqli_error($CON));
+				//if they do, update
+				if(mysqli_num_rows($UnitDupCheck_SQL) > 0){
+					$unitQuery =
+						"UPDATE surveyanswer SET
+								submitted = '0'
+							WHERE
+								stu_ID = '".$stu_info[0]."' and
+								unit_ID = '".$stu_Unit."'";
+					$unit_SQL = mysqli_query($CON, $unitQuery) or die(mysqli_error($CON));
+				} else {
+					$unitQuery =
+						"INSERT INTO surveyanswer
+								(stu_ID, unit_ID,  submitted )
+						VALUES ('$stu_ID', '$stu_Unit', '0' )";
+					$unit_SQL = mysqli_query($CON, $unitQuery) or die(mysqli_error($CON));
+				}
+
 			}
 
+		} else if($stu_ID == "" || $stu_ID == " " || $stu_ID == "Student ID"){
+			// DEBUG
+			//print "student number is blank <br>";
 		} else {
 			print "Student number must contain only nine numbers, for: ".$stu_ID.",<br>";
 		}
 
 	}
-}
-
-//move to different page
-if( isset( $_POST['GetSample'] ) ) {
-	//headers so file is downloaded, not displayed
-  header('Content-Type: text/csv; charset=utf-8');
-  header('Content-Disposition: attachment; filename=Sample_Student_CSV.csv');
-  //create output variable
-  $output = fopen('php://output', 'w');
-  //column headings
-  fputcsv($output, array('Student ID','FirstName','LastName','Campus (1=Burwood. 2=Geelong. 3=Cloud)', 'Student Email'));
-  //DEBUG
-//	fputcsv($output, array('123456781','Jack','McDorkman','3','JackMcDorkman@deakin.edu.au'));
 }
 
 
