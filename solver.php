@@ -24,10 +24,10 @@
 
         // tiny randomisation bypasses an endless loop, caused by excessive identical values, in our acquired Hungarian algorithm code
         // the more randomisation there is, the faster it goes. could be because the values are more ordered instead of the same, and that reduces the number of possibilities
-        public $randomisation = 9;
+        public $randomisation;
 
         // the cost of changing from the current situation. forces it to settle
-        public $inertia = 0;
+        public $inertia;
 
         public $processing = false;
         public $iteration = 0;
@@ -36,6 +36,7 @@
         public $projects;
 
         public $tasks;
+        public $taskStudents;
 
         public $projectMinima;
 
@@ -56,9 +57,6 @@
             $this->processing = true;
             $this->iteration += 1;
 
-            // the cost to do something that should not be done
-            $lastResort = 100.0;
-
             $displayOutput = $this->displayOutput;
             $numSkills = $this->numSkills;
             $usedSkills = $this->usedSkills;
@@ -71,6 +69,7 @@
             $tasks = $this->tasks;
             $projectMinima = $this->projectMinima;
             $projectTasks = $this->projectTasks;
+            $taskStudents = $this->taskStudents;
             $studentProjects = $this->studentProjects;
             $projectStudents = $this->projectStudents;
             $dummies = $this->dummies;
@@ -117,9 +116,12 @@
                 for ($x = 0; $x < sizeof($tasks); $x += 1)
                 {
                     $nextProject = $tasks[$x];
+                    $outY = $taskStudents[$x];
+
                     $cost = 0.0;
-                    if ($nextProject != $currentProject)
+                    //if ($nextProject != $currentProject)
                     {
+                        /*
                         // measure how much the project suits the member's skills
                         // (i*a + j*b)/(i + j)
                         $memberScoreA = 0.0;
@@ -151,6 +153,20 @@
                             if ($impTotal > 0.0)
                                 $memberScoreB = $satisfaction / $impTotal;
                         }
+                        {
+                            // changed project
+                            $satisfaction = 0.0;
+                            $impTotal = 0.0;
+                            foreach ($usedSkills as $s)
+                            {
+                                $demand = $projects[$currentProject][$s];
+                                $satisfaction += $demand->importance * $students[$y][$s];
+                                $impTotal += $demand->importance;
+                            }
+                            if ($impTotal > 0.0)
+                                $memberScoreB -= $satisfaction / $impTotal;
+                        }
+                        */
 
                         $projectScoreA = 0.0;
                         $projectScoreB = 0.0;
@@ -158,6 +174,7 @@
                         {
                             // measure how significant the member is to satisfying the project's needs
                             // i*a1^n/(a1^n + a2^n)
+                            /*
                             if ($currentProject >= 0)
                             {
                                 // current project
@@ -168,16 +185,16 @@
                                     $satisfaction /= $total;
                                 $projectScoreA += $demand->importance * $satisfaction;
                             }
+                            */
                             {
                                 // changed project
                                 $demand = $projects[$nextProject][$s];
+                                $outSatisfaction = Solver::memberScore($demand, $students[$outY][$s]);
                                 $satisfaction = Solver::memberScore($demand, $students[$y][$s]);
                                 $total = $totals[$nextProject][$s];
-                                if ($currentProject != $nextProject)
-                                    $total += $satisfaction;
-                                if ($total > 0.0)
-                                    $satisfaction /= $total;
-                                $projectScoreB += $demand->importance * $satisfaction;
+                                $nextTotal = $total + $satisfaction - $outSatisfaction;
+                                if ($satisfaction > 0.0)
+                                    $projectScoreB += $demand->importance * $satisfaction / $nextTotal;
                             }
 
                             /*
@@ -208,20 +225,19 @@
                             */
                         }
 
-                        //$cost += sqrt($memberScoreA * $projectScoreA) - sqrt($memberScoreB * $projectScoreB);
                         $cost += $memberScoreA * $projectScoreA - $memberScoreB * $projectScoreB;
+                        $cost = -$projectScoreB;
                     }
                     $element = $discretisation * $cost;
-                    if ($nextProject != $currentProject)
-                        $element += $inertia;
                     if ($element > PHP_INT_MAX)
                     {
                         $this->iteration = -1;
                         return false;
                     }
                     $discrete = (int)$element;
-                    //if ($nextProject != $currentProject)
-                        $discrete += random_int(-$randomisation, 0);
+                    $discrete += random_int(0, $randomisation);
+                    if ($nextProject != $currentProject)
+                        $discrete += $inertia;
                     $row[$x] = $discrete;
                 }
                 $matrix[$y] = $row;

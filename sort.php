@@ -252,7 +252,7 @@
     // better to have less size than projects, otherwise changing multiple students in/out of a group can lead to looping changes
     $matrixLimit = min(sizeof($students), sizeof($projects));
     $endMatrixSize = min($sort->matrix, $matrixLimit);
-    $matrixSize = min(min(10, $sort->matrix), $matrixLimit);
+    $matrixSize = $endMatrixSize; // min(min(10, $sort->matrix), $matrixLimit);
     echo "<p>Iterations limit: $sort->iterations, Matrix size limit: $endMatrixSize</p>";
     echo "<p>Matrix size: $matrixSize</p>";
     update();
@@ -307,14 +307,15 @@
             $solver->numSkills = $numSkills;
             $solver->usedSkills = $usedSkills;
 
-            $solver->randomisation = $sort->random;
-            $solver->inertia = 0; // (int)($maxInertia * $progress * $progress); // progress squared so that inertia is mostly applied near the end of the processing
+            $solver->randomisation = 1; // $sort->random;
+            $solver->inertia = 1; // (int)($maxInertia * $progress * $progress); // progress squared so that inertia is mostly applied near the end of the processing
 
             $solver->students = [];
             $solver->projects = $projectSkills;
 
             $solver->tasks = [];
             $solver->projectTasks = array_fill(0, sizeof($projects), []);
+            $solver->taskStudents = [];
 
             $solver->projectStudents = array_fill(0, sizeof($projects), []);
             $solver->studentProjects = array_fill(0, sizeof($students), -1);
@@ -334,6 +335,8 @@
                 $remainingStudents = sizeof($project->studentIndices) - $position;
                 $r = 0.01 * rand(0, 99); // random rounding. allows groups with less than one student per project, to avoid taking zero students or all students at once
                 $takeSize = floor($remainingStudents / $remainingGroups + $r);
+
+                $takeSize = min($takeSize, 1); // take max 1 from each project. more can cause looping changes
 
                 $projectStudentIndex[$p] = $position + $takeSize;
 
@@ -359,6 +362,7 @@
                     $taskIndex = sizeof($solver->tasks);
                     array_push($solver->tasks, $p);
                     array_push($solver->projectTasks[$p], $taskIndex);
+                    $solver->taskStudents[$taskIndex] = $solverY;
                 }
             }
 

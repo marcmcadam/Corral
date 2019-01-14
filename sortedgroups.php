@@ -58,8 +58,8 @@
 
         echo "Running Time: " . (int)($progressI * 100) . "%<br>";
         progressBar($progressI);
-        echo "<br>Quality: " . (int)($progressM * 100) . "%<br>";
-        progressBar($progressM);
+        //echo "<br>Quality: " . (int)($progressM * 100) . "%<br>";
+        //progressBar($progressM);
         echo "<br><br>";
     }
     else
@@ -166,7 +166,7 @@
                 color: #f0f0f0; font-size: 0.75em; border-bottom: thin solid black; border-top: thin solid $innerBorderColour; border-right: thin solid $innerBorderColour;
             }
             .sortSkillCell {
-                color: white; border-bottom: thin solid $innerBorderColour; border-right: thin solid $innerBorderColour;
+                min-width: 44px; color: white; border-bottom: thin solid $innerBorderColour; border-right: thin solid $innerBorderColour;
             }
             .sortID {
                 text-align: right; border-bottom: thin solid $innerBorderColour;
