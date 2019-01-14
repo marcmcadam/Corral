@@ -16,7 +16,6 @@
     <form action='project' method='get'>
     <table class='listTable' align='center'>
         <tr>
-            <th>Unit</th>
             <th>Title</th>
             <th>Leader</th>
             <th>Leader Email</th>
@@ -29,13 +28,12 @@
     {
         $members = sizeof($project->studentIndices);
         echo "<tr>
-                <td align='center'>$project->unitID</td>
                 <td align='center'>$project->title</td>
                 <td align='center'>$project->leader</td>
                 <td align='center'>$project->email</td>
                 <td align='center'>$project->brief</td>
                 <td align='center'>$members of $project->allocation</td>
-                <td align='center'><button value='".$project->id."' name='number' class='updateButton'>Update</button></td>
+                <td align='center'><button value='$project->id' name='number' class='updateButton'>Update</button></td>
             </tr>";
     }
 
