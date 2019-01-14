@@ -300,6 +300,7 @@
         foreach ($projects as $p => $project)
             $projectSkills[$p] = $project->skills;
 
+        $cost = 0;
         $toDatabase = [];
         for ($g = 0; $g < $numGroups; $g += 1)
         {
@@ -380,6 +381,7 @@
             {
                 set_time_limit(30);
                 $solver->iterate();
+                $cost += $solver->cost;
                 if ($solver->iteration < 0)
                     die("Solver encountered an error.");
 
@@ -404,11 +406,10 @@
         }
         assignDatabase($toDatabase);
 
-        $cost = $solver->cost;
         $progress = -$cost;
         $swaps = sizeof($toDatabase);
 
-        echo "<p>Completed batch: $batch, skill gain: $progress, students swapped: $swaps</p>";
+        echo "<p>Completed batch: $batch, sort quality: $progress, students swapped: $swaps</p>";
         if ($matrixSize < $endMatrixSize)
         {
             if ($swaps * $matrixSize < $numStudents)

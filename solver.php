@@ -168,7 +168,7 @@
                         }
                         */
 
-                        $projectScoreA = 0.0;
+                        //$projectScoreA = 0.0;
                         $projectScoreB = 0.0;
                         foreach ($usedSkills as $s)
                         {
@@ -225,7 +225,7 @@
                             */
                         }
 
-                        $cost += $memberScoreA * $projectScoreA - $memberScoreB * $projectScoreB;
+                        //$cost += $memberScoreA * $projectScoreA - $memberScoreB * $projectScoreB;
                         $cost = -$projectScoreB;
                     }
                     $element = $discretisation * $cost;
