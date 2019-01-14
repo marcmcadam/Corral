@@ -10,8 +10,6 @@ require "header_staff.php";
 			<tr valign='top'>
 					<td> Student List:
 						</td>
-					<td colspan='2'><textarea rows="10" cols="75" name="Student_List" class="inputBox"></textarea>
-						</td>
 			</tr>
 			<tr>
 					<td></td>
