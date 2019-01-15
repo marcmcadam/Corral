@@ -1,10 +1,12 @@
 <?php
 require_once "connectdb.php";
-$PageTitle = "Class List";
+$PageTitle = "Import Students";
 require "header_staff.php";
+require_once "sanitise.php";
 ?>
 
-<h2 class="main">Class List</h2>
+<h2 class="main">Import Students from CSV</h2>
+<p> You may either copy and paste the student information in csv into the form field, or attach the .csv file.</p>
 <form name="classlist" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>"  method="post" enctype="multipart/form-data">
 	<table align="center">
 			<tr valign='top'>
@@ -28,38 +30,7 @@ require "header_staff.php";
 
 
 <?php
-//----------------------------------------
-//|         FUNCTIONS                    |
-//----------------------------------------
-/*if(!isset($CON)){
-	print "CON not set <br><br>";
-	include('connectdb.php');
-} else {
-	print "CON is set <br><br>";
-}*/
-function SanitiseGeneric($input, $CON){
-	$input = preg_replace("/[']+/", "", $input);
-	$input = preg_replace("/[,]+/", "", $input);
-	$input = mysqli_real_escape_string($CON,$input);
-  $input = strip_tags($input);
-	$input = trim($input);
-  return $input;
-}
-function SanitiseEmail($input, $CON){
-	$input = preg_replace("/[']+/", "", $input);
-	$input = preg_replace("/[,]+/", "", $input);
-	$input = mysqli_real_escape_string($CON,$input);
-  $input = strip_tags($input);
-	$input = trim($input);
-  $input = strtolower($input);
-  return $input;
-}
-function SanitiseName($input, $CON){
-	$input = preg_replace("/[^a-zA-Z]+/", "", $input);
-  $input = strip_tags($input);
-	$input = trim($input);
-  return $input;
-}
+
 
 //If the form has been submitted explodes based upon \r giving each student's
 //		info as a single piece in an array
@@ -79,15 +50,15 @@ if( isset( $_POST['Submit'] ) ) {
 		if($imageFileType == "csv"){
 			$Student_List = file_get_contents( $_FILES['csvFile']['tmp_name'] );
 		} else if ($imageFileType != "csv" && $imageFileType != NULL){
-			print "Only CSV files can be uploaded, please check your file extension.<br>";
+			print "Import failed: Only CSV files can be uploaded, please check your file extension.<br>";
 			$Student_List ="";
 		} else {
-			print "Blank fields detected";
+			print "Import failed: No imported information detected. <br>";
 			$Student_List ="";
 		}
 	}
 //DEBUG
-	print "Raw Data: ". $Student_List."<br><br> Other Stuff: <br>";
+//	print "Raw Data: ". $Student_List."<br><br> Other Stuff: <br>";
 
 //NB explode could be replaced by fgetcsv()
 	$StudentArr = explode("\r", $Student_List);
@@ -101,20 +72,20 @@ if( isset( $_POST['Submit'] ) ) {
 //	print "Stu ID: ".$stu_info[0]."<br>";
 
 		//[0] = Student ID
-		$stu_ID = SanitiseGeneric($stu_info[0], $CON);
+		$stu_ID = SanitiseInput($stu_info[0], $CON);
 		//Validate student id is only numbers
 	 	if(preg_match('/[0-9]{9}/', $stu_ID) ){
 
 			//[1] = First name
-			$stu_FirstName = SanitiseName($stu_info[1], $CON);
+			$stu_FirstName = SanitiseInput($stu_info[1], $CON);
 			//[2] = last Name
-			$stu_LastName = SanitiseName($stu_info[2], $CON);
+			$stu_LastName = SanitiseInput($stu_info[2], $CON);
 			//[3] = Campus
-			$stu_Campus = SanitiseGeneric($stu_info[3], $CON);
+			$stu_Campus = SanitiseInput($stu_info[3], $CON);
 			//[4] = email
-			$stu_Email = SanitiseEmail($stu_info[4], $CON);
+			$stu_Email = SanitiseInput($stu_info[4], $CON);
 
-			$stu_Unit = SanitiseGeneric($stu_info[5], $CON);
+			$stu_Unit = SanitiseInput($stu_info[5], $CON);
 
 			//password
 				//NB this is not meant to be encrypted at all.
@@ -129,11 +100,11 @@ if( isset( $_POST['Submit'] ) ) {
 
 			//Validation
 			if(!preg_match('/[1-3]{1}/', $stu_Campus) ){
-				print "<span style='color:red' >ERROR in stu_Campus: $stu_Campus </span><br>";
+				print "<span style='color:red' >Import failed: ERROR in stu_Campus: $stu_Campus </span><br>";
 				$Validation = 0;
 			} else {
 				if(!preg_match('/[A-Za-z0-9]*@deakin.edu.au/', $stu_Email) ){
-					print "<span style='color:red' >ERROR in stu_Email: $stu_Email </span> <br>";
+					print "<span style='color:red' >Import failed: ERROR in stu_Email: $stu_Email </span> <br>";
 					$Validation = 0;
 				} else {
 					$Validation = 1;
@@ -142,7 +113,8 @@ if( isset( $_POST['Submit'] ) ) {
 
 
 			if ($Validation == 0){
-				print "<span style='color:red' >An error occured, see error list above.</span><br><br>";
+			//	print "<span style='color:red' >An error occured, see error list above.</span><br><br>";
+				print "Import failed, failed validation of data for ID: ".$stu_ID."<br>";
 			} else {
 				//SQL check if Student exists
 				$query = "SELECT stu_ID FROM student WHERE stu_ID = '".$stu_info[0]."'";
@@ -185,7 +157,7 @@ if( isset( $_POST['Submit'] ) ) {
 				//	echo $insert_query."<br>";
 				//	print"<b>".$stu_FirstName." "."$stu_LastName"."</b> was added to the DB<br><br>";
 				}
-				print "Students added to db";
+				print "Import Successful";
 				/*---------------------
 				//
 				//		Add students to survey with unit field
