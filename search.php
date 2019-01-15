@@ -90,8 +90,8 @@ if (isset($_GET['search'])) {
         <table class='listTable' align='center'>
           <tr>
               <th>Project Title</th>
-              <th>Project Leader</th>
-              <th>Leader Email</th>
+              <th>Supervisor</th>
+              <th>Supervisor Email</th>
               <th>Project Status</th>
               <th>Update</th>
           </tr>";

@@ -17,8 +17,8 @@
     <table class='listTable' align='center'>
         <tr>
             <th>Title</th>
-            <th>Leader</th>
-            <th>Leader Email</th>
+            <th>Supervisor</th>
+            <th>Supervisor Email</th>
             <th>Brief</th>
             <th>Members</th>
             <th>Update</th>

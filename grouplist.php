@@ -50,10 +50,10 @@
                             <th>Brief</th>
                             <td style='text-align: left;'>$project->brief</td>
                         </tr><tr>
-                            <th>Leader</th>
+                            <th>Supervisor</th>
                             <td style='text-align: left;'>$project->leader</td>
                         </tr><tr>
-                            <th>Email</th>
+                            <th>Supervisor Email</th>
                             <td style='text-align: left;'>$project->email</td>
                         </tr><tr>
                             <th>Members</th>
