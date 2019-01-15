@@ -4,8 +4,9 @@ require "header_staff.php";
 require_once "connectdb.php";
 require_once "getfunctions.php";
 require "sanitise.php";
-require "styles.css";
+?>
 
+<?php
 // define variables and set to empty values
 $titleErr = $leaderErr = $emailErr = $briefErr = $statusErr = "";
 $PRO_TITLE = $PRO_LEADER = $PRO_EMAIL = $PRO_BRIEF = $PRO_STATUS = "";
@@ -14,35 +15,43 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if (empty($_POST["PRO_TITLE"])) {
     $titleErr = "Title is required";
   } else {
-    $PRO_TITLE = postImportance($_POST["PRO_TITLE"]);
+    $PRO_TITLE = input($_POST["PRO_TITLE"]);
   }
 
 if (empty($_POST["PRO_LEADER"])) {
     $leaderErr = "Leader is required";
 } else {
-  $PRO_LEADER = postImportance($_POST["PRO_LEADER"]);
+  $PRO_LEADER = input($_POST["PRO_LEADER"]);
 }
 
 if (empty($_POST["PRO_EMAIL"])) {
     $emailErr = "Email is required";
 } else {
-  $PRO_EMAIL = postImportance($_POST["PRO_EMAIL"]);
+  $PRO_EMAIL = input($_POST["PRO_EMAIL"]);
 }
 
 if (empty($_POST["PRO_BRIEF"])) {
     $briefErr = "Brief is required";
 } else {
-  $PRO_BRIEF = postImportance($_POST["PRO_BRIEF"]);
+  $PRO_BRIEF = input($_POST["PRO_BRIEF"]);
 }
 
 if (empty($_POST["PRO_STATUS"])) {
     $statusErr = "Status is required";
 } else {
-  $PRO_STATUS = postImportance($_POST["PRO_STATUS"]);
+  $PRO_STATUS = input($_POST["PRO_STATUS"]);
 }
 }
 
+function input($data) {
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
+}
+?>
 
+<?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $pro_ID_text = SanitiseGeneric($_POST['pro_ID'], $CON);
   if ($pro_ID_text == "")
@@ -215,20 +224,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <form method='post'>
             <input hidden type='text' name='pro_ID' value='$pro_ID'>
                 Project Title<br>
-                <input type='text' name='PRO_TITLE' class='inputBox' value='$title'><span class="error">* <?php echo $titleErr;?></span><br><br>
+                <input type='text' name='PRO_TITLE' class='inputBox' value='$title'></span><br><br>
                 Project Leader<br>
-                <input type='text' name='PRO_LEADER' class='inputBox' value='$leader'><span class="error">* <?php echo $leaderErr;?></span><br><br>
+                <input type='text' name='PRO_LEADER' class='inputBox' value='$leader'><br><br>
                 Leader Email<br>
-                <input type='email' name='PRO_EMAIL' class='inputBox' value='$email'><span class="error">* <?php echo $emailErr;?></span><br><br>
+                <input type='email' name='PRO_EMAIL' class='inputBox' value='$email'><br><br>
                 Project Brief<br>
-                <textarea name='PRO_BRIEF' rows='5' cols='40' class='inputBox'>$brief</textarea><span class="error"><?php echo $briefErr;?></span><br><br>
+                <textarea name='PRO_BRIEF' rows='5' cols='40' class='inputBox'>$brief</textarea><br><br>
                 Project Status
                 <select name='PRO_STATUS' class='inputList' size='1'>
                     <option value='Active'". ($status=='Active' ? 'Selected' : '') .">Active</option>
                     <option value='Inactive'". ($status=='Inactive' ? 'Selected' : '') .">Inactive</option>
                     <option value='Planning'". ($status=='Planning' ? 'Selected' : '') .">Planning</option>
                     <option value='Cancelled'". ($status=='Cancelled' ? 'Selected' : '') .">Cancelled</option>
-                </select><span class="error"><?php echo $statusErr;?></span>
+                </select>
                 <br><br>
                 Number of members:<br>";
                 /*<br>";
