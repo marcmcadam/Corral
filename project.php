@@ -7,51 +7,6 @@ require "sanitise.php";
 ?>
 
 <?php
-// define variables and set to empty values
-$titleErr = $leaderErr = $emailErr = $briefErr = $statusErr = "";
-$PRO_TITLE = $PRO_LEADER = $PRO_EMAIL = $PRO_BRIEF = $PRO_STATUS = "";
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  if (empty($_POST["PRO_TITLE"])) {
-    $titleErr = "Title is required";
-  } else {
-    $PRO_TITLE = input($_POST["PRO_TITLE"]);
-  }
-
-if (empty($_POST["PRO_LEADER"])) {
-    $leaderErr = "Leader is required";
-} else {
-  $PRO_LEADER = input($_POST["PRO_LEADER"]);
-}
-
-if (empty($_POST["PRO_EMAIL"])) {
-    $emailErr = "Email is required";
-} else {
-  $PRO_EMAIL = input($_POST["PRO_EMAIL"]);
-}
-
-if (empty($_POST["PRO_BRIEF"])) {
-    $briefErr = "Brief is required";
-} else {
-  $PRO_BRIEF = input($_POST["PRO_BRIEF"]);
-}
-
-if (empty($_POST["PRO_STATUS"])) {
-    $statusErr = "Status is required";
-} else {
-  $PRO_STATUS = input($_POST["PRO_STATUS"]);
-}
-}
-
-function input($data) {
-  $data = trim($data);
-  $data = stripslashes($data);
-  $data = htmlspecialchars($data);
-  return $data;
-}
-?>
-
-<?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $pro_ID_text = SanitiseGeneric($_POST['pro_ID'], $CON);
   if ($pro_ID_text == "")
@@ -224,15 +179,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <form method='post'>
             <input hidden type='text' name='pro_ID' value='$pro_ID'>
                 Project Title<br>
-                <input type='text' name='PRO_TITLE' class='inputBox' value='$title'></span><br><br>
+                <input type='text' name='PRO_TITLE' class='inputBox' value='$title' required><br><br>
                 Project Leader<br>
-                <input type='text' name='PRO_LEADER' class='inputBox' value='$leader'><br><br>
+                <input type='text' name='PRO_LEADER' class='inputBox' value='$leader' required><br><br>
                 Leader Email<br>
-                <input type='email' name='PRO_EMAIL' class='inputBox' value='$email'><br><br>
+                <input type='email' name='PRO_EMAIL' class='inputBox' value='$email' required><br><br>
                 Project Brief<br>
-                <textarea name='PRO_BRIEF' rows='5' cols='40' class='inputBox'>$brief</textarea><br><br>
+                <textarea name='PRO_BRIEF' rows='5' cols='40' class='inputBox' required>$brief</textarea><br><br>
                 Project Status
-                <select name='PRO_STATUS' class='inputList' size='1'>
+                <select name='PRO_STATUS' class='inputList' size='1' required>
                     <option value='Active'". ($status=='Active' ? 'Selected' : '') .">Active</option>
                     <option value='Inactive'". ($status=='Inactive' ? 'Selected' : '') .">Inactive</option>
                     <option value='Planning'". ($status=='Planning' ? 'Selected' : '') .">Planning</option>
