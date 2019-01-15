@@ -27,8 +27,8 @@ if(isset($_POST['View']) && in_array($_POST['View'], $view)) {
 		<tr>
 			<th>Project Title</th>
 			<th>Project Brief</th>
-			<th>Project Leader</th>
-			<th>Project Email</th>
+			<th>Project Supervisor</th>
+			<th>Project Supervisor Email</th>
 			<th>Project Status</th>
 		</tr>
 	';

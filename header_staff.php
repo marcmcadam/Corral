@@ -19,32 +19,28 @@
 <div class="navbar">
     <div class="menu" style="width: 12%;"><a href="staffhome"><p>Corral</p></a>
     </div>
+    <div class="menu" style="width: 12%;"><a href="#"><p>Units</p></a>
+        <ul>
+            <li><a href="unit"><p>Add Unit</p></a></li>
+            <li><a href="unitlist"><p>View Units</p></a></li>
+        </ul>
+    </div>
     <?php
-        if (isset($unitID) && $unitID != null && $unitID != "")
-        echo '  <div class="menu" style="width: 12%;"><a href="#"><p>Units</p></a>
-                    <ul>
-                        <li><a href="unit"><p>Add Unit</p></a></li>
-                        <li><a href="unitlist"><p>View Units</p></a></li>
-                    </ul>
-                </div><div class="menu" style="width: 12%;"><a href="#"><p>Projects</p></a>
+        if (isset($unitID) && $unitID != "")
+        echo '  <div class="menu" style="width: 12%;"><a href="#"><p>Projects</p></a>
                     <ul>
                         <li><a href="project?number="><p>Add Project</p></a></li>
                         <li><a href="projectlist"><p>View Projects</p></a></li>
                     </ul>
                 </div><div class="menu" style="width: 12%;"><a href ="#"><p>Groups</p></a>
                     <ul>
-                        <li><a href="grouplist"><p>Project Groups</p></a></li>
-                        <li><a href="begin"><p>Begin Sort</p></a></li>
-                        <li><a href="sortedgroups"><p>Sort Results</p></a></li>
+                    <li><a href="begin"><p>Sorting Setup</p></a></li>
+                        <li><a href="grouplist"><p>Group List</p></a></li>
+                        <li><a href="sortedgroups"><p>Group Skills</p></a></li>
                     </ul>
                 </div>';
     ?>
-    <div class="menu" style="width: 12%;"><a href ="#"><p>Admin</p></a>
-        <ul>
-            <li><a href="studentlist"><p>Students</p></a></li>
-            <li><a href="stafflist"><p>Staff</p></a></li>
-            <li><a href="datamgmt"><p>Manage Corral Data</p></a></li>
-        </ul>
+    <div class="menu" style="width: 12%;"><a href ="datamgmt"><p>Admin</p></a>
     </div><div class="menuGap" style="width: 20%;">
         <form action="search" method="get">
             <input type="text" placeholder="Search.." name="search" class='updateBox' style='max-width: 128px;'>

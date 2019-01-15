@@ -23,8 +23,8 @@ if (isset($_GET['search'])) {
         <table class='listTable' align='center'>
           <tr>
               <th>ID</th>
-              <th>FirstName</th>
-              <th>LastName</th>
+              <th>First Name</th>
+              <th>Last Name</th>
               <th>Campus</th>
               <th>Email</th>
               <th>Update</th>
@@ -32,12 +32,12 @@ if (isset($_GET['search'])) {
       while ($row=mysqli_fetch_assoc($res)){
         echo
         "<tr>
-            <td align='center'>".$row['stu_ID']."</td>
-            <td align='center'>".$row['stu_FirstName']."</td>
-            <td align='center'>".$row['stu_LastName']."</td>
-            <td align='center'>".getcampus($row["stu_Campus"])."</td>
-            <td align='center'>".$row['stu_Email']."</td>
-            <td align='center'><button value ='".$row['stu_ID']."' name='studentid' class='updateButton'>Update</button></td>
+            <td>".$row['stu_ID']."</td>
+            <td>".$row['stu_FirstName']."</td>
+            <td>".$row['stu_LastName']."</td>
+            <td>".getcampus($row["stu_Campus"])."</td>
+            <td>".$row['stu_Email']."</td>
+            <td><button value ='".$row['stu_ID']."' name='studentid' class='updateButton'>Update</button></td>
         </tr>";
       }
       echo "</table><br />";
@@ -65,11 +65,11 @@ if (isset($_GET['search'])) {
       while ($row=mysqli_fetch_assoc($res)){
         echo
         "<tr>
-          <td align='center'>".$row['sta_FirstName']."</td>
-          <td align='center'>".$row['sta_LastName']."</td>
-          <td align='center'>".getcampus($row["sta_Campus"])."</td>
-          <td align='center'>".$row['sta_Email']."</td>
-          <td align='center'><button value ='".$row['sta_ID']."' name='staffid' class='updateButton'>Update</button></td>
+          <td>".$row['sta_FirstName']."</td>
+          <td>".$row['sta_LastName']."</td>
+          <td>".getcampus($row["sta_Campus"])."</td>
+          <td>".$row['sta_Email']."</td>
+          <td><button value ='".$row['sta_ID']."' name='staffid' class='updateButton'>Update</button></td>
         </tr>";
       }
       echo "</table><br />";
@@ -77,10 +77,11 @@ if (isset($_GET['search'])) {
       mysqli_free_result($res);
     }
     // Search project table, prink link to result
-    $query = "SELECT pro_ID, pro_title, pro_leader, pro_email, pro_status FROM project WHERE (
+    $query = "SELECT pro_ID, pro_title, pro_leader, pro_email,pro_brief,pro_status FROM project WHERE (
                 pro_title   LIKE '%".$search."%' OR
                 pro_leader  LIKE '%".$search."%' OR
                 pro_email   LIKE '%".$search."%' OR
+				        pro_brief   LIKE '%".$search."%' OR
                 pro_status  LIKE '%".$search."%')";
     $res = mysqli_query($CON, $query);
     if (mysqli_num_rows($res) > 0) {
@@ -90,19 +91,21 @@ if (isset($_GET['search'])) {
         <table class='listTable' align='center'>
           <tr>
               <th>Project Title</th>
-              <th>Project Leader</th>
-              <th>Leader Email</th>
+              <th>Supervisor</th>
+              <th>Supervisor Email</th>
+              <th>Project Brief</th>
               <th>Project Status</th>
               <th>Update</th>
           </tr>";
       while ($row=mysqli_fetch_assoc($res)){
         echo
         "<tr>
-          <td align='center'>".$row['pro_title']."</td>
-          <td align='center'>".$row['pro_leader']."</td>
-          <td align='center'>".$row['pro_email']."</td>
-          <td align='center'>".$row['pro_status']."</td>
-          <td align='center'><button value='".$row['pro_ID']."' name='number' class='updateButton'>Update</button></td>
+          <td>".$row['pro_title']."</td>
+          <td>".$row['pro_leader']."</td>
+          <td>".$row['pro_email']."</td>
+		      <td>".$row['pro_brief']."</td>
+          <td>".$row['pro_status']."</td>
+          <td><button value='".$row['pro_ID']."' name='number' class='updateButton'>Update</button></td>
         </tr>";
       }
       echo "</table><br />";

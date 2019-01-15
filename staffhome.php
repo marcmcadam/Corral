@@ -19,7 +19,7 @@
     <?php
         $units = getStaffUnits($CON, $id);
         echo "<form>
-                <select class='updateList' name='unit' onchange='this.form.submit()'>";
+                <select class='inputList' name='unit' onchange='this.form.submit()'>";
                 $i=0;
                 while (isset($units[$i])) {
                     echo "<option value='".$units[$i]."'";
