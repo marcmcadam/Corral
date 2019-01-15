@@ -185,7 +185,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 Leader Email<br>
                 <input type='email' name='PRO_EMAIL' class='inputBox' value='$email' required><br><br>
                 Project Brief<br>
-                <textarea name='PRO_BRIEF' rows='5' cols='40' class='inputBox' required>$brief</textarea><br><br>
+                <textarea name='PRO_BRIEF' rows='5' cols='40' class='inputBox' value='$brief' required></textarea><br><br>
                 Project Status
                 <select name='PRO_STATUS' class='inputList' size='1' required>
                     <option value='Active'". ($status=='Active' ? 'Selected' : '') .">Active</option>
