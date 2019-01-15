@@ -18,7 +18,9 @@ require "header_staff.php";
 					<td><input type="file" name="csvFile"></td>
 					<td align='right'><input type="submit" name="Submit" value="Submit" class="inputButton">
 							<input type="reset" value="Clear Form" class="inputButton">
-							</td>
+							<a href="./Sample_StudentCSV_File.php"><input type="button" name="GetSample" value="Sample Data" class="inputButton" ></a>
+					</td>
+
 			</tr>
 	</table>
 </form>
@@ -90,11 +92,11 @@ if( isset( $_POST['Submit'] ) ) {
 
 	foreach ($StudentArr as $student){
 		$student = trim($student);
-		print "<span style='color:blue' >Student Details:</span> ".$student."<br>";
+	//	print "<span style='color:blue' >Student Details:</span> ".$student."<br>";
 
 		$stu_info = explode (",",$student);
 
-		print "Stu ID: ".$stu_info[0]."<br>";
+//	print "Stu ID: ".$stu_info[0]."<br>";
 
 		//[0] = Student ID
 		$stu_ID = SanitiseGeneric($stu_info[0], $CON);
@@ -135,7 +137,7 @@ if( isset( $_POST['Submit'] ) ) {
 
 
 			if ($Validation == 0){
-				print "<span style='color:red' >An error occured, see error list above.</span><br><br>";
+				print "<span style='color:red' >Error, check and try again</span><br><br>";
 			} else {
 				//SQL check if Student exists
 				$query = "SELECT stu_ID FROM student WHERE stu_ID = '".$stu_info[0]."'";
@@ -159,9 +161,9 @@ if( isset( $_POST['Submit'] ) ) {
 					$insert_SQL = mysqli_query($CON, $insert_query) or die(mysqli_error($CON));
 
 					//DEBUG
-					echo $insert_query."<br>";
+				//	echo $insert_query."<br>";
 					//report line
-					print "<b>Duplicate</b> found for ID: ".$stu_ID." <b>".$stu_FirstName." "."$stu_LastName"."</b>, updateding the DB with the new information<br><br>";
+					print "<b>Duplicate</b> found for ID: ".$stu_ID." <b>".$stu_FirstName." "."$stu_LastName"."</b>, update the DB with the new information<br><br>";
 				} else {
 					//if not then
 					//add to
@@ -177,8 +179,8 @@ if( isset( $_POST['Submit'] ) ) {
 					$insert_SQL = mysqli_query($CON, $insert_query) or die(mysqli_error($CON));
 
 					//DEBUG
-					echo $insert_query."<br>";
-					print"<b>".$stu_FirstName." "."$stu_LastName"."</b> was added to the DB<br><br>";
+				//	echo $insert_query."<br>";
+				//	print"<b>".$stu_FirstName." "."$stu_LastName"."</b> was added to the DB<br><br>";
 				}
 			}
 
@@ -189,6 +191,19 @@ if( isset( $_POST['Submit'] ) ) {
 	}
 }
 
+//move to different page
+if( isset( $_POST['GetSample'] ) ) {
+	//headers so file is downloaded, not displayed
+  header('Content-Type: text/csv; charset=utf-8');
+  header('Content-Disposition: attachment; filename=Sample_Student_CSV.csv');
+  //create output variable
+  $output = fopen('php://output', 'w');
+  //column headings
+  fputcsv($output, array('Student ID','FirstName','LastName','Campus (1=Burwood. 2=Geelong. 3=Cloud)', 'Student Email'));
+  //DEBUG
+//	fputcsv($output, array('123456781','Jack','McDorkman','3','JackMcDorkman@deakin.edu.au'));
+}
 
-?>
-<?php require "footer.php"; ?>
+
+
+require "footer.php"; ?>
