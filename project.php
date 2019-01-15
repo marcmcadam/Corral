@@ -234,9 +234,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <table align='center' class='listTable'>
                     <tr>
                         <th>Skill<br>&nbsp;</th>
-                        <th>Skill Demand<br><sub>irrelevant...essential</sub></th>
+                        <th>Skill Demand<br>
+                            <sub>Irrelevant | Essential</sub></th>
                         <th style='width: 96px'>&nbsp;<br>&nbsp;</th>
-                        <th>Skill Level Preference<br><sub>many low skill...any...few high skill</sub></th>
+                        <th>Skill Level Preference<br>
+                            <sub>Many Low Skill | Any | Few High Skill</sub></th>
                     </tr>
                     <tr>
                         <td>Amplify All</td>

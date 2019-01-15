@@ -10,6 +10,8 @@
   $units = getUnits($CON);
   $unit_new = "";
 
+  echo "<h2>Unit Details</h2>";
+
   // Check for $_POST, to see if form has been submitted to update details.
   // Validate input, insert to DB
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
