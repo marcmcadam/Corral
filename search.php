@@ -77,10 +77,11 @@ if (isset($_GET['search'])) {
       mysqli_free_result($res);
     }
     // Search project table, prink link to result
-    $query = "SELECT pro_ID, pro_title, pro_leader, pro_email, pro_status FROM project WHERE (
+    $query = "SELECT pro_ID, pro_title, pro_leader, pro_email,pro_brief,pro_status FROM project WHERE (
                 pro_title   LIKE '%".$search."%' OR
                 pro_leader  LIKE '%".$search."%' OR
                 pro_email   LIKE '%".$search."%' OR
+				pro_brief   LIKE '%".$search."%' OR
                 pro_status  LIKE '%".$search."%')";
     $res = mysqli_query($CON, $query);
     if (mysqli_num_rows($res) > 0) {
@@ -92,6 +93,7 @@ if (isset($_GET['search'])) {
               <th>Project Title</th>
               <th>Project Leader</th>
               <th>Leader Email</th>
+			  <th>Project Brief</th>
               <th>Project Status</th>
               <th>Update</th>
           </tr>";
@@ -101,6 +103,7 @@ if (isset($_GET['search'])) {
           <td align='center'>".$row['pro_title']."</td>
           <td align='center'>".$row['pro_leader']."</td>
           <td align='center'>".$row['pro_email']."</td>
+		  <td align='center'>".$row['pro_brief']."</td>
           <td align='center'>".$row['pro_status']."</td>
           <td align='center'><button value='".$row['pro_ID']."' name='number' class='updateButton'>Update</button></td>
         </tr>";

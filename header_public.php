@@ -9,6 +9,7 @@
 </head>
 
 <body>
+<div id="wrapper">
 <div class="navbar">
 	<div class="menu" style="width: 20%;"><a href="home"><p>Corral</p></a>
 	</div><div class="menu" style="width: 20%;"><a href="#"><p>Login</p></a>

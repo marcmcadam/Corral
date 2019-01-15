@@ -15,6 +15,7 @@
 </head>
 
 <body>
+<div id="wrapper">
 <div class="navbar">
     <div class="menu" style="width: 12%;"><a href="staffhome"><p>Corral</p></a>
     </div>
@@ -49,7 +50,7 @@
             <input type="text" placeholder="Search.." name="search" class='updateBox' style='max-width: 128px;'>
         </form>
     </div><div class="menuGap" style="width: 8%;">
-        <form action="logout" method="get">
+        <form action="stafflogout" method="get">
             <button class="updateButton">Logout</button>
         </form>
     </div>

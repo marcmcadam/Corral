@@ -137,6 +137,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <input type="hidden" name="unit_ID" id="unit_ID" value="<?php echo $unit_ID;?>" />
     <input type="submit" value="Submit Responses" style="font-size: 1.5em" class="inputButton">
     </form>
-</div> <?php } else echo "Invalid Unit Selected";
+<?php } else echo "Invalid Unit Selected";
 } else echo "Invalid Unit Selected";?>
 <?php require "footer.php"; ?>

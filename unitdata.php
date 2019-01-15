@@ -4,6 +4,15 @@
     require_once "getfunctions.php";
     require_once "functions.php";
 
+    class UnitData
+    {
+        public $skillNames;
+        public $sort;
+        public $students;
+        public $projects;
+        public $unassigned;
+    }
+
     class SortingState
     {
         public $matrix;
@@ -19,6 +28,8 @@
     class Student
     {
         public $id;
+        public $firstName;
+        public $lastName;
         public $text;
         public $campus;
         public $email;
@@ -29,6 +40,7 @@
 
     class Project
     {
+        public $unitID;
         public $title;
         public $brief;
         public $leader;
@@ -41,7 +53,7 @@
         public $studentIndices; // indices of students for this unit in local arrays
     }
 
-    function sortingData($unitID, &$skillNames, &$sort, &$students, &$projects)
+    function unitData($unitID)
     {
         global $CON;
 
@@ -92,12 +104,12 @@
             $student = new Student();
 
             $student->id = (int)$row['stu_ID'];
-            $first = $row['stu_FirstName'];
-            $last = $row['stu_LastName'];
+            $student->firstName = $row['stu_FirstName'];
+            $student->lastName = $row['stu_LastName'];
             $student->campus = $row['stu_Campus'];
             $student->email = $row['stu_Email'];
 
-            $student->text = "$first $last";
+            $student->text = "$student->firstName $student->lastName";
 
             // Populate student skills array with stu_skill_##
             if ($row['submitted'])
@@ -133,6 +145,7 @@
         {
             $project = new Project();
 
+            $project->unitID = $row['unit_ID'];
             $project->id = (int)$row['pro_ID'];
             $project->title = $row['pro_title'];
             $project->brief = $row['pro_brief'];
@@ -250,5 +263,82 @@
                 }
             }
         }
+
+        $unassigned = [];
+        foreach ($students as $y => $student)
+        {
+            if (is_null($student->projectIndex))
+                array_push($unassigned, $y);
+        }
+
+        $unitData = new UnitData();
+        $unitData->skillNames = $skillNames;
+        $unitData->sort = $sort;
+        $unitData->students = $students;
+        $unitData->projects = $projects;
+        $unitData->unassigned = $unassigned;
+        return $unitData;
+    }
+
+    function groupStudentTable(&$students, $indices)
+    {
+        echo "<table align='left' class='listTable'>";
+        if (sizeof($indices) > 0)
+        {
+            echo "  <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Survey</th>
+                        <th>Email</th>
+                        <th>Campus</th>
+                    </tr>";
+            foreach ($indices as $y)
+            {
+                $student = $students[$y];
+                $campus = getCampus($student->campus);
+                $survey = is_null($student->skills) ? "-" : "Y";
+                echo "  <tr>
+                            <td style='text-align: right;'>$student->id</td>
+                            <td style='text-align: left;'>$student->text</td>
+                            <td style='text-align: center;'>$survey</td>
+                            <td style='text-align: left;'>$student->email</td>
+                            <td style='text-align: left;'>$campus</td>
+                        </tr>";
+            }
+        }
+        else
+            echo "<tr><th colspan='2'>No Students</th></tr>";
+        echo "</table>";
+    }
+
+    function groupStudentTablePDF(&$students, $indices)
+    {
+        echo '<table border="1px" cellspacing="0" cellpadding="4px" style="text-align: center;">';
+        if (sizeof($indices) > 0)
+        {
+            echo '  <tr>
+                        <th style="background-color: #404040; color: #ffffff;">ID</th>
+                        <th style="background-color: #404040; color: #ffffff;">First Name</th>
+                        <th style="background-color: #404040; color: #ffffff;">Last Name</th>
+                        <th style="background-color: #404040; color: #ffffff;">Email</th>
+                        <th style="background-color: #404040; color: #ffffff;">Campus</th>
+                    </tr>';
+            foreach ($indices as $y)
+            {
+                $student = $students[$y];
+                $campus = getCampus($student->campus);
+                $survey = is_null($student->skills) ? "-" : "Y";
+                echo '  <tr>
+                            <td style="text-align: right;">'.$student->id.'</td>
+                            <td style="text-align: left;">'.$student->firstName.'</td>
+                            <td style="text-align: left;">'.$student->lastName.'</td>
+                            <td style="text-align: left;">'.$student->email.'</td>
+                            <td style="text-align: left;">'.$campus.'</td>
+                        </tr>';
+            }
+        }
+        else
+            echo '<tr><th colspan="2">No Students</th></tr>';
+        echo '</table>';
     }
 ?>

@@ -4,9 +4,14 @@
     require_once "connectdb.php";
     require_once "sanitise.php";
     require_once "solver.php";
-    require_once "getdata.php";
+    require_once "unitdata.php";
 
-    sortingData($unitID, $skillNames, $sort, $students, $projects);
+    $unitData = unitData($unitID);
+    $skillNames = $unitData->skillNames;
+    $sort = $unitData->sort;
+    $students = $unitData->students;
+    $projects = $unitData->projects;
+    $unassigned = $unitData->unassigned;
 
     $numSkills = 20;
 
@@ -18,37 +23,12 @@
 
     $innerBorderColour = "#606060";
 
-    echo "<style>
-            td, th {
-                white-space: nowrap;
-            }
-            .sortInputTop {
-                border-bottom: thin solid black;
-            }
-            .sortProjectTop {
-                font-weight:bold; border-bottom: thin solid black; border-right: thin solid $innerBorderColour; text-align: left;
-            }
-            .sortSkillTop {
-                color: #f0f0f0; font-size: 0.75em; border-bottom: thin solid black; border-top: thin solid $innerBorderColour; border-right: thin solid $innerBorderColour;
-            }
-            .sortSkillCell {
-                color: white; border-bottom: thin solid $innerBorderColour; border-right: thin solid $innerBorderColour;
-            }
-            .sortID {
-                text-align: right; border-bottom: thin solid $innerBorderColour; font-family: monospace;
-            }
-            .sortName {
-                text-align: left; border-bottom: thin solid $innerBorderColour;
-            }
-            .sortExclamation {
-                text-align: center; color: #e04000; border-right: thin solid $innerBorderColour; border-bottom: thin solid $innerBorderColour;
-            }
-        </style>";
+    $isSorting = !is_null($sort->pid);
 
+    echo "<div style='margin-left: 300px;'>";
     echo "<h2>Sort Results</h2>";
 
     $posted = ($_SERVER["REQUEST_METHOD"] == "POST");
-    $isSorting = !is_null($sort->pid);
     if ($isSorting)
     {
         if ($posted)
@@ -76,9 +56,9 @@
         $rangeM = $sort->matrix / 10;
         $progressM = log($sort->m / 10) / log($rangeM);
 
-        echo "Iterations: " . (int)($progressI * 100) . "%<br>";
+        echo "Running Time: " . (int)($progressI * 100) . "%<br>";
         progressBar($progressI);
-        echo "<br>Matrix size: " . (int)($progressM * 100) . "%<br>";
+        echo "<br>Quality: " . (int)($progressM * 100) . "%<br>";
         progressBar($progressM);
         echo "<br><br>";
     }
@@ -127,8 +107,80 @@
         }
     }
 
+
+    $lockDisable = ($isSorting ? "disabled" : "");
+
+    echo "<script>
+    ";
+
+    echo "  function aLockChange()
+            {
+                var checkedValue = document.getElementById('aLock').checked;
+                ";
+    // create JavaScript for locking all project-assigned students
+    foreach ($projects as $p => $project)
+    {
+        // set all locks to equal this lock
+        echo "document.getElementById('pLock$p').checked = checkedValue;
+            ";
+        foreach ($project->studentIndices as $y)
+        {
+            $student = $students[$y];
+            echo "document.getElementById('sLock$student->id').checked = checkedValue;
+            ";
+        }
+    }
+    echo "  }
+    ";
+
+    // create JavaScript for project locks
+    foreach ($projects as $p => $project)
+    {
+        echo "  function pLockChange$p()
+                {
+                    var checkedValue = document.getElementById('pLock$p').checked;
+                    ";
+        // set each student lock to equal the project lock
+        foreach ($project->studentIndices as $y)
+        {
+            $student = $students[$y];
+            echo "  document.getElementById('sLock$student->id').checked = checkedValue;
+            ";
+        }
+        echo "  }
+        ";
+    }
+    echo "</script>";
+
+    echo "<style>
+            td, th {
+                white-space: nowrap;
+            }
+            .sortInputTop {
+                border-bottom: thin solid black;
+            }
+            .sortProjectTop {
+                font-weight:bold; border-bottom: thin solid black; border-right: thin solid $innerBorderColour; text-align: left;
+            }
+            .sortSkillTop {
+                color: #f0f0f0; font-size: 0.75em; border-bottom: thin solid black; border-top: thin solid $innerBorderColour; border-right: thin solid $innerBorderColour;
+            }
+            .sortSkillCell {
+                color: white; border-bottom: thin solid $innerBorderColour; border-right: thin solid $innerBorderColour;
+            }
+            .sortID {
+                text-align: right; border-bottom: thin solid $innerBorderColour;
+            }
+            .sortName {
+                text-align: left; border-bottom: thin solid $innerBorderColour;
+            }
+            .sortExclamation {
+                text-align: center; color: #e04000; border-right: thin solid $innerBorderColour; border-bottom: thin solid $innerBorderColour;
+            }
+        </style>";
+
     echo "<form method='post'>";
-    echo "<table class='listTable' align='center' style='text-align: left;'>";
+    echo "<table class='listTable' align='center' style='width: 256px; text-align: center; position: fixed; bottom: 28px; left: 28px; z-index: 1;'>";
 
     $skillLetters = [];
     $usedSkills = [];
@@ -141,6 +193,17 @@
         array_push($usedSkills, $i);
     }
 
+    for ($z = 0; $z < sizeof($usedSkills); $z += 1)
+    {
+        echo "  <tr>";
+        $i = $usedSkills[$z];
+        $name = $skillNames[$i];
+        $letter = $skillLetters[$i];
+        echo "      <th>$letter</th>
+                    <td style='width: 192px;'>$name</td>";
+        echo "  </tr>";
+    }
+    /*
     for ($j = 0; $j < 10; $j += 1)
     {
         echo "<tr>";
@@ -152,18 +215,19 @@
                 $i = $usedSkills[$z];
                 $name = $skillNames[$i];
                 $letter = $skillLetters[$i];
-                echo "<th>$letter</td>
+                echo "<th>$letter</th>
                       <td style='width: 192px'>$name</td>";
             }
         }
         echo "</tr>";
     }
+    */
     echo "</table>";
-
     echo "<table align='center' style='text-align: center;'>";
 
     // count used columns
-    $numTableColumns = 3;
+    $numLeftColumns = 4;
+    $numTableColumns = $numLeftColumns;
     for ($i = 0; $i < $numSkills; $i += 1)
     {
         if (is_null($skillNames[$i]))
@@ -171,24 +235,16 @@
         $numTableColumns += 1;
     }
     // empty page-top column headers
-    echo "<tr><td colspan='". $numTableColumns ."'>&nbsp;</td></tr>
-            <tr>
-            <th width='32px'><input type='checkbox' disabled></th>
-            <th colspan='2' style='text-align: left;'><input type='submit' class='updateButton' value='Save All Locks'></th>
-            <th width='16px'>&nbsp;</th>
+    echo "  <tr>
+                <th width='32px'>
+                    <input type='checkbox' id='aLock' onchange='aLockChange();' $lockDisable>
+                </th>
+                <th colspan='2' style='text-align: left;'>
+                    <input type='submit' class='updateButton' value='Save All Locks'>
+                </th>
+                <th width='16px'>&nbsp;</th>
+                <th colspan='$numSkills'>&nbsp;</th>
         ";
-    // page-top column name headers
-    for ($i = 0; $i < $numSkills; $i += 1)
-    {
-        $name = $skillNames[$i];
-        if (is_null($name))
-            continue;
-        $letter = $skillLetters[$i];
-        echo "<th style='width: 48px'>$letter</th>";
-    }
-
-    // spacing row
-    echo "</tr><tr><td colspan='". $numTableColumns ."'>&nbsp;</td></tr>";
 
     // find the max importance entry of everything, as the brightest value
     $importanceMax = 0.0;
@@ -201,12 +257,24 @@
     {
         $project = $projects[$p];
 
-        sort($project->studentIndices); // not reliables. index orders of students might not be consistent
+        sort($project->studentIndices); // not reliable. index orders of students might not be consistent
+
+        echo "<tr><td colspan='$numLeftColumns'>&nbsp;</td>";
+        // column letter headers
+        for ($i = 0; $i < $numSkills; $i += 1)
+        {
+            $name = $skillNames[$i];
+            if (is_null($name))
+                continue;
+            $letter = $skillLetters[$i];
+            echo "<th style='width: 48px; font-weight: normal;'>$letter</th>";
+        }
+        echo "</tr>";
 
         // Print project name and skill requirements
         echo "<tr>";
         echo "<td class='sortInputTop'>
-                <input type='checkbox' disabled>
+                <input type='checkbox' id='pLock$p' onchange='pLockChange$p();' $lockDisable>
             </td>";
         //echo "<td colspan='3' class='sortProjectTop'>$projectText[$p] ($projectMinima[$p] - $projectMaxima[$p])</td>";
         echo "<td colspan='3' class='sortProjectTop'>$project->title <span style='font-size: 0.75em; font-weight: normal;'>($project->minimum)</span></td>";
@@ -250,11 +318,12 @@
             $sid = $student->id;
             $text = $student->text;
             
-            $lockName = ($isSorting ? "" : "name='sLock$sid'"); // TODO: need to include survey info in name if splitting the surveys
-            $lockDisable = ($isSorting ? "disabled" : "");
+            $lockTitle = "sLock$sid";
+            $lockName = ($isSorting ? "" : "name='$lockTitle'");
+            $lockID = ($isSorting ? "" : "id='$lockTitle'");
             $lockValue = ($student->projectLocked ? "checked" : "");
             echo "<td style='border-bottom: thin solid $innerBorderColour;'>
-                    <input type='checkbox' $lockName $lockDisable $lockValue>
+                    <input type='checkbox' $lockName $lockID $lockDisable $lockValue>
                 </td>";
 
             echo "<td class='sortID'>$sid&nbsp;</td>";
@@ -309,5 +378,6 @@
     }
     echo "</table>";
     echo "</form>";
+    echo "</div>";
     require "footer.php";
 ?>

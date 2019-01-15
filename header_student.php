@@ -25,6 +25,7 @@ else
 </head>
 
 <body>
+<div id="wrapper">
 <div class="navbar">
 	<div class="menu" style="width: 20%;"><a href="studenthome"><p>Home</p></a>
 	</div><div class="menu" style="width: 20%;"> <a href="logout"><p>Logout</p></a>

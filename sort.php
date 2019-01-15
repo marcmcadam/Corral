@@ -6,9 +6,14 @@
     session_write_close(); // allows other pages to load this session
 
     require_once "solver.php";
-    require_once "getdata.php";
+    require_once "unitdata.php";
 
-    sortingData($unitID, $skillNames, $sort, $students, $projects);
+    $unitData = unitData($unitID);
+    $skillNames = $unitData->skillNames;
+    $sort = $unitData->sort;
+    $students = $unitData->students;
+    $projects = $unitData->projects;
+    $unassigned = $unitData->unassigned;
 
     $numSkills = 20;
 
@@ -400,16 +405,18 @@
         $swaps = sizeof($toDatabase);
 
         echo "<p>Completed batch: $batch, skill gain: $progress, students swapped: $swaps</p>";
-        if ($swaps == 0)
+        if ($matrixSize < $endMatrixSize)
         {
-            if ($matrixSize < $endMatrixSize)
+            if ($swaps * $matrixSize < $numStudents)
             {
                 $matrixSize = (int)ceil($matrixSize * $matrixMultiplier);
                 $matrixSize = min($matrixSize, $endMatrixSize);
-                $noSwapsCount = 0;
                 echo "<p>Matrix size: $matrixSize</p>";
             }
-            else
+        }
+        else
+        {
+            if ($swaps == 0)
             {
                 $noSwapsCount += 1;
                 if ($noSwapsCount >= 10)
@@ -418,9 +425,9 @@
                     break;
                 }
             }
+            else
+                $noSwapsCount = 0;
         }
-        else
-            $noSwapsCount = 0;
         
         update();
     }

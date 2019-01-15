@@ -2,8 +2,14 @@
     $PageTitle = "Sorting Setup";
     require "header_staff.php";
 
-    require "getdata.php";
-    sortingData($unitID, $skillNames, $sort, $students, $projects);
+    require "unitdata.php";
+    
+    $unitData = unitData($unitID);
+    $skillNames = $unitData->skillNames;
+    $sort = $unitData->sort;
+    $students = $unitData->students;
+    $projects = $unitData->projects;
+    $unassigned = $unitData->unassigned;
 ?>
 <script>
     var helps = [];

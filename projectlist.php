@@ -3,39 +3,43 @@
     require "header_staff.php";
     require_once "connectdb.php";
     require_once "getfunctions.php";
+    require_once "unitdata.php";
 
-    $sql = "SELECT * FROM project WHERE unit_ID='$unitID' ORDER BY unit_ID, FIELD(pro_status, 'Active', 'Planning', 'Inactive', 'Cancelled'), pro_title ASC";
-    $res = mysqli_query($CON, $sql);
+    $unitData = unitData($unitID);
+    $skillNames = $unitData->skillNames;
+    $sort = $unitData->sort;
+    $students = $unitData->students;
+    $projects = $unitData->projects;
+    $unassigned = $unitData->unassigned;
 
     echo "<h2>Project List</h2>
     <form action='project' method='get'>
     <table class='listTable' align='center'>
         <tr>
-            <th>Project Unit</th>
-            <th>Project Title</th>
-            <th>Project Leader</th>
+            <th>Unit</th>
+            <th>Title</th>
+            <th>Leader</th>
             <th>Leader Email</th>
             <th>Brief</th>
-            <th>Status</th>
+            <th>Members</th>
             <th>Update</th>
         </tr>";
 
-    while ($row=mysqli_fetch_assoc($res))
+    foreach ($projects as $project)
     {
+        $members = sizeof($project->studentIndices);
         echo "<tr>
-                <td align='center'>{$row['unit_ID']}</td>
-                <td align='center'>{$row['pro_title']}</td>
-                <td align='center'>{$row['pro_leader']}</td>
-                <td align='center'>{$row['pro_email']}</td>
-                <td align='center'>{$row['pro_brief']}</td>
-                <td align='center'>{$row['pro_status']}</td>
-                <td align='center'><button value='".$row['pro_ID']."' name='number' class='updateButton'>Update</button></td>
+                <td align='center'>$project->unitID</td>
+                <td align='center'>$project->title</td>
+                <td align='center'>$project->leader</td>
+                <td align='center'>$project->email</td>
+                <td align='center'>$project->brief</td>
+                <td align='center'>$members of $project->allocation</td>
+                <td align='center'><button value='".$project->id."' name='number' class='updateButton'>Update</button></td>
             </tr>";
     }
 
     echo "</table></form>";
-    mysqli_free_result($res);
-    mysqli_close($CON);
 
     require "footer.php";
 ?>

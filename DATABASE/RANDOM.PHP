@@ -1,42 +1,40 @@
 <?php
-    require_once "../hash.php";
-
-    function randomSkill($s)
+    function randomSkill()
     {
         global $rarity;
         $m = (int)floor(pow($rarity, 5.0));
-        $r = hashRandom16($s, $m);
+        $r = random_int(0, $m - 1);
         return 4 - (int)floor(log($r) / log($rarity));
     }
 
-    function randomSkills($s)
+    function randomSkills()
     {
         global $numSkills;
         $skills = [];
         for ($i = 0; $i < $numSkills; $i += 1)
-            array_push($skills, randomSkill(($i << 11) | $s));
+            array_push($skills, randomSkill());
         return $skills;
     }
 
-    function randomImportance($s)
+    function randomImportance()
     {
         global $rarity;
-        $r = hashRandom16($s, (int)floor(100 + $rarity));
+        $r = random_int(0, (int)floor(100 + $rarity) - 1);
         return (int)floor(min(max($r - $rarity, 0.0), 100.9));
     }
 
-    function randomImportances($s)
+    function randomImportances()
     {
         global $numSkills;
         $skills = [];
         for ($i = 0; $i < $numSkills; $i += 1)
-            array_push($skills, randomImportance(($i << 11) | $s));
+            array_push($skills, randomImportance());
         return $skills;
     }
 
-    function randomBias($s)
+    function randomBias()
     {
-        $r = hashRandom16($s, 8);
+        $r = random_int(0, 7);
         if ($r < 1)
             return 1;
         else if ($r < 3)
@@ -45,31 +43,21 @@
             return 0;
     }
 
-    function randomBiases($s)
+    function randomBiases()
     {
         global $numSkills;
         $biases = [];
         for ($i = 0; $i < $numSkills; $i += 1)
-            array_push($biases, randomBias((($i + 100) << 11) | $s));
+            array_push($biases, randomBias());
         return $biases;
     }
 
-    function randomProject($p, &$importance, &$biases)
+    function randomProject(&$skills, &$importance, &$biases)
     {
         global $numSkills;
-        $skills = randomImportances($p + 1000);
-        $biases = randomBiases($p + 1000);
-        /*
-        $total = 0.0;
-        foreach ($skills as $skill)
-            $total += $skill;
-        if ($total > 0)
-            $importance = (int)round(10000 / $total);
-        else
-            $importance = 0;
-        */
+        $skills = randomImportances();
+        $biases = randomBiases();
         $importance = 20;
-        return $skills;
     }
 
     function randomProjectStatus()
