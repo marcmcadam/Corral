@@ -28,7 +28,6 @@
     echo "<div style='margin-left: 300px;'>";
     echo "<h2>Group Skills</h2>";
 
-    echo "<div style='text-align: left;'>";
     echo "  Green cells indicate high skill in a project where it is needed.<br>
             Red cells indicate a missing skill in a project where it is needed.<br>
             Dark cells indicate a skill does not matter for that project.<br>
@@ -37,7 +36,6 @@
             <br>";
     echo "  <span style='color: red;'>!</span> Red exclamations indicate that a student's skills are not fully utilised by their project.<br>
             <br>";
-    echo "</div>";
 
     $posted = ($_SERVER["REQUEST_METHOD"] == "POST");
     if ($isSorting)
