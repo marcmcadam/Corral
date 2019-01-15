@@ -35,7 +35,7 @@
                 </div><div class="menu" style="width: 12%;"><a href ="#"><p>Groups</p></a>
                     <ul>
                     <li><a href="begin"><p>Sorting Setup</p></a></li>
-                        <li><a href="grouplist"><p>Group List</p></a></li>
+                        <li><a href="grouplist"><p>View Groups</p></a></li>
                         <li><a href="sortedgroups"><p>Group Skills</p></a></li>
                     </ul>
                 </div>';

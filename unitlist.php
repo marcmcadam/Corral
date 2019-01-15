@@ -7,7 +7,7 @@ require_once "connectdb.php";
 $sql = "SELECT unit_ID, survey_open FROM unit u, staff s WHERE u.sta_Id=s.sta_Id AND s.sta_Email='$id'";
 $res = mysqli_query($CON, $sql);
 
-echo "
+echo "<h2>Unit List</h2>
 <table align='center' class='listTable'>
   <tr>
     <th>Unit Code</th>
