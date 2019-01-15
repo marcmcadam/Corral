@@ -289,3 +289,7 @@ td {
 
 .flexitem {
 }
+
+.error {
+    color: #FF0000;
+}
