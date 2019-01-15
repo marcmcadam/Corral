@@ -199,7 +199,7 @@ if( isset( $_POST['GetSample'] ) ) {
   //create output variable
   $output = fopen('php://output', 'w');
   //column headings
-  fputcsv($output, a ray('Student ID','FirstName','LastName','Campus (1=Burwood. 2=Geelong. 3=Cloud)', 'Student Email'));
+  fputcsv($output, array('Student ID','FirstName','LastName','Campus (1=Burwood. 2=Geelong. 3=Cloud)', 'Student Email'));
   //DEBUG
 //	fputcsv($output, array('123456781','Jack','McDorkman','3','JackMcDorkman@deakin.edu.au'));
 }
