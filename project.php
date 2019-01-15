@@ -199,7 +199,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 Minimum <input type='text' name='min' value='$minimum'><br>
                 <br>
                 Maximum <input type='text' name='max' value='$maximum'><br>*/
-        echo "  <input type='text' name='min' class='inputBox' value='$minimum'><br>
+        echo "  <input type='text' name='min' class='inputBox' value='$minimum' required><br>
                 <input hidden type='text' name='max' value='0'><br>
                 <h2>Skills</h2>
                 <table align='center'>
