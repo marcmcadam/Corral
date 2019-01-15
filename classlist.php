@@ -6,17 +6,14 @@ require_once "sanitise.php";
 ?>
 
 <h2 class="main">Import Students from CSV</h2>
-<p> You may either copy and paste the student information in csv into the form field, or attach the .csv file.</p>
+<p> Please attach the .csv file, you may download the <br>
+		sample data csv to use as a template.</p>
 <form name="classlist" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>"  method="post" enctype="multipart/form-data">
 	<table align="center">
 			<tr valign='top'>
 					<td> Student List:
-						</td>
-					<td colspan='2'><textarea rows="10" cols="75" name="Student_List" class="inputBox"></textarea>
-						</td>
-			</tr>
-			<tr>
-					<td></td>
+					</td>
+
 					<td><input type="file" name="csvFile"></td>
 					<td align='right'><input type="submit" name="Submit" value="Submit" class="inputButton">
 							<input type="reset" value="Clear Form" class="inputButton">
@@ -41,22 +38,20 @@ require_once "sanitise.php";
 			//$stu_info is the exploded information of the student
 			//accessing $stu_info[] to access the information
 if( isset( $_POST['Submit'] ) ) {
-	if(isset($_POST['Student_List']) && $_POST['Student_List'] != NULL){
-		$Student_List = $_POST['Student_List'];
-	} else /*if (isset($_POST['csvFile']))*/ {
-		$target_dir = "../uploads/";
-		$target_file = $target_dir . basename($_FILES["csvFile"]["name"]);
-		$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-		if($imageFileType == "csv"){
-			$Student_List = file_get_contents( $_FILES['csvFile']['tmp_name'] );
-		} else if ($imageFileType != "csv" && $imageFileType != NULL){
-			print "Import failed: Only CSV files can be uploaded, please check your file extension.<br>";
-			$Student_List ="";
-		} else {
-			print "Import failed: No imported information detected. <br>";
-			$Student_List ="";
-		}
+
+	$target_dir = "../uploads/";
+	$target_file = $target_dir . basename($_FILES["csvFile"]["name"]);
+	$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+	if($imageFileType == "csv"){
+		$Student_List = file_get_contents( $_FILES['csvFile']['tmp_name'] );
+	} else if ($imageFileType != "csv" && $imageFileType != NULL){
+		print "Import failed: Only CSV files can be uploaded, please check your file extension.<br>";
+		$Student_List ="";
+	} else {
+		print "Import failed: No imported information detected. <br>";
+		$Student_List ="";
 	}
+
 //DEBUG
 //	print "Raw Data: ". $Student_List."<br><br> Other Stuff: <br>";
 
