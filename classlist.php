@@ -137,7 +137,7 @@ if( isset( $_POST['Submit'] ) ) {
 
 
 			if ($Validation == 0){
-				print "<span style='color:red' >An error occured, see error list above.</span><br><br>";
+				print "<span style='color:red' >Error, check and try again</span><br><br>";
 			} else {
 				//SQL check if Student exists
 				$query = "SELECT stu_ID FROM student WHERE stu_ID = '".$stu_info[0]."'";
@@ -163,7 +163,7 @@ if( isset( $_POST['Submit'] ) ) {
 					//DEBUG
 				//	echo $insert_query."<br>";
 					//report line
-					print "<b>Duplicate</b> found for ID: ".$stu_ID." <b>".$stu_FirstName." "."$stu_LastName"."</b>, updateding the DB with the new information<br><br>";
+					print "<b>Duplicate</b> found for ID: ".$stu_ID." <b>".$stu_FirstName." "."$stu_LastName"."</b>, update the DB with the new information<br><br>";
 				} else {
 					//if not then
 					//add to
@@ -199,7 +199,7 @@ if( isset( $_POST['GetSample'] ) ) {
   //create output variable
   $output = fopen('php://output', 'w');
   //column headings
-  fputcsv($output, array('Student ID','FirstName','LastName','Campus (1=Burwood. 2=Geelong. 3=Cloud)', 'Student Email'));
+  fputcsv($output, a ray('Student ID','FirstName','LastName','Campus (1=Burwood. 2=Geelong. 3=Cloud)', 'Student Email'));
   //DEBUG
 //	fputcsv($output, array('123456781','Jack','McDorkman','3','JackMcDorkman@deakin.edu.au'));
 }
