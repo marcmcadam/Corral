@@ -38,14 +38,14 @@ function getStaffUnits($CON, $staff) {
 
 function getStaff($CON, $names = FALSE) {
   if($names)
-    $query = "SELECT sta_ID, sta_FirstName, sta_LastName FROM staff";
+    $query = "SELECT sta_ID, sta_FirstName, sta_LastName, sta_Email FROM staff";
   else
     $query = "SELECT sta_ID FROM staff";
   $res = mysqli_query($CON, $query);
   $staff = [];
   if($names){
     while($row = mysqli_fetch_assoc($res)) {
-      $member = [$row['sta_ID'], $row['sta_FirstName'], $row['sta_LastName']];
+      $member = [$row['sta_ID'], $row['sta_FirstName'], $row['sta_LastName'], $row['sta_Email']];
       array_push($staff, $member);
     }
   } else {
