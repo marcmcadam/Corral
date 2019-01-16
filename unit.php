@@ -49,12 +49,18 @@
       } else echo "Error: Unit Name is Required";
       if(isset($_POST['sta_ID'])) {
         if(in_array($_POST['sta_ID'], $staff_IDs)) {
+          $sta_ID = $_POST['sta_ID'];
           $v_sta_ID = TRUE;
         } else echo "Error: Invalid Staff Member selected";
       } else echo "Error: No Staff Member selected";
-      if(isset($_POST['skill_00']) && $_POST['skill_00'] != "") {
-        $v_skill_00 = TRUE;
-      } else echo "Error: At least one skill is required";
+      if(!isset($_POST['locked'])) {
+        if(isset($_POST['skill_00']) && $_POST['skill_00'] != "") {
+          $v_skill_00 = TRUE;
+        } else echo "Error: At least one skill is required";
+      } else {
+        $locked = TRUE;
+        $v_skill_00 = TRUE; // No skills are required when skillnames are locked.
+      }
 
       // If all fields have been POST correctly, process skills data and build
       // appropriate query for update or insert
@@ -74,12 +80,14 @@
         }
         if($unit_new == FALSE) {
           // Updating an existing unit, build query
-          $sql = "UPDATE unit SET unit_Name='$unit_Name'";
-          for($i=0;$i<sizeof($skills);$i++) {
-            $sql .= ", ".$skillkeys[$i]."='".$skills[$i]."'";
-          }
-          for($i=sizeof($skills);$i<20; $i++) {
-            $sql .= ", skill_".sprintf('%02d', $i)."= NULL";
+          $sql = "UPDATE unit SET unit_Name='$unit_Name', sta_ID='$sta_ID'";
+          if(!isset($locked)) {
+            for($i=0;$i<sizeof($skills);$i++) {
+              $sql .= ", ".$skillkeys[$i]."='".$skills[$i]."'";
+            }
+            for($i=sizeof($skills);$i<20; $i++) {
+              $sql .= ", skill_".sprintf('%02d', $i)."= NULL";
+            }
           }
           $sql .= " WHERE unit_ID='".$unit_ID."'";
         }
@@ -138,6 +146,16 @@
         $row = mysqli_fetch_assoc($result);
         $unit_Name = $row['unit_Name'];
         $valid = TRUE;
+        $query = "SELECT * FROM project WHERE unit_ID = '".$unit_ID."'";
+        $result = mysqli_query($CON, $query) or die(mysqli_error($CON));
+        $project_Count = mysqli_num_rows($result);
+        $query = "SELECT * FROM surveyanswer WHERE unit_ID = '".$unit_ID."' AND submitted = 1";
+        $survey_Count = mysqli_num_rows($result);
+        if ($project_Count > 0 || $survey_Count > 0) {
+          $locked = TRUE;
+        } else {
+          $locked = FALSE;
+        }
       } else {
         // Invalid unit specified by get, print error messsage and continue with create unit form
         echo "<h3>Invalid Unit Selected</h3>";
@@ -145,6 +163,7 @@
     } else {
       // New unit
       $update = FALSE;
+      $locked = FALSE;
     }
     echo "<form action=".htmlspecialchars($_SERVER['PHP_SELF'])." method='post'><table align='center'>";
     echo "
@@ -187,7 +206,8 @@
       <td colspan='2' align='right'><label for='sta_ID'>Unit Chair</label></td>
       <td colspan='2' align='left'><select name ='sta_ID' class='inputList'>";
     foreach($staff as $member) {
-      echo "<option value='".$member[0]."'";
+      echo "
+      <option value='".$member[0]."'";
       if (isset($row['sta_ID'])) {
         if ($row['sta_ID'] == $member[0]) echo "selected";
       }
@@ -195,23 +215,29 @@
     }
     echo "</select></td>
     </tr>";
+    if ($locked == TRUE) {
+      echo "<tr><td colspan='4'><span style='color:red'>Skill Names cannot be edited once projects added or surveys completed.</span>
+      <input type='hidden' name='locked' value='1' /></td></tr>";
+    }
 	$j=1;
     for ($i=0;$i<20;$i++) {
-      echo "
-       <tr>
-        <td>Skill ".$j++."</td>
-        <td><input type='text' name='".sprintf('skill_%02d', $i)."'";
+      echo "<tr><td>Skill ".$j++."</td><td><input type='text' name='".sprintf('skill_%02d', $i)."'";
         echo (isset($row[sprintf('skill_%02d',$i)]) ? " value='".$row[sprintf('skill_%02d',$i)]."'" : "" );
-        echo "
-        class='inputBox '".($i==0 ? 'required' : '')."></td>";
+        echo "class='inputBox' ";
+        if ($locked == FALSE) {
+          echo ($i==0 ? 'required' : '')."></td>";
+        } elseif ($locked == TRUE) {
+          echo "disabled></td>";
+        }
 		$i += 1;
-		echo "
-		<td>Skill ".$j++."</td>
-        <td><input type='text' name='".sprintf('skill_%02d', $i)."'";
+		echo "<td>Skill ".$j++."</td><td><input type='text' name='".sprintf('skill_%02d', $i)."'";
         echo (isset($row[sprintf('skill_%02d',$i)]) ? " value='".$row[sprintf('skill_%02d',$i)]."'" : "" );
-        echo "
-        class='inputBox '".($i==0 ? 'required' : '')."></td>
-       </tr>";
+        echo "class='inputBox' ";
+        if ($locked == FALSE) {
+          echo ($i==0 ? 'required' : '')."></td>";
+        } elseif ($locked == TRUE) {
+          echo "disabled></td></tr>";
+        }
     }
     echo "
       <tr>
