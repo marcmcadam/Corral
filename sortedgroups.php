@@ -90,6 +90,8 @@
 
             foreach ($students as $y => $student)
             {
+                set_time_limit(30);
+
                 if (array_key_exists($student->id, $postedLocks))
                     $locked = true;
                 else
