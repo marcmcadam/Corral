@@ -216,7 +216,7 @@ td {
 
 .listTable th {
     padding: 4px 8px;
-    min-height: 32px;
+    height: 24px;
     border-right: thin solid #306080;
     border-bottom: thin solid #306080;
     background: #005070;
@@ -226,7 +226,6 @@ td {
 
 .listTable td {
     padding: 4px 8px;
-    min-height: 32px;
     border-right: thin solid #c0c0c0;
     border-bottom: thin solid #c0c0c0;
 }
@@ -236,6 +235,31 @@ td {
 }
 .listTable tr:nth-child(even) {
     background: #ececec;
+}
+
+.widthTiny {
+    width: 80px;
+}
+.widthEmail {
+    width: 256px;
+}
+.widthCampus {
+    width: 96px;
+}
+.widthUpdate {
+    width: 80px;
+}
+.widthStudentID {
+    width: 80px;
+}
+.widthFirstName {
+    width: 128px;
+}
+.widthLastName {
+    width: 128px;
+}
+.widthProjectTitle {
+    width: 256px;
 }
 
 
