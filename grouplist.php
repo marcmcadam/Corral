@@ -21,8 +21,8 @@
         echo "  <tr>
                     <td valign='top'><table align='right' class='listTable'>
                         <tr>
-                            <th>Total Students</th>
-                            <td>$totalCount</td>
+                            <th class='widthMedium'>Total Students</th>
+                            <td class='widthTiny'>$totalCount</td>
                         </tr>
                     </table></td>
                     <td></td>
@@ -32,8 +32,8 @@
                 </tr><tr>
                     <td valign='top'><table align='right' class='listTable'>
                         <tr>
-                            <th>Unassigned Students</th>
-                            <td>$unassignedCount</td>
+                            <th class='widthMedium'>Unassigned Students</th>
+                            <td class='widthTiny'>$unassignedCount</td>
                         </tr>
                     </table></td><td valign='top'>";
         groupStudentTable($students, $unassigned);

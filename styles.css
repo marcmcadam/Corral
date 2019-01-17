@@ -227,12 +227,14 @@ td {
     background: #005070;
     color: #f8f8f8;
     font-weight: normal;
+    text-align: center;
 }
 
 .listTable td {
     padding: 4px 8px;
     border-right: thin solid #c0c0c0;
     border-bottom: thin solid #c0c0c0;
+    text-align: center;
 }
 
 .listTable tr:nth-child(odd) {
@@ -244,6 +246,9 @@ td {
 
 .widthTiny {
     width: 80px;
+}
+.widthMedium {
+    width: 192px;
 }
 .widthWide {
     width: 256px;
