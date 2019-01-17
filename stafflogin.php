@@ -1,6 +1,8 @@
 <?php
 session_start();
+session_regenerate_id();  // prevention of session hijacking
 require_once "connectdb.php";
+require "encryptor.php";// for aes256-cbc function
 $PageTitle = "Login Page";
 require "header_public.php";
 
@@ -14,11 +16,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if (isset($_POST['sta_Email']) and isset($_POST['sta_Password'])){
     $sta_Email = mysqli_real_escape_string($CON, $_POST['sta_Email']);
     $sta_password = mysqli_real_escape_string($CON, $_POST['sta_Password']);
-    $salt = 'juhladhfl465adfgadf564a3d5f4g6664645dfgvadf';
-    $md5 = md5($salt . $sta_password . $salt);
+    //hash input password using aes256cbc using encryptor.php
+    $encryptedaes256=encrypt_decrypt('encrypt',$sta_password);
 
       // Pull credential data from database if valid. If valid, only 1 result. Set session variables.
-      $query = "SELECT * FROM staff WHERE sta_Email='$sta_Email' and sta_Password='$md5'";
+      $query = "SELECT * FROM staff WHERE sta_Email='$sta_Email' and sta_Password='$encryptedaes256'";
       $result = mysqli_query($CON, $query) or die(mysqli_error($CON));
       $count = mysqli_num_rows($result);
       if ($count == 1){
