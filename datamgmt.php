@@ -50,23 +50,9 @@
       <p>NYI</p>
     <h4>Export</h4>
       <form action="projectlistcsv.php" method="post">
-          <select name="View" class="inputList">
-          <option value="All">All Projects</option>
-          <option value="Active">Active Projects</option>
-          <option value="Inactive">Inactive Projects</option>
-          <option value="Planning">Planning Projects</option>
-          <option value="Cancelled">Cancelled Projects</option>
-        </select>
         <input type="submit" name="export_excel" value="Export As CSV" class="inputButton">
       </form>
       <form action="projectlistpdf.php" method="post">
-        <select name="View" class="inputList">
-          <option value="All">All Projects</option>
-          <option value="Active">Active Projects</option>
-          <option value="Inactive">Inactive Projects</option>
-          <option value="Planning">Planning Projects</option>
-          <option value="Cancelled">Cancelled Projects</option>
-        </select>
         <input type="submit" name="export_PDF" value="Export As PDF" class="inputButton">
       </form>
   </li>

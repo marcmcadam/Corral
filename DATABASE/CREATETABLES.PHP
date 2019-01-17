@@ -139,7 +139,6 @@ $project = "CREATE TABLE project (
   pro_brief varchar(256) NOT NULL,
   pro_leader varchar(25) NOT NULL,
   pro_email varchar(64) NOT NULL,
-  pro_status varchar(20) NOT NULL,
   pro_min int(11) NOT NULL,
   pro_max int(11) NOT NULL,
   pro_imp int(11) NOT NULL,
