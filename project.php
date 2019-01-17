@@ -8,7 +8,7 @@ require "sanitise.php";
 $maxSkillImportance = 4;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  $pro_ID_text = SanitiseGeneric($_POST['pro_ID'], $CON);
+  $pro_ID_text = SanitiseInput($_POST['pro_ID'], $CON);
   if ($pro_ID_text == "")
   {
       $insert = "INSERT INTO project (unit_ID, pro_imp) VALUES ('$unitID', 20)";
@@ -22,10 +22,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $pro_ID = (int)$pro_ID_text;
 
     //$unit_ID = mysqli_real_escape_string($CON, $_POST['unit_ID']);
-    $title = SanitiseName($CON, $_POST['PRO_TITLE']);
-    $leader = SanitiseName($CON, $_POST['PRO_LEADER']);
-    $email = SanitiseString($CON, $_POST['PRO_EMAIL']);
-    $brief = SanitiseGeneric($_POST['PRO_BRIEF'], $CON);
+    $title = SanitiseInput( $_POST['PRO_TITLE'], $CON);
+    $leader = SanitiseInput( $_POST['PRO_LEADER'], $CON);
+    $email = SanitiseInput( $_POST['PRO_EMAIL'], $CON);
+    $brief = SanitiseInput($_POST['PRO_BRIEF'], $CON);
     $status = mysqli_real_escape_string($CON, $_POST['PRO_STATUS']);
     if (ctype_digit($_POST['min']))
         $minimum = min(max((int)mysqli_real_escape_string($CON, $_POST['min']), 0), 1000000);
@@ -162,7 +162,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $minimum = $project['pro_min'];
       $maximum = $project['pro_max'];
       $importance = $project['pro_imp'];
-      
+
       for ($i = 0; $i < $numSkills; $i += 1)
       {
           $imp = (int)$project["pro_skill_".sprintf("%02d", $i)];

@@ -1,20 +1,19 @@
 <?php
 require_once "connectdb.php";
-$PageTitle = "Class List";
+$PageTitle = "Import Students";
 require "header_staff.php";
+require_once "sanitise.php";
 ?>
 
-<h2 class="main">Class List</h2>
+<h2 class="main">Import Students from CSV</h2>
+<p> Please attach the .csv file, you may download the <br>
+		sample data csv to use as a template.</p>
 <form name="classlist" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>"  method="post" enctype="multipart/form-data">
 	<table align="center">
 			<tr valign='top'>
 					<td> Student List:
-						</td>
-					<td colspan='2'><textarea rows="10" cols="75" name="Student_List" class="inputBox"></textarea>
-						</td>
-			</tr>
-			<tr>
-					<td></td>
+					</td>
+
 					<td><input type="file" name="csvFile"></td>
 					<td align='right'><input type="submit" name="Submit" value="Submit" class="inputButton">
 							<input type="reset" value="Clear Form" class="inputButton">
@@ -24,44 +23,12 @@ require "header_staff.php";
 			</tr>
 	</table>
 </form>
+<br>
 
 
 <?php
-//----------------------------------------
-//|         FUNCTIONS                    |
-//----------------------------------------
-/*if(!isset($CON)){
-	print "CON not set <br><br>";
-	include('connectdb.php');
-} else {
-	print "CON is set <br><br>";
-}*/
-function SanitiseGeneric($input, $CON){
-	$input = preg_replace("/[']+/", "", $input);
-	$input = preg_replace("/[,]+/", "", $input);
-	$input = mysqli_real_escape_string($CON,$input);
-  $input = strip_tags($input);
-	$input = trim($input);
-  return $input;
-}
-function SanitiseEmail($input, $CON){
-	$input = preg_replace("/[']+/", "", $input);
-	$input = preg_replace("/[,]+/", "", $input);
-	$input = mysqli_real_escape_string($CON,$input);
-  $input = strip_tags($input);
-	$input = trim($input);
-  $input = strtolower($input);
-  return $input;
-}
-function SanitiseName($input, $CON){
-	$input = preg_replace("/[^a-zA-Z]+/", "", $input);
-  $input = strip_tags($input);
-	$input = trim($input);
-  return $input;
-}
 
 
-		//move_uploaded_file($_FILES["csvFile"]["tmp_name"], $target_file);
 //If the form has been submitted explodes based upon \r giving each student's
 //		info as a single piece in an array
 		//variable name hierarchy
@@ -71,19 +38,20 @@ function SanitiseName($input, $CON){
 			//$stu_info is the exploded information of the student
 			//accessing $stu_info[] to access the information
 if( isset( $_POST['Submit'] ) ) {
-	if(isset($_POST['Student_List']) && $_POST['Student_List'] != NULL){
-		$Student_List = $_POST['Student_List'];
-	} else /*if (isset($_POST['csvFile'])) */{
-		$target_dir = "../uploads/";
-		$target_file = $target_dir . basename($_FILES["csvFile"]["name"]);
-		$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-		if($imageFileType == "csv"){
-			$Student_List = file_get_contents( $_FILES['csvFile']['tmp_name'] );
-		} else {
-			print "Only CSV files can be uploaded, please check your file extension.<br>";
-			$Student_List ="";
-		}
+
+	$target_dir = "../uploads/";
+	$target_file = $target_dir . basename($_FILES["csvFile"]["name"]);
+	$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+	if($imageFileType == "csv"){
+		$Student_List = file_get_contents( $_FILES['csvFile']['tmp_name'] );
+	} else if ($imageFileType != "csv" && $imageFileType != NULL){
+		print "Import failed: Only CSV files can be uploaded, please check your file extension.<br>";
+		$Student_List ="";
+	} else {
+		print "Import failed: No imported information detected. <br>";
+		$Student_List ="";
 	}
+
 //DEBUG
 //	print "Raw Data: ". $Student_List."<br><br> Other Stuff: <br>";
 
@@ -99,18 +67,21 @@ if( isset( $_POST['Submit'] ) ) {
 //	print "Stu ID: ".$stu_info[0]."<br>";
 
 		//[0] = Student ID
-		$stu_ID = SanitiseGeneric($stu_info[0], $CON);
+		$stu_ID = SanitiseInput($stu_info[0], $CON);
 		//Validate student id is only numbers
 	 	if(preg_match('/[0-9]{9}/', $stu_ID) ){
 
 			//[1] = First name
-			$stu_FirstName = SanitiseName($stu_info[1], $CON);
+			$stu_FirstName = SanitiseInput($stu_info[1], $CON);
 			//[2] = last Name
-			$stu_LastName = SanitiseName($stu_info[2], $CON);
+			$stu_LastName = SanitiseInput($stu_info[2], $CON);
 			//[3] = Campus
-			$stu_Campus = SanitiseGeneric($stu_info[3], $CON);
+			$stu_Campus = SanitiseInput($stu_info[3], $CON);
 			//[4] = email
-			$stu_Email = SanitiseEmail($stu_info[4], $CON);
+			$stu_Email = SanitiseInput($stu_info[4], $CON);
+
+			$stu_Unit = SanitiseInput($stu_info[5], $CON);
+
 			//password
 				//NB this is not meant to be encrypted at all.
 					//it is meant to be impossible for the encryption produced in
@@ -124,11 +95,11 @@ if( isset( $_POST['Submit'] ) ) {
 
 			//Validation
 			if(!preg_match('/[1-3]{1}/', $stu_Campus) ){
-				print "<span style='color:red' >ERROR in stu_Campus: $stu_Campus </span><br>";
+				print "<span style='color:red' >Import failed: ERROR in stu_Campus: $stu_Campus </span><br>";
 				$Validation = 0;
 			} else {
 				if(!preg_match('/[A-Za-z0-9]*@deakin.edu.au/', $stu_Email) ){
-					print "<span style='color:red' >ERROR in stu_Email: $stu_Email </span> <br>";
+					print "<span style='color:red' >Import failed: ERROR in stu_Email: $stu_Email </span> <br>";
 					$Validation = 0;
 				} else {
 					$Validation = 1;
@@ -137,12 +108,14 @@ if( isset( $_POST['Submit'] ) ) {
 
 
 			if ($Validation == 0){
-				print "<span style='color:red' >Error, check and try again</span><br><br>";
+
+				print "Import failed, failed validation of data for ID: ".$stu_ID."<br>";
+
 			} else {
 				//SQL check if Student exists
 				$query = "SELECT stu_ID FROM student WHERE stu_ID = '".$stu_info[0]."'";
 				$result = mysqli_query($CON, $query) or die(mysqli_error($CON));
-				//if they do, break
+				//if they do, update
 				if(mysqli_num_rows($result) > 0){
 					//update
 					$insert_query =
@@ -159,14 +132,13 @@ if( isset( $_POST['Submit'] ) ) {
 
 
 					$insert_SQL = mysqli_query($CON, $insert_query) or die(mysqli_error($CON));
-
 					//DEBUG
-				//	echo $insert_query."<br>";
+					//	echo $insert_query."<br>";
 					//report line
-					print "<b>Duplicate</b> found for ID: ".$stu_ID." <b>".$stu_FirstName." "."$stu_LastName"."</b>, update the DB with the new information<br><br>";
+					print "<b>Duplicate</b> found for ID: ".$stu_ID." <b>".$stu_FirstName." "."$stu_LastName"."</b>, updating the DB with the new information<br><br>";
+
 				} else {
-					//if not then
-					//add to
+					//if not then INSERT
 					$insert_query =
 						"INSERT INTO student
 								(stu_ID, stu_FirstName, stu_LastName, stu_Campus,
@@ -182,26 +154,44 @@ if( isset( $_POST['Submit'] ) ) {
 				//	echo $insert_query."<br>";
 				//	print"<b>".$stu_FirstName." "."$stu_LastName"."</b> was added to the DB<br><br>";
 				}
+				print "Import Successful";
+				/*---------------------
+				//
+				//		Add students to survey with unit field
+				//	$stu_ID, $stu_Unit
+
+				INSERT INTO `surveyanswer` (`stu_ID`, `unit_ID`,  `submitted`, `)
+				VALUES ('$stu_ID', '$stu_Unit', '0', )
+				//----------------------*/
+				$UnitDupCheck_QUERY = "SELECT stu_ID FROM surveyanswer WHERE stu_ID = '".$stu_info[0]."' and unit_ID = '".$stu_Unit."'";
+				$UnitDupCheck_SQL = mysqli_query($CON, $UnitDupCheck_QUERY) or die(mysqli_error($CON));
+				//if they do, update
+				if(mysqli_num_rows($UnitDupCheck_SQL) > 0){
+					$unitQuery =
+						"UPDATE surveyanswer SET
+								submitted = '0'
+							WHERE
+								stu_ID = '".$stu_info[0]."' and
+								unit_ID = '".$stu_Unit."'";
+					$unit_SQL = mysqli_query($CON, $unitQuery) or die(mysqli_error($CON));
+				} else {
+					$unitQuery =
+						"INSERT INTO surveyanswer
+								(stu_ID, unit_ID,  submitted )
+						VALUES ('$stu_ID', '$stu_Unit', '0' )";
+					$unit_SQL = mysqli_query($CON, $unitQuery) or die(mysqli_error($CON));
+				}
+
 			}
 
+		} else if($stu_ID == "" || $stu_ID == " " || $stu_ID == "Student ID"){
+			// DEBUG
+			//print "student number is blank <br>";
 		} else {
 			print "Student number must contain only nine numbers, for: ".$stu_ID.",<br>";
 		}
 
 	}
-}
-
-//move to different page
-if( isset( $_POST['GetSample'] ) ) {
-	//headers so file is downloaded, not displayed
-  header('Content-Type: text/csv; charset=utf-8');
-  header('Content-Disposition: attachment; filename=Sample_Student_CSV.csv');
-  //create output variable
-  $output = fopen('php://output', 'w');
-  //column headings
-  fputcsv($output, array('Student ID','FirstName','LastName','Campus (1=Burwood. 2=Geelong. 3=Cloud)', 'Student Email'));
-  //DEBUG
-//	fputcsv($output, array('123456781','Jack','McDorkman','3','JackMcDorkman@deakin.edu.au'));
 }
 
 
