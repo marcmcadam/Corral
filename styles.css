@@ -327,7 +327,7 @@ td {
 .flexitem {
 }
 
-/* Tooltip text on studentuser.php */
+/* Tooltip text */
 .tooltip {
     position: relative;
     display: inline-block;
@@ -341,6 +341,10 @@ td {
     font-size: small;
     position: absolute;
     z-index: 1;
+    left: 16px;
+    border-radius: 8px;
+    padding: 8px;
+    text-align: left;
 }
 .tooltip:hover .tooltiptext {
   visibility: visible;
