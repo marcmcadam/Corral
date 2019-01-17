@@ -1,40 +1,35 @@
 <?php
 require_once "connectdb.php";
 //SANITISATION FUNCTIONS
-function SanitiseGeneric($input, $CON) {
- $input = mysqli_real_escape_string($CON,$input);
- //dont want commas breaking the csv output fn
- $input = preg_replace("/[,]+/", "", $input);
- $input = strip_tags($input);
- $input = trim($input);
+function SanitiseInput($input, $CON ){
+  $input = trim($input);
+  $input = strip_tags($input);
+  $input = preg_replace("/[,]+/", "", $input);
+  $input = mysqli_real_escape_string($CON,$input);
+  return $input;
+}
+
+
+//left just incase a rogue function remains
+function SanitiseGeneric($input, $CON){
+ SanitiseInput($input, $CON);
  return $input;
 }
 
 function SanitiseEmail($input, $CON) {
- $input = mysqli_real_escape_string($CON,$input);
- $input = preg_replace("/[,]+/", "", $input);
- $input = strip_tags($input);
- $input = trim($input);
- $input = strtolower($input);
- return $input;
+  SanitiseInput($input, $CON);
+  return $input;
 }
 
 function SanitiseString($CON, $input){
-	$input = mysqli_real_escape_string($CON,$input);
-  $input = preg_replace("/[,]+/", "", $input);
-  $input = strip_tags($input);
-	$input = trim($input);
-  $input = strtolower($input);
+	SanitiseInput($input, $CON);
   return $input;
 }
 
 function SanitiseName($CON, $input){
-  $input = mysqli_real_escape_string($CON,$input);
-  $input = preg_replace("/[,]+/", "", $input);
-  $input = strip_tags($input);
-	$input = trim($input);
-  $input = strtolower($input);
-  $input = ucfirst($input);
+  SanitiseInput($input, $CON);
   return $input;
 }
+
+
 ?>
