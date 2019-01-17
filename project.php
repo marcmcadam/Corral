@@ -227,8 +227,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 Minimum <input type='text' name='min' value='$minimum'><br>
                 <br>
                 Maximum <input type='text' name='max' value='$maximum'><br>*/
-        echo "  <input type='text' name='min' class='inputBox' value='$minimum'><br>
-                <sub>scaled up or down for the number of students</sub><br>
+        echo "  <input type='text' name='min' class='inputBox' value='$minimum'>&nbsp;
+                <span class='tooltip'> ?<span class='tooltiptext'>This number is scaled up or down so the total for all projects equals the number of students.</span></span>
+                <br><br>
                 <input hidden type='text' name='max' value='0'><br>
                 <br>
                 <table align='center' class='listTable'>
