@@ -6,8 +6,8 @@ require_once "sanitise.php";
 ?>
 
 <h2 class="main">Import Students from CSV</h2>
-<p> Please attach the .csv file, you may download the <br>
-		sample data csv to use as a template.</p>
+<p> Please attach the .csv file, you may download the sample data csv to use as a template.<br>
+	Students are added to <?php print  $_SESSION["unit"];?>. A different unit can be selected on the <a href="./staffhome.php">Staff Home page.</a></p>
 <form name="classlist" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>"  method="post" enctype="multipart/form-data">
 	<table align="center">
 			<tr valign='top'>
@@ -59,7 +59,7 @@ if( isset( $_POST['Submit'] ) ) {
 	$StudentArr = explode("\r", $Student_List);
 
 	foreach ($StudentArr as $student){
-		$student = trim($student);
+	//DEBUG
 	//	print "<span style='color:blue' >Student Details:</span> ".$student."<br>";
 
 		$stu_info = explode (",",$student);
@@ -80,7 +80,7 @@ if( isset( $_POST['Submit'] ) ) {
 			//[4] = email
 			$stu_Email = SanitiseInput($stu_info[4], $CON);
 
-			$stu_Unit = SanitiseInput($stu_info[5], $CON);
+			$stu_Unit =   $_SESSION["unit"];
 
 			//password
 				//NB this is not meant to be encrypted at all.
