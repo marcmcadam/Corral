@@ -288,11 +288,11 @@
         if (sizeof($indices) > 0)
         {
             echo "  <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Survey</th>
-                        <th>Email</th>
-                        <th>Campus</th>
+                        <th class='widthStudentID'>ID</th>
+                        <th class='widthWide'>Name</th>
+                        <th class='widthTiny'>Survey</th>
+                        <th class='widthEmail'>Email</th>
+                        <th class='widthCampus'>Campus</th>
                     </tr>";
             foreach ($indices as $y)
             {
@@ -300,11 +300,11 @@
                 $campus = getCampus($student->campus);
                 $survey = is_null($student->skills) ? "-" : "Y";
                 echo "  <tr>
-                            <td style='text-align: right;'>$student->id</td>
-                            <td style='text-align: left;'>$student->text</td>
-                            <td style='text-align: center;'>$survey</td>
-                            <td style='text-align: left;'>$student->email</td>
-                            <td style='text-align: left;'>$campus</td>
+                            <td>$student->id</td>
+                            <td>$student->text</td>
+                            <td>$survey</td>
+                            <td>$student->email</td>
+                            <td>$campus</td>
                         </tr>";
             }
         }

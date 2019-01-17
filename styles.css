@@ -216,7 +216,6 @@ td {
 
 .listTable th {
     padding: 4px 8px;
-    height: 24px;
     border-right: thin solid #306080;
     border-bottom: thin solid #306080;
     background: #005070;
@@ -239,6 +238,9 @@ td {
 
 .widthTiny {
     width: 80px;
+}
+.widthWide {
+    width: 256px;
 }
 .widthEmail {
     width: 256px;
