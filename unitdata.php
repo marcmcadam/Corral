@@ -210,15 +210,18 @@
 
             array_push($projects[$p]->studentIndices, $y);
         }
-
+        
         // proportionally distribute students
         $allocations = distribute($projectOverride, sizeof($students));
-        foreach ($allocations as $p => $size)
+        if (!is_null($allocations))
         {
-            $projects[$p]->allocation = $size;
-            $projects[$p]->slots = $size;
+            foreach ($allocations as $p => $size)
+            {
+                $projects[$p]->allocation = $size;
+                $projects[$p]->slots = $size;
+            }
         }
-        
+
         // TODO: this risks subtracting from the same projects each time it loops. should eventually find a way to distribute the number correctly first time
         while (true)
         {

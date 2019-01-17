@@ -47,8 +47,9 @@
         if ($total != 0 || $remaining != 0)
         {
             echo "Proportional distribution failed";
-            die;
+            return null;
         }
-        return $allocations;
+        else
+            return $allocations;
     }
 ?>
