@@ -331,7 +331,10 @@ td {
 .tooltip {
     position: relative;
     display: inline-block;
-    border-bottom: 1px dotted black;
+    border: 2px solid #c0c0c0;
+    background: #f4f4f4;
+    border-radius: 16px;
+    padding: 1px 5px;
 }
 .tooltip .tooltiptext {
     visibility: hidden;
@@ -341,10 +344,14 @@ td {
     font-size: small;
     position: absolute;
     z-index: 1;
-    left: 16px;
+    left: 24px;
     border-radius: 8px;
     padding: 8px;
-    text-align: left;
+}
+.tooltip:hover {
+    border: 2px solid #a0c0e0;
+    background: #e0e4ff;
+    cursor: default;
 }
 .tooltip:hover .tooltiptext {
   visibility: visible;

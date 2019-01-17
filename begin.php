@@ -15,11 +15,11 @@
     <h2>Sorting Setup</h2>
     <input type="submit" value="Start Sorting" class="inputButton"><br>
     <br><br>
-    Maximum Running Time<br><input class="inputBox" type="text" name="iterations" value="<?php echo $sort->iterations; ?>">
-    <span class='tooltip'> ?<span class='tooltiptext'>Sorting will automatically stop if this number of iterations are reached.</span></span>
+    Maximum Running Time<br><input class="inputBox" type="text" name="iterations" value="<?php echo $sort->iterations; ?>">&nbsp;
+    <span class='tooltip'>?<span class='tooltiptext'>Sorting will automatically stop if this number of iterations are reached.</span></span>
     <br><br>
-    Quality<br><input class="inputBox" type="text" name="matrix" value="<?php echo $sort->matrix; ?>">
-    <span class='tooltip'> ?<span class='tooltiptext'>This is how many students are compared at once. Increasing this:<br>- Allows more complex swaps, and will have a better result.<br>- Risks the server calculations timing-out or using too much memory.<br><br>Use the maximum available for server limits.</span></span>
+    Quality<br><input class="inputBox" type="text" name="matrix" value="<?php echo $sort->matrix; ?>">&nbsp;
+    <span class='tooltip'>?<span class='tooltiptext'>This limits how many students can be swapped each time. Higher numbers will produce better results, but may cause the server to crash by consuming more resources.</span></span>
 </form>
 <?php
     require "footer.php";

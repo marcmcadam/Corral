@@ -65,7 +65,7 @@
     if ($row = mysqli_fetch_assoc($result)) {
       echo "<p><form action=".htmlspecialchars($_SERVER['PHP_SELF'])." method='post'></p>
       <p>Student ID</p>
-      <p><input type='text' name='stu_IDd' value='".$studentid."' class='inputBox' disabled/><input type='hidden' name='stu_ID' value='".$studentid."' class='inputBox'/><span class='tooltip'> ?<span class='tooltiptext'>You cannot edit a Student ID.<br>To change a Student ID, delete and recreate the student.</span></span></p>
+      <p><input type='text' name='stu_IDd' value='".$studentid."' class='inputBox' disabled/><input type='hidden' name='stu_ID' value='".$studentid."' class='inputBox'/>&nbsp;<span class='tooltip'>?<span class='tooltiptext'>You cannot edit a Student ID.<br>To change a Student ID, delete and recreate the student.</span></span></p>
       <p>Firstname </p>
       <p><input type='text' name='stu_FirstName' value='".$row['stu_FirstName']."' class='inputBox'/></p>
       <p>Lastname </p>
