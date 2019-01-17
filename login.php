@@ -1,12 +1,15 @@
 <?php
 session_start();
-require_once "connectdb.php";
+session_regenerate_id();  // prevention of session hijacking
+require "connectdb.php";
+REQUIRE "encryptor.php";// for aes256-cbc function
 $PageTitle = "Login Page";
 require "header_public.php";
 
 $login_Error = FALSE;
 
 // If form has been submitted, sanitise and process inputs
+
 if ($_SERVER["REQUEST_METHOD"] == "POST")
     {
     // If Username and Password fields have data & student ID is a valid 9 digit number
@@ -14,8 +17,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
         {
         $id = mysqli_real_escape_string($CON, $_POST['STUDENT_ID']);
         $password = mysqli_real_escape_string($CON, $_POST['STUDENT_PASSWORD']);
-        $salt = 'juhladhfl465adfgadf564a3d5f4g6664645dfgvadf';
-        $md5 = md5($salt . $password . $salt);
+        //hash input password using aes256cbc using encryptor.php
+        $encryptedaes256=encrypt_decrypt('encrypt',$password);
 
 
         // Reset variables for login
@@ -61,8 +64,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 
             //  Grab password from student table
             $loginpassword = $user['stu_Password'];
-            // Test Password match
-        if ($loginpassword !== $md5 and $login_Error==FALSE)
+            // Test Password hash match
+        if ($loginpassword !== $encryptedaes256 and $login_Error==FALSE)
             {
             // Invalid login. ID not in database
             $login_Error = TRUE;

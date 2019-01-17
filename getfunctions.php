@@ -55,6 +55,16 @@ function getStaff($CON, $names = FALSE) {
   return $staff;
 }
 
+function getStu_IDs($CON) {
+  $query = "SELECT stu_ID FROM student";
+  $res = mysqli_query($CON, $query);
+  $student = [];
+  while($row = mysqli_fetch_assoc($res)) {
+    array_push($student, $row['stu_ID']);
+  }
+  return $student;
+}
+
 function getcampus($int) {
   switch ($int) {
     case 1:
@@ -72,6 +82,15 @@ function getActiveSurveys($stu_ID, $CON) {
   $units = [];
   while ($row = mysqli_fetch_assoc($res))
     array_push($units, [$row['unit_ID'], $row['submitted']]);
+  return $units;
+}
+
+function getEnrolments($stu_ID, $CON) {
+  $query = "SELECT unit_ID FROM surveyanswer WHERE stu_ID = '$stu_ID'";
+  $res = mysqli_query($CON, $query);
+  $units = [];
+  while ($row = mysqli_fetch_assoc($res))
+    array_push($units, $row['unit_ID']);
   return $units;
 }
 ?>

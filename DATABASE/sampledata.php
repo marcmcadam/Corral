@@ -91,7 +91,7 @@ for ($i = 0; $i < $totalStudents; $i += 1)
 
     if ($i > 0)
         $insert .= ", ";
-    $insert .= "($id, '$first', '$last', $campus, '$email', '21e00641c260a79b8e5ad3eef52dd84c')";
+    $insert .= "($id, '$first', '$last', $campus, '$email', 'RW44Vm0xcEVXVXRkUDVWZkxucWhJdz09')"; //changed password to match aes256cbc
 
     array_push($studentIDs, $id);
 }
@@ -101,18 +101,18 @@ if (mysqli_query($CON, $insert)) {
   echo "<p>Error inserting sample student data: " . mysqli_error($CON) . "</p>";
 }
 
-//insert sample staff data
+//insert sample staff data----changed password to match aes256cbc
 $insert = 'INSERT INTO staff (sta_ID, sta_FirstName, sta_LastName, sta_Campus, sta_Email, sta_Password) VALUES
-(1,"Staff","User",1,"staffuser@deakin.edu.au","21e00641c260a79b8e5ad3eef52dd84c"),
-(2,"Blair","Bowes",1,"bbowes@deakin.edu.au","21e00641c260a79b8e5ad3eef52dd84c"),
-(3,"Onur","Ritter",2,"oritter@deakin.edu.au","21e00641c260a79b8e5ad3eef52dd84c"),
-(4,"Elsie-Rose","Garcia",1,"ergarcia@deakin.edu.au","21e00641c260a79b8e5ad3eef52dd84c"),
-(5,"Etta","Gough",1,"egough@deakin.edu.au","21e00641c260a79b8e5ad3eef52dd84c"),
-(6,"Kayleigh","Bradford",2,"kbradford@deakin.edu.au","21e00641c260a79b8e5ad3eef52dd84c"),
-(7,"Emma","Bassett",1,"ebassett@deakin.edu.au","21e00641c260a79b8e5ad3eef52dd84c"),
-(8,"Layla","Battle",2,"lbattle@deakin.edu.au","21e00641c260a79b8e5ad3eef52dd84c"),
-(9,"Fletcher","Lynch",2,"flynch@deakin.edu.au","21e00641c260a79b8e5ad3eef52dd84c"),
-(10,"Kaiden","Figueroa",3,"kfigueroa@deakin.edu.au","21e00641c260a79b8e5ad3eef52dd84c")';
+(1,"Staff","User",1,"staffuser@deakin.edu.au","RW44Vm0xcEVXVXRkUDVWZkxucWhJdz09"),
+(2,"Blair","Bowes",1,"bbowes@deakin.edu.au","RW44Vm0xcEVXVXRkUDVWZkxucWhJdz09"),
+(3,"Onur","Ritter",2,"oritter@deakin.edu.au","RW44Vm0xcEVXVXRkUDVWZkxucWhJdz09"),
+(4,"Elsie-Rose","Garcia",1,"ergarcia@deakin.edu.au","RW44Vm0xcEVXVXRkUDVWZkxucWhJdz09"),
+(5,"Etta","Gough",1,"egough@deakin.edu.au","RW44Vm0xcEVXVXRkUDVWZkxucWhJdz09"),
+(6,"Kayleigh","Bradford",2,"kbradford@deakin.edu.au","RW44Vm0xcEVXVXRkUDVWZkxucWhJdz09"),
+(7,"Emma","Bassett",1,"ebassett@deakin.edu.au","RW44Vm0xcEVXVXRkUDVWZkxucWhJdz09"),
+(8,"Layla","Battle",2,"lbattle@deakin.edu.au","RW44Vm0xcEVXVXRkUDVWZkxucWhJdz09"),
+(9,"Fletcher","Lynch",2,"flynch@deakin.edu.au","RW44Vm0xcEVXVXRkUDVWZkxucWhJdz09"),
+(10,"Kaiden","Figueroa",3,"kfigueroa@deakin.edu.au","RW44Vm0xcEVXVXRkUDVWZkxucWhJdz09")';
 if (mysqli_query($CON, $insert)) {
   echo "<P>Sample staff data inserted</P>";
 } else {

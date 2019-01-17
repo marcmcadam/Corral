@@ -60,9 +60,9 @@ $student = "CREATE TABLE student (
   stu_Campus int(1) NOT NULL,
   stu_Email varchar(32) NOT NULL,
   stu_Password varchar(64) NOT NULL,
-  stu_Timestamp datetime,
-  stu_LockedOut tinyint(1),
-  stu_LoginAttempts int(11)
+  stu_Timestamp timestamp NOT NULL default now(),
+  stu_LockedOut boolean NOT NULL default false,
+  stu_LoginAttempts tinyint(1) NOT NULL default 5
 )";
 if (mysqli_query($CON,$student)) {
   echo "<p>student table created successfully</p>";
@@ -78,9 +78,9 @@ $staff = "CREATE TABLE STAFF (
   sta_Campus int(1) NOT NULL,
   sta_Email varchar(32) NOT NULL,
   sta_Password varchar(64) NOT NULL,
-  sta_Timestamp datetime DEFAULT NULL,
-  sta_LockedOut tinyint(1) DEFAULT NULL,
-  sta_LoginAttempts int(11) DEFAULT NULL
+  sta_Timestamp timestamp NOT NULL default now(),
+  sta_LockedOut boolean NOT NULL default false,
+  sta_LoginAttempts tinyint(1) NOT NULL default 5
 )";
 if (mysqli_query($CON,$staff)) {
   echo "<p>staff table created successfully</p>";
@@ -123,7 +123,7 @@ $unit = "CREATE TABLE unit (
   sort_i INT(11) NOT NULL DEFAULT 0,
   sort_m INT(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (unit_ID),
-  FOREIGN KEY (sta_ID) REFERENCES staff(sta_ID)
+  FOREIGN KEY (sta_ID) REFERENCES staff(sta_ID) ON DELETE CASCADE
 )";
 if (mysqli_query($CON,$unit)) {
   echo "<p>unit table created successfully</p>";
@@ -135,7 +135,7 @@ if (mysqli_query($CON,$unit)) {
 $project = "CREATE TABLE project (
   pro_ID int(11) NOT NULL AUTO_INCREMENT,
   unit_ID varchar(10) NOT NULL,
-  pro_title varchar(25) NOT NULL,
+  pro_title varchar(35) NOT NULL,
   pro_brief varchar(256) NOT NULL,
   pro_leader varchar(25) NOT NULL,
   pro_email varchar(64) NOT NULL,
@@ -184,7 +184,7 @@ $project = "CREATE TABLE project (
   pro_bias_18 int(11) NOT NULL,
   pro_bias_19 int(11) NOT NULL,
   PRIMARY KEY (pro_ID),
-  FOREIGN KEY (unit_ID) REFERENCES unit(unit_ID)
+  FOREIGN KEY (unit_ID) REFERENCES unit(unit_ID) ON DELETE CASCADE
 )";
 if (mysqli_query($CON,$project)) {
   echo "<p>project table created successfully</p>";
@@ -220,9 +220,9 @@ $surveyanswer = "CREATE TABLE surveyanswer (
   stu_skill_18 int(11) DEFAULT NULL,
   stu_skill_19 int(11) DEFAULT NULL,
   PRIMARY KEY (stu_ID, unit_ID),
-  FOREIGN KEY (stu_ID) REFERENCES student(stu_ID),
-  FOREIGN KEY (unit_ID) REFERENCES unit(unit_ID),
-  FOREIGN KEY (pro_ID) REFERENCES project(pro_ID)
+  FOREIGN KEY (stu_ID) REFERENCES student(stu_ID) ON DELETE CASCADE,
+  FOREIGN KEY (unit_ID) REFERENCES unit(unit_ID) ON DELETE CASCADE,
+  FOREIGN KEY (pro_ID) REFERENCES project(pro_ID) ON DELETE CASCADE
 )";
 if (mysqli_query($CON,$surveyanswer)) {
   echo "<p>surveyanswer table created successfully</p>";
