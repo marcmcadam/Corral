@@ -34,8 +34,13 @@
                 if(preg_match('/^[0-9]{2}$/', $_POST['unit_Year'])) {
                   // POST a unit code + trim + year. Creating a new unit.
                   $unit_ID = $_POST['unit_Code'].$_POST['unit_Trim'].$_POST['unit_Year'];
-                  $v_unit_ID = TRUE;
-                  $unit_new = TRUE;
+                  if(in_array($unit_ID, $units)) {
+                    echo "Error: Duplicate Unit / Study Period";
+                    $unit_ID = NULL;
+                  } else {
+                    $v_unit_ID = TRUE;
+                    $unit_new = TRUE;
+                  }
                 } else echo "Error: Invalid Year selected";
               } else echo "Error: No Year selected";
             } else echo "Error: Invalid Trimester selected";
