@@ -211,60 +211,63 @@
             array_push($projects[$p]->studentIndices, $y);
         }
         
-        // proportionally distribute students
-        $allocations = distribute($projectOverride, sizeof($students));
-        if (!is_null($allocations))
+        if (array_sum($projectOverride) > 0)
         {
-            foreach ($allocations as $p => $size)
+            // proportionally distribute students
+            $allocations = distribute($projectOverride, sizeof($students));
+            if (!is_null($allocations))
             {
-                $projects[$p]->allocation = $size;
-                $projects[$p]->slots = $size;
-            }
-        }
-
-        // TODO: this risks subtracting from the same projects each time it loops. should eventually find a way to distribute the number correctly first time
-        while (true)
-        {
-            $excess = 0;
-            $freeProjects = [];
-            foreach ($projects as $p => $project)
-            {
-                $lockedCount = 0;
-                foreach ($project->studentIndices as $s)
+                foreach ($allocations as $p => $size)
                 {
-                    if ($students[$s]->projectLocked)
-                        $lockedCount += 1;
+                    $projects[$p]->allocation = $size;
+                    $projects[$p]->slots = $size;
                 }
-                $projectExcess = $lockedCount - $project->slots;
-                if ($projectExcess > 0)
-                {
-                    $excess += $projectExcess;
-                    $project->slots = $lockedCount;
-                }
-                else if ($projectExcess < 0 && $projectOverride[$p] > 0)
-                    array_push($freeProjects, $p);
             }
 
-            if ($excess == 0)
-                break; // nothing to change
-            if (sizeof($freeProjects) == 0)
-                break; // no way to change it
-
-            // the total slots must be the same as the total number of students
-            // if projects have more students locked-in than than they have been allocated, it throws off the number
-            // re-allocate for projects that have more students locked-in than they have been allocated
-            // distribute the negative change needed, to projects that have room to move
-            $subtractDistribution = [];
-            foreach ($freeProjects as $p)
-                $subtractDistribution[$p] = $projectOverride[$p];
-            $subtractions = distribute($subtractDistribution, $excess);
-            foreach ($freeProjects as $p)
+            // TODO: this risks subtracting from the same projects each time it loops. should eventually find a way to distribute the number correctly first time
+            while (true)
             {
-                if ($subtractions[$p] > 0)
+                $excess = 0;
+                $freeProjects = [];
+                foreach ($projects as $p => $project)
                 {
-                    $project = $projects[$p];
-                    $reduced = $project->slots - $subtractions[$p];
-                    $project->slots = $reduced;
+                    $lockedCount = 0;
+                    foreach ($project->studentIndices as $s)
+                    {
+                        if ($students[$s]->projectLocked)
+                            $lockedCount += 1;
+                    }
+                    $projectExcess = $lockedCount - $project->slots;
+                    if ($projectExcess > 0)
+                    {
+                        $excess += $projectExcess;
+                        $project->slots = $lockedCount;
+                    }
+                    else if ($projectExcess < 0 && $projectOverride[$p] > 0)
+                        array_push($freeProjects, $p);
+                }
+
+                if ($excess == 0)
+                    break; // nothing to change
+                if (sizeof($freeProjects) == 0)
+                    break; // no way to change it
+
+                // the total slots must be the same as the total number of students
+                // if projects have more students locked-in than than they have been allocated, it throws off the number
+                // re-allocate for projects that have more students locked-in than they have been allocated
+                // distribute the negative change needed, to projects that have room to move
+                $subtractDistribution = [];
+                foreach ($freeProjects as $p)
+                    $subtractDistribution[$p] = $projectOverride[$p];
+                $subtractions = distribute($subtractDistribution, $excess);
+                foreach ($freeProjects as $p)
+                {
+                    if ($subtractions[$p] > 0)
+                    {
+                        $project = $projects[$p];
+                        $reduced = $project->slots - $subtractions[$p];
+                        $project->slots = $reduced;
+                    }
                 }
             }
         }
