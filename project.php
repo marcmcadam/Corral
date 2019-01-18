@@ -200,13 +200,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <form method='post'>
                 <input hidden type='text' name='pro_ID' value='$pro_ID'>
                 Title<br>
-                <input type='text' name='PRO_TITLE' class='inputBox' value='$title'><br><br>
+                <input type='text' name='PRO_TITLE' class='inputBox' value='$title' required><br><br>
                 Supervisor<br>
-                <input type='text' name='PRO_LEADER' class='inputBox' value='$leader'><br><br>
+                <input type='text' name='PRO_LEADER' class='inputBox' value='$leader' required><br><br>
                 Supervisor Email<br>
-                <input type='email' name='PRO_EMAIL' class='inputBox' value='$email'><br><br>
+                <input type='email' name='PRO_EMAIL' class='inputBox' value='$email' required><br><br>
                 Brief<br>
-                <textarea name='PRO_BRIEF' rows='5' cols='40' class='inputBox'>$brief</textarea><br>
+                <textarea name='PRO_BRIEF' rows='5' cols='40' class='inputBox' required>$brief</textarea><br>
                 <br>
                 Relative Number of Members<br>";
                 /*<br>";
