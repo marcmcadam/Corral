@@ -215,7 +215,7 @@ foreach ($projectStudents as $p => $size)
         if ($i > 0)
             $surveydata .= ",";
         $studentID = $shuffledStudentIDs[$i];
-        $surveydata .= "('$unitID', 1, $studentID, " . join(", ", $skills) . ")";
+        $surveydata .= "('$unitID', " . (($studentID == 216000000) ? 0 : 1) . ", $studentID, " . join(", ", $skills) . ")";
         $i += 1;
     }
 }
@@ -229,7 +229,7 @@ for ($j = 0; $j < $studentsRandom; $j += 1)
     $rarity = 2.0;
     $skills = randomSkills();
     $studentID = $shuffledStudentIDs[$i];
-    $surveydata .= "('$unitID', 1, $studentID, " . join(", ", $skills) . ")";
+    $surveydata .= "('$unitID', " . (($studentID == 216000000) ? 0 : 1) . ", $studentID, " . join(", ", $skills) . ")";
     $i += 1;
 }
 
