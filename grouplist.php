@@ -64,7 +64,7 @@
                             <td class='widthWide'>$project->email</td>
                         </tr><tr>
                             <th>Members</th>
-                            <td class='widthWide'>$members of $project->allocation</td>
+                            <td class='widthWide'>$members of $project->slots</td>
                         </tr>
                     </table></td>
                     <td valign='top'>";
