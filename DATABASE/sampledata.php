@@ -1,4 +1,6 @@
 <?php
+require_once "remake.php";
+
 require_once "../connectdb.php";
 require "random.php";
 require_once "../functions.php";
@@ -10,6 +12,7 @@ $unitID = "SIT302T119";
 // NB: Now that foreign keys are in place, the order in which table data is
 // deleted (and created) is relevant.
 
+/* -- relying on remake to reset the data before sampledata
 //empty existing surveydata table
 $surveyanswer = "DELETE from surveyanswer";
 if (mysqli_query($CON, $surveyanswer)) {
@@ -49,6 +52,7 @@ if (mysqli_query($CON, $student)) {
 } else {
   echo "<p>Error deleting student data: " . mysqli_error($CON) . "</p>";
 }
+*/
 
 if (isset($_GET["sr"])) // students who are random
     $studentsRandom = min(max((int)$_GET["sr"], 0), 10000); // number of students who fill in their surveys randomly
