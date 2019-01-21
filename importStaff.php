@@ -55,7 +55,7 @@ if( isset( $_POST['Submit'] ) ) {
 //	print "Raw Data: ". $staff_List."<br><br> Other staff: <br>";
 
 //NB explode could be replaced by fgetcsv()
-	$staffArr = explode("\r", $staff_List);
+	$staffArr = explode("\n", $staff_List);
 
 	foreach ($staffArr as $staff){
 	//	print "<span style='color:blue' >staff Details:</span> ".$staff."<br>";
@@ -76,8 +76,8 @@ if( isset( $_POST['Submit'] ) ) {
 			//[2] = Campus
 			$sta_Campus = SanitiseInput($sta_info[2], $CON);
 			//[3] = email
-			$sta_Email = SanitiseInput($sta_info[3], $CON);
-
+			$sta_Email_caps = SanitiseInput($sta_info[3], $CON);
+			$sta_Email = strtolower($sta_Email_caps);
 
 			//password
 				//NB this is not meant to be encrypted at all.
@@ -85,7 +85,7 @@ if( isset( $_POST['Submit'] ) ) {
 					//the login form to match with the string saved here
 			$sta_Password = "NoneSet";
 			//locked out
-			$sta_LockedOut = "1";
+			$sta_LockedOut = "0";
 			//login attmepts
 			$sta_loginAttempts = "5";
 
@@ -150,7 +150,7 @@ if( isset( $_POST['Submit'] ) ) {
 				//	echo $insert_query."<br>";
 				//	print"<b>".$sta_FirstName." "."$sta_LastName"."</b> was added to the DB<br><br>";
 				}
-				print "Import Successful";
+				print "Import Successful<br>";
 
 
 			}

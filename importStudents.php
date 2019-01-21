@@ -56,7 +56,7 @@ if( isset( $_POST['Submit'] ) ) {
 //	print "Raw Data: ". $Student_List."<br><br> Other Stuff: <br>";
 
 //NB explode could be replaced by fgetcsv()
-	$StudentArr = explode("\r", $Student_List);
+	$StudentArr = explode("\n", $Student_List);
 
 	foreach ($StudentArr as $student){
 	//DEBUG
@@ -78,7 +78,8 @@ if( isset( $_POST['Submit'] ) ) {
 			//[3] = Campus
 			$stu_Campus = SanitiseInput($stu_info[3], $CON);
 			//[4] = email
-			$stu_Email = SanitiseInput($stu_info[4], $CON);
+			$stu_Email_caps = SanitiseInput($stu_info[4], $CON);
+			$stu_Email = strtolower($stu_Email_caps);
 
 			$stu_Unit =   $_SESSION["unit"];
 
@@ -88,7 +89,7 @@ if( isset( $_POST['Submit'] ) ) {
 					//the login form to match with the string saved here
 			$stu_Password = "NoneSet";
 			//locked out
-			$stu_LockedOut = "1";
+			$stu_LockedOut = "0";
 			//login attmepts
 			$stu_loginAttempts = "5";
 
@@ -154,7 +155,7 @@ if( isset( $_POST['Submit'] ) ) {
 				//	echo $insert_query."<br>";
 				//	print"<b>".$stu_FirstName." "."$stu_LastName"."</b> was added to the DB<br><br>";
 				}
-				print "Import Successful";
+				print "Import Successful<br>";
 				/*---------------------
 				//
 				//		Add students to survey with unit field
