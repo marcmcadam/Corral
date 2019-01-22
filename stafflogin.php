@@ -6,44 +6,126 @@ require "encryptor.php";// for aes256-cbc function
 $PageTitle = "Login Page";
 require "header_public.php";
 
-// Define empty variables
-$sta_Email = $sta_Password = "";
 $login_Error = FALSE;
 
 // If form has been submitted, sanitise and process inputs
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] == "POST")
+{
   // If Username and Password fields have data
-  if (isset($_POST['sta_Email']) and isset($_POST['sta_Password'])){
-    $sta_Email = mysqli_real_escape_string($CON, $_POST['sta_Email']);
-    $sta_password = mysqli_real_escape_string($CON, $_POST['sta_Password']);
+  if (isset($_POST['sta_Email']) and isset($_POST['sta_Password']))
+  {
+    $email_login = mysqli_real_escape_string($CON, $_POST['sta_Email']);
+    $password = mysqli_real_escape_string($CON, $_POST['sta_Password']);
     //hash input password using aes256cbc using encryptor.php
-    $encryptedaes256=encrypt_decrypt('encrypt',$sta_password);
+    $encryptedaes256=encrypt_decrypt('encrypt',$password);
+
+    // Reset variables for login
+    $sta_Email = $sta_Password = "";
+    $login_Error_Text="Login error";
+    $login_Error = FALSE;
 
       // Pull credential data from database if valid. If valid, only 1 result. Set session variables.
-      $query = "SELECT * FROM staff WHERE sta_Email='$sta_Email' and sta_Password='$encryptedaes256'";
+      $query = "SELECT * FROM staff WHERE sta_Email='$email_login'";
+
+      // If Staff ID valid  and lockout not enabled
+
       $result = mysqli_query($CON, $query) or die(mysqli_error($CON));
-      $count = mysqli_num_rows($result);
-      if ($count == 1){
-        $user = $result->fetch_assoc();
+      $user = $result->fetch_assoc();
+
+      if ($user['sta_Email']!==$email_login and $login_Error==FALSE)
+      {
+        $login_Error = TRUE;
+        $login_Error_Text="Invalid Staff email ( Does not exist! )";
+      }
+      // Set php server  to +10UTC or use ---date_default_timezone_set('Australia/Melbourne');
+      // grab lock out flag,time and attempts
+      $loginlockout = $user['sta_LockedOut'];
+      $logintimestamp = $user['sta_Timestamp'];
+      $loginattempts = $user['sta_LoginAttempts'];
+      $lockouttimer=time()-strtotime($logintimestamp);//takes difference of timestamp and now in seconds
+      $lockouttimerinmins= 30-round($lockouttimer/60); // works out time remaining in mins
+      // test for locked out staff
+      if  ($loginlockout==TRUE and $login_Error==FALSE)
+          {
+          $login_Error = TRUE;
+          $login_Error_Text="Locked out of account for ".$lockouttimerinmins." minutes.";
+
+          if ($lockouttimer>1)// 1800 seconds for time of lockout
+              {
+              $query = "UPDATE staff SET sta_LoginAttempts=5 WHERE sta_Email = '$email_login'";
+              mysqli_query($CON, $query) or die(mysqli_error($CON));
+              $query = "UPDATE staff SET sta_LockedOut=FALSE WHERE sta_Email = '$email_login'";
+              mysqli_query($CON, $query) or die(mysqli_error($CON));
+              $login_Error==FALSE;
+              $login_Error_Text="Locked Account reset.";
+              }
+          }
+
+      //  Grab password from staff table
+      $loginpassword = $user['sta_Password'];
+      // Test Password hash match
+  if ($loginpassword !== $encryptedaes256 and $login_Error==FALSE)
+      {
+      // Invalid login. ID not in database
+      $login_Error = TRUE;
+      if ($loginattempts>1)
+          {
+          $loginattempts-=1;
+          $login_Error_Text="Password incorrect ".$loginattempts." attempt";
+          if ($loginattempts!==1)
+              {
+              $login_Error_Text=$login_Error_Text."s";
+              }
+          $login_Error_Text=$login_Error_Text." left.";
+
+
+          //update mysqli attempts and locked status
+
+          $query = "UPDATE staff SET sta_LoginAttempts=$loginattempts WHERE sta_Email = '$email_login'";
+          mysqli_query($CON, $query) or die(mysqli_error($CON));
+
+          }
+      else
+          {
+          $login_Error_Text="Too many attempts. Account locked for 30 mins";
+          $query = "UPDATE staff SET sta_LockedOut=TRUE WHERE sta_Email = '$email_login'";
+          mysqli_query($CON, $query) or die(mysqli_error($CON));
+          $query = "UPDATE staff SET sta_Timestamp=now() WHERE sta_Email = '$email_login'";
+          mysqli_query($CON, $query) or die(mysqli_error($CON));
+
+
+          }
+      }
+
+        //grab rest of staff data
         $_SESSION['sta_Email'] = $sta_Email;
         $_SESSION['sta_FirstName'] = $user['sta_FirstName'];
         $_SESSION['sta_LastName'] = $user['sta_LastName'];
+
         // Successful login.
-        header("location: staffhome");
-      } else {
-        // Invalid login.
-        $login_Error = TRUE;
+
+        if ($login_Error==FALSE)
+        {
+            $query = "UPDATE staff SET sta_LoginAttempts=5 WHERE sta_Email = '$email_login'";
+            mysqli_query($CON, $query) or die(mysqli_error($CON));
+            header("location: staffhome");
+        }
+
       }
-    } else {
-      // Invalid login.
+  else
+      {
+        // Invalid Login. Regex doesn't match   Is this required? check line 15
+        // (filter_var($emailAddress, FILTER_VALIDATE_EMAIL)
       $login_Error = TRUE;
-    }
-  }
+      $login_Error_Text="Invalid Username ( Check email )";
+      }
+}
+// end database query for login
 ?>
 
 <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-  <h2>Please Log In</h2>
-  <?php if($login_Error) echo "<p>Invalid Username or Password.</p>";?>
+  <h2>Staff Please Log In</h2>
+  <?php if($login_Error) echo "<p>$login_Error_Text</p>";?>
   <input type="text" name="sta_Email" placeholder="Staff Email" class="inputBox" required><br><br>
   <input type="password" name="sta_Password" placeholder="Password" class="inputBox" required><br><br>
   <button type="submit" class="inputButton">Login</button>
