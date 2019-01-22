@@ -3,6 +3,7 @@ require "connectdb.php";
 $PageTitle = "Login Page";
 require "encryptor.php";// for aes256-cbc function
 require "header_public.php";
+require "encryptor.php";
 
 // check for tokens
 $selector = filter_input(INPUT_GET, 'selector');
@@ -56,9 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       if ($row['count(*)'] == 1) {
         // Reset staff password
         $password = mysqli_real_escape_string($CON, $_POST['new_password']);
-        //$salt = 'juhladhfl465adfgadf564a3d5f4g6664645dfgvadf';  old md5
-        //$md5 = md5($salt . $password . $salt);
-        $encryptedaes256=encrypt_decrypt('encrypt', $password);
+        $encryptedaes256=encrypt_decrypt('encrypt',$password);
         $query = "UPDATE staff SET sta_Password='".$encryptedaes256."' WHERE sta_Email = '".$email."'";
         mysqli_query($CON, $query) or die(mysqli_error($CON));
         echo "<p>Your password has been reset, please <a href='stafflogin.php'>login here</a>.</p>";
@@ -71,9 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       if ($row['count(*)'] == 1) {
         // Reset student password
         $password = mysqli_real_escape_string($CON, $_POST['new_password']);
-        //$salt = 'juhladhfl465adfgadf564a3d5f4g6664645dfgvadf'; Old md5
-        //$md5 = md5($salt . $password . $salt);
-        $encryptedaes256=encrypt_decrypt('encrypt', $password);
+        $encryptedaes256=encrypt_decrypt('encrypt',$password);
         $query = "UPDATE student SET stu_Password='".$encryptedaes256."' WHERE stu_Email = '".$email."'";
         mysqli_query($CON, $query) or die(mysqli_error($CON));
         echo "<p>Your password has been reset, please <a href='login.php'>login here</a>.</p>";

@@ -34,8 +34,13 @@
                 if(preg_match('/^[0-9]{2}$/', $_POST['unit_Year'])) {
                   // POST a unit code + trim + year. Creating a new unit.
                   $unit_ID = $_POST['unit_Code'].$_POST['unit_Trim'].$_POST['unit_Year'];
-                  $v_unit_ID = TRUE;
-                  $unit_new = TRUE;
+                  if(in_array($unit_ID, $units)) {
+                    echo "Error: Duplicate Unit / Study Period";
+                    $unit_ID = NULL;
+                  } else {
+                    $v_unit_ID = TRUE;
+                    $unit_new = TRUE;
+                  }
                 } else echo "Error: Invalid Year selected";
               } else echo "Error: No Year selected";
             } else echo "Error: Invalid Trimester selected";
@@ -201,16 +206,18 @@
       </tr>";
     }
 
-    echo "
-    <tr>
-      <td colspan='2' align='right'><label for='sta_ID'>Unit Chair</label></td>
-      <td colspan='2' align='left'><select name ='sta_ID' class='inputList'>";
+    echo "<tr>";
+    //echo "  <td colspan='2' align='right'><label for='sta_ID'>Unit Chair</label></td>";
+    echo "  <td></td>";
+    echo "  <td colspan='2' align='left'><select name='sta_ID' class='inputList' hidden>";
     foreach($staff as $member) {
       echo "
       <option value='".$member[0]."'";
       if (isset($row['sta_ID'])) {
-        if ($row['sta_ID'] == $member[0]) echo "selected";
+        if ($row['sta_ID'] === $member[0]) echo " selected";
       }
+      else if ($member[3] === $id)
+        echo " selected";
       echo ">".$member[1]." ".$member[2]."</option>";
     }
     echo "</select></td>

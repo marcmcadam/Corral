@@ -13,7 +13,7 @@
     $unassigned = $unitData->unassigned;
 
     echo "<h2>$PageTitle</h2>
-        <table align='center' cellpadding='8px' style='width: 100%;'>";
+        <table align='center' style='width: 100%;'>";
     // display unassigned students
     {
         $totalCount = sizeof($students);
@@ -21,21 +21,28 @@
         echo "  <tr>
                     <td valign='top'><table align='right' class='listTable'>
                         <tr>
-                            <th>Total Students</th>
-                            <td>$totalCount</td>
+                            <th class='widthMedium'>Total Students</th>
+                            <td class='widthTiny'>$totalCount</td>
                         </tr>
                     </table></td>
                     <td></td>
                 </tr><tr>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr><tr>
                     <td valign='top'><table align='right' class='listTable'>
                         <tr>
-                            <th style='text-align: left;'>Unassigned Students</th>
-                            <td style='text-align: left;'>$unassignedCount</td>
+                            <th class='widthMedium'>Unassigned Students</th>
+                            <td class='widthTiny'>$unassignedCount</td>
                         </tr>
                     </table></td><td valign='top'>";
         groupStudentTable($students, $unassigned);
         echo "      </td>
+                </tr><tr>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
                 </tr>";
+
     }
     // display projects
     foreach ($projects as $p => $project)
@@ -45,24 +52,27 @@
                     <td valign='top'><table align='right' class='listTable'>
                         <tr>
                             <th>Title</th>
-                            <td style='text-align: left;'>$project->title</td>
+                            <td class='widthWide'>$project->title</td>
                         </tr><tr>
                             <th>Brief</th>
-                            <td style='text-align: left;'>$project->brief</td>
+                            <td class='widthWide'>$project->brief</td>
                         </tr><tr>
                             <th>Supervisor</th>
-                            <td style='text-align: left;'>$project->leader</td>
+                            <td class='widthWide'>$project->leader</td>
                         </tr><tr>
                             <th>Supervisor Email</th>
-                            <td style='text-align: left;'>$project->email</td>
+                            <td class='widthWide'>$project->email</td>
                         </tr><tr>
                             <th>Members</th>
-                            <td style='text-align: left;'>$members of $project->allocation</td>
+                            <td class='widthWide'>$members of $project->slots</td>
                         </tr>
                     </table></td>
                     <td valign='top'>";
         groupStudentTable($students, $project->studentIndices);
         echo "      </td>
+                </tr><tr>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
                 </tr>";
     }
     echo "  </table>";

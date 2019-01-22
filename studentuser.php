@@ -38,7 +38,7 @@
       echo "<h3>Invalid Student ID Selected2</h3>";
       $valid = FALSE;
     }
-    
+
     if ($valid) {
       $firstname = SanitiseGeneric($_POST['stu_FirstName'], $CON);
   		$lastname = SanitiseGeneric($_POST['stu_LastName'], $CON);
@@ -65,7 +65,7 @@
     if ($row = mysqli_fetch_assoc($result)) {
       echo "<p><form action=".htmlspecialchars($_SERVER['PHP_SELF'])." method='post'></p>
       <p>Student ID</p>
-      <p><input type='text' name='stu_IDd' value='".$studentid."' class='inputBox' disabled/><input type='hidden' name='stu_ID' value='".$studentid."' class='inputBox'/><span class='tooltip'> ?<span class='tooltiptext'>You cannot edit a Student ID.<br>To change a Student ID, delete and recreate the student.</span></span></p>
+      <p><input type='text' name='stu_IDd' value='".$studentid."' class='inputBox' disabled/><input type='hidden' name='stu_ID' value='".$studentid."' class='inputBox'/>&nbsp;<span class='tooltip'>?<span class='tooltiptext'>You cannot edit a Student ID.<br>To change a Student ID, delete and recreate the student.</span></span></p>
       <p>Firstname </p>
       <p><input type='text' name='stu_FirstName' value='".$row['stu_FirstName']."' class='inputBox'/></p>
       <p>Lastname </p>
@@ -80,6 +80,27 @@
       <p><input type='text' name='stu_Email' value='".$row['stu_Email']."' class='inputBox'></p>
       <p><input type='submit' value='Update' class='inputButton'>&nbsp&nbsp<input type='reset' value='Reset' class='inputButton'></p>
       </form></p>";
+
+      echo "<hr>";
+      $enrolled = getEnrolments($studentid, $CON);
+      if(empty($enrolled)) {
+        echo "Student is not enrolled in any units.";
+      } else {
+        echo "
+        <form action='withdraw' method='post'>
+          <input type='hidden' name='stu_ID' value='".$studentid."' />
+          <label for='unit_ID'>Withdraw student from: </label><select name= 'unit_ID' id='unit_ID' class='inputList'>";
+            foreach($enrolled as $unit) {
+              echo "<option value='".$unit."'>".$unit."</option>";
+            }
+        echo"</select>&nbsp;<button type='submit' class='inputButton'>Withdraw</button></form>";
+      }
+      echo "<hr>";
+      echo "
+      <form action='deletestudent' method='post'>
+        <input type='hidden' name='stu_ID' value='".$studentid."' />
+        <button type='submit' class='inputButton' style='color:red;'>Delete Student from Database</button>
+      </form>";
     } else {
       echo "<h3>Invalid Student Selected</h3>";
     }

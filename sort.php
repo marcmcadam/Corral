@@ -25,7 +25,7 @@
             <link rel='stylesheet' type='text/css' href='styles.css'>
             <link rel='icon' type='image/ico' href='favicon.ico'>
         </head>
-    <body><div class='main' style='text-align: left; min-height: 1024px;'>";
+        <body><div class='main' style='text-align: left;'>";
 
     if (isset($sort->pid))
     {
@@ -34,6 +34,7 @@
     }
 
     $displayBatches = false;
+    $updateDatabase = true;
 
     function update()
     {
@@ -68,12 +69,18 @@
     }
     
     $clevers = sizeof($students);
+
+    // default no survey to 0 skills
+    foreach ($students as $student)
+    {
+        if (is_null($student->skills))
+            $student->skills = array_fill(0, $numSkills, 0);
+    }
+
     if ($clevers < $slots)
     {
         for ($i = $clevers; $i < $slots; $i += 1)
         {
-            $y = sizeof($students);
-
             $dummy = new Student();
             $dummy->skills = array_fill(0, $numSkills, 0);
             array_push($students, $dummy);
@@ -208,10 +215,13 @@
     }
     */
     $numChanges = sizeof($databaseChanges);
-    echo "<p>Setting starting group for $numChanges students</p>";
-    update();
-
-    assignDatabase($databaseChanges);
+    
+    if ($updateDatabase)
+    {
+        echo "<p>Setting starting group for $numChanges students</p>";
+        update();
+        assignDatabase($databaseChanges);
+    }
 
     // remove students who are locked to eliminate them from sorting
     foreach ($lockedStudents as $y)
@@ -252,7 +262,8 @@
     // better to have less size than projects, otherwise changing multiple students in/out of a group can lead to looping changes
     $matrixLimit = min(sizeof($students), sizeof($projects));
     $endMatrixSize = min($sort->matrix, $matrixLimit);
-    $matrixSize = $endMatrixSize; // min(min(10, $sort->matrix), $matrixLimit);
+    $matrixSize = $endMatrixSize;
+    //$matrixSize = min(min(10, $sort->matrix), $matrixLimit);
     echo "<p>Iterations limit: $sort->iterations, Matrix size limit: $endMatrixSize</p>";
     echo "<p>Matrix size: $matrixSize</p>";
     update();
@@ -404,7 +415,8 @@
             if (!is_null($student->projectIndex))
                 array_push($projects[$student->projectIndex]->studentIndices, $y);
         }
-        assignDatabase($toDatabase);
+        if ($updateDatabase)
+            assignDatabase($toDatabase);
 
         $progress = -$cost;
         $swaps = sizeof($toDatabase);
@@ -436,6 +448,17 @@
         
         update();
     }
+
+    if (!$updateDatabase)
+    {
+        echo "<p>Setting group for all students.</p>";
+        update();
+        $finalGroups = [];
+        foreach ($students as $y => $student)
+            $finalGroups[$y] = $student->projectIndex;
+        assignDatabase($finalGroups);
+    }
+
     echo "<p>Stopped</p>";
 
     $sql = "UPDATE unit SET sort_pid=null WHERE unit_ID='$unitID'";
@@ -450,10 +473,20 @@
         global $students;
         global $projects;
 
+        if (sizeof($studentProjects) == 0)
+            return;
+
+        $sql = "DROP TABLE temp";
+        mysqli_query($CON, $sql);
+
+        $sql = "CREATE TABLE temp (stu_ID INT(11), pro_ID INT(11))";
+        if (!mysqli_query($CON, $sql))
+            echo "<p>Error creating temporary table.</p>";
+        
+        $sql = "INSERT INTO temp (stu_id, pro_ID) VALUES ";
+        $n = 0;
         foreach ($studentProjects as $y => $p)
         {
-            set_time_limit(30); // each entry should be quick, but in total can take a long time
-
             $student = $students[$y];
             $sid = $student->id;
 
@@ -465,9 +498,23 @@
                 $pid = $project->id;
             }
 
-            $sql = "UPDATE surveyanswer SET pro_ID=$pid WHERE stu_id=$sid AND unit_ID='$unitID'";
-            if (!mysqli_query($CON, $sql))
-                echo "Error assigning project member: " . mysqli_error($CON) . "<br>";
+            if ($n > 0)
+                $sql .= ", ";
+            $sql .= "($sid, $pid)";
+            $n += 1;
         }
+
+        set_time_limit(30);
+        if (!mysqli_query($CON, $sql))
+            echo "<p>Error setting temporary project member: " . mysqli_error($CON) . "</p>";
+
+        $sql = "UPDATE surveyanswer s, temp t SET s.pro_ID=t.pro_ID WHERE s.unit_ID='$unitID' AND s.stu_id=t.stu_ID";
+        set_time_limit(30);
+        if (!mysqli_query($CON, $sql))
+            echo "<p>Error assigning project members: " . mysqli_error($CON) . "</p>";
+
+        $sql = "DROP TABLE temp";
+        if (!mysqli_query($CON, $sql))
+            echo "<p>Error dropping temporary table.</p>";
     }
 ?>
