@@ -16,15 +16,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
   {
     $email_login = mysqli_real_escape_string($CON, $_POST['sta_Email']);
     $password = mysqli_real_escape_string($CON, $_POST['sta_Password']);
-    //hash input password using aes256cbc using encryptor.php
-    $encryptedaes256=encrypt_decrypt('encrypt',$password);
 
     // Reset variables for login
     $sta_Email = $sta_Password = "";
     $login_Error_Text="Login error";
     $login_Error = FALSE;
 
-      // Pull credential data from database if valid. If valid, only 1 result. Set session variables.
       $query = "SELECT * FROM staff WHERE sta_Email='$email_login'";
 
       // If Staff ID valid  and lockout not enabled
@@ -62,9 +59,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
           }
 
       //  Grab password from staff table
-      $loginpassword = $user['sta_Password'];
+      $storedencryptedhash = $user['sta_Password'];
+      $storedhash = encrypt_decrypt('decrypt', $storedencryptedhash);
+      $validpassword = password_verify($password, $storedhash);
+
       // Test Password hash match
-  if ($loginpassword !== $encryptedaes256 and $login_Error==FALSE)
+  if (!$validpassword && $login_Error==FALSE)
       {
       // Invalid login. ID not in database
       $login_Error = TRUE;
@@ -112,13 +112,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
         }
 
       }
-  else
-      {
-        // Invalid Login. Regex doesn't match   Is this required? check line 15
-        // (filter_var($emailAddress, FILTER_VALIDATE_EMAIL)
-      $login_Error = TRUE;
-      $login_Error_Text="Invalid Username ( Check email )";
-      }
+
 }
 // end database query for login
 ?>

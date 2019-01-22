@@ -16,14 +16,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
         {
         $id = mysqli_real_escape_string($CON, $_POST['STUDENT_ID']);
         $password = mysqli_real_escape_string($CON, $_POST['STUDENT_PASSWORD']);
-        //hash input password using aes256cbc using encryptor.php
-        $encryptedaes256=encrypt_decrypt('encrypt',$password);
 
         // Reset variables for login
         $stu_ID = $stu_Password = "";
         $login_Error_Text="Login error";
         $login_Error = FALSE;
-
 
         $query = "SELECT * FROM student WHERE stu_ID='$id'";
 
@@ -62,9 +59,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
             }
 
             //  Grab password from student table
-            $loginpassword = $user['stu_Password'];
+            $storedencryptedhash = $user['stu_Password'];
+            $storedhash = encrypt_decrypt('decrypt', $storedencryptedhash);
+            $validpassword = password_verify($password, $storedhash);
+
             // Test Password hash match
-        if ($loginpassword !== $encryptedaes256 and $login_Error==FALSE)
+        if (!$validpassword && $login_Error==FALSE)
             {
             // Invalid login. ID not in database
             $login_Error = TRUE;
