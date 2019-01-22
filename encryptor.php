@@ -12,8 +12,8 @@ function encrypt_decrypt($action, $string) {
     $output = false;
 
     $encrypt_method = "AES-256-CBC";
-    $secret_key = 'This is my secret key';//change keys to anything at least 16 chars long
-    $secret_iv = 'This is my secret iv';  //change keys to anything at least 16 chars long
+    $secret_key = 'SQiwMJwCvchPVo1C';// SQiwMJwCvchPVo1C    new keys to be implemented
+    $secret_iv = '8rkp3IRR5yFLP2oT';  // 8rkp3IRR5yFLP2oT    new keys to be implemented
 
     // hash
     $key = hash('sha256', $secret_key);
