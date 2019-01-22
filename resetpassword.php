@@ -1,6 +1,7 @@
 <?php
 require "connectdb.php";
 $PageTitle = "Login Page";
+require "encryptor.php";// for aes256-cbc function
 require "header_public.php";
 
 // check for tokens
@@ -21,7 +22,14 @@ if ( false !== ctype_xdigit( $selector ) && false !== ctype_xdigit( $validator )
 // If form has been submitted, sanitise and process inputs
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   // If selector, validator and password are set in _POST, and selector/validator are hex, process
-  if (  isset($_POST['selector']) && isset($_POST['validator']) && isset($_POST['new_password']) && (false !== ctype_xdigit($_POST['selector']) && false !== ctype_xdigit($_POST['validator']))) {
+//  Original If statement
+//if (  isset($_POST['selector']) && isset($_POST['validator']) && isset($_POST['new_password']) && (false !== ctype_xdigit($_POST['selector']) && false !== ctype_xdigit($_POST['validator'])))
+// modified for password complexity min 1 uppercase , 1 lowercase, 1 digit min length 8
+// regex expression for test  ^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$
+// adding preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/',isset($_POST['new_password'])
+  if (  isset($_POST['selector']) && isset($_POST['validator']) && preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/',isset($_POST['new_password'])) && (false !== ctype_xdigit($_POST['selector']) && false !== ctype_xdigit($_POST['validator'])))
+
+   {
     $selector = $_POST['selector']; //Validated above in if statement
     $validator = $_POST['validator']; //Validated above in if statement
 
@@ -48,9 +56,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       if ($row['count(*)'] == 1) {
         // Reset staff password
         $password = mysqli_real_escape_string($CON, $_POST['new_password']);
-        $salt = 'juhladhfl465adfgadf564a3d5f4g6664645dfgvadf';
-        $md5 = md5($salt . $password . $salt);
-        $query = "UPDATE staff SET sta_Password='".$md5."' WHERE sta_Email = '".$email."'";
+        //$salt = 'juhladhfl465adfgadf564a3d5f4g6664645dfgvadf';  old md5
+        //$md5 = md5($salt . $password . $salt);
+        $encryptedaes256=encrypt_decrypt('encrypt', $password);
+        $query = "UPDATE staff SET sta_Password='".$encryptedaes256."' WHERE sta_Email = '".$email."'";
         mysqli_query($CON, $query) or die(mysqli_error($CON));
         echo "<p>Your password has been reset, please <a href='stafflogin.php'>login here</a>.</p>";
       }
@@ -62,9 +71,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       if ($row['count(*)'] == 1) {
         // Reset student password
         $password = mysqli_real_escape_string($CON, $_POST['new_password']);
-        $salt = 'juhladhfl465adfgadf564a3d5f4g6664645dfgvadf';
-        $md5 = md5($salt . $password . $salt);
-        $query = "UPDATE student SET stu_Password='".$md5."' WHERE stu_Email = '".$email."'";
+        //$salt = 'juhladhfl465adfgadf564a3d5f4g6664645dfgvadf'; Old md5
+        //$md5 = md5($salt . $password . $salt);
+        $encryptedaes256=encrypt_decrypt('encrypt', $password);
+        $query = "UPDATE student SET stu_Password='".$encryptedaes256."' WHERE stu_Email = '".$email."'";
         mysqli_query($CON, $query) or die(mysqli_error($CON));
         echo "<p>Your password has been reset, please <a href='login.php'>login here</a>.</p>";
       }
@@ -75,6 +85,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   } else {
     // POST variables not set, invalid.
     echo "<p>Error(2): Unable to reset password</p>";
+    echo "<p>Password complexity must be adhered to</p>";
   }
 }
 ?>
