@@ -8,7 +8,7 @@ require "sanitise.php";
 $maxSkillImportance = 4;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  $pro_ID_text = SanitiseGeneric($_POST['pro_ID'], $CON);
+  $pro_ID_text = SanitiseInput($_POST['pro_ID'], $CON);
   if ($pro_ID_text == "")
   {
       $insert = "INSERT INTO project (unit_ID, pro_imp) VALUES ('$unitID', 20)";
@@ -22,11 +22,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $pro_ID = (int)$pro_ID_text;
 
     //$unit_ID = mysqli_real_escape_string($CON, $_POST['unit_ID']);
-    $title = SanitiseName($CON, $_POST['PRO_TITLE']);
-    $leader = SanitiseName($CON, $_POST['PRO_LEADER']);
-    $email = SanitiseString($CON, $_POST['PRO_EMAIL']);
-    $brief = SanitiseGeneric($_POST['PRO_BRIEF'], $CON);
-    $status = mysqli_real_escape_string($CON, $_POST['PRO_STATUS']);
+    $title = SanitiseInput( $_POST['PRO_TITLE'], $CON);
+    $leader = SanitiseInput( $_POST['PRO_LEADER'], $CON);
+    $email = SanitiseInput( $_POST['PRO_EMAIL'], $CON);
+    $brief = SanitiseInput($_POST['PRO_BRIEF'], $CON);
     if (ctype_digit($_POST['min']))
         $minimum = min(max((int)mysqli_real_escape_string($CON, $_POST['min']), 0), 1000000);
     else
@@ -36,10 +35,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $importance = min(max((int)mysqli_real_escape_string($CON, $_POST['impAll']), 0), 1000000);
     else
         $importance = 0;
-
-    if($status != "Active" && $status != "Inactive" && $status != "Planning" && $status != "Cancelled" ){
-        $status = "Planning";
-    }
 
     function postImportance($key)
     {
@@ -74,7 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       array_push($skillBias, postBias($s));
   }
 
-  $sql = "UPDATE project SET unit_ID='$unitID',pro_title='$title',pro_leader='$leader',pro_email='$email',pro_brief='$brief',pro_status='$status', pro_min='$minimum', pro_max='$maximum', pro_imp='$importance'";
+  $sql = "UPDATE project SET unit_ID='$unitID',pro_title='$title',pro_leader='$leader',pro_email='$email',pro_brief='$brief', pro_min='$minimum', pro_max='$maximum', pro_imp='$importance'";
   for ($i = 0; $i < $numSkills; $i += 1)
   {
       $imp = $skillImp[$i];
@@ -135,7 +130,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $brief = "";
         $leader = "";
         $email = "";
-        $status = "";
         $minimum = 0;
         $maximum = 0;
         $importance = 20; // with limit as 100, is a number that can get 5 times larger, but also 5x smaller without losing too much fidelity (20/5 = 4)
@@ -158,11 +152,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $brief = $project['pro_brief'];
       $leader = $project['pro_leader'];
       $email = $project['pro_email'];
-      $status = $project['pro_status'];
       $minimum = $project['pro_min'];
       $maximum = $project['pro_max'];
       $importance = $project['pro_imp'];
-      
+
       for ($i = 0; $i < $numSkills; $i += 1)
       {
           $imp = (int)$project["pro_skill_".sprintf("%02d", $i)];
@@ -207,28 +200,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <form method='post'>
                 <input hidden type='text' name='pro_ID' value='$pro_ID'>
                 Title<br>
-                <input type='text' name='PRO_TITLE' class='inputBox' value='$title'><br><br>
+                <input type='text' name='PRO_TITLE' class='inputBox' value='$title' required><br><br>
                 Supervisor<br>
-                <input type='text' name='PRO_LEADER' class='inputBox' value='$leader'><br><br>
+                <input type='text' name='PRO_LEADER' class='inputBox' value='$leader' required><br><br>
                 Supervisor Email<br>
-                <input type='email' name='PRO_EMAIL' class='inputBox' value='$email'><br><br>
+                <input type='email' name='PRO_EMAIL' class='inputBox' value='$email' required><br><br>
                 Brief<br>
-                <textarea name='PRO_BRIEF' rows='5' cols='40' class='inputBox'>$brief</textarea><br><br>
-                Status<br>
-                <select name='PRO_STATUS' class='inputList' size='1'>
-                    <option value='Active'". ($status=='Active' ? 'Selected' : '') .">Active</option>
-                    <option value='Inactive'". ($status=='Inactive' ? 'Selected' : '') .">Inactive</option>
-                    <option value='Planning'". ($status=='Planning' ? 'Selected' : '') .">Planning</option>
-                    <option value='Cancelled'". ($status=='Cancelled' ? 'Selected' : '') .">Cancelled</option>
-                </select><br>
+                <textarea name='PRO_BRIEF' rows='5' cols='40' class='inputBox' required>$brief</textarea><br>
                 <br>
                 Relative Number of Members<br>";
                 /*<br>";
                 Minimum <input type='text' name='min' value='$minimum'><br>
                 <br>
                 Maximum <input type='text' name='max' value='$maximum'><br>*/
-        echo "  <input type='text' name='min' class='inputBox' value='$minimum'><br>
-                <sub>scaled up or down for the number of students</sub><br>
+        echo "  <input type='text' name='min' class='inputBox' value='$minimum'>&nbsp;
+                <span class='tooltip'>?<span class='tooltiptext'>This number is scaled up or down so the total for all projects equals the number of students.</span></span>
+                <br><br>
                 <input hidden type='text' name='max' value='0'><br>
                 <br>
                 <table align='center' class='listTable'>

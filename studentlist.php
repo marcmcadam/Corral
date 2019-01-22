@@ -12,18 +12,20 @@
     $projects = $unitData->projects;
     $unassigned = $unitData->unassigned;
 
+    echo "<script src='sorttable/sorttable.js'></script>";
+
     echo "<h2>Student Information</h2>
     <form name ='studentListForm' action='studentuser'  method='get'>
-    <table class='listTable' align='center'>
+    <table class='listTable sortable' align='center'>
         <tr>
-            <th>ID</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Campus</th>
-            <th>Email</th>
-            <th>Survey</th>
-            <th>Project</th>
-            <th>Update</th>
+            <th class='widthStudentID'>ID</th>
+            <th class='widthFirstName'>First Name</th>
+            <th class='widthLastName'>Last Name</th>
+            <th class='widthCampus'>Campus</th>
+            <th class='widthEmail'>Email</th>
+            <th class='widthTiny'>Survey</th>
+            <th class='widthProjectTitle'>Project</th>
+            <th class='widthUpdate'>Update</th>
         </tr>";
 
 foreach ($students as $y => $student)
@@ -33,14 +35,14 @@ foreach ($students as $y => $student)
     $campus = getCampus($student->campus);
 
     echo "<tr>
-        <td align='center'>$student->id</td>
-        <td align='center'>$student->firstName</td>
-        <td align='center'>$student->lastName</td>
-        <td align='center'>$campus</td>
-        <td align='center'>$student->email</td>
-        <td align='center'>$surveyDone</td>
-        <td align='center'>$projectTitle</td>
-        <td align='center'><button value ='$student->id' name='studentid' class='updateButton'>Update</button></td>
+        <td>$student->id</td>
+        <td>$student->firstName</td>
+        <td>$student->lastName</td>
+        <td>$campus</td>
+        <td>$student->email</td>
+        <td>$surveyDone</td>
+        <td>$projectTitle</td>
+        <td><button value='$student->id' name='studentid' class='updateButton'>Update</button></td>
     </tr>";
 }
 

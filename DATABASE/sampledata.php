@@ -165,7 +165,7 @@ $projectNamesC = ["Project", "Tool", "Web Site", "System"];
 
 $numSkills = 20;
 
-$PROJECT = "INSERT INTO project (unit_ID, pro_title, pro_brief, pro_leader, pro_email, pro_status, pro_min, pro_max, pro_imp";
+$PROJECT = "INSERT INTO project (unit_ID, pro_title, pro_brief, pro_leader, pro_email, pro_min, pro_max, pro_imp";
 for ($i = 0; $i < $numSkills; $i += 1)
     $PROJECT .= ", pro_skill_" . sprintf("%02d", $i);
 for ($i = 0; $i < $numSkills; $i += 1)
@@ -196,7 +196,7 @@ for ($i = 0; $i < $totalProjects; $i += 1)
     randomProject($skills, $imp, $biases);
     array_push($projectSkills, $skills);
     $status = randomProjectStatus();
-    $PROJECT .= "('$unitID', '$a $b $c', 'Lorem Ipsum','Project Leader','projectleader@deakin.edu.au','$status', $min, $max, $imp, " . join(", ", $skills) . ", " . join(", ", $biases) . ')';
+    $PROJECT .= "('$unitID', '$a $b $c', 'Lorem Ipsum','Project Leader','projectleader@deakin.edu.au', $min, $max, $imp, " . join(", ", $skills) . ", " . join(", ", $biases) . ')';
 }
 
 // proportionally distribute students
@@ -215,7 +215,7 @@ foreach ($projectStudents as $p => $size)
         if ($i > 0)
             $surveydata .= ",";
         $studentID = $shuffledStudentIDs[$i];
-        $surveydata .= "('$unitID', 1, $studentID, " . join(", ", $skills) . ")";
+        $surveydata .= "('$unitID', " . (($studentID == 216000000) ? 0 : 1) . ", $studentID, " . join(", ", $skills) . ")";
         $i += 1;
     }
 }
@@ -229,7 +229,7 @@ for ($j = 0; $j < $studentsRandom; $j += 1)
     $rarity = 2.0;
     $skills = randomSkills();
     $studentID = $shuffledStudentIDs[$i];
-    $surveydata .= "('$unitID', 1, $studentID, " . join(", ", $skills) . ")";
+    $surveydata .= "('$unitID', " . (($studentID == 216000000) ? 0 : 1) . ", $studentID, " . join(", ", $skills) . ")";
     $i += 1;
 }
 
