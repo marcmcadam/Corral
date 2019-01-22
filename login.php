@@ -9,7 +9,6 @@ require "header_public.php";
 $login_Error = FALSE;
 
 // If form has been submitted, sanitise and process inputs
-
 if ($_SERVER["REQUEST_METHOD"] == "POST")
     {
     // If Username and Password fields have data & student ID is a valid 9 digit number
@@ -20,11 +19,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
         //hash input password using aes256cbc using encryptor.php
         $encryptedaes256=encrypt_decrypt('encrypt',$password);
 
-
         // Reset variables for login
         $stu_ID = $stu_Password = "";
         $login_Error_Text="Login error";
         $login_Error = FALSE;
+
 
         $query = "SELECT * FROM student WHERE stu_ID='$id'";
 
@@ -103,9 +102,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
             $_SESSION['STUDENT_FIRSTNAME'] = $user['stu_FirstName'];
             $_SESSION['STUDENT_LASTNAME'] = $user['stu_LastName'];
 
-
-
             // Successful login.
+
             if ($login_Error==FALSE)
             {
                 $query = "UPDATE student SET stu_LoginAttempts=5 WHERE stu_ID = $id";
@@ -126,7 +124,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 ?>
 
 <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-  <h2>Please Log In</h2>
+  <h2>Student Please Log In</h2>
   <?php if($login_Error) echo "<p>$login_Error_Text</p>";?>
   <input type="text" name="STUDENT_ID" placeholder="Student ID" class="inputBox" required><br><br>
   <input type="password" name="STUDENT_PASSWORD" placeholder="Password" class="inputBox" required><br><br>
