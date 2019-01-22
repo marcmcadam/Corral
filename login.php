@@ -2,7 +2,7 @@
 session_start();
 session_regenerate_id();  // prevention of session hijacking
 require "connectdb.php";
-REQUIRE "encryptor.php";// for aes256-cbc function
+require "encryptor.php";// for aes256-cbc function
 $PageTitle = "Login Page";
 require "header_public.php";
 

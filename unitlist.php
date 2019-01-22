@@ -15,7 +15,6 @@ echo "<h2>Unit List</h2>
     <th colspan='2'>Survey Status</th>
     <th>Update</th>
   </tr>";
-
 while ($row=mysqli_fetch_assoc($res)) {
   echo "
   <tr>
