@@ -1,5 +1,6 @@
 <?php
     session_start();
+    session_regenerate_id();  // prevention of session hijacking
     $PageTitle = "Group List";
     require "staffauth.php";
     require_once "connectdb.php";
@@ -27,7 +28,7 @@
     $students = $unitData->students;
     $projects = $unitData->projects;
     $unassigned = $unitData->unassigned;
-    
+
     // display projects
     foreach ($projects as $p => $project)
     {

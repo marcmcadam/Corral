@@ -1,7 +1,9 @@
 <?php
     header('Cache-Control: no-cache');
-    
+
     session_start();
+    session_regenerate_id();  // prevention of session hijacking
+    session_regenerate_id();
     require_once "staffauth.php";
     session_write_close(); // allows other pages to load this session
 
@@ -66,7 +68,7 @@
         echo "<p>Too few tasks for the number of students</p>";
         die;
     }
-    
+
     $clevers = sizeof($students);
     if ($clevers < $slots)
     {
@@ -433,7 +435,7 @@
             else
                 $noSwapsCount = 0;
         }
-        
+
         update();
     }
     echo "<p>Stopped</p>";
