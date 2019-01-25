@@ -97,15 +97,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
                 }
             }
 
-            //grab rest of student data
-            $_SESSION['STUDENT_ID'] = $id;
-            $_SESSION['STUDENT_FIRSTNAME'] = $user['stu_FirstName'];
-            $_SESSION['STUDENT_LASTNAME'] = $user['stu_LastName'];
+
 
             // Successful login.
 
             if ($login_Error==FALSE)
             {
+                //grab rest of student data
+                $_SESSION['STUDENT_ID'] = $id;
+                $_SESSION['STUDENT_FIRSTNAME'] = $user['stu_FirstName'];
+                $_SESSION['STUDENT_LASTNAME'] = $user['stu_LastName'];
                 $query = "UPDATE student SET stu_LoginAttempts=5 WHERE stu_ID = $id";
                 mysqli_query($CON, $query) or die(mysqli_error($CON));
                 header("location: studenthome");
