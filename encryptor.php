@@ -12,8 +12,8 @@ function encrypt_decrypt($action, $string) {
     $output = false;
 
     $encrypt_method = "AES-256-CBC";
-    $secret_key = 'This is my secret key';//change keys to anything at least 16 chars long
-    $secret_iv = 'This is my secret iv';  //change keys to anything at least 16 chars long
+    $secret_key = 'SQiwMJwCvchPVo1C';// SQiwMJwCvchPVo1C    new keys to be implemented
+    $secret_iv = '8rkp3IRR5yFLP2oT';  // 8rkp3IRR5yFLP2oT    new keys to be implemented
 
     // hash
     $key = hash('sha256', $secret_key);
@@ -22,10 +22,13 @@ function encrypt_decrypt($action, $string) {
     $iv = substr(hash('sha256', $secret_iv), 0, 16);
 
     if ( $action == 'encrypt' ) {
-        $output = openssl_encrypt($string, $encrypt_method, $key, 0, $iv);
+        $output = password_hash($string, PASSWORD_BCRYPT);
+        $output = openssl_encrypt($output, $encrypt_method, $key, 0, $iv);
         $output = base64_encode($output);
+
     } else if( $action == 'decrypt' ) {
         $output = openssl_decrypt(base64_decode($string), $encrypt_method, $key, 0, $iv);
+        // will return hash.
     }
 
     return $output;

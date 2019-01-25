@@ -10,7 +10,7 @@
         <button class="inputButton">View and Edit Students</button>
       </form>
     <h4>Import</h4>
-      <form action="classlist.php">
+      <form action="importStudents.php">
         <button class="inputButton">Import Students from CSV</button>
       </form>
     <h4>Export</h4>
@@ -31,7 +31,9 @@
         <button class="inputButton">View and Edit Staff</button>
       </form>
     <h4>Import</h4>
-      <p>NYI</p>
+      <form action="importStaff.php">
+        <button class="inputButton">Import Staff from CSV</button>
+      </form>
     <h4>Export</h4>
       <form action="staffcsv.php" method="post">
       	<input type="submit" name="STAFF_CSV" value="Export Staff List To CSV" class="inputButton">

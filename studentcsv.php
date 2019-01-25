@@ -1,5 +1,6 @@
 <?php
 session_start();
+session_regenerate_id();  // prevention of session hijacking
 require_once "getfunctions.php";
 require "staffauth.php";
 

@@ -6,8 +6,8 @@ require_once "sanitise.php";
 ?>
 
 <h2 class="main">Import Students from CSV</h2>
-<p> Please attach the .csv file, you may download the <br>
-		sample data csv to use as a template.</p>
+<p> Please attach the .csv file, you may download the sample data csv to use as a template.<br>
+	Students are added to <?php print  $_SESSION["unit"];?>. A different unit can be selected on the <a href="./staffhome.php">Staff Home page.</a></p>
 <form name="classlist" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>"  method="post" enctype="multipart/form-data">
 	<table align="center">
 			<tr valign='top'>
@@ -54,12 +54,13 @@ if( isset( $_POST['Submit'] ) ) {
 
 //DEBUG
 //	print "Raw Data: ". $Student_List."<br><br> Other Stuff: <br>";
-
+//successful import booleon
+$succsessfulimport = 1;
 //NB explode could be replaced by fgetcsv()
-	$StudentArr = explode("\r", $Student_List);
+	$StudentArr = explode("\n", $Student_List);
 
 	foreach ($StudentArr as $student){
-		$student = trim($student);
+	//DEBUG
 	//	print "<span style='color:blue' >Student Details:</span> ".$student."<br>";
 
 		$stu_info = explode (",",$student);
@@ -78,9 +79,10 @@ if( isset( $_POST['Submit'] ) ) {
 			//[3] = Campus
 			$stu_Campus = SanitiseInput($stu_info[3], $CON);
 			//[4] = email
-			$stu_Email = SanitiseInput($stu_info[4], $CON);
+			$stu_Email_caps = SanitiseInput($stu_info[4], $CON);
+			$stu_Email = strtolower($stu_Email_caps);
 
-			$stu_Unit = SanitiseInput($stu_info[5], $CON);
+			$stu_Unit =   $_SESSION["unit"];
 
 			//password
 				//NB this is not meant to be encrypted at all.
@@ -88,9 +90,9 @@ if( isset( $_POST['Submit'] ) ) {
 					//the login form to match with the string saved here
 			$stu_Password = "NoneSet";
 			//locked out
-			$stu_LockedOut = "1";
+//			$stu_LockedOut = "0";
 			//login attmepts
-			$stu_loginAttempts = "5";
+//			$stu_loginAttempts = "5";
 
 
 			//Validation
@@ -110,7 +112,7 @@ if( isset( $_POST['Submit'] ) ) {
 			if ($Validation == 0){
 
 				print "Import failed, failed validation of data for ID: ".$stu_ID."<br>";
-
+		    $succsessfulimport = 0;
 			} else {
 				//SQL check if Student exists
 				$query = "SELECT stu_ID FROM student WHERE stu_ID = '".$stu_info[0]."'";
@@ -124,9 +126,7 @@ if( isset( $_POST['Submit'] ) ) {
 								stu_LastName = '".$stu_LastName."',
 								stu_Campus = '".$stu_Campus."',
 								stu_Email = '".$stu_Email."',
-								stu_Password = '".$stu_Password."',
-								stu_LockedOut = '".$stu_LockedOut."',
-								stu_LoginAttempts =  '".$stu_loginAttempts."'
+								stu_Password = '".$stu_Password."'
 							WHERE
 								stu_ID	= '".$stu_ID."' ";
 
@@ -142,10 +142,10 @@ if( isset( $_POST['Submit'] ) ) {
 					$insert_query =
 						"INSERT INTO student
 								(stu_ID, stu_FirstName, stu_LastName, stu_Campus,
-									stu_Email, stu_Password, stu_LockedOut, stu_LoginAttempts  )
+									stu_Email, stu_Password  )
 							VALUES
 								('".$stu_ID."', '".$stu_FirstName."', '".$stu_LastName."', '".$stu_Campus."',
-									'".$stu_Email."', '".$stu_Password."', '".$stu_LockedOut."', '".$stu_loginAttempts."')";
+									'".$stu_Email."', '".$stu_Password."')";
 
 
 					$insert_SQL = mysqli_query($CON, $insert_query) or die(mysqli_error($CON));
@@ -154,7 +154,7 @@ if( isset( $_POST['Submit'] ) ) {
 				//	echo $insert_query."<br>";
 				//	print"<b>".$stu_FirstName." "."$stu_LastName"."</b> was added to the DB<br><br>";
 				}
-				print "Import Successful";
+
 				/*---------------------
 				//
 				//		Add students to survey with unit field
@@ -189,7 +189,13 @@ if( isset( $_POST['Submit'] ) ) {
 			//print "student number is blank <br>";
 		} else {
 			print "Student number must contain only nine numbers, for: ".$stu_ID.",<br>";
+			$succsessfulimport = 0;
 		}
+
+	}
+	if ($succsessfulimport == 1) {
+		print "Import Successful<br>";
+	} else {
 
 	}
 }

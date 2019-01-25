@@ -59,7 +59,7 @@ $student = "CREATE TABLE student (
   stu_LastName varchar(32) NOT NULL,
   stu_Campus int(1) NOT NULL,
   stu_Email varchar(32) NOT NULL,
-  stu_Password varchar(64) NOT NULL,
+  stu_Password varchar(128) NOT NULL,
   stu_Timestamp timestamp NOT NULL default now(),
   stu_LockedOut boolean NOT NULL default false,
   stu_LoginAttempts tinyint(1) NOT NULL default 5
@@ -77,7 +77,7 @@ $staff = "CREATE TABLE STAFF (
   sta_LastName varchar(32) NOT NULL,
   sta_Campus int(1) NOT NULL,
   sta_Email varchar(32) NOT NULL,
-  sta_Password varchar(64) NOT NULL,
+  sta_Password varchar(128) NOT NULL,
   sta_Timestamp timestamp NOT NULL default now(),
   sta_LockedOut boolean NOT NULL default false,
   sta_LoginAttempts tinyint(1) NOT NULL default 5
