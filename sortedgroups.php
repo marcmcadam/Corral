@@ -290,7 +290,7 @@
                 <input type='checkbox' id='pLock$p' onchange='pLockChange$p();' $lockDisable>
             </td>";
         //echo "<td colspan='3' class='sortProjectTop'>$projectText[$p] ($projectMinima[$p] - $projectMaxima[$p])</td>";
-        echo "<td colspan='3' class='sortProjectTop'>$project->title <span style='font-size: 0.75em; font-weight: normal;'>($members of $project->allocation)</span></td>";
+        echo "<td colspan='3' class='sortProjectTop'>$project->title <span style='font-size: 0.75em; font-weight: normal;'>($members of $project->slots)</span></td>";
         for ($s = 0; $s < $numSkills; $s += 1)
         {
             if (is_null($skillNames[$s]))

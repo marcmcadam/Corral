@@ -2,14 +2,13 @@
 session_start();
 session_regenerate_id();  // prevention of session hijacking
 require "connectdb.php";
-REQUIRE "encryptor.php";// for aes256-cbc function
+require "encryptor.php";// for aes256-cbc function
 $PageTitle = "Login Page";
 require "header_public.php";
 
 $login_Error = FALSE;
 
 // If form has been submitted, sanitise and process inputs
-
 if ($_SERVER["REQUEST_METHOD"] == "POST")
     {
     // If Username and Password fields have data & student ID is a valid 9 digit number
@@ -17,9 +16,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
         {
         $id = mysqli_real_escape_string($CON, $_POST['STUDENT_ID']);
         $password = mysqli_real_escape_string($CON, $_POST['STUDENT_PASSWORD']);
-        //hash input password using aes256cbc using encryptor.php
-        $encryptedaes256=encrypt_decrypt('encrypt',$password);
-
 
         // Reset variables for login
         $stu_ID = $stu_Password = "";
@@ -63,9 +59,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
             }
 
             //  Grab password from student table
-            $loginpassword = $user['stu_Password'];
+            $storedencryptedhash = $user['stu_Password'];
+            $storedhash = encrypt_decrypt('decrypt', $storedencryptedhash);
+            $validpassword = password_verify($password, $storedhash);
+
             // Test Password hash match
-        if ($loginpassword !== $encryptedaes256 and $login_Error==FALSE)
+        if (!$validpassword && $login_Error==FALSE)
             {
             // Invalid login. ID not in database
             $login_Error = TRUE;
@@ -98,16 +97,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
                 }
             }
 
-            //grab rest of student data
-            $_SESSION['STUDENT_ID'] = $id;
-            $_SESSION['STUDENT_FIRSTNAME'] = $user['stu_FirstName'];
-            $_SESSION['STUDENT_LASTNAME'] = $user['stu_LastName'];
-
 
 
             // Successful login.
+
             if ($login_Error==FALSE)
             {
+                //grab rest of student data
+                $_SESSION['STUDENT_ID'] = $id;
+                $_SESSION['STUDENT_FIRSTNAME'] = $user['stu_FirstName'];
+                $_SESSION['STUDENT_LASTNAME'] = $user['stu_LastName'];
                 $query = "UPDATE student SET stu_LoginAttempts=5 WHERE stu_ID = $id";
                 mysqli_query($CON, $query) or die(mysqli_error($CON));
                 header("location: studenthome");
@@ -126,7 +125,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 ?>
 
 <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-  <h2>Please Log In</h2>
+  <h2>Student Please Log In</h2>
   <?php if($login_Error) echo "<p>$login_Error_Text</p>";?>
   <input type="text" name="STUDENT_ID" placeholder="Student ID" class="inputBox" required><br><br>
   <input type="password" name="STUDENT_PASSWORD" placeholder="Password" class="inputBox" required><br><br>

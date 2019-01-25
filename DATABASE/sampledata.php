@@ -1,4 +1,6 @@
 <?php
+require_once "remake.php";
+
 require_once "../connectdb.php";
 require "random.php";
 require_once "../functions.php";
@@ -6,10 +8,12 @@ require_once "../functions.php";
 require_once "names.php";
 
 $unitID = "SIT302T119";
+$testingpassword = 'NFgwWWtVSW5aNzZ4VXdIelE0YkFOM1JHdnNVYTFtRGRYc05YcHdBTlgwd2NETDdkczJ4Q2NvQi9iTmhMM2lxY1RKWS84UkpYMm5OLzNYSW1ZNkREMmc9PQ==';
 
 // NB: Now that foreign keys are in place, the order in which table data is
 // deleted (and created) is relevant.
 
+/* -- relying on remake to reset the data before sampledata
 //empty existing surveydata table
 $surveyanswer = "DELETE from surveyanswer";
 if (mysqli_query($CON, $surveyanswer)) {
@@ -49,6 +53,7 @@ if (mysqli_query($CON, $student)) {
 } else {
   echo "<p>Error deleting student data: " . mysqli_error($CON) . "</p>";
 }
+*/
 
 if (isset($_GET["sr"])) // students who are random
     $studentsRandom = min(max((int)$_GET["sr"], 0), 10000); // number of students who fill in their surveys randomly
@@ -91,7 +96,7 @@ for ($i = 0; $i < $totalStudents; $i += 1)
 
     if ($i > 0)
         $insert .= ", ";
-    $insert .= "($id, '$first', '$last', $campus, '$email', 'RW44Vm0xcEVXVXRkUDVWZkxucWhJdz09')"; //changed password to match aes256cbc
+    $insert .= "($id, '$first', '$last', $campus, '$email', '$testingpassword')"; //changed password to match aes256cbc
 
     array_push($studentIDs, $id);
 }
@@ -103,16 +108,16 @@ if (mysqli_query($CON, $insert)) {
 
 //insert sample staff data----changed password to match aes256cbc
 $insert = 'INSERT INTO staff (sta_ID, sta_FirstName, sta_LastName, sta_Campus, sta_Email, sta_Password) VALUES
-(1,"Staff","User",1,"staffuser@deakin.edu.au","RW44Vm0xcEVXVXRkUDVWZkxucWhJdz09"),
-(2,"Blair","Bowes",1,"bbowes@deakin.edu.au","RW44Vm0xcEVXVXRkUDVWZkxucWhJdz09"),
-(3,"Onur","Ritter",2,"oritter@deakin.edu.au","RW44Vm0xcEVXVXRkUDVWZkxucWhJdz09"),
-(4,"Elsie-Rose","Garcia",1,"ergarcia@deakin.edu.au","RW44Vm0xcEVXVXRkUDVWZkxucWhJdz09"),
-(5,"Etta","Gough",1,"egough@deakin.edu.au","RW44Vm0xcEVXVXRkUDVWZkxucWhJdz09"),
-(6,"Kayleigh","Bradford",2,"kbradford@deakin.edu.au","RW44Vm0xcEVXVXRkUDVWZkxucWhJdz09"),
-(7,"Emma","Bassett",1,"ebassett@deakin.edu.au","RW44Vm0xcEVXVXRkUDVWZkxucWhJdz09"),
-(8,"Layla","Battle",2,"lbattle@deakin.edu.au","RW44Vm0xcEVXVXRkUDVWZkxucWhJdz09"),
-(9,"Fletcher","Lynch",2,"flynch@deakin.edu.au","RW44Vm0xcEVXVXRkUDVWZkxucWhJdz09"),
-(10,"Kaiden","Figueroa",3,"kfigueroa@deakin.edu.au","RW44Vm0xcEVXVXRkUDVWZkxucWhJdz09")';
+(1,"Staff","User",1,"staffuser@deakin.edu.au","'.$testingpassword.'"),
+(2,"Blair","Bowes",1,"bbowes@deakin.edu.au","'.$testingpassword.'"),
+(3,"Onur","Ritter",2,"oritter@deakin.edu.au","'.$testingpassword.'"),
+(4,"Elsie-Rose","Garcia",1,"ergarcia@deakin.edu.au","'.$testingpassword.'"),
+(5,"Etta","Gough",1,"egough@deakin.edu.au","'.$testingpassword.'"),
+(6,"Kayleigh","Bradford",2,"kbradford@deakin.edu.au","'.$testingpassword.'"),
+(7,"Emma","Bassett",1,"ebassett@deakin.edu.au","'.$testingpassword.'"),
+(8,"Layla","Battle",2,"lbattle@deakin.edu.au","'.$testingpassword.'"),
+(9,"Fletcher","Lynch",2,"flynch@deakin.edu.au","'.$testingpassword.'"),
+(10,"Kaiden","Figueroa",3,"kfigueroa@deakin.edu.au","'.$testingpassword.'")';
 if (mysqli_query($CON, $insert)) {
   echo "<P>Sample staff data inserted</P>";
 } else {
@@ -215,7 +220,7 @@ foreach ($projectStudents as $p => $size)
         if ($i > 0)
             $surveydata .= ",";
         $studentID = $shuffledStudentIDs[$i];
-        $surveydata .= "('$unitID', 1, $studentID, " . join(", ", $skills) . ")";
+        $surveydata .= "('$unitID', " . (($studentID == 216000000) ? 0 : 1) . ", $studentID, " . join(", ", $skills) . ")";
         $i += 1;
     }
 }
@@ -229,7 +234,7 @@ for ($j = 0; $j < $studentsRandom; $j += 1)
     $rarity = 2.0;
     $skills = randomSkills();
     $studentID = $shuffledStudentIDs[$i];
-    $surveydata .= "('$unitID', 1, $studentID, " . join(", ", $skills) . ")";
+    $surveydata .= "('$unitID', " . (($studentID == 216000000) ? 0 : 1) . ", $studentID, " . join(", ", $skills) . ")";
     $i += 1;
 }
 

@@ -1,7 +1,8 @@
 <?php
     header('Cache-Control: no-cache');
-    
+
     session_start();
+    session_regenerate_id();  // prevention of session hijacking
     require_once "staffauth.php";
     session_write_close(); // allows other pages to load this session
 
@@ -67,14 +68,20 @@
         echo "<p>Too few tasks for the number of students</p>";
         die;
     }
-    
+
     $clevers = sizeof($students);
+
+    // default no survey to 0 skills
+    foreach ($students as $student)
+    {
+        if (is_null($student->skills))
+            $student->skills = array_fill(0, $numSkills, 0);
+    }
+
     if ($clevers < $slots)
     {
         for ($i = $clevers; $i < $slots; $i += 1)
         {
-            $y = sizeof($students);
-
             $dummy = new Student();
             $dummy->skills = array_fill(0, $numSkills, 0);
             array_push($students, $dummy);
