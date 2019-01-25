@@ -54,7 +54,8 @@ if( isset( $_POST['Submit'] ) ) {
 
 //DEBUG
 //	print "Raw Data: ". $Student_List."<br><br> Other Stuff: <br>";
-
+//successful import booleon
+$succsessfulimport = 1;
 //NB explode could be replaced by fgetcsv()
 	$StudentArr = explode("\n", $Student_List);
 
@@ -89,9 +90,9 @@ if( isset( $_POST['Submit'] ) ) {
 					//the login form to match with the string saved here
 			$stu_Password = "NoneSet";
 			//locked out
-			$stu_LockedOut = "0";
+//			$stu_LockedOut = "0";
 			//login attmepts
-			$stu_loginAttempts = "5";
+//			$stu_loginAttempts = "5";
 
 
 			//Validation
@@ -111,7 +112,7 @@ if( isset( $_POST['Submit'] ) ) {
 			if ($Validation == 0){
 
 				print "Import failed, failed validation of data for ID: ".$stu_ID."<br>";
-
+		    $succsessfulimport = 0;
 			} else {
 				//SQL check if Student exists
 				$query = "SELECT stu_ID FROM student WHERE stu_ID = '".$stu_info[0]."'";
@@ -125,9 +126,7 @@ if( isset( $_POST['Submit'] ) ) {
 								stu_LastName = '".$stu_LastName."',
 								stu_Campus = '".$stu_Campus."',
 								stu_Email = '".$stu_Email."',
-								stu_Password = '".$stu_Password."',
-								stu_LockedOut = '".$stu_LockedOut."',
-								stu_LoginAttempts =  '".$stu_loginAttempts."'
+								stu_Password = '".$stu_Password."'
 							WHERE
 								stu_ID	= '".$stu_ID."' ";
 
@@ -143,10 +142,10 @@ if( isset( $_POST['Submit'] ) ) {
 					$insert_query =
 						"INSERT INTO student
 								(stu_ID, stu_FirstName, stu_LastName, stu_Campus,
-									stu_Email, stu_Password, stu_LockedOut, stu_LoginAttempts  )
+									stu_Email, stu_Password  )
 							VALUES
 								('".$stu_ID."', '".$stu_FirstName."', '".$stu_LastName."', '".$stu_Campus."',
-									'".$stu_Email."', '".$stu_Password."', '".$stu_LockedOut."', '".$stu_loginAttempts."')";
+									'".$stu_Email."', '".$stu_Password."')";
 
 
 					$insert_SQL = mysqli_query($CON, $insert_query) or die(mysqli_error($CON));
@@ -155,7 +154,7 @@ if( isset( $_POST['Submit'] ) ) {
 				//	echo $insert_query."<br>";
 				//	print"<b>".$stu_FirstName." "."$stu_LastName"."</b> was added to the DB<br><br>";
 				}
-				print "Import Successful<br>";
+
 				/*---------------------
 				//
 				//		Add students to survey with unit field
@@ -190,7 +189,13 @@ if( isset( $_POST['Submit'] ) ) {
 			//print "student number is blank <br>";
 		} else {
 			print "Student number must contain only nine numbers, for: ".$stu_ID.",<br>";
+			$succsessfulimport = 0;
 		}
+
+	}
+	if ($succsessfulimport == 1) {
+		print "Import Successful<br>";
+	} else {
 
 	}
 }

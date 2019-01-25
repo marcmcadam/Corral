@@ -53,7 +53,8 @@ if( isset( $_POST['Submit'] ) ) {
 
 //DEBUG
 //	print "Raw Data: ". $staff_List."<br><br> Other staff: <br>";
-
+//successful import booleon
+$succsessfulimport = 1;
 //NB explode could be replaced by fgetcsv()
 	$staffArr = explode("\n", $staff_List);
 
@@ -84,10 +85,7 @@ if( isset( $_POST['Submit'] ) ) {
 					//it is meant to be impossible for the encryption produced in
 					//the login form to match with the string saved here
 			$sta_Password = "NoneSet";
-			//locked out
-			$sta_LockedOut = "0";
-			//login attmepts
-			$sta_loginAttempts = "5";
+
 
 
 			//Validation
@@ -107,7 +105,7 @@ if( isset( $_POST['Submit'] ) ) {
 			if ($Validation == 0){
 
 				print "Import failed, failed validation of data for Staff: ".$sta_FirstName."<br>";
-
+				$succsessfulimport = 0;
 			} else {
 				//SQL check if staff exists
 				$query = "SELECT sta_ID FROM staff WHERE sta_email = '".$sta_Email."'";
@@ -120,9 +118,7 @@ if( isset( $_POST['Submit'] ) ) {
 								sta_FirstName = '".$sta_FirstName."',
 								sta_LastName = '".$sta_LastName."',
 								sta_Campus = '".$sta_Campus."',
-								sta_Password = '".$sta_Password."',
-								sta_LockedOut = '".$sta_LockedOut."',
-								sta_LoginAttempts =  '".$sta_loginAttempts."'
+								sta_Password = '".$sta_Password."'
 							WHERE
 								sta_email = '".$sta_Email."'";
 
@@ -138,10 +134,10 @@ if( isset( $_POST['Submit'] ) ) {
 					$insert_query =
 						"INSERT INTO staff
 								(sta_FirstName, sta_LastName, sta_Campus,
-									sta_Email, sta_Password, sta_LockedOut, sta_LoginAttempts  )
+									sta_Email, sta_Password )
 							VALUES
 								('".$sta_FirstName."', '".$sta_LastName."', '".$sta_Campus."',
-									'".$sta_Email."', '".$sta_Password."', '".$sta_LockedOut."', '".$sta_loginAttempts."')";
+									'".$sta_Email."', '".$sta_Password."')";
 
 
 					$insert_SQL = mysqli_query($CON, $insert_query) or die(mysqli_error($CON));
@@ -150,7 +146,7 @@ if( isset( $_POST['Submit'] ) ) {
 				//	echo $insert_query."<br>";
 				//	print"<b>".$sta_FirstName." "."$sta_LastName"."</b> was added to the DB<br><br>";
 				}
-				print "Import Successful<br>";
+
 
 
 			}
@@ -160,9 +156,16 @@ if( isset( $_POST['Submit'] ) ) {
 			//print "staff number is blank <br>";
 		} else {
 			print "Staff number must contain only nine numbers, for: ".$sta_FirstName.",<br>";
+			$succsessfulimport = 0;
 		}
 
 	}
+	if ($succsessfulimport == 1) {
+		print "Import Successful<br>";
+	} else {
+
+	}
+
 }
 
 
