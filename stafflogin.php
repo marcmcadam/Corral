@@ -97,15 +97,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
           }
       }
 
-        //grab rest of staff data
-        $_SESSION['sta_Email'] = $sta_Email;
-        $_SESSION['sta_FirstName'] = $user['sta_FirstName'];
-        $_SESSION['sta_LastName'] = $user['sta_LastName'];
+
 
         // Successful login.
 
         if ($login_Error==FALSE)
         {
+            //grab rest of staff data
+            $_SESSION['sta_Email'] = $email_login;
+            $_SESSION['sta_FirstName'] = $user['sta_FirstName'];
+            $_SESSION['sta_LastName'] = $user['sta_LastName'];
             $query = "UPDATE staff SET sta_LoginAttempts=5 WHERE sta_Email = '$email_login'";
             mysqli_query($CON, $query) or die(mysqli_error($CON));
             header("location: staffhome");
