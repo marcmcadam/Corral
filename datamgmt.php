@@ -15,10 +15,10 @@
       </form>
     <h4>Export</h4>
       <form action="studentcsv.php" method="post">
-      	<input type="submit" value="Student List to CSV" class="inputButton">
+      	<input type="submit" value="Student List to CSV" class="inputButton" style="width: 161px">
       </form>
       <form action="studentpdf.php" method="post">
-      	<input type="submit" value="Student List to PDF" class="inputButton">
+      	<input type="submit" value="Student List to PDF" class="inputButton" style="width: 161px">
       </form>
       <form action="surveycsv.php" method="post">
       	<input type="submit" value="Survey Results to CSV" class="inputButton">
@@ -28,10 +28,10 @@
     <h3>Staff Information</h3>
     <h4>Manage</h4>
       <form action="stafflist.php">
-        <button class="inputButton">View and Edit Staff</button>
+        <button class="inputButton" style="width: 161px">View and Edit Staff</button>
       </form>
     <h4>Import</h4>
-      <form action="importStaff.php">
+      <form action="importStaff.php" >
         <button class="inputButton">Import Staff from CSV</button>
       </form>
     <h4>Export</h4>
@@ -48,14 +48,15 @@
       <form action="projectlist.php">
         <button class="inputButton">View and Edit Projects</button>
       </form>
-    <h4>Import</h4>
-      <p>NYI</p>
+      <h4>Import</h4>
+      <form action="">
+        <button class="inputButton" style="width: 161px">NYI</button>
     <h4>Export</h4>
       <form action="projectlistcsv.php" method="post">
-        <input type="submit" name="export_excel" value="Export As CSV" class="inputButton">
+        <input type="submit" name="export_excel" value="Export As CSV" class="inputButton" style="width: 161px">
       </form>
       <form action="projectlistpdf.php" method="post">
-        <input type="submit" name="export_PDF" value="Export As PDF" class="inputButton">
+        <input type="submit" name="export_PDF" value="Export As PDF" class="inputButton" style="width: 161px">
       </form>
   </li>
   <li class="flexitem">
@@ -64,19 +65,22 @@
       <form action="unitlist.php">
         <button class="inputButton">View and Edit Units</button>
       </form>
-    <h4>Import</h4>
-      <p>NYI</p>
-    <h4>Export</h4>
-      <p>NYI</p>
+      <h4>Import</h4>
+      <form action="">
+        <button class="inputButton" style="width: 161px">NYI</button>
+        <h4>Export</h4>
+        <form action="">
+          <button class="inputButton" style="width: 161px">NYI</button>
   </li>
   <li class="flexitem">
     <h3>Group Information</h3>
     <h4>Manage</h4>
       <form action="grouplist.php">
-        <button class="inputButton">View Groups</button>
+        <button class="inputButton" style="width: 161px">View Groups</button>
       </form>
     <h4>Import</h4>
-      <p>NYI</p>
+    <form action="">
+      <button class="inputButton" style="width: 161px">NYI</button>
     <h4>Export</h4>
       <form action="groupcsv.php" method="post">
         <input type="submit" value="Export Group List To CSV" class="inputButton">

@@ -1,7 +1,7 @@
 <?php
  	$PageTitle = "Home";
     require "header_staff.php";
-    
+
     if (isset($_GET["unit"]))
     {
         $unitID = (string)$_GET["unit"];
@@ -15,7 +15,7 @@
     no manual assigning required. Once a project and desired skills have been set, a student list <br>
     is imported before Corral automatically assigns the best candidates for the project.<br>
     <br>
-    Please select the unit that you want to make changes to below.<br>
+    Please select the unit that you want to make changes to below:<br>
     <?php
         $units = getStaffUnits($CON, $id);
         echo "<form>

@@ -6,24 +6,26 @@ require_once "sanitise.php";
 ?>
 
 <h2 class="main">Import Staff from CSV</h2>
-<p> Please attach the .csv file, you may download the sample data csv to use as a template.</p>
+<p> Please attach the .csv file with staff information and select submit. <br>
+A template can also be downloaded below.
+</p>
 <form name="classlist" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>"  method="post" enctype="multipart/form-data">
 	<table align="center">
-			<tr valign='top'>
-					<td> Staff List:
-					</td>
-
-					<td><input type="file" name="csvFile"></td>
-					<td align='right'><input type="submit" name="Submit" value="Submit" class="inputButton">
-							<input type="reset" value="Clear Form" class="inputButton">
-							<a href="./Sample_StaffCSV_File.php"><input type="button" name="GetSample" value="Sample Data" class="inputButton" ></a>
+		<tr valign='top'>
+						<td style="padding-right:10px;"><label>Import File <br> (CSV) </label></td>
+						<td><input type="file" style="width: 100px; padding: 1px" class="stylish" name="csvFile" size="50"></td>
+					</tr>
+				</table><br>
+						<table align="center">
+				<tr>
+					<td align='center'><input type="submit" name="Submit" value="Submit" class="inputButton">
+							<a href="./Sample_StaffCSV_File.php"><input type="button" name="GetSample" value="Staff Template" class="inputButton" ></a>
 					</td>
 
 			</tr>
 	</table>
 </form>
 <br>
-
 
 <?php
 
