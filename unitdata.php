@@ -181,7 +181,7 @@
             $idProjects[$project->id] = sizeof($projects);
             array_push($projects, $project);
         }
-    
+
         // student sorting properties
         $sql = "SELECT stu_ID, pro_ID, pro_locked FROM surveyanswer WHERE unit_ID='$unitID'";
         $res = mysqli_query($CON, $sql);
@@ -204,13 +204,13 @@
                 die("An assignment exists for a missing project.");
             if (!array_key_exists($sid, $idStudents))
                 die("An assignment exists for a missing student.");
-            
+
             $p = $idProjects[$pid];
             $students[$y]->projectIndex = $p;
 
             array_push($projects[$p]->studentIndices, $y);
         }
-        
+
         if (array_sum($projectOverride) > 0)
         {
             // proportionally distribute students
@@ -304,7 +304,7 @@
             {
                 $student = $students[$y];
                 $campus = getCampus($student->campus);
-                $survey = is_null($student->skills) ? "-" : "Y";
+                $survey = is_null($student->skills) ? "N" : "Y";
                 echo "  <tr>
                             <td>$student->id</td>
                             <td>$student->text</td>
@@ -335,7 +335,7 @@
             {
                 $student = $students[$y];
                 $campus = getCampus($student->campus);
-                $survey = is_null($student->skills) ? "-" : "Y";
+                $survey = is_null($student->skills) ? "N" : "Y";
                 echo '  <tr>
                             <td style="text-align: right;">'.$student->id.'</td>
                             <td style="text-align: left;">'.$student->firstName.'</td>

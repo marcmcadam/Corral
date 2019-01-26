@@ -14,8 +14,8 @@ if ( false !== ctype_xdigit( $selector ) && false !== ctype_xdigit( $validator )
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
       <input type="hidden" name="selector" value="<?php echo $selector; ?>">
       <input type="hidden" name="validator" value="<?php echo $validator; ?>">
-      <input type="password" class="text" class="inputBox" name="new_password" placeholder="Enter a new password" required><br /><br />
-      <input type="submit" class="submit" class="inputButton" value="Save New Password">
+      <input type="password" class="inputBox" name="new_password" placeholder="Enter a new password" required><br /><br />
+      <input type="submit" class="inputButton" value="Save New Password">
     </form>
 <?php
 }

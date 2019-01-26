@@ -30,7 +30,7 @@
 
 foreach ($students as $y => $student)
 {
-    $surveyDone = is_null($student->skills) ? "-" : "Y";
+    $surveyDone = is_null($student->skills) ? "N" : "Y";
     $projectTitle = is_null($student->projectIndex) ? "-" : $projects[$student->projectIndex]->title;
     $campus = getCampus($student->campus);
 
