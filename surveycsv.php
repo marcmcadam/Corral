@@ -1,27 +1,41 @@
 <?php
-session_start();
-session_regenerate_id();  // prevention of session hijacking
-require "staffauth.php";
+    session_start();
+    session_regenerate_id();  // prevention of session hijacking
+    require "staffauth.php";
+    require_once "unitdata.php";
 
-require_once "connectdb.php";
+    $unitData = unitData($unitID);
+    $skillNames = $unitData->skillNames;
+    $sort = $unitData->sort;
+    $students = $unitData->students;
+    $projects = $unitData->projects;
+    $unassigned = $unitData->unassigned;
 
-//Get All Survey
-$query = "SELECT student.stu_FirstName, student.stu_LastName, surveyanswer.* FROM surveyanswer INNER JOIN student ON surveyanswer.stu_ID = student.stu_ID";
-if (!$result = mysqli_query($CON, $query)) {
-    exit(mysqli_error($CON));
-}
-else{
-  //headers so file is downloaded, not displayed
-  header('Content-Type: text/csv; charset=utf-8');
-  header('Content-Disposition: attachment; filename=surveyanswers.csv');
-  //create output variable
-  $output = fopen('php://output', 'w');
-  //column headings
-  fputcsv($output, array('FirstName','LastName','Student ID','HTML/CSS','JavaScript','PHP','Java','C','C++','Obj C','Database','Unity 3','UI','Security'));
-  //data rows
-  while ($row = mysqli_fetch_assoc($result)) {
-    fputcsv($output, $row);
-  }
-}
-
+    //headers so file is downloaded, not displayed
+    header("Content-Type: text/csv; charset=utf-8");
+    header("Content-Disposition: attachment; filename=$unitID-surveys.csv");
+    //create output variable
+    $output = fopen('php://output', 'w');
+    //column headings
+    $headers = ["ID", "First Name", "Last Name", "Submitted"];
+    for ($s = 0; $s < sizeof($skillNames); $s += 1)
+    {
+        if (is_null($skillNames[$s]))
+          $headers[] = "";
+        else
+          $headers[] = $skillNames[$s];
+    }
+    fputcsv($output, $headers);
+    foreach ($students as $student)
+    {
+        $row = [$student->id, $student->firstName, $student->lastName, (is_null($student->skills) ? 0 : 1)];
+        for ($s = 0; $s < sizeof($skillNames); $s += 1)
+        {
+            if (is_null($skillNames[$s]))
+                $row[] = "";
+            else
+                $row[] = $student->skills[$s];
+        }
+        fputcsv($output, $row);
+    }
 ?>
