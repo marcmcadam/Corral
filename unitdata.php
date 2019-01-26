@@ -349,4 +349,22 @@
             echo '<tr><th colspan="2">No Students</th></tr>';
         echo '</table>';
     }
+
+    function rowOutputPDF($rows) // first row is always turned into a header
+    {
+        echo '      <table border="1px" cellspacing="0" cellpadding="4px" width="100%" style="text-align: center;">';
+        foreach ($rows as $r => $row)
+        {
+            echo '      <tr>';
+            foreach ($row as $c => $element)
+            {
+                if ($r === 0)
+                    echo '  <th>' . $element . '</th>';
+                else
+                    echo '  <td>' . $element . '</td>';
+            }
+            echo '      </tr>';
+        }
+        echo '      </table>';
+    }
 ?>

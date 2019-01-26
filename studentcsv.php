@@ -18,7 +18,7 @@
 	//create output variable
 	$output = fopen('php://output', 'w');
 	//column headings
-	fputcsv($output, ['Student ID','FirstName','LastName','Campus','Email']);
+	fputcsv($output, ['ID','First Name','Last Name','Campus','Email']);
 	foreach ($students as $student)
 	{
 		$row = [$student->id, $student->firstName, $student->lastName, $student->campus, $student->email];

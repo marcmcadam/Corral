@@ -51,6 +51,7 @@
       <h4>Import</h4>
       <form action="">
         <button class="inputButton" style="width: 161px">NYI</button>
+      </form>
     <h4>Export</h4>
       <form action="projectlistcsv.php" method="post">
         <input type="submit" name="export_excel" value="Export As CSV" class="inputButton" style="width: 161px">
@@ -68,9 +69,11 @@
       <h4>Import</h4>
       <form action="">
         <button class="inputButton" style="width: 161px">NYI</button>
+      </form>
         <h4>Export</h4>
         <form action="">
           <button class="inputButton" style="width: 161px">NYI</button>
+        </form>
   </li>
   <li class="flexitem">
     <h3>Group Information</h3>
@@ -81,6 +84,7 @@
     <h4>Import</h4>
     <form action="">
       <button class="inputButton" style="width: 161px">NYI</button>
+    </form>
     <h4>Export</h4>
       <form action="groupcsv.php" method="post">
         <input type="submit" value="Export Group List To CSV" class="inputButton">
