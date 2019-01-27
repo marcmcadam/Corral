@@ -118,7 +118,7 @@
         if(!mysqli_query($CON,$sql)) {
           echo "<h3>There was a database error</h3>";
         } else {
-          echo ($unit_new ? "<h3>New Unit created.</h3>" : "<h3>Unit Record updated.</h3>");
+          echo ($unit_new ? "<h3>New Unit Created.</h3>" : "<h3>Unit Record Updated.</h3>");
           echo "<p><a href='unitlist.php'>Back to Unit List</a></p>";
         }
       } else // Some field was invalid. Reprint form.

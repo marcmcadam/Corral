@@ -63,7 +63,7 @@
     <h3>Unit Information</h3>
     <h4>Manage</h4>
       <form action="unitlist.php">
-        <button class="inputButton">View and Edit Units</button>
+        <button class="inputButton" style="width: 161px">View and Edit Units</button>
       </form>
       <h4>Import</h4>
       <form action="">

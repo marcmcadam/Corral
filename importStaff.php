@@ -13,7 +13,7 @@ A template can also be downloaded below.
 	<table align="center">
 		<tr valign='top'>
 						<td style="padding-right:10px;"><label>Import File <br> (CSV) </label></td>
-						<td><input type="file" style="width: 100px; padding: 1px" class="stylish" name="csvFile" size="50"></td>
+						<td><input type="file" style="width: 100px; padding: 1px" name="csvFile" size="50"></td>
 					</tr>
 				</table><br>
 						<table align="center">

@@ -125,7 +125,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 ?>
 
 <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-  <h2>Student Please Log In</h2>
+  <h2>Please Log In</h2>
   <?php if($login_Error) echo "<p>$login_Error_Text</p>";?>
   <input type="text" name="STUDENT_ID" placeholder="Student ID" class="inputBox" required><br><br>
   <input type="password" name="STUDENT_PASSWORD" placeholder="Password" class="inputBox" required><br><br>

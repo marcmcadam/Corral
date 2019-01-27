@@ -18,7 +18,7 @@
 <body>
 <div id="wrapper">
 <div class="navbar">
-    <div class="menu" style="width: 12%;"><a href="staffhome"><p>Corral</p></a>
+    <div class="menu" style="width: 12%;"><a href="staffhome"><p>Home</p></a>
     </div>
     <div class="menu" style="width: 12%;"><a href="#"><p>Units</p></a>
         <ul>
@@ -48,7 +48,7 @@
         </form>
     </div><div class="menuGap" style="width: 8%;">
         <form action="stafflogout" method="get">
-            <button class="updateButton">Logout</button>
+            <button class="updateButton">Log Out</button>
         </form>
     </div>
 </div>

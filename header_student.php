@@ -29,7 +29,7 @@ else
 <div id="wrapper">
 <div class="navbar">
 	<div class="menu" style="width: 20%;"><a href="studenthome"><p>Home</p></a>
-	</div><div class="menu" style="width: 20%;"> <a href="logout"><p>Logout</p></a>
+	</div><div class="menu" style="width: 20%;"> <a href="logout"><p>Log Out</p></a>
 	</div>
 </div>
 <div class="main">

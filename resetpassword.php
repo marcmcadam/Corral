@@ -55,7 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $encryptedaes256=encrypt_decrypt('encrypt',$password);
         $query = "UPDATE staff SET sta_Password='".$encryptedaes256."' WHERE sta_Email = '".$email."'";
         mysqli_query($CON, $query) or die(mysqli_error($CON));
-        echo "<p>Your password has been reset, please <a href='stafflogin.php'>login here</a>.</p>";
+        echo "<p>Your password has been reset, please log in <a href='login.php'>here</a>.</p>";
       }
 
       // Check if user is a student, if so reset password
@@ -68,7 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $encryptedaes256=encrypt_decrypt('encrypt',$password);
         $query = "UPDATE student SET stu_Password='".$encryptedaes256."' WHERE stu_Email = '".$email."'";
         mysqli_query($CON, $query) or die(mysqli_error($CON));
-        echo "<p>Your password has been reset, please <a href='login.php'>login here</a>.</p>";
+        echo "<p>Your password has been reset, please log in <a href='login.php'>here</a>.</p>";
       }
     } else {
       // Invalid tokens used, attack?
