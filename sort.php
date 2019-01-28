@@ -3,7 +3,6 @@
 
     session_start();
     session_regenerate_id();  // prevention of session hijacking
-    session_regenerate_id();
     require_once "staffauth.php";
     session_write_close(); // allows other pages to load this session
 
@@ -272,11 +271,75 @@
 
     $matrixMultiplier = 1.25; // how much to multiply the size of the matrix when there are no swaps
 
-    $noSwapsCount = 0;
-    for ($batch = 0; $batch < $sort->iterations; $batch += 1)
-    {
-        // $progress = $batch / $sort->iterations;
+    $projectSkills = [];
+    foreach ($projects as $p => $project)
+        $projectSkills[$p] = $project->skills;
 
+    $noSwapsCount = 0;
+    $batch = 0;
+    $swaps = 0;
+    while (true)
+    {
+        // score the current situation
+        $progress = 0.0;
+        $samples = 0.0;
+        foreach ($projects as $p => $project)
+        {
+            //$total = 0.0;
+            $total = sizeof($project->studentIndices);
+            foreach ($usedSkills as $s)
+            {
+                $sum = 0.0;
+                $demand = $projectSkills[$p][$s];
+                foreach ($project->studentIndices as $y)
+                {
+                    $memberScore = Solver::memberScore($demand, $students[$y]->skills[$s]);
+                    $sum += $memberScore;
+                    //$total += $change;
+                }
+                if ($total > 0.0)
+                {
+                    $progress += $demand->importance * ($sum / $total);
+                    $samples += $demand->importance;
+                }
+            }
+        }
+        $progress /= $samples; // divide-out factors that change with settings
+
+        // display the stats
+        echo "<p>Iterations Completed: $batch, Group Quality Score: ".number_format(100 * $progress, 4)."%, Students Swaps: $swaps</p>";
+
+        if ($matrixSize < $endMatrixSize)
+        {
+            // matrix size can increase
+            if ($swaps * $matrixSize < $numStudents)
+            {
+                // sorting is having little affect. increase matrix size
+                $matrixSize = (int)ceil($matrixSize * $matrixMultiplier);
+                $matrixSize = min($matrixSize, $endMatrixSize);
+                echo "<p>Matrix size: $matrixSize</p>";
+            }
+        }
+        else
+        {
+            // matrix is at size limit
+            if ($swaps == 0)
+            {
+                // nothing is changing
+                $noSwapsCount += 1;
+                if ($noSwapsCount >= 10)
+                {
+                    // nothing has changed for a while
+                    echo "Sorting completed";
+                    break;
+                }
+            }
+            else // don't count to exit the loop, unless at maximum size
+                $noSwapsCount = 0;
+        }
+        update();
+
+        // update the database progress stats
         $sql = "UPDATE unit SET sort_i=$batch, sort_m=$matrixSize WHERE unit_ID='$unitID'";
         $res = mysqli_query($CON, $sql);
         if (!$res)
@@ -301,83 +364,71 @@
             break;
         }
 
-        // split the students into separate batches randomly
-        $projectStudentIndices = [];
-        foreach ($projects as $p => $project)
-            $projectStudentIndices[$p] = shuffleIndices(sizeof($project->studentIndices));
+        $batch += 1;
+        if ($batch >= $sort->iterations)
+            break;
 
-        $numGroups = (int)ceil($numStudents / $matrixSize);
-        $projectStudentIndex = array_fill(0, sizeof($projects), 0);
-
-        $projectSkills = [];
-        foreach ($projects as $p => $project)
-            $projectSkills[$p] = $project->skills;
-
-        $cost = 0;
         $toDatabase = [];
-        for ($g = 0; $g < $numGroups; $g += 1)
+        
+        $shuffledStudents = shuffleIndices(sizeof($students));
+        $splits = (int)ceil(sizeof($students) / $matrixSize);
+        $index = 0;
+        for ($g = 0; $g < $splits; $g += 1)
         {
             $solver = new Solver();
             $solver->numSkills = $numSkills;
             $solver->usedSkills = $usedSkills;
-
+    
             $solver->randomisation = 1; // $sort->random;
             $solver->inertia = 1; // (int)($maxInertia * $progress * $progress); // progress squared so that inertia is mostly applied near the end of the processing
-
+    
             $solver->students = [];
             $solver->projects = $projectSkills;
-
+    
             $solver->tasks = [];
             $solver->projectTasks = array_fill(0, sizeof($projects), []);
             $solver->taskStudents = [];
-
+    
             $solver->projectStudents = array_fill(0, sizeof($projects), []);
             $solver->studentProjects = array_fill(0, sizeof($students), -1);
-
+    
             $solver->dummies = [];
             $solver->projectMinima = null; // currently not used
-
+    
             $solverStudents = [];
+    
 
-            $remainingGroups = $numGroups - $g;
-
-            $nextSolverY = 0;
-            foreach ($projects as $p => $project)
+            $takenProjects = [];
+            $solverY = 0;
+            while ($solverY < $matrixSize)
             {
-                $position = $projectStudentIndex[$p];
+                if ($index >= sizeof($students))
+                    break;
+                $y = $shuffledStudents[$index];
+                $index += 1;
+                $student = $students[$y];
+                $p = $student->projectIndex;
 
-                $remainingStudents = sizeof($project->studentIndices) - $position;
-                $r = 0.01 * rand(0, 99); // random rounding. allows groups with less than one student per project, to avoid taking zero students or all students at once
-                $takeSize = floor($remainingStudents / $remainingGroups + $r);
+                if (array_key_exists($p, $takenProjects))
+                    continue;
+                $takenProjects[$p] = null; // signal p is used (as hashed key for quick access)
 
-                $takeSize = min($takeSize, 1); // take max 1 from each project. more can cause looping changes
+                $solver->students[$solverY] = $student->skills;
 
-                $projectStudentIndex[$p] = $position + $takeSize;
+                $solverStudents[$solverY] = $y;
 
-                for ($i = 0; $i < $takeSize; $i += 1)
-                {
-                    $y = $project->studentIndices[$projectStudentIndices[$p][$position + $i]];
-                    $student = $students[$y];
+                if ($y >= $clevers)
+                    array_push($solver->dummies, $solverY);
 
-                    $solverY = $nextSolverY++;
-                    $solver->students[$solverY] = $student->skills;
+                $solver->studentProjects[$solverY] = $p;
+                array_push($solver->projectStudents[$p], $solverY);
 
-                    $solverStudents[$solverY] = $y;
+                $taskIndex = sizeof($solver->tasks);
+                array_push($solver->tasks, $p);
+                array_push($solver->projectTasks[$p], $taskIndex);
+                $solver->taskStudents[$taskIndex] = $solverY;
 
-                    if ($y >= $clevers)
-                        array_push($solver->dummies, $solverY);
-
-                    if ($student->projectIndex != $p)
-                        echo "Student not in expected project";
-
-                    $solver->studentProjects[$solverY] = $p;
-                    array_push($solver->projectStudents[$p], $solverY);
-
-                    $taskIndex = sizeof($solver->tasks);
-                    array_push($solver->tasks, $p);
-                    array_push($solver->projectTasks[$p], $taskIndex);
-                    $solver->taskStudents[$taskIndex] = $solverY;
-                }
+                $solverY += 1;
             }
 
             if ($displayBatches)
@@ -390,11 +441,10 @@
                 update();
             }
 
-            if ($nextSolverY >= 2) // empty students array causes an error
+            if (sizeof($solverStudents) >= 2) // empty students array causes an error
             {
                 set_time_limit(30);
                 $solver->iterate();
-                $cost += $solver->cost;
                 if ($solver->iteration < 0)
                     die("Solver encountered an error.");
 
@@ -420,35 +470,7 @@
         if ($updateDatabase)
             assignDatabase($toDatabase);
 
-        $progress = -$cost;
         $swaps = sizeof($toDatabase);
-
-        echo "<p>Completed batch: $batch, sort quality: $progress, students swapped: $swaps</p>";
-        if ($matrixSize < $endMatrixSize)
-        {
-            if ($swaps * $matrixSize < $numStudents)
-            {
-                $matrixSize = (int)ceil($matrixSize * $matrixMultiplier);
-                $matrixSize = min($matrixSize, $endMatrixSize);
-                echo "<p>Matrix size: $matrixSize</p>";
-            }
-        }
-        else
-        {
-            if ($swaps == 0)
-            {
-                $noSwapsCount += 1;
-                if ($noSwapsCount >= 10)
-                {
-                    echo "Sorting completed";
-                    break;
-                }
-            }
-            else
-                $noSwapsCount = 0;
-        }
-
-        update();
     }
 
     if (!$updateDatabase)

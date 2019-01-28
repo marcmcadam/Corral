@@ -62,8 +62,8 @@
         
         $progressI = $sort->i / $sort->iterations;
 
-        $rangeM = $sort->matrix / 10;
-        $progressM = log($sort->m / 10) / log($rangeM);
+        //$rangeM = $sort->matrix / 10;
+        //$progressM = log($sort->m / 10) / log($rangeM);
 
         echo "Running Time: " . (int)($progressI * 100) . "%<br>";
         progressBar($progressI);
