@@ -27,13 +27,14 @@
       }
 
       if(isset($_POST['unit_Code'])) {
-        if(preg_match('/^SIT[0-9]{3}$/', $_POST['unit_Code'])) {
+        $unitCode = strtoupper($_POST['unit_Code']);
+        if(preg_match('/^[[:alpha:]]{3}[0-9]{3}$/', $unitCode)) {
           if(isset($_POST['unit_Trim'])) {
             if(preg_match('/^T[1-3]$/', $_POST['unit_Trim'])) {
               if(isset($_POST['unit_Year'])) {
                 if(preg_match('/^[0-9]{2}$/', $_POST['unit_Year'])) {
                   // POST a unit code + trim + year. Creating a new unit.
-                  $unit_ID = $_POST['unit_Code'].$_POST['unit_Trim'].$_POST['unit_Year'];
+                  $unit_ID = $unitCode.$_POST['unit_Trim'].$_POST['unit_Year'];
                   if(in_array($unit_ID, $units)) {
                     echo "Error: Duplicate Unit / Study Period";
                     $unit_ID = NULL;

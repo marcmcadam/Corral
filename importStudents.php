@@ -127,8 +127,7 @@ $succsessfulimport = 1;
 								stu_FirstName = '".$stu_FirstName."',
 								stu_LastName = '".$stu_LastName."',
 								stu_Campus = '".$stu_Campus."',
-								stu_Email = '".$stu_Email."',
-								stu_Password = '".$stu_Password."'
+								stu_Email = '".$stu_Email."'
 							WHERE
 								stu_ID	= '".$stu_ID."' ";
 
