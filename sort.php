@@ -234,7 +234,7 @@
     // clean out unset entries
     $nextStudents = [];
     foreach ($students as $y => $student)
-        $nextStudents[$y] = $student;
+        $nextStudents[] = $student;
     $students = $nextStudents;
 
     $numStudents = sizeof($students);
